@@ -14,3 +14,9 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 export const db = firebase.firestore();
+
+export type TPost = {
+  id: string;
+  title: string;
+  content: string;
+};
