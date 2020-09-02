@@ -4,17 +4,21 @@ import { db, TPost } from '../adapter';
 import useGetPosts from '../hooks/useGetPosts';
 
 const EditPost: React.FC = () => {
+  // EditPosts
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
+  const [release, setRelease] = useState(false);
 
   const handleSubmit = () => {
     db.collection('posts').add({
       title,
       content,
+      release,
     });
 
     setTitle('');
     setContent('');
+    setRelease(false);
   };
 
   const onTitleChanged = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -23,6 +27,10 @@ const EditPost: React.FC = () => {
 
   const onContentChanged = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setContent(e.target.value);
+  };
+
+  const onReleaseChanged = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setRelease(e.target.checked);
   };
 
   const canSave = Boolean(title) && Boolean(content);
@@ -35,11 +43,11 @@ const EditPost: React.FC = () => {
   };
 
   return (
-    <>
-      <article>
-        <h2>記事の新規作成</h2>
+    <article>
+      <h2>記事の新規作成</h2>
+      <section>
         <form>
-          <label htmlFor="postTitle">Post Title</label>
+          <label htmlFor="postTitle">タイトル</label>
           <input
             type="text"
             id="postTitle"
@@ -47,32 +55,37 @@ const EditPost: React.FC = () => {
             value={title}
             onChange={onTitleChanged}
           />
-          <label htmlFor="postContent">Post Content</label>
+          <label htmlFor="postContent">本文</label>
           <textarea
-            name="postContent"
             id="postContent"
+            name="postContent"
             value={content}
             onChange={onContentChanged}
           ></textarea>
+          <label htmlFor="postRelease">公開フラグ</label>
+          <input
+            type="checkbox"
+            name="postRelease"
+            checked={release}
+            onChange={onReleaseChanged}
+          />
         </form>
         <button onClick={handleSubmit} disabled={!canSave}>
           Submit
         </button>
-      </article>
+      </section>
 
-      <article>
-        <h2>記事一覧</h2>
-        {posts.map((post) => (
-          <section key={post.id}>
-            <h3>{post.title}</h3>
-            <p>{post.content}</p>
-            <button onClick={() => deletePost(post.id)}>
-              この記事を削除する
-            </button>
-          </section>
-        ))}
-      </article>
-    </>
+      <h2>記事一覧</h2>
+      {posts.map((post) => (
+        <section key={post.id}>
+          <h3>{post.title}</h3>
+          <p>{post.content}</p>
+          <button onClick={() => deletePost(post.id)}>
+            この記事を削除する
+          </button>
+        </section>
+      ))}
+    </article>
   );
 };
 

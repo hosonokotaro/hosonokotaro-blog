@@ -1,19 +1,28 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import useGetPosts from '../hooks/useGetPosts';
+import { TPost } from '../adapter';
 
 const Top: React.FC = () => {
   const posts = useGetPosts();
 
+  const showPost = (post: TPost) => {
+    if (!post.release) {
+      return false;
+    }
+
+    return (
+      <div key={post.id}>
+        <Link to={post.id}>{post.title}</Link>
+      </div>
+    );
+  };
+
   return (
     <article>
-      <h2>Top</h2>
-      {posts.map((post) => (
-        <section key={post.id}>
-          <h3>{post.title}</h3>
-          <p>{post.content}</p>
-        </section>
-      ))}
+      <h2>記事一覧</h2>
+      {posts.map((post) => showPost(post))}
     </article>
   );
 };

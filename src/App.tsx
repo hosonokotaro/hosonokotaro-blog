@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Header from './components/Header';
 import Top from './pages/Top';
 import EditPost from './pages/EditPost';
+import SinglePost from './pages/SinglePost';
 
 import './App.css';
 
@@ -15,6 +16,7 @@ const App: React.FC = () => {
       <Switch>
         <Route exact path="/" component={Top} />
         <Route exact path="/editpost" component={EditPost} />
+        <Route exact path="/:pageId" component={SinglePost} />
       </Switch>
     </Router>
   );

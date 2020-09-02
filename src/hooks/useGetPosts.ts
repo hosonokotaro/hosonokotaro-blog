@@ -10,6 +10,7 @@ const useGetPosts = (): TPost[] => {
         id: doc.id,
         title: doc.data().title,
         content: doc.data().content,
+        release: doc.data().release,
       }));
 
       setPosts(allPosts);
