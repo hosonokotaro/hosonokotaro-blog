@@ -10,7 +10,8 @@
     "@typescript-eslint",
     "react",
     "react-hooks",
-    "prettier"
+    "prettier",
+    "simple-import-sort"
   ],
   "extends": [
     "eslint:recommended",
@@ -26,7 +27,8 @@
     "react/prop-types": "off",
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
-    "prettier/prettier": "error"
+    "prettier/prettier": "error",
+    "simple-import-sort/sort": "error"
   },
   "settings": {
     "react": {
