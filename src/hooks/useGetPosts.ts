@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 
 import { db, TPost } from '../adapter';
 
-const useGetPosts = (): TPost[] => {
+const useGetPosts = () => {
   const [posts, setPosts] = useState<TPost[]>([]);
 
   useEffect(() => {

@@ -8,6 +8,9 @@ import Header from './components/Header';
 import EditPost from './pages/EditPost';
 import SinglePost from './pages/SinglePost';
 import Top from './pages/Top';
+import { TPost } from './adapter';
+
+const slug: TPost['id'] = 'id';
 
 const App: React.FC = () => {
   return (
@@ -16,7 +19,7 @@ const App: React.FC = () => {
       <Switch>
         <Route exact path="/" component={Top} />
         <Route exact path="/editpost" component={EditPost} />
-        <Route exact path="/:pageId" component={SinglePost} />
+        <Route exact path={`/:${slug}`} component={SinglePost} />
       </Switch>
     </Router>
   );

@@ -1,34 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import React from 'react';
 
-import { db, TPost } from '../adapter';
+import useGetPost from '../hooks/useGetPost';
 
 const SinglePost: React.FC = () => {
-  const { pageId } = useParams();
-  const [post, setPost] = useState<TPost>();
-
-  useEffect(() => {
-    const unsub = db
-      .collection('posts')
-      .doc(pageId)
-      .get()
-      .then((doc) => {
-        if (!doc.exists) {
-          return false;
-        }
-
-        setPost({
-          id: doc.id,
-          title: doc.data()?.title,
-          content: doc.data()?.content,
-          release: doc.data()?.release,
-        });
-      });
-
-    return () => {
-      unsub;
-    };
-  }, [pageId]);
+  const post = useGetPost();
 
   return (
     <section>
