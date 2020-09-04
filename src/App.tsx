@@ -1,13 +1,13 @@
+import './App.css';
+
 import React from 'react';
 import { hot } from 'react-hot-loader/root';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import Header from './components/Header';
-import Top from './pages/Top';
 import EditPost from './pages/EditPost';
 import SinglePost from './pages/SinglePost';
-
-import './App.css';
+import Top from './pages/Top';
 
 const App: React.FC = () => {
   return (

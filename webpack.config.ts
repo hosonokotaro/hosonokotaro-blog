@@ -1,10 +1,10 @@
-import path from 'path';
-import webpack, { Configuration as WebpackConfiguration } from 'webpack';
-import { Configuration as WebpackDevServerConfiguration } from 'webpack-dev-server';
-import HTMLWebpackPlugin from 'html-webpack-plugin';
 import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
 import ForkTsCheckerPlugin from 'fork-ts-checker-webpack-plugin';
+import HTMLWebpackPlugin from 'html-webpack-plugin';
+import path from 'path';
+import webpack, { Configuration as WebpackConfiguration } from 'webpack';
+import { Configuration as WebpackDevServerConfiguration } from 'webpack-dev-server';
 
 interface Configuration extends WebpackConfiguration {
   devServer?: WebpackDevServerConfiguration;

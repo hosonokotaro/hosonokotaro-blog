@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import useGetPosts from '../hooks/useGetPosts';
 import { TPost } from '../adapter';
+import useGetPosts from '../hooks/useGetPosts';
 
 const Top: React.FC = () => {
   const posts = useGetPosts();

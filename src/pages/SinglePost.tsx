@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { db, TPost } from '../adapter';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+
+import { db, TPost } from '../adapter';
 
 const SinglePost: React.FC = () => {
   const { pageId } = useParams();

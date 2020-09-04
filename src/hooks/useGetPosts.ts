@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
+
 import { db, TPost } from '../adapter';
 
 const useGetPosts = (): TPost[] => {
