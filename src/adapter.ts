@@ -26,3 +26,9 @@ export type TPost = {
   content: string;
   release: boolean;
 };
+
+export type TPostTitle = {
+  id: string;
+  title: string;
+  release: boolean;
+};

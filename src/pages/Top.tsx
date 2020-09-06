@@ -1,13 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import { TPost } from '../adapter';
+import { TPostTitle } from '../adapter';
 import useGetPosts from '../hooks/useGetPosts';
 
 const Top: React.FC = () => {
   const posts = useGetPosts();
 
-  const showPost = (post: TPost) => {
+  const showPost = (post: TPostTitle) => {
     if (!post.release) {
       return false;
     }
@@ -22,7 +22,7 @@ const Top: React.FC = () => {
   return (
     <article>
       <h2>記事一覧</h2>
-      {posts.map((post) => showPost(post))}
+      {posts?.map((post) => showPost(post))}
     </article>
   );
 };

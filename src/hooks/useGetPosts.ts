@@ -2,27 +2,30 @@ import { useEffect, useState } from 'react';
 
 import { db, TPost } from '../adapter';
 
-const useGetPosts = () => {
+const useGetAllPosts = (): TPost[] | undefined => {
   const [posts, setPosts] = useState<TPost[]>([]);
 
   useEffect(() => {
-    const unsub = db.collection('posts').onSnapshot((snapshot) => {
-      const allPosts = snapshot.docs.map((doc) => ({
-        id: doc.id,
-        title: doc.data().title,
-        content: doc.data().content,
-        release: doc.data().release,
-      }));
+    const unsubscribe = db
+      .collection('posts')
+      .where('release', '==', true)
+      .onSnapshot((snapshot) => {
+        const allPosts = snapshot.docs.map<TPost>((doc) => ({
+          id: doc.id,
+          title: doc.data().title,
+          content: doc.data().content,
+          release: doc.data().release,
+        }));
 
-      setPosts(allPosts);
-    });
+        setPosts(allPosts);
+      });
 
     return () => {
-      unsub();
+      unsubscribe();
     };
   }, []);
 
   return posts;
 };
 
-export default useGetPosts;
+export default useGetAllPosts;

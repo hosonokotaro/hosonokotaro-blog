@@ -1,19 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { db, TPost } from '../adapter';
 
-const useGetPost = () => {
+const useGetPost = (): TPost | undefined => {
   const { id } = useParams<{ id: TPost['id'] }>();
-  const [post, setPost] = useState<TPost>();
+  const [post, setPost] = useState<TPost | undefined>();
 
   useEffect(() => {
-    const unsub = db
+    const unsubscribe = db
       .collection('posts')
       .doc(id)
       .get()
       .then((doc) => {
-        if (!doc.exists) {
+        if (!doc.exists || !doc.data()?.release) {
           return false;
         }
 
@@ -26,7 +26,7 @@ const useGetPost = () => {
       });
 
     return () => {
-      unsub;
+      unsubscribe;
     };
   }, [id]);
 

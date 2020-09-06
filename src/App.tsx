@@ -4,11 +4,11 @@ import React from 'react';
 import { hot } from 'react-hot-loader/root';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
+import { TPost } from './adapter';
 import Header from './components/Header';
 import EditPost from './pages/EditPost';
 import SinglePost from './pages/SinglePost';
 import Top from './pages/Top';
-import { TPost } from './adapter';
 
 const slug: TPost['id'] = 'id';
 
