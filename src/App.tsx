@@ -6,7 +6,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import { TPost } from './adapter';
 import Header from './components/Header';
-import EditPost from './pages/EditPost';
+import Edit from './pages/Edit';
 import SinglePost from './pages/SinglePost';
 import Top from './pages/Top';
 
@@ -18,7 +18,7 @@ const App: React.FC = () => {
       <Header />
       <Switch>
         <Route exact path="/" component={Top} />
-        <Route exact path="/editpost" component={EditPost} />
+        <Route exact path="/edit" component={Edit} />
         <Route exact path={`/:${slug}`} component={SinglePost} />
       </Switch>
     </Router>

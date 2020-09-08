@@ -10,7 +10,7 @@ const Header: React.FC = () => {
           <Link to="/">Top</Link>
         </li>
         <li>
-          <Link to="/editpost">EditPost</Link>
+          <Link to="/edit">Edit</Link>
         </li>
       </ul>
     </header>
