@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { db } from '../adapter';
+import firebase, { db, TPost } from '../adapter';
 
 const NewPost: React.FC = () => {
   const [title, setTitle] = useState('');
@@ -12,6 +12,7 @@ const NewPost: React.FC = () => {
       title,
       content,
       release,
+      createDate: firebase.firestore.Timestamp.now(),
     });
 
     setTitle('');

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { db, TPost } from '../adapter';
+import { db, formatTimestampToDate, TPost } from '../adapter';
 
 const EditSinglePost: React.FC<{ post: TPost }> = ({ post }) => {
   const [title, setTitle] = useState(post.title);
@@ -47,33 +47,43 @@ const EditSinglePost: React.FC<{ post: TPost }> = ({ post }) => {
   };
 
   return (
-    <div>
-      <label htmlFor={`editPostTitle-${post.id}`}>タイトル</label>
-      <input
-        type="text"
-        id={`editPostTitle-${post.id}`}
-        name={`editPostTitle-${post.id}`}
-        defaultValue={post.title}
-        onChange={onTitleChanged}
-      />
-      <label htmlFor={`editPostContent-${post.id}`}>本文</label>
-      <textarea
-        id={`editPostContent-${post.id}`}
-        name={`editPostContent-${post.id}`}
-        defaultValue={post.content}
-        onChange={onContentChanged}
-      ></textarea>
-      <label htmlFor={`editPostRelease-${post.id}`}>公開フラグ</label>
-      <input
-        type="checkbox"
-        id={`editPostRelease-${post.id}`}
-        name={`editPostRelease-${post.id}`}
-        defaultChecked={post.release}
-        onChange={onReleaseChanged}
-      />
-      <button onClick={() => updatePost(post.id)}>この記事を更新する</button>
-      <button onClick={() => deletePost(post.id)}>この記事を削除する</button>
-    </div>
+    <>
+      <div>
+        <label htmlFor={`editPostTitle-${post.id}`}>タイトル</label>
+        <input
+          type="text"
+          id={`editPostTitle-${post.id}`}
+          name={`editPostTitle-${post.id}`}
+          defaultValue={post.title}
+          onChange={onTitleChanged}
+        />
+      </div>
+      <div>
+        <label htmlFor={`editPostContent-${post.id}`}>本文</label>
+        <textarea
+          id={`editPostContent-${post.id}`}
+          name={`editPostContent-${post.id}`}
+          defaultValue={post.content}
+          onChange={onContentChanged}
+        ></textarea>
+      </div>
+      <div>
+        <label htmlFor={`editPostRelease-${post.id}`}>公開フラグ</label>
+        <input
+          type="checkbox"
+          id={`editPostRelease-${post.id}`}
+          name={`editPostRelease-${post.id}`}
+          defaultChecked={post.release}
+          onChange={onReleaseChanged}
+        />
+      </div>
+      <div>
+        <button onClick={() => updatePost(post.id)}>この記事を更新する</button>
+        <button onClick={() => deletePost(post.id)}>この記事を削除する</button>
+      </div>
+      <div>作成日時: {formatTimestampToDate(post.createDate)}</div>
+      <div>id: {post.id}</div>
+    </>
   );
 };
 

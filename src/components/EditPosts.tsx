@@ -13,6 +13,7 @@ const EditSinglePost: React.FC = () => {
         title: doc.data().title,
         content: doc.data().content,
         release: doc.data().release,
+        createDate: doc.data().createDate,
       }));
 
       setPosts(allPosts);

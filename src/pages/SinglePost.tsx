@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { db, TPost } from '../adapter';
+import { db, formatTimestampToDate, TPost } from '../adapter';
 
 const SinglePost: React.FC = () => {
   const { id } = useParams<{ id: TPost['id'] }>();
@@ -22,6 +22,7 @@ const SinglePost: React.FC = () => {
           title: doc.data()?.title,
           content: doc.data()?.content,
           release: doc.data()?.release,
+          createDate: doc.data()?.createDate,
         });
       });
 
@@ -36,6 +37,7 @@ const SinglePost: React.FC = () => {
         <>
           <h2>{post.title}</h2>
           <p>{post.content}</p>
+          <div>{formatTimestampToDate(post.createDate)}</div>
         </>
       ) : (
         <div>Loading...</div>

@@ -1,6 +1,7 @@
 import 'firebase/firestore';
 import 'firebase/auth';
 
+import dayjs from 'dayjs';
 import firebase from 'firebase/app';
 
 const firebaseConfig = {
@@ -24,10 +25,17 @@ export type TPost = {
   title: string;
   content: string;
   release: boolean;
+  createDate: firebase.firestore.Timestamp;
 };
 
 export type TPostTitle = {
   id: string;
   title: string;
   release: boolean;
+  createDate: firebase.firestore.Timestamp;
 };
+
+// firebase の Timestamp を日本語の表記に変換する
+export const formatTimestampToDate = (
+  timestamp: firebase.firestore.Timestamp
+): string => dayjs(timestamp.toDate()).format('YYYY年M月D日 HH:mm');

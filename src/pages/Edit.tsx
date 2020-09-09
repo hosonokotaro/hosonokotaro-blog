@@ -1,6 +1,6 @@
-import firebase from 'firebase';
 import React, { useEffect, useState } from 'react';
 
+import firebase from '../adapter';
 import EditPosts from '../components/EditPosts';
 import NewPost from '../components/NewPost';
 
@@ -8,9 +8,13 @@ const Edit: React.FC = () => {
   const [user, setUser] = useState<firebase.User | null>();
 
   useEffect(() => {
-    firebase.auth().onAuthStateChanged((user) => {
+    const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
       setUser(user);
     });
+
+    return () => {
+      unsubscribe();
+    };
   }, []);
 
   const login = () => {
@@ -25,7 +29,6 @@ const Edit: React.FC = () => {
   return (
     <article>
       <div>
-        <div>{user ? user.uid : null}</div>
         <button onClick={login}>login</button>
         <button onClick={logout}>logout</button>
       </div>
@@ -33,6 +36,7 @@ const Edit: React.FC = () => {
         <>
           <NewPost />
           <EditPosts />
+          <div>uid: {user ? user.uid : null}</div>
         </>
       ) : null}
     </article>
