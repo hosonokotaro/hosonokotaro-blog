@@ -29,8 +29,11 @@ const Edit: React.FC = () => {
   return (
     <article>
       <div>
-        <button onClick={login}>login</button>
-        <button onClick={logout}>logout</button>
+        {user ? (
+          <button onClick={logout}>ログアウトする</button>
+        ) : (
+          <button onClick={login}>ログインする</button>
+        )}
       </div>
       {user ? (
         <>

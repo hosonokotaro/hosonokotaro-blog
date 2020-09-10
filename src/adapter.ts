@@ -18,6 +18,10 @@ firebase.initializeApp(firebaseConfig);
 
 export const db = firebase.firestore();
 
+export const collectionPosts = db.collection(
+  'posts'
+) as firebase.firestore.CollectionReference<TPost>;
+
 export default firebase;
 
 export type TPost = {

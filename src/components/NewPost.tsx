@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import firebase, { db, TPost } from '../adapter';
+import firebase, { collectionPosts } from '../adapter';
 
 const NewPost: React.FC = () => {
   const [title, setTitle] = useState('');
@@ -8,7 +8,8 @@ const NewPost: React.FC = () => {
   const [release, setRelease] = useState(false);
 
   const handleSubmit = () => {
-    db.collection('posts').add({
+    collectionPosts.add({
+      id: collectionPosts.doc().id,
       title,
       content,
       release,
@@ -63,7 +64,7 @@ const NewPost: React.FC = () => {
           />
         </form>
         <button onClick={handleSubmit} disabled={!canSave}>
-          Submit
+          記事を新規作成する
         </button>
       </div>
     </>

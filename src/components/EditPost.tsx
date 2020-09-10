@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { db, formatTimestampToDate, TPost } from '../adapter';
+import { collectionPosts, formatTimestampToDate, TPost } from '../adapter';
 
 const EditSinglePost: React.FC<{ post: TPost }> = ({ post }) => {
   const [title, setTitle] = useState(post.title);
@@ -20,7 +20,7 @@ const EditSinglePost: React.FC<{ post: TPost }> = ({ post }) => {
   };
 
   const updatePost = (id: TPost['id']) => {
-    db.collection('posts')
+    collectionPosts
       .doc(id)
       .update({
         title,
@@ -43,7 +43,7 @@ const EditSinglePost: React.FC<{ post: TPost }> = ({ post }) => {
       return false;
     }
 
-    db.collection('posts').doc(id).delete();
+    collectionPosts.doc(id).delete();
   };
 
   return (
