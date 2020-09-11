@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { db, formatTimestampToDate, TPost } from '../adapter';
+import { collectionPosts, formatTimestampToDate, TPost } from '../adapter';
 
 const SinglePost: React.FC = () => {
   const { id } = useParams<{ id: TPost['id'] }>();
   const [post, setPost] = useState<TPost | undefined>();
 
   useEffect(() => {
-    const unsubscribe = db
-      .collection('posts')
+    const unsubscribe = collectionPosts
       .doc(id)
       .get()
       .then((doc) => {
@@ -17,12 +16,14 @@ const SinglePost: React.FC = () => {
           return false;
         }
 
+        const data = doc.data() as TPost;
+
         setPost({
           id: doc.id,
-          title: doc.data()?.title,
-          content: doc.data()?.content,
-          release: doc.data()?.release,
-          createDate: doc.data()?.createDate,
+          title: data.title,
+          content: data.content,
+          release: data.release,
+          createDate: data.createDate,
         });
       });
 

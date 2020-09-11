@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import { db, TPost, TPostTitle } from '../adapter';
+import { collectionPosts, TPost, TPostTitle } from '../adapter';
 
 const Top: React.FC = () => {
   const [posts, setPosts] = useState<TPost[]>([]);
 
   useEffect(() => {
-    const unsubscribe = db
-      .collection('posts')
+    const unsubscribe = collectionPosts
       .where('release', '==', true)
+      .orderBy('createDate', 'desc')
       .onSnapshot((snapshot) => {
         const allPosts = snapshot.docs.map<TPost>((doc) => ({
           id: doc.id,
