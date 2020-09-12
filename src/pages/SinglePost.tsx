@@ -31,6 +31,7 @@ const SinglePost: React.FC = () => {
       .get()
       .then((doc) => {
         if (!doc.exists || !doc.data()?.release) {
+          location.href = '/';
           return false;
         }
 
