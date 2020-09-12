@@ -79,6 +79,21 @@ const StyledSection = styled.section`
 const StyledReactMarkdown = styled(ReactMarkdown)`
   padding-top: 40px;
   overflow-wrap: normal;
+
+  & > h2,
+  & > h3,
+  & > h4 {
+    margin-top: 40px;
+  }
+
+  & > p,
+  & > ul {
+    margin-top: 20px;
+  }
+
+  & > ul li:before {
+    content: '・';
+  }
 `;
 
 const StyledTimestamp = styled.div`
