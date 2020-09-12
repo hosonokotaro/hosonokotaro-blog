@@ -6,6 +6,7 @@ import { createGlobalStyle } from 'styled-components';
 import reset from 'styled-reset';
 
 import { TPost } from './adapter';
+import Footer from './components/Footer';
 import Header from './components/Header';
 import Edit from './pages/Edit';
 import SinglePost from './pages/SinglePost';
@@ -17,7 +18,7 @@ const App: React.FC = () => {
   return (
     <>
       <Helmet>
-        <title>Blog | WEB DEVELOPER HOSONO KOTARO</title>
+        <title>Tech Blog | WEB DEVELOPER HOSONO KOTARO</title>
         <style>
           @import
           url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP&family=Roboto&display=swap');
@@ -31,6 +32,7 @@ const App: React.FC = () => {
           <Route exact path="/edit" component={Edit} />
           <Route exact path={`/:${slug}`} component={SinglePost} />
         </Switch>
+        <Footer />
       </Router>
     </>
   );
@@ -49,6 +51,7 @@ const GlobalStyle = createGlobalStyle`
   body {
     font-family: 'Roboto', 'Noto Sans JP', sans-serif;
     line-height: 1;
+    color: #333;
   }
 
   h1 {

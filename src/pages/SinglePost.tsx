@@ -7,6 +7,7 @@ import syntaxStyle from 'react-syntax-highlighter/dist/cjs/styles/prism/tomorrow
 import styled from 'styled-components';
 
 import { collectionPosts, formatTimestampToDate, TPost } from '../adapter';
+import Spinner from '../components/Spinner';
 
 const CodeBlock: React.FC<{ value: any; language: any }> = (props) => {
   return (
@@ -57,10 +58,12 @@ const SinglePost: React.FC = () => {
             source={post.content}
             renderers={{ code: CodeBlock }}
           />
-          <div>{formatTimestampToDate(post.createDate)}</div>
+          <StyledTimestamp>
+            {formatTimestampToDate(post.createDate)}
+          </StyledTimestamp>
         </>
       ) : (
-        <div>Loading...</div>
+        <Spinner />
       )}
     </StyledSection>
   );
@@ -68,10 +71,17 @@ const SinglePost: React.FC = () => {
 
 const StyledSection = styled.section`
   max-width: 1000px;
+  min-height: calc(100vh - 120px - 98px);
   margin: 0 auto;
   padding: 40px;
 `;
 
-const StyledReactMarkdown = styled(ReactMarkdown)``;
+const StyledReactMarkdown = styled(ReactMarkdown)`
+  padding-top: 40px;
+`;
+
+const StyledTimestamp = styled.div`
+  padding-top: 20px;
+`;
 
 export default SinglePost;

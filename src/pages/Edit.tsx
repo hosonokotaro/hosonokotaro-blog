@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import firebase from '../adapter';
 import EditPosts from '../components/EditPosts';
 import NewPost from '../components/NewPost';
+import Spinner from '../components/Spinner';
 
 const Edit: React.FC = () => {
   const [user, setUser] = useState<firebase.User | null>();
@@ -40,7 +41,9 @@ const Edit: React.FC = () => {
             <NewPost />
             <EditPosts />
           </>
-        ) : null}
+        ) : (
+          <Spinner />
+        )}
         <StyledLogin>
           {user ? (
             <button onClick={logout}>ログアウトする</button>
@@ -59,7 +62,7 @@ export default Edit;
 const StyledLogin = styled.div`
   max-width: 1000px;
   margin: 0 auto;
-  padding-top: 40px;
+  padding: 40px;
   text-align: center;
 `;
 

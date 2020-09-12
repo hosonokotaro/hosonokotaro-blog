@@ -8,6 +8,7 @@ import {
   TPost,
   TPostTitle,
 } from '../adapter';
+import Spinner from '../components/Spinner';
 
 const Top: React.FC = () => {
   const [posts, setPosts] = useState<TPost[]>([]);
@@ -49,7 +50,7 @@ const Top: React.FC = () => {
   return (
     <StyledArticle>
       <h2>記事一覧</h2>
-      <div>{posts.map((post) => showPost(post))}</div>
+      {posts.length ? <>{posts.map((post) => showPost(post))}</> : <Spinner />}
     </StyledArticle>
   );
 };
@@ -58,8 +59,9 @@ export default Top;
 
 const StyledArticle = styled.article`
   max-width: 1000px;
+  min-height: calc(100vh - 120px - 98px);
   margin: 0 auto;
-  padding: 40px 40px 0 40px;
+  padding: 40px;
 `;
 
 const StyledPost = styled.div`
