@@ -6,10 +6,14 @@ import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import syntaxStyle from 'react-syntax-highlighter/dist/cjs/styles/prism/tomorrow';
 import styled from 'styled-components';
 
-import { collectionPosts, formatTimestampToDate, TPost } from '../adapter';
+import firebase, {
+  collectionPosts,
+  formatTimestampToDate,
+  TPost,
+} from '../adapter';
 import Spinner from '../components/Spinner';
 
-const CodeBlock: React.FC<{ value: any; language: any }> = (props) => {
+const CodeBlock: React.FC<{ value: string; language: string }> = (props) => {
   return (
     <SyntaxHighlighter language={props.language} style={syntaxStyle}>
       {props.value}
@@ -19,7 +23,7 @@ const CodeBlock: React.FC<{ value: any; language: any }> = (props) => {
 
 const SinglePost: React.FC = () => {
   const { id } = useParams<{ id: TPost['id'] }>();
-  const [post, setPost] = useState<TPost | undefined>();
+  const [post, setPost] = useState<TPost>();
 
   useEffect(() => {
     const unsubscribe = collectionPosts
@@ -30,14 +34,16 @@ const SinglePost: React.FC = () => {
           return false;
         }
 
-        const data = doc.data() as TPost;
+        const data = doc.data();
 
         setPost({
           id: doc.id,
-          title: data.title,
-          content: data.content,
-          release: data.release,
-          createDate: data.createDate,
+          title: data?.title ? data.title : '',
+          content: data?.content ? data.content : '',
+          release: data?.release ? data.release : false,
+          createDate: data?.createDate
+            ? data.createDate
+            : firebase.firestore.Timestamp.now(),
         });
       });
 

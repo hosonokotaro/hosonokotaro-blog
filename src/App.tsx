@@ -21,7 +21,7 @@ const App: React.FC = () => {
         <title>Tech Blog | WEB DEVELOPER HOSONO KOTARO</title>
         <style>
           @import
-          url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP&family=Roboto&display=swap');
+          url(https://fonts.googleapis.com/css2?family=Noto+Sans+JP&family=Roboto&display=swap);
         </style>
       </Helmet>
       <GlobalStyle />
