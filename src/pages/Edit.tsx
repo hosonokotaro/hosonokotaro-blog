@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import { Helmet } from 'react-helmet';
+import styled from 'styled-components';
 
 import firebase from '../adapter';
 import EditPosts from '../components/EditPosts';
@@ -27,23 +29,40 @@ const Edit: React.FC = () => {
   };
 
   return (
-    <article>
-      <div>
+    <>
+      <Helmet>
+        <meta name="robots" content="noindex,nofollow" />
+        <title>Edit | WEB DEVELOPER HOSONO KOTARO</title>
+      </Helmet>
+      <article>
         {user ? (
-          <button onClick={logout}>ログアウトする</button>
-        ) : (
-          <button onClick={login}>ログインする</button>
-        )}
-      </div>
-      {user ? (
-        <>
-          <NewPost />
-          <EditPosts />
-          <div>uid: {user ? user.uid : null}</div>
-        </>
-      ) : null}
-    </article>
+          <>
+            <NewPost />
+            <EditPosts />
+          </>
+        ) : null}
+        <StyledLogin>
+          {user ? (
+            <button onClick={logout}>ログアウトする</button>
+          ) : (
+            <button onClick={login}>ログインする</button>
+          )}
+          {user ? <StyledUid>uid: {user.uid}</StyledUid> : null}
+        </StyledLogin>
+      </article>
+    </>
   );
 };
 
 export default Edit;
+
+const StyledLogin = styled.div`
+  max-width: 1000px;
+  margin: 0 auto;
+  padding-top: 40px;
+  text-align: center;
+`;
+
+const StyledUid = styled.div`
+  margin-top: 20px;
+`;

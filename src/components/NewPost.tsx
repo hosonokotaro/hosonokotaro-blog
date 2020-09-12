@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import styled from 'styled-components';
 
 import firebase, { collectionPosts } from '../adapter';
 
@@ -36,7 +37,7 @@ const NewPost: React.FC = () => {
   const canSave = Boolean(title) && Boolean(content);
 
   return (
-    <>
+    <StyledSection>
       <h2>記事の新規作成</h2>
       <div>
         <form>
@@ -67,8 +68,14 @@ const NewPost: React.FC = () => {
           記事を新規作成する
         </button>
       </div>
-    </>
+    </StyledSection>
   );
 };
+
+const StyledSection = styled.section`
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 40px 40px 0 40px;
+`;
 
 export default NewPost;

@@ -1,7 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 
-import { collectionPosts, TPost, TPostTitle } from '../adapter';
+import {
+  collectionPosts,
+  formatTimestampToDate,
+  TPost,
+  TPostTitle,
+} from '../adapter';
 
 const Top: React.FC = () => {
   const [posts, setPosts] = useState<TPost[]>([]);
@@ -33,18 +39,38 @@ const Top: React.FC = () => {
     }
 
     return (
-      <div key={post.id}>
-        <Link to={post.id}>{post.title}</Link>
-      </div>
+      <StyledPost key={post.id}>
+        <StyledLink to={post.id}>{post.title}</StyledLink>
+        <StyledDate>{formatTimestampToDate(post.createDate)}</StyledDate>
+      </StyledPost>
     );
   };
 
   return (
-    <article>
+    <StyledArticle>
       <h2>記事一覧</h2>
-      {posts.map((post) => showPost(post))}
-    </article>
+      <div>{posts.map((post) => showPost(post))}</div>
+    </StyledArticle>
   );
 };
 
 export default Top;
+
+const StyledArticle = styled.article`
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 40px 40px 0 40px;
+`;
+
+const StyledPost = styled.div`
+  margin-top: 20px;
+`;
+
+const StyledLink = styled(Link)`
+  font-size: 1.2rem;
+`;
+
+const StyledDate = styled.div`
+  margin-top: 10px;
+  font-size: 1rem;
+`;
