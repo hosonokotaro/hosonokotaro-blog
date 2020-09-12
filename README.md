@@ -1,1 +1,1 @@
-# hosonokotaro blog
+# HOSONOKOTARO Tech Blog

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import styled from 'styled-components';
 
 import { collectionPosts, TPost } from '../adapter';
 import EditPost from './EditPost';
@@ -27,13 +28,19 @@ const EditSinglePost: React.FC = () => {
   }, []);
 
   return (
-    <>
+    <StyledSection>
       <h2>投稿された記事一覧</h2>
       {posts.map((post) => (
         <EditPost post={post} key={post.id} />
       ))}
-    </>
+    </StyledSection>
   );
 };
 
 export default EditSinglePost;
+
+const StyledSection = styled.section`
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 40px 40px 0 40px;
+`;

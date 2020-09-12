@@ -16,11 +16,15 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
+firebase.firestore().enablePersistence({
+  synchronizeTabs: true,
+});
+
+export default firebase;
+
 export const collectionPosts = firebase
   .firestore()
   .collection('posts') as firebase.firestore.CollectionReference<TPost>;
-
-export default firebase;
 
 export type TPost = {
   id: string;
