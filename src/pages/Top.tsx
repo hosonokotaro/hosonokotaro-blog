@@ -61,11 +61,11 @@ const StyledArticle = styled.article`
   max-width: 1000px;
   min-height: calc(100vh - 120px - 98px);
   margin: 0 auto;
-  padding: 40px;
+  padding: 80px 40px 240px 40px;
 `;
 
 const StyledPost = styled.div`
-  margin-top: 20px;
+  margin-top: 40px;
 `;
 
 const StyledLink = styled(Link)`
@@ -73,6 +73,6 @@ const StyledLink = styled(Link)`
 `;
 
 const StyledDate = styled.div`
-  margin-top: 10px;
+  margin-top: 12px;
   font-size: 1rem;
 `;
