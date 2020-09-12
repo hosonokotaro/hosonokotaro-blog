@@ -79,21 +79,21 @@ const StyledSection = styled.section`
   max-width: 1000px;
   min-height: calc(100vh - 120px - 98px);
   margin: 0 auto;
-  padding: 40px;
+  padding: 80px 40px 240px 40px;
 `;
 
 const StyledReactMarkdown = styled(ReactMarkdown)`
   padding-top: 40px;
   overflow-wrap: normal;
 
-  & > h2,
-  & > h3,
-  & > h4 {
+  & > h2:not(:first-child),
+  & > h3:not(:first-child),
+  & > h4:not(:first-child) {
     margin-top: 40px;
   }
 
-  & > p,
-  & > ul {
+  & > p:not(:first-child),
+  & > ul:not(:first-child) {
     margin-top: 20px;
   }
 
@@ -103,7 +103,7 @@ const StyledReactMarkdown = styled(ReactMarkdown)`
 `;
 
 const StyledTimestamp = styled.div`
-  padding-top: 20px;
+  padding-top: 40px;
 `;
 
 export default SinglePost;
