@@ -7,7 +7,7 @@ const Footer: React.FC = () => {
     return dayjs(new Date()).format('YYYY');
   };
 
-  return <StyledFooter>©{getYear()} HOSONOKOTARO Tech Blog</StyledFooter>;
+  return <StyledFooter>© {getYear()} HOSONOKOTARO Tech Blog</StyledFooter>;
 };
 
 export default Footer;

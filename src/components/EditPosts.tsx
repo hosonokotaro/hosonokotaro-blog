@@ -30,9 +30,11 @@ const EditSinglePost: React.FC = () => {
   return (
     <StyledSection>
       <h2>投稿された記事一覧</h2>
-      {posts.map((post) => (
-        <EditPost post={post} key={post.id} />
-      ))}
+      <StyledWrapper>
+        {posts.map((post) => (
+          <EditPost post={post} key={post.id} />
+        ))}
+      </StyledWrapper>
     </StyledSection>
   );
 };
@@ -43,4 +45,8 @@ const StyledSection = styled.section`
   max-width: 1000px;
   margin: 0 auto;
   padding: 40px 40px 0 40px;
+`;
+
+const StyledWrapper = styled.div`
+  padding-top: 20px;
 `;
