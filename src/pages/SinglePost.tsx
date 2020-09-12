@@ -24,7 +24,7 @@ const SinglePost: React.FC = () => {
   useEffect(() => {
     const unsubscribe = collectionPosts
       .doc(id)
-      .get({ source: 'cache' })
+      .get()
       .then((doc) => {
         if (!doc.exists || !doc.data()?.release) {
           return false;
