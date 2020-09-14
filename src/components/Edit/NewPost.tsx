@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
-import firebase, { collectionPosts } from '../adapter';
+import firebase, { collectionPosts } from '../../adapter';
 
 const NewPost: React.FC = () => {
   const [title, setTitle] = useState('');

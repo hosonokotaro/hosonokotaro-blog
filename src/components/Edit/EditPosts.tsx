@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
-import { collectionPosts, TPost } from '../adapter';
+import { collectionPosts, TPost } from '../../adapter';
 import EditPost from './EditPost';
 
-const EditSinglePost: React.FC = () => {
+const EditPosts: React.FC = () => {
   const [posts, setPosts] = useState<TPost[]>([]);
 
   useEffect(() => {
@@ -39,7 +39,7 @@ const EditSinglePost: React.FC = () => {
   );
 };
 
-export default EditSinglePost;
+export default EditPosts;
 
 const StyledSection = styled.section`
   max-width: 1000px;

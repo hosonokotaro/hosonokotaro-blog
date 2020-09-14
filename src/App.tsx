@@ -6,11 +6,11 @@ import { createGlobalStyle } from 'styled-components';
 import reset from 'styled-reset';
 
 import { TPost } from './adapter';
+import Edit from './components/Edit/';
 import Footer from './components/Footer';
 import Header from './components/Header';
-import Edit from './pages/Edit';
-import SinglePost from './pages/SinglePost';
-import Top from './pages/Top';
+import SinglePost from './components/SinglePost';
+import Top from './components/Top';
 
 const slug: TPost['id'] = 'id';
 

@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
-import { collectionPosts, formatTimestampToDate, TPost } from '../adapter';
+import { collectionPosts, formatTimestampToDate, TPost } from '../../adapter';
 
-const EditSinglePost: React.FC<{ post: TPost }> = ({ post }) => {
-  const [title, setTitle] = useState(post.title);
-  const [content, setContent] = useState(post.content);
-  const [release, setRelease] = useState(post.release);
+const EditPost: React.FC<{ post: TPost }> = (props) => {
+  const [title, setTitle] = useState(props.post.title);
+  const [content, setContent] = useState(props.post.content);
+  const [release, setRelease] = useState(props.post.release);
 
   const onTitleChanged = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
@@ -49,49 +49,53 @@ const EditSinglePost: React.FC<{ post: TPost }> = ({ post }) => {
 
   return (
     <>
-      <StyledLabel htmlFor={`editPostTitle-${post.id}`}>タイトル</StyledLabel>
+      <StyledLabel htmlFor={`editPostTitle-${props.post.id}`}>
+        タイトル
+      </StyledLabel>
       <StyledInputText
         type="text"
-        id={`editPostTitle-${post.id}`}
-        name={`editPostTitle-${post.id}`}
-        defaultValue={post.title}
+        id={`editPostTitle-${props.post.id}`}
+        name={`editPostTitle-${props.post.id}`}
+        defaultValue={props.post.title}
         onChange={onTitleChanged}
       />
-      <StyledLabel htmlFor={`editPostContent-${post.id}`}>本文</StyledLabel>
+      <StyledLabel htmlFor={`editPostContent-${props.post.id}`}>
+        本文
+      </StyledLabel>
       <StyledTextarea
-        id={`editPostContent-${post.id}`}
-        name={`editPostContent-${post.id}`}
-        defaultValue={post.content}
+        id={`editPostContent-${props.post.id}`}
+        name={`editPostContent-${props.post.id}`}
+        defaultValue={props.post.content}
         onChange={onContentChanged}
       ></StyledTextarea>
-      <StyledLabelInlineBlock htmlFor={`editPostRelease-${post.id}`}>
+      <StyledLabelInlineBlock htmlFor={`editPostRelease-${props.post.id}`}>
         公開フラグ
       </StyledLabelInlineBlock>
       <input
         type="checkbox"
-        id={`editPostRelease-${post.id}`}
-        name={`editPostRelease-${post.id}`}
-        defaultChecked={post.release}
+        id={`editPostRelease-${props.post.id}`}
+        name={`editPostRelease-${props.post.id}`}
+        defaultChecked={props.post.release}
         onChange={onReleaseChanged}
       />
       <StyledButtonWrapper>
-        <StyledButton onClick={() => updatePost(post.id)}>
+        <StyledButton onClick={() => updatePost(props.post.id)}>
           この記事を更新する
         </StyledButton>
-        <StyledButton onClick={() => deletePost(post.id)}>
+        <StyledButton onClick={() => deletePost(props.post.id)}>
           この記事を削除する
         </StyledButton>
       </StyledButtonWrapper>
       <StyledTimestamp>
-        作成日時: {formatTimestampToDate(post.createDate)}
+        作成日時: {formatTimestampToDate(props.post.createDate)}
         <br />
-        id: {post.id}
+        id: {props.post.id}
       </StyledTimestamp>
     </>
   );
 };
 
-export default EditSinglePost;
+export default EditPost;
 
 const StyledLabel = styled.label`
   display: block;
