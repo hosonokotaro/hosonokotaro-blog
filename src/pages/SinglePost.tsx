@@ -61,13 +61,13 @@ const SinglePost: React.FC = () => {
             <title>{post.title} | WEB DEVELOPER HOSONO KOTARO</title>
           </Helmet>
           <h2>{post.title}</h2>
+          <StyledTimestamp>
+            {formatTimestampToDate(post.createDate)}
+          </StyledTimestamp>
           <StyledReactMarkdown
             source={post.content}
             renderers={{ code: CodeBlock }}
           />
-          <StyledTimestamp>
-            {formatTimestampToDate(post.createDate)}
-          </StyledTimestamp>
         </>
       ) : (
         <Spinner />
@@ -76,6 +76,8 @@ const SinglePost: React.FC = () => {
   );
 };
 
+export default SinglePost;
+
 const StyledSection = styled.section`
   max-width: 1000px;
   min-height: calc(100vh - 120px - 98px);
@@ -83,8 +85,12 @@ const StyledSection = styled.section`
   padding: 80px 40px 240px 40px;
 `;
 
+const StyledTimestamp = styled.div`
+  padding-top: 20px;
+`;
+
 const StyledReactMarkdown = styled(ReactMarkdown)`
-  padding-top: 40px;
+  padding-top: 80px;
   overflow-wrap: normal;
 
   & > h2:not(:first-child),
@@ -101,10 +107,12 @@ const StyledReactMarkdown = styled(ReactMarkdown)`
   & > ul li:before {
     content: '・';
   }
-`;
 
-const StyledTimestamp = styled.div`
-  padding-top: 40px;
+  & > p code {
+    margin: 0 2px;
+    padding: 0 4px;
+    border: 1px solid #999;
+    border-radius: 3px;
+    background: #f9f9f9;
+  }
 `;
-
-export default SinglePost;
