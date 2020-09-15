@@ -1,12 +1,48 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { collectionPosts, formatTimestampToDate, TPost } from '../../adapter';
+import firebase, {
+  collectionPosts,
+  formatTimestampToDate,
+  TPost,
+} from '../../adapter';
 
-const EditPost: React.FC<{ post: TPost }> = (props) => {
-  const [title, setTitle] = useState(props.post.title);
-  const [content, setContent] = useState(props.post.content);
-  const [release, setRelease] = useState(props.post.release);
+const EditPost: React.FC = () => {
+  const { id } = useParams<{ id: TPost['id'] }>();
+  const [title, setTitle] = useState<TPost['title'] | null>(null);
+  const [content, setContent] = useState<TPost['content'] | null>(null);
+  const [release, setRelease] = useState<TPost['release']>(false);
+  const [createDate, setCreateDate] = useState<TPost['createDate']>(
+    firebase.firestore.Timestamp.now()
+  );
+
+  useEffect(() => {
+    const unsubscribe = collectionPosts
+      .doc(id)
+      .get()
+      .then((doc) => {
+        if (!doc.exists) {
+          location.href = '/';
+          return false;
+        }
+
+        const data = doc.data();
+
+        setTitle(data?.title ? data.title : null);
+        setContent(data?.content ? data.content : null);
+        setRelease(data?.release ? data.release : false);
+        setCreateDate(
+          data?.createDate
+            ? data.createDate
+            : firebase.firestore.Timestamp.now()
+        );
+      });
+
+    return () => {
+      unsubscribe;
+    };
+  }, [id]);
 
   const onTitleChanged = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
@@ -31,10 +67,6 @@ const EditPost: React.FC<{ post: TPost }> = (props) => {
       .then(() => {
         alert(`${id}を更新しました`);
       });
-
-    setTitle('');
-    setContent('');
-    setRelease(false);
   };
 
   const deletePost = (id: TPost['id']) => {
@@ -44,58 +76,69 @@ const EditPost: React.FC<{ post: TPost }> = (props) => {
       return false;
     }
 
-    collectionPosts.doc(id).delete();
+    collectionPosts
+      .doc(id)
+      .delete()
+      .then(() => {
+        setTitle(null);
+        setContent(null);
+        setRelease(false);
+
+        location.href = '/edit';
+      });
   };
 
   return (
-    <>
-      <StyledLabel htmlFor={`editPostTitle-${props.post.id}`}>
-        タイトル
-      </StyledLabel>
+    <StyledSection>
+      <StyledLabel htmlFor={`editPostTitle-${id}`}>タイトル</StyledLabel>
       <StyledInputText
         type="text"
-        id={`editPostTitle-${props.post.id}`}
-        name={`editPostTitle-${props.post.id}`}
-        defaultValue={props.post.title}
+        id={`editPostTitle-${id}`}
+        name={`editPostTitle-${id}`}
+        defaultValue={title ? title : ''}
         onChange={onTitleChanged}
       />
-      <StyledLabel htmlFor={`editPostContent-${props.post.id}`}>
-        本文
-      </StyledLabel>
+      <StyledLabel htmlFor={`editPostContent-${id}`}>本文</StyledLabel>
       <StyledTextarea
-        id={`editPostContent-${props.post.id}`}
-        name={`editPostContent-${props.post.id}`}
-        defaultValue={props.post.content}
+        id={`editPostContent-${id}`}
+        name={`editPostContent-${id}`}
+        defaultValue={content ? content : ''}
         onChange={onContentChanged}
       ></StyledTextarea>
-      <StyledLabelInlineBlock htmlFor={`editPostRelease-${props.post.id}`}>
+      <StyledLabelInlineBlock htmlFor={`editPostRelease-${id}`}>
         公開フラグ
       </StyledLabelInlineBlock>
       <input
         type="checkbox"
-        id={`editPostRelease-${props.post.id}`}
-        name={`editPostRelease-${props.post.id}`}
-        defaultChecked={props.post.release}
+        id={`editPostRelease-${id}`}
+        name={`editPostRelease-${id}`}
+        defaultChecked={release}
         onChange={onReleaseChanged}
       />
       <StyledButtonWrapper>
-        <StyledButton onClick={() => updatePost(props.post.id)}>
+        <StyledButton onClick={() => updatePost(id)}>
           この記事を更新する
         </StyledButton>
-        <StyledButton onClick={() => deletePost(props.post.id)}>
+        <StyledButton onClick={() => deletePost(id)}>
           この記事を削除する
         </StyledButton>
       </StyledButtonWrapper>
       <StyledTimestamp>
-        作成日時: {formatTimestampToDate(props.post.createDate)}
+        作成日時: {formatTimestampToDate(createDate)}
         <br />
-        id: {props.post.id}
+        id: {id}
       </StyledTimestamp>
-    </>
+    </StyledSection>
   );
 };
 
 export default EditPost;
+
+const StyledSection = styled.section`
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 40px 40px 0 40px;
+`;
 
 const StyledLabel = styled.label`
   display: block;

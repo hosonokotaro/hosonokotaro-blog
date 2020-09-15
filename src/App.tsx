@@ -1,18 +1,13 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import { hot } from 'react-hot-loader/root';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 import { createGlobalStyle } from 'styled-components';
 import reset from 'styled-reset';
 
-import { TPost } from './adapter';
-import Edit from './components/Edit/';
+import Container from './components/Container';
 import Footer from './components/Footer';
 import Header from './components/Header';
-import SinglePost from './components/SinglePost';
-import Top from './components/Top';
-
-const slug: TPost['id'] = 'id';
 
 const App: React.FC = () => {
   return (
@@ -27,11 +22,7 @@ const App: React.FC = () => {
       <GlobalStyle />
       <Router>
         <Header />
-        <Switch>
-          <Route exact path="/" component={Top} />
-          <Route exact path="/edit" component={Edit} />
-          <Route exact path={`/:${slug}`} component={SinglePost} />
-        </Switch>
+        <Container />
         <Footer />
       </Router>
     </>
