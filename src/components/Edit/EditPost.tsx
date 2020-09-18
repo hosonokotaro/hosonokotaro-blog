@@ -89,7 +89,7 @@ const EditPost: React.FC = () => {
   };
 
   return (
-    <StyledSection>
+    <StyledArticle>
       <StyledLabel htmlFor={`editPostTitle-${id}`}>タイトル</StyledLabel>
       <StyledInputText
         type="text"
@@ -128,13 +128,13 @@ const EditPost: React.FC = () => {
         <br />
         id: {id}
       </StyledTimestamp>
-    </StyledSection>
+    </StyledArticle>
   );
 };
 
 export default EditPost;
 
-const StyledSection = styled.section`
+const StyledArticle = styled.article`
   max-width: 1000px;
   margin: 0 auto;
   padding: 40px 40px 0 40px;
