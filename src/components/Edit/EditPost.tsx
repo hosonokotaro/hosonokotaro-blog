@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -128,6 +129,9 @@ const EditPost: React.FC = () => {
         <br />
         id: {id}
       </StyledTimestamp>
+      <StyledReturn>
+        <Link to="/edit">編集画面に戻る</Link>
+      </StyledReturn>
     </StyledArticle>
   );
 };
@@ -190,10 +194,8 @@ const StyledButton = styled.button`
 
 const StyledTimestamp = styled.div`
   padding-top: 20px;
+`;
 
-  & + label {
-    margin-top: 80px;
-    padding-top: 80px;
-    border-top: 1px solid #333;
-  }
+const StyledReturn = styled.div`
+  padding: 40px 0;
 `;
