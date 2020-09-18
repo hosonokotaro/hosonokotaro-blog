@@ -32,9 +32,10 @@ const EditPosts: React.FC = () => {
       <StyledPosts>
         {posts.map((post) => (
           <StyledPost key={post.id}>
-            <Link to={`/edit/${post.id}`}>
-              <div>{post.title}</div>
-            </Link>
+            <div>
+              {post.release ? null : <span>【非公開】</span>}
+              <Link to={`/edit/${post.id}`}>{post.title}</Link>
+            </div>
             <StyledTimestamp>
               作成日時: {formatTimestampToDate(post.createDate)}
               <br />

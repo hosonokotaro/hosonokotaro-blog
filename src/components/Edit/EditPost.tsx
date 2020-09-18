@@ -113,7 +113,7 @@ const EditPost: React.FC = () => {
         type="checkbox"
         id={`editPostRelease-${id}`}
         name={`editPostRelease-${id}`}
-        defaultChecked={release}
+        checked={release}
         onChange={onReleaseChanged}
       />
       <StyledButtonWrapper>
