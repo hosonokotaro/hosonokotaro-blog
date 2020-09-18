@@ -19,11 +19,11 @@ const Header: React.FC = () => {
 
 export default Header;
 
-const StyledHeaderWrapper = styled.div`
+const StyledHeaderWrapper = styled.header`
   border-bottom: 2px solid #333;
 `;
 
-const StyledHeader = styled.header`
+const StyledHeader = styled.div`
   max-width: 1000px;
   margin: 0 auto;
   padding: 40px;

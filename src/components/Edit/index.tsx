@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
 import styled from 'styled-components';
 
-import firebase from '../adapter';
-import EditPosts from '../components/EditPosts';
-import NewPost from '../components/NewPost';
-import Spinner from '../components/Spinner';
+import firebase from '../../adapter';
+import Spinner from '../Spinner';
+import EditPosts from './EditPosts';
+import NewPost from './NewPost';
 
 const Edit: React.FC = () => {
   const [user, setUser] = useState<firebase.User | null>();
