@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
 import ReactMarkdown from 'react-markdown';
 import { useParams } from 'react-router-dom';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { PrismLight as SyntaxHighlighter } from 'react-syntax-highlighter';
 import syntaxStyle from 'react-syntax-highlighter/dist/cjs/styles/prism/tomorrow';
+import tsx from 'react-syntax-highlighter/dist/esm/languages/prism/tsx';
 import styled from 'styled-components';
 
 import firebase, {
@@ -12,6 +13,8 @@ import firebase, {
   TPost,
 } from '../adapter';
 import Spinner from '../components/Spinner';
+
+SyntaxHighlighter.registerLanguage('tsx', tsx);
 
 const CodeBlock: React.FC<{ value: string; language: string }> = (props) => {
   return (
