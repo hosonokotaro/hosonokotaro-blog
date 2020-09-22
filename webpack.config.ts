@@ -4,6 +4,7 @@ import ForkTsCheckerPlugin from 'fork-ts-checker-webpack-plugin';
 import HTMLWebpackPlugin from 'html-webpack-plugin';
 import path from 'path';
 import webpack, { Configuration as WebpackConfiguration } from 'webpack';
+import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 import { Configuration as WebpackDevServerConfiguration } from 'webpack-dev-server';
 
 interface Configuration extends WebpackConfiguration {
@@ -77,6 +78,11 @@ const config: Configuration = {
           syntactic: true,
         },
       },
+    }),
+    new BundleAnalyzerPlugin({
+      openAnalyzer: false,
+      analyzerMode: 'static',
+      reportFilename: path.resolve(__dirname, 'report/index.html'),
     }),
   ],
 };
