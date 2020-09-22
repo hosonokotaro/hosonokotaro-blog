@@ -1,6 +1,7 @@
+/.firebase
 /.vscode
 /dist
 /node_modules
-/.firebase
+/report
 
 .DS_Store
