@@ -19,6 +19,12 @@ const config: Configuration = {
     filename: 'bundle.js',
     publicPath: '/',
   },
+  optimization: {
+    splitChunks: {
+      name: true,
+      chunks: 'initial',
+    },
+  },
   module: {
     rules: [
       {
