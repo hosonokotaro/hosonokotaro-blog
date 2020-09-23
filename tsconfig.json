@@ -1,13 +1,19 @@
 {
   "compilerOptions": {
     "jsx": "react",
-    "target": "esnext",
+    "target": "ES2019",
     "moduleResolution": "node",
     "allowJs": true,
     "noEmit": true,
     "strict": true,
     "isolatedModules": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "baseUrl": ".",
+    "paths": {
+      "@App/*": [
+        "src/*"
+      ]
+    }
   },
   "include": [
     "./src",

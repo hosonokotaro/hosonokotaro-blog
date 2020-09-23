@@ -11,7 +11,8 @@
     "react",
     "react-hooks",
     "prettier",
-    "simple-import-sort"
+    "simple-import-sort",
+    "testing-library"
   ],
   "extends": [
     "eslint:recommended",
@@ -19,6 +20,8 @@
     "plugin:@typescript-eslint/recommended",
     "plugin:react/recommended",
     "plugin:react-hooks/recommended",
+    "plugin:testing-library/recommended",
+    "plugin:testing-library/react",
     "prettier"
   ],
   "rules": {
@@ -28,7 +31,10 @@
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
     "prettier/prettier": "error",
-    "simple-import-sort/sort": "error"
+    "simple-import-sort/sort": "error",
+    "testing-library/await-async-query": "error",
+    "testing-library/no-await-sync-query": "error",
+    "testing-library/no-debug": "warn"
   },
   "settings": {
     "react": {
