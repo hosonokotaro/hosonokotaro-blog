@@ -3,8 +3,8 @@ import { Helmet } from 'react-helmet';
 import ReactMarkdown from 'react-markdown';
 import { useParams } from 'react-router-dom';
 import { PrismLight as SyntaxHighlighter } from 'react-syntax-highlighter';
+import tsx from 'react-syntax-highlighter/dist/cjs/languages/prism/tsx';
 import syntaxStyle from 'react-syntax-highlighter/dist/cjs/styles/prism/tomorrow';
-import tsx from 'react-syntax-highlighter/dist/esm/languages/prism/tsx';
 import styled from 'styled-components';
 
 import firebase, {

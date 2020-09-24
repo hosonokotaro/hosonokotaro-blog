@@ -15,10 +15,7 @@ const firebaseConfig = {
 };
 
 firebase.initializeApp(firebaseConfig);
-
-firebase.firestore().enablePersistence({
-  synchronizeTabs: true,
-});
+firebase.firestore();
 
 export default firebase;
 
