@@ -1,18 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Helmet } from 'react-helmet';
 import ReactMarkdown from 'react-markdown';
-import { useParams } from 'react-router-dom';
 import { PrismLight as SyntaxHighlighter } from 'react-syntax-highlighter';
 import tsx from 'react-syntax-highlighter/dist/cjs/languages/prism/tsx';
 import syntaxStyle from 'react-syntax-highlighter/dist/cjs/styles/prism/tomorrow';
 import styled from 'styled-components';
 
-import firebase, {
-  collectionPosts,
-  formatTimestampToDate,
-  TPost,
-} from '../adapter';
+import { formatTimestampToDate } from '../adapter';
 import Spinner from '../components/Spinner';
+import useGetPost from './Hooks/useGetPost';
 
 SyntaxHighlighter.registerLanguage('tsx', tsx);
 
@@ -25,36 +21,7 @@ const CodeBlock: React.FC<{ value: string; language: string }> = (props) => {
 };
 
 const SinglePost: React.FC = () => {
-  const { id } = useParams<{ id: TPost['id'] }>();
-  const [post, setPost] = useState<TPost>();
-
-  useEffect(() => {
-    const unsubscribe = collectionPosts
-      .doc(id)
-      .get()
-      .then((doc) => {
-        if (!doc.exists || !doc.data()?.release) {
-          location.href = '/';
-          return false;
-        }
-
-        const data = doc.data();
-
-        setPost({
-          id: doc.id,
-          title: data?.title ? data.title : '',
-          content: data?.content ? data.content : '',
-          release: data?.release ? data.release : false,
-          createDate: data?.createDate
-            ? data.createDate
-            : firebase.firestore.Timestamp.now(),
-        });
-      });
-
-    return () => {
-      unsubscribe;
-    };
-  }, [id]);
+  const post = useGetPost();
 
   return (
     <StyledSection>
