@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 const Spinner: React.FC = () => {
   return (
-    <StyledSpinnerWrapper>
+    <StyledSpinnerWrapper role="alert" aria-busy="true">
       <StyledSpinner viewBox="0 0 50 50">
         <circle
           className="path"
