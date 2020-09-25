@@ -2,7 +2,7 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 import styled from 'styled-components';
 
-import useAuth from '../Hooks/useAuth';
+import useAuth from '../hooks/useAuth';
 import Spinner from '../Spinner';
 import EditPosts from './EditPosts';
 import NewPost from './NewPost';
