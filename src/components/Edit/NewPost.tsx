@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import useNewPost from '../Hooks/useNewPost';
+import useNewPost from '../hooks/useNewPost';
 
 const NewPost: React.FC = () => {
   const {

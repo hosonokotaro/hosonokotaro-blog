@@ -2,8 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { formatTimestampToDate } from '../../adapter';
-import useGetEditPost from '../Hooks/useGetEditPost';
+import formatTimestampToDate from '../../utility/formatTimestampToDate';
+import useGetEditPost from '../hooks/useGetEditPost';
 
 const EditPost: React.FC = () => {
   const {

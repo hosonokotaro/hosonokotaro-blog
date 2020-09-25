@@ -2,9 +2,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { formatTimestampToDate, TPostTitle } from '../adapter';
+import { TPostTitle } from '../adapter';
 import Spinner from '../components/Spinner';
-import useGetPosts from './Hooks/useGetPosts';
+import formatTimestampToDate from '../utility/formatTimestampToDate';
+import useGetPosts from './hooks/useGetPosts';
 
 const Top: React.FC = () => {
   const posts = useGetPosts();

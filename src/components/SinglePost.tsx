@@ -6,9 +6,9 @@ import tsx from 'react-syntax-highlighter/dist/cjs/languages/prism/tsx';
 import syntaxStyle from 'react-syntax-highlighter/dist/cjs/styles/prism/tomorrow';
 import styled from 'styled-components';
 
-import { formatTimestampToDate } from '../adapter';
 import Spinner from '../components/Spinner';
-import useGetPost from './Hooks/useGetPost';
+import formatTimestampToDate from '../utility/formatTimestampToDate';
+import useGetPost from './hooks/useGetPost';
 
 SyntaxHighlighter.registerLanguage('tsx', tsx);
 
