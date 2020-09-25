@@ -1,30 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { collectionPosts, formatTimestampToDate, TPost } from '../../adapter';
+import { formatTimestampToDate } from '../../adapter';
+import useGetEditPosts from '../Hooks/useGetEditPosts';
 
 const EditPosts: React.FC = () => {
-  // posts
-  const [posts, setPosts] = useState<TPost[]>([]);
-
-  useEffect(() => {
-    const unsubscribe = collectionPosts
-      .orderBy('createDate', 'desc')
-      .onSnapshot((snapshot) => {
-        const allPosts = snapshot.docs.map<TPost>((doc) => ({
-          id: doc.id,
-          title: doc.data().title,
-          content: doc.data().content,
-          release: doc.data().release,
-          createDate: doc.data().createDate,
-        }));
-
-        setPosts(allPosts);
-      });
-
-    return () => unsubscribe();
-  }, []);
+  const posts = useGetEditPosts();
 
   return (
     <StyledSection>

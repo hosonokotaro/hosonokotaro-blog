@@ -1,38 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-import {
-  collectionPosts,
-  formatTimestampToDate,
-  TPost,
-  TPostTitle,
-} from '../adapter';
+import { formatTimestampToDate, TPostTitle } from '../adapter';
 import Spinner from '../components/Spinner';
+import useGetPosts from './Hooks/useGetPosts';
 
 const Top: React.FC = () => {
-  const [posts, setPosts] = useState<TPost[]>([]);
-
-  useEffect(() => {
-    const unsubscribe = collectionPosts
-      .where('release', '==', true)
-      .orderBy('createDate', 'desc')
-      .onSnapshot((snapshot) => {
-        const allPosts = snapshot.docs.map<TPost>((doc) => ({
-          id: doc.id,
-          title: doc.data().title,
-          content: doc.data().content,
-          release: doc.data().release,
-          createDate: doc.data().createDate,
-        }));
-
-        setPosts(allPosts);
-      });
-
-    return () => {
-      unsubscribe();
-    };
-  }, []);
+  const posts = useGetPosts();
 
   const showPost = (post: TPostTitle) => {
     if (!post.release) {
