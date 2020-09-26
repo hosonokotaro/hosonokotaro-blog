@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-import firebase, { collectionPosts, TPost } from '../../adapter';
+import firebase, { collectionPosts, TPost } from '../../../adapter';
 
 const useGetEditPost = (): {
   id: string;

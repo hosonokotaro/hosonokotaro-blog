@@ -1,9 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import styled from 'styled-components';
 
 import formatTimestampToDate from '../../utility/formatTimestampToDate';
-import useGetEditPosts from '../hooks/useGetEditPosts';
+import useGetEditPosts from './hooks/useGetEditPosts';
+import {
+  StyledPost,
+  StyledPosts,
+  StyledSection,
+  StyledTimestamp,
+} from './styled/styledEditPosts';
 
 const EditPosts: React.FC = () => {
   const posts = useGetEditPosts();
@@ -31,29 +36,3 @@ const EditPosts: React.FC = () => {
 };
 
 export default EditPosts;
-
-const StyledSection = styled.section`
-  max-width: 1000px;
-  margin: 0 auto;
-  padding: 40px 40px 0 40px;
-`;
-
-const StyledPosts = styled.div`
-  padding-top: 20px;
-`;
-
-const StyledPost = styled.div`
-  & + div {
-    padding-top: 20px;
-  }
-`;
-
-const StyledTimestamp = styled.div`
-  padding-top: 20px;
-
-  & + label {
-    margin-top: 80px;
-    padding-top: 80px;
-    border-top: 1px solid #333;
-  }
-`;

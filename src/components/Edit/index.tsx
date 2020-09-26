@@ -1,11 +1,11 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
-import styled from 'styled-components';
 
 import useAuth from '../hooks/useAuth';
 import Spinner from '../Spinner';
 import EditPosts from './EditPosts';
 import NewPost from './NewPost';
+import { StyledLogin, StyledUid } from './styled/styledIndex';
 
 const Edit: React.FC = () => {
   const { user, login, logout } = useAuth();
@@ -39,14 +39,3 @@ const Edit: React.FC = () => {
 };
 
 export default Edit;
-
-const StyledLogin = styled.div`
-  max-width: 1000px;
-  margin: 0 auto;
-  padding: 40px;
-  text-align: center;
-`;
-
-const StyledUid = styled.div`
-  margin-top: 20px;
-`;
