@@ -1,6 +1,7 @@
 import dayjs from 'dayjs';
 import React from 'react';
-import styled from 'styled-components';
+
+import { StyledFooter } from './styled/StyledFooter';
 
 const Footer: React.FC = () => {
   const getYear = () => {
@@ -11,9 +12,3 @@ const Footer: React.FC = () => {
 };
 
 export default Footer;
-
-const StyledFooter = styled.footer`
-  padding: 40px;
-  text-align: center;
-  border-top: 2px solid #333;
-`;

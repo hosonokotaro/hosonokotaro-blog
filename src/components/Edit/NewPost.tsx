@@ -1,7 +1,15 @@
 import React from 'react';
-import styled from 'styled-components';
 
 import useNewPost from '../hooks/useNewPost';
+import {
+  StyledButton,
+  StyledInputText,
+  StyledLabel,
+  StyledLabelInlineBlock,
+  StyledSection,
+  StyledTextarea,
+  StyledWrapper,
+} from './styled/styledNewPost';
 
 const NewPost: React.FC = () => {
   const {
@@ -54,54 +62,3 @@ const NewPost: React.FC = () => {
 };
 
 export default NewPost;
-
-const StyledSection = styled.section`
-  max-width: 1000px;
-  margin: 0 auto;
-  padding: 40px 40px 0 40px;
-`;
-
-const StyledWrapper = styled.div`
-  padding-top: 20px;
-`;
-
-const StyledLabel = styled.label`
-  display: block;
-
-  input + & {
-    margin-top: 20px;
-  }
-  textarea + & {
-    margin-top: 20px;
-  }
-`;
-
-const StyledLabelInlineBlock = styled.label`
-  display: inline-block;
-
-  textarea + & {
-    margin-top: 20px;
-  }
-`;
-
-const StyledInputText = styled.input`
-  width: 100%;
-
-  label + & {
-    margin-top: 4px;
-  }
-`;
-
-const StyledTextarea = styled.textarea`
-  width: 100%;
-  max-width: 100%;
-  min-height: 400px;
-
-  label + & {
-    margin-top: 4px;
-  }
-`;
-
-const StyledButton = styled.button`
-  margin-top: 20px;
-`;
