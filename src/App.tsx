@@ -8,6 +8,7 @@ import reset from 'styled-reset';
 import Container from './components/Container';
 import Footer from './components/Footer';
 import Header from './components/Header';
+import ScrollToTop from './utility/ScrollToTop';
 
 const App: React.FC = () => {
   return (
@@ -21,6 +22,7 @@ const App: React.FC = () => {
       </Helmet>
       <GlobalStyle />
       <Router>
+        <ScrollToTop />
         <Header />
         <Container />
         <Footer />
