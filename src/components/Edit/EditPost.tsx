@@ -3,7 +3,9 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 import formatTimestampToDate from '../../utility/formatTimestampToDate';
+import CodeBlock from '../CodeBlock';
 import useGetEditPost from '../hooks/useGetEditPost';
+import { StyledReactMarkdown } from '../styled/styledSinglePost';
 
 const EditPost: React.FC = () => {
   const {
@@ -59,8 +61,17 @@ const EditPost: React.FC = () => {
         <br />
         id: {id}
       </StyledTimestamp>
+      <StyledPreview>
+        <StyledPreviewTitle>Preview</StyledPreviewTitle>
+        <h2>{title}</h2>
+        <StyledTimestamp>{formatTimestampToDate(createDate)}</StyledTimestamp>
+        <StyledReactMarkdown
+          source={content ? content : ''}
+          renderers={{ code: CodeBlock }}
+        />
+      </StyledPreview>
       <StyledReturn>
-        <Link to="/edit">編集画面に戻る</Link>
+        <Link to="/edit">投稿された記事一覧に行く</Link>
       </StyledReturn>
     </StyledArticle>
   );
@@ -124,6 +135,18 @@ const StyledButton = styled.button`
 
 const StyledTimestamp = styled.div`
   padding-top: 20px;
+`;
+
+const StyledPreviewTitle = styled.div`
+  margin-bottom: 40px;
+  font-size: 1.6rem;
+`;
+
+const StyledPreview = styled.div`
+  margin: 40px 0 0 0;
+  padding: 40px 0;
+  border-top: 1px solid #999;
+  border-bottom: 1px solid #999;
 `;
 
 const StyledReturn = styled.div`
