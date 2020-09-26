@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 import React from 'react';
 
-import { StyledFooter } from './styled/StyledFooter';
+import { StyledFooter } from './styled/styledFooter';
 
 const Footer: React.FC = () => {
   const getYear = () => {
