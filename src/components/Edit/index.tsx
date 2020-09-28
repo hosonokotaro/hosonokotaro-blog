@@ -1,9 +1,9 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 
-import useAuth from '../hooks/useAuth';
 import Spinner from '../Spinner';
 import EditPosts from './EditPosts';
+import useAuth from './hooks/useAuth';
 import NewPost from './NewPost';
 import { StyledLogin, StyledUid } from './styled/styledIndex';
 
