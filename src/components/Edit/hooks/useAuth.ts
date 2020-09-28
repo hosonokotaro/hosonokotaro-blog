@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import firebase from '../../adapter';
+import firebase from '../../../adapter';
 
 const useAuth = (): {
   user: firebase.User | null | undefined;
