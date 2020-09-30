@@ -1,4 +1,4 @@
-// / <reference types="cypress" />
+/// <reference types="cypress" />
 
 describe('My First Test', () => {
   it('ページを確認する', () => {
