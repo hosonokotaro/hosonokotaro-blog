@@ -2,7 +2,7 @@
 
 describe('My First Test', () => {
   it('ページを確認する', () => {
-    cy.visit('https://example.cypress.io/');
+    cy.visit('/');
 
     // 要素を検索する
     // cy.contains('within');
