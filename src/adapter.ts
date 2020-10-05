@@ -21,17 +21,20 @@ export const collectionPosts = firebase
   .firestore()
   .collection('posts') as firebase.firestore.CollectionReference<TPost>;
 
+export const Timestamp = firebase.firestore.Timestamp;
+export type TypeTimestamp = firebase.firestore.Timestamp;
+
 export type TPost = {
   id: string;
   title: string;
   content: string;
   release: boolean;
-  createDate: firebase.firestore.Timestamp;
+  createDate: TypeTimestamp;
 };
 
 export type TPostTitle = {
   id: string;
   title: string;
   release: boolean;
-  createDate: firebase.firestore.Timestamp;
+  createDate: TypeTimestamp;
 };

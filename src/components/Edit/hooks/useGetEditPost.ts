@@ -1,14 +1,19 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-import firebase, { collectionPosts, TPost } from '../../../adapter';
+import {
+  collectionPosts,
+  Timestamp,
+  TPost,
+  TypeTimestamp,
+} from '../../../adapter';
 
 const useGetEditPost = (): {
   id: string;
   title: string | null;
   content: string | null;
   release: boolean;
-  createDate: firebase.firestore.Timestamp;
+  createDate: TypeTimestamp;
   onTitleChanged: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onContentChanged: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
   onReleaseChanged: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -20,7 +25,7 @@ const useGetEditPost = (): {
   const [content, setContent] = useState<TPost['content'] | null>(null);
   const [release, setRelease] = useState<TPost['release']>(false);
   const [createDate, setCreateDate] = useState<TPost['createDate']>(
-    firebase.firestore.Timestamp.now()
+    Timestamp.now()
   );
 
   useEffect(() => {
@@ -38,11 +43,7 @@ const useGetEditPost = (): {
         setTitle(data?.title ? data.title : null);
         setContent(data?.content ? data.content : null);
         setRelease(data?.release ? data.release : false);
-        setCreateDate(
-          data?.createDate
-            ? data.createDate
-            : firebase.firestore.Timestamp.now()
-        );
+        setCreateDate(data?.createDate ? data.createDate : Timestamp.now());
       });
 
     return () => {

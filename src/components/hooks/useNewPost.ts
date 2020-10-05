@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import firebase, { collectionPosts } from '../../adapter';
+import { collectionPosts, Timestamp } from '../../adapter';
 
 const useNewPost = (): {
   title: string;
@@ -22,7 +22,7 @@ const useNewPost = (): {
       title,
       content,
       release,
-      createDate: firebase.firestore.Timestamp.now(),
+      createDate: Timestamp.now(),
     });
 
     setTitle('');
