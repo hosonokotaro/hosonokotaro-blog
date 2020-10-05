@@ -24,6 +24,12 @@ export const collectionPosts = firebase
 export const Timestamp = firebase.firestore.Timestamp;
 export type TypeTimestamp = firebase.firestore.Timestamp;
 
+export type TypeUser = firebase.User;
+
+export const Auth = firebase.auth();
+
+export const GoogleAuthProvider = new firebase.auth.GoogleAuthProvider();
+
 export type TPost = {
   id: string;
   title: string;
