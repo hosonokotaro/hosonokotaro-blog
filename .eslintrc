@@ -12,7 +12,8 @@
     "react-hooks",
     "prettier",
     "simple-import-sort",
-    "testing-library"
+    "testing-library",
+    "cypress"
   ],
   "extends": [
     "eslint:recommended",
@@ -22,6 +23,7 @@
     "plugin:react-hooks/recommended",
     "plugin:testing-library/recommended",
     "plugin:testing-library/react",
+    "plugin:cypress/recommended",
     "prettier"
   ],
   "rules": {
@@ -34,7 +36,12 @@
     "simple-import-sort/sort": "error",
     "testing-library/await-async-query": "error",
     "testing-library/no-await-sync-query": "error",
-    "testing-library/no-debug": "warn"
+    "testing-library/no-debug": "warn",
+    "cypress/no-assigning-return-values": "error",
+    "cypress/no-unnecessary-waiting": "error",
+    "cypress/assertion-before-screenshot": "warn",
+    "cypress/no-force": "warn",
+    "cypress/no-async-tests": "error"
   },
   "settings": {
     "react": {
@@ -42,5 +49,8 @@
       "pragma": "React",
       "version": "detect"
     }
+  },
+  "env": {
+    "cypress/globals": true
   }
 }
