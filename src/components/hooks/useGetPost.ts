@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-import firebase, { collectionPosts, TPost } from '../../adapter';
+import { collectionPosts, Timestamp, TPost } from '../../adapter';
 
 const useGetPost = (): TPost | undefined => {
   const { id } = useParams<{ id: TPost['id'] }>();
@@ -24,9 +24,7 @@ const useGetPost = (): TPost | undefined => {
           title: data?.title ? data.title : '',
           content: data?.content ? data.content : '',
           release: data?.release ? data.release : false,
-          createDate: data?.createDate
-            ? data.createDate
-            : firebase.firestore.Timestamp.now(),
+          createDate: data?.createDate ? data.createDate : Timestamp.now(),
         });
       });
 

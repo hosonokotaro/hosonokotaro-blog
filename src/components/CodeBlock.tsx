@@ -1,7 +1,7 @@
 import React from 'react';
 import { PrismLight as SyntaxHighlighter } from 'react-syntax-highlighter';
-import tsx from 'react-syntax-highlighter/dist/cjs/languages/prism/tsx';
-import syntaxStyle from 'react-syntax-highlighter/dist/cjs/styles/prism/tomorrow';
+import tsx from 'react-syntax-highlighter/dist/esm/languages/prism/tsx';
+import syntaxStyle from 'react-syntax-highlighter/dist/esm/styles/prism/tomorrow';
 
 SyntaxHighlighter.registerLanguage('tsx', tsx);
 

@@ -1,16 +1,16 @@
 import { useEffect, useState } from 'react';
 
-import firebase from '../../../adapter';
+import { Auth, GoogleAuthProvider, TypeUser } from '../../../adapter';
 
 const useAuth = (): {
-  user: firebase.User | null | undefined;
+  user: TypeUser | null | undefined;
   login: () => void;
   logout: () => void;
 } => {
-  const [user, setUser] = useState<firebase.User | null>();
+  const [user, setUser] = useState<TypeUser | null>();
 
   useEffect(() => {
-    const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
+    const unsubscribe = Auth.onAuthStateChanged((user) => {
       setUser(user);
     });
 
@@ -20,12 +20,11 @@ const useAuth = (): {
   }, []);
 
   const login = () => {
-    const provider = new firebase.auth.GoogleAuthProvider();
-    firebase.auth().signInWithRedirect(provider);
+    Auth.signInWithRedirect(GoogleAuthProvider);
   };
 
   const logout = () => {
-    firebase.auth().signOut();
+    Auth.signOut();
   };
 
   return {
