@@ -19,10 +19,7 @@ export const StyledLabel = styled.label`
 
 export const StyledLabelInlineBlock = styled.label`
   display: inline-block;
-
-  textarea + & {
-    margin-top: 20px;
-  }
+  margin-top: 20px;
 `;
 
 export const StyledInputText = styled.input`
