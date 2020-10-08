@@ -18,7 +18,7 @@ import {
   StyledTextarea,
   StyledTimestamp,
 } from './styled/styledEditPost';
-import UploadFiles from './UploadFiles';
+import UploadFiles from './Upload';
 
 const EditPost: React.FC = () => {
   const {

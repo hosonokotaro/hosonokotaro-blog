@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
-import { publicImages } from '../../adapter';
+import { publicImages } from '../../../adapter';
 
 const UploadFile: React.FC<{ uploadPath: string }> = (props) => {
   const [image, setImage] = useState<File | null>(null);
