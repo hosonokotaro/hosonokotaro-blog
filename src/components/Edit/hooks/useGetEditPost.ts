@@ -19,6 +19,7 @@ const useGetEditPost = (): {
   onReleaseChanged: (e: React.ChangeEvent<HTMLInputElement>) => void;
   updatePost: (id: TPost['id']) => void;
   deletePost: (id: TPost['id']) => false | undefined;
+  canSaveEditPost: boolean;
 } => {
   const { id } = useParams<{ id: TPost['id'] }>();
   const [title, setTitle] = useState<TPost['title'] | null>(null);
@@ -95,6 +96,8 @@ const useGetEditPost = (): {
       });
   };
 
+  const canSaveEditPost = Boolean(title) && Boolean(content);
+
   return {
     id,
     title,
@@ -106,6 +109,7 @@ const useGetEditPost = (): {
     onReleaseChanged,
     updatePost,
     deletePost,
+    canSaveEditPost,
   };
 };
 

@@ -5,23 +5,12 @@ import {
   StyledButton,
   StyledInputText,
   StyledLabel,
-  StyledLabelInlineBlock,
   StyledSection,
-  StyledTextarea,
   StyledWrapper,
 } from './styled/styledNewPost';
 
 const NewPost: React.FC = () => {
-  const {
-    title,
-    content,
-    release,
-    handleSubmit,
-    onTitleChanged,
-    onContentChanged,
-    onReleaseChanged,
-    canSave,
-  } = useNewPost();
+  const { title, handleSubmit, onTitleChanged, canSaveNewPost } = useNewPost();
 
   return (
     <StyledSection>
@@ -36,25 +25,9 @@ const NewPost: React.FC = () => {
             value={title}
             onChange={onTitleChanged}
           />
-          <StyledLabel htmlFor="postContent">本文</StyledLabel>
-          <StyledTextarea
-            id="postContent"
-            name="postContent"
-            value={content}
-            onChange={onContentChanged}
-          ></StyledTextarea>
-          <StyledLabelInlineBlock htmlFor="postRelease">
-            公開フラグ
-          </StyledLabelInlineBlock>
-          <input
-            type="checkbox"
-            name="postRelease"
-            checked={release}
-            onChange={onReleaseChanged}
-          />
         </form>
-        <StyledButton onClick={handleSubmit} disabled={!canSave}>
-          記事を新規作成する
+        <StyledButton onClick={handleSubmit} disabled={!canSaveNewPost}>
+          記事を準備する
         </StyledButton>
       </StyledWrapper>
     </StyledSection>

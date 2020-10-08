@@ -32,6 +32,7 @@ const EditPost: React.FC = () => {
     onReleaseChanged,
     updatePost,
     deletePost,
+    canSaveEditPost,
   } = useGetEditPost();
 
   return (
@@ -63,7 +64,10 @@ const EditPost: React.FC = () => {
         onChange={onReleaseChanged}
       />
       <StyledButtonWrapper>
-        <StyledButton onClick={() => updatePost(id)}>
+        <StyledButton
+          onClick={() => updatePost(id)}
+          disabled={!canSaveEditPost}
+        >
           この記事を更新する
         </StyledButton>
         <StyledButton onClick={() => deletePost(id)}>
