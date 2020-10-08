@@ -6,8 +6,14 @@ import { publicImages } from '../../../adapter';
 const UploadFiles: React.FC<{ uploadPath: string }> = (props) => {
   const filepathRef = useRef<HTMLInputElement>(null);
 
+  const [imageRef, setImageRef] = useState<firebase.storage.Reference[]>([]);
+
+  const [downloadPaths, setDownloadPaths] = useState<string[]>([]);
+
   // 画像のフルパスと、画像のファイル名のリストが必要
   const [imagePaths, setImagePaths] = useState<string[]>([]);
+
+  const [loaded, setLoaded] = useState(false);
 
   const copyClipboard = () => {
     if (filepathRef.current) {
@@ -17,7 +23,7 @@ const UploadFiles: React.FC<{ uploadPath: string }> = (props) => {
   };
 
   const deleteImage = (imagePath: string) => {
-    const deleteConfirm = confirm('削除します');
+    const deleteConfirm = confirm(`${imagePath}を削除します`);
 
     if (!deleteConfirm) {
       return false;
@@ -30,43 +36,63 @@ const UploadFiles: React.FC<{ uploadPath: string }> = (props) => {
   };
 
   useEffect(() => {
-    const tmpImagePaths: string[] = [];
+    publicImages
+      .child(`${props.uploadPath}`)
+      .listAll()
+      .then((list) => {
+        setImageRef(list.items);
+      });
+  }, [props.uploadPath]);
 
-    const fetchPublicImages = () =>
-      publicImages
-        .child(`${props.uploadPath}`)
-        .listAll()
-        .then(({ items }) => {
-          items.map((item) => {
-            item.getDownloadURL().then((url) => {
-              tmpImagePaths.push(url);
-            });
-          });
+  useEffect(() => {
+    const tmpDownloadPaths: string[] = [];
 
-          setImagePaths(tmpImagePaths);
-        });
+    imageRef.map((item) => {
+      item.getDownloadURL().then((url) => {
+        tmpDownloadPaths.push(url);
+      });
+    });
 
-    fetchPublicImages();
-  }, []);
+    setDownloadPaths(tmpDownloadPaths);
+  }, [imageRef]);
+
+  useEffect(() => {
+    setImagePaths(downloadPaths);
+
+    const unmount = setTimeout(() => {
+      setLoaded(true);
+    }, 1000);
+
+    return () => clearTimeout(unmount);
+  }, [downloadPaths]);
 
   return (
     <>
-      <div>画像一覧</div>
+      <StyledTitle>画像一覧</StyledTitle>
       <StyledImagePaths>
-        {imagePaths.map((item, index) => {
-          return (
-            <StyledItem key={index}>
-              <input ref={filepathRef} type="text" defaultValue={item} />
-              <button onClick={copyClipboard}>
-                画像パスをクリップボードにコピーする
-              </button>
-              <button onClick={() => deleteImage(item)}>画像を削除する</button>
-              <StyledImgWrap>
-                <StyledImg src={item} />
-              </StyledImgWrap>
-            </StyledItem>
-          );
-        })}
+        {loaded &&
+          imagePaths.map((item, index) => {
+            return (
+              <StyledItem key={index}>
+                <StyledFilePath
+                  ref={filepathRef}
+                  type="text"
+                  defaultValue={item}
+                />
+                <StyledButtonWrap>
+                  <button onClick={copyClipboard}>
+                    画像パスをクリップボードにコピーする
+                  </button>
+                  <StyledDeleteButton onClick={() => deleteImage(item)}>
+                    画像を削除する
+                  </StyledDeleteButton>
+                </StyledButtonWrap>
+                <StyledImgWrap>
+                  <StyledImg src={item} />
+                </StyledImgWrap>
+              </StyledItem>
+            );
+          })}
       </StyledImagePaths>
     </>
   );
@@ -74,16 +100,44 @@ const UploadFiles: React.FC<{ uploadPath: string }> = (props) => {
 
 export default UploadFiles;
 
+const StyledTitle = styled.div`
+  margin-top: 40px;
+  font-size: 1.6rem;
+`;
+
 const StyledImagePaths = styled.div`
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-between;
+  margin-top: 20px;
 `;
 
 const StyledItem = styled.div`
-  width: 50%;
+  width: calc(50% - 10px);
+  margin-bottom: 40px;
+`;
+
+const StyledFilePath = styled.input`
+  display: block;
+  width: 100%;
+`;
+
+const StyledButtonWrap = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+`;
+
+const StyledDeleteButton = styled.button`
+  color: #f66;
+
+  button + & {
+    margin-left: 20px;
+  }
 `;
 
 const StyledImgWrap = styled.div`
+  margin-top: 20px;
   text-align: center;
   background-color: #eee;
 `;
