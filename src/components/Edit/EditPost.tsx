@@ -18,7 +18,7 @@ import {
   StyledTextarea,
   StyledTimestamp,
 } from './styled/styledEditPost';
-import UploadFile from './UploadFile';
+import UploadFiles from './UploadFiles';
 
 const EditPost: React.FC = () => {
   const {
@@ -52,7 +52,7 @@ const EditPost: React.FC = () => {
         defaultValue={content ? content : ''}
         onChange={onContentChanged}
       ></StyledTextarea>
-      <UploadFile uploadPath={id} />
+      <UploadFiles uploadPath={id} />
       <StyledLabelInlineBlock htmlFor={`editPostRelease-${id}`}>
         公開フラグ
       </StyledLabelInlineBlock>
