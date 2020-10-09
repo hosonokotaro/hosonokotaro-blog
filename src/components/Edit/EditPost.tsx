@@ -37,6 +37,7 @@ const EditPost: React.FC = () => {
 
   return (
     <StyledArticle>
+      <h2>記事を編集する</h2>
       <StyledLabel htmlFor={`editPostTitle-${id}`}>タイトル</StyledLabel>
       <StyledInputText
         type="text"

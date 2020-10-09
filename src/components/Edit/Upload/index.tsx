@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import styled from 'styled-components';
 
 import UploadFile from './UploadFile';
 import UploadFiles from './UploadFiles';
@@ -8,6 +9,7 @@ const Upload: React.FC<{ uploadPath: string }> = (props) => {
 
   return (
     <>
+      <StyledTitle>画像</StyledTitle>
       <UploadFile
         uploadPath={props.uploadPath}
         setUploadFilename={setUploadFilename}
@@ -21,3 +23,7 @@ const Upload: React.FC<{ uploadPath: string }> = (props) => {
 };
 
 export default Upload;
+
+const StyledTitle = styled.h3`
+  margin-top: 40px;
+`;
