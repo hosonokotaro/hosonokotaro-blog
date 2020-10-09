@@ -79,7 +79,7 @@ const UploadFiles: React.FC<{
                 <StyledFilePath
                   ref={filepathRef}
                   type="text"
-                  defaultValue={item.fullpath}
+                  defaultValue={`![alt](${item.fullpath})`}
                 />
                 <StyledButtonWrap>
                   <button onClick={copyClipboard}>
