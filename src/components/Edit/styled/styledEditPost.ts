@@ -9,9 +9,14 @@ export const StyledArticle = styled.article`
 export const StyledLabel = styled.label`
   display: block;
 
+  h2 + & {
+    margin-top: 20px;
+  }
+
   input + & {
     margin-top: 20px;
   }
+
   textarea + & {
     margin-top: 20px;
   }
@@ -19,10 +24,7 @@ export const StyledLabel = styled.label`
 
 export const StyledLabelInlineBlock = styled.label`
   display: inline-block;
-
-  textarea + & {
-    margin-top: 20px;
-  }
+  margin-top: 20px;
 `;
 
 export const StyledInputText = styled.input`

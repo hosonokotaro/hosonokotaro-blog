@@ -1,5 +1,6 @@
 import 'firebase/firestore';
 import 'firebase/auth';
+import 'firebase/storage';
 
 import firebase from 'firebase/app';
 
@@ -29,6 +30,10 @@ export type TypeUser = firebase.User;
 export const Auth = firebase.auth();
 
 export const GoogleAuthProvider = new firebase.auth.GoogleAuthProvider();
+
+const storage = firebase.storage();
+const storageRef = storage.ref();
+export const publicImages = storageRef.child('public/images');
 
 export type TPost = {
   id: string;

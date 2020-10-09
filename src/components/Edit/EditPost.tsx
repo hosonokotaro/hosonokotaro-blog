@@ -18,6 +18,7 @@ import {
   StyledTextarea,
   StyledTimestamp,
 } from './styled/styledEditPost';
+import UploadFiles from './Upload';
 
 const EditPost: React.FC = () => {
   const {
@@ -31,10 +32,12 @@ const EditPost: React.FC = () => {
     onReleaseChanged,
     updatePost,
     deletePost,
+    canSaveEditPost,
   } = useGetEditPost();
 
   return (
     <StyledArticle>
+      <h2>記事を編集する</h2>
       <StyledLabel htmlFor={`editPostTitle-${id}`}>タイトル</StyledLabel>
       <StyledInputText
         type="text"
@@ -50,6 +53,7 @@ const EditPost: React.FC = () => {
         defaultValue={content ? content : ''}
         onChange={onContentChanged}
       ></StyledTextarea>
+      <UploadFiles uploadPath={id} />
       <StyledLabelInlineBlock htmlFor={`editPostRelease-${id}`}>
         公開フラグ
       </StyledLabelInlineBlock>
@@ -61,7 +65,10 @@ const EditPost: React.FC = () => {
         onChange={onReleaseChanged}
       />
       <StyledButtonWrapper>
-        <StyledButton onClick={() => updatePost(id)}>
+        <StyledButton
+          onClick={() => updatePost(id)}
+          disabled={!canSaveEditPost}
+        >
           この記事を更新する
         </StyledButton>
         <StyledButton onClick={() => deletePost(id)}>

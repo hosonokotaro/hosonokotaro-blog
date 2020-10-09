@@ -10,7 +10,7 @@ const useNewPost = (): {
   onTitleChanged: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onContentChanged: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
   onReleaseChanged: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  canSave: boolean;
+  canSaveNewPost: boolean;
 } => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
@@ -42,7 +42,7 @@ const useNewPost = (): {
     setRelease(e.target.checked);
   };
 
-  const canSave = Boolean(title) && Boolean(content);
+  const canSaveNewPost = Boolean(title);
 
   return {
     title,
@@ -52,7 +52,7 @@ const useNewPost = (): {
     onTitleChanged,
     onContentChanged,
     onReleaseChanged,
-    canSave,
+    canSaveNewPost,
   };
 };
 

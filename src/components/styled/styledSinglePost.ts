@@ -38,4 +38,8 @@ export const StyledReactMarkdown = styled(ReactMarkdown)`
     border-radius: 3px;
     background: #f9f9f9;
   }
+
+  & > p img {
+    max-width: 100%;
+  }
 `;

@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 
 import {
   collectionPosts,
+  publicImages,
   Timestamp,
   TPost,
   TypeTimestamp,
@@ -19,6 +20,7 @@ const useGetEditPost = (): {
   onReleaseChanged: (e: React.ChangeEvent<HTMLInputElement>) => void;
   updatePost: (id: TPost['id']) => void;
   deletePost: (id: TPost['id']) => false | undefined;
+  canSaveEditPost: boolean;
 } => {
   const { id } = useParams<{ id: TPost['id'] }>();
   const [title, setTitle] = useState<TPost['title'] | null>(null);
@@ -83,6 +85,15 @@ const useGetEditPost = (): {
       return false;
     }
 
+    publicImages
+      .child(id)
+      .listAll()
+      .then((list) => {
+        list.items.map((item) => {
+          item.delete();
+        });
+      });
+
     collectionPosts
       .doc(id)
       .delete()
@@ -95,6 +106,8 @@ const useGetEditPost = (): {
       });
   };
 
+  const canSaveEditPost = Boolean(title) && Boolean(content);
+
   return {
     id,
     title,
@@ -106,6 +119,7 @@ const useGetEditPost = (): {
     onReleaseChanged,
     updatePost,
     deletePost,
+    canSaveEditPost,
   };
 };
 
