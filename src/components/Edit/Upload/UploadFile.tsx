@@ -3,7 +3,10 @@ import styled from 'styled-components';
 
 import { publicImages } from '../../../adapter';
 
-const UploadFile: React.FC<{ uploadPath: string }> = (props) => {
+const UploadFile: React.FC<{
+  uploadPath: string;
+  setUploadFilename: React.Dispatch<React.SetStateAction<string>>;
+}> = (props) => {
   const [image, setImage] = useState<File | null>(null);
 
   const upload = () => {
@@ -15,6 +18,7 @@ const UploadFile: React.FC<{ uploadPath: string }> = (props) => {
       .child(`${props.uploadPath}/${image.name}`)
       .put(image)
       .then(() => {
+        props.setUploadFilename(image.name);
         setImage(null);
       });
   };
@@ -29,11 +33,11 @@ const UploadFile: React.FC<{ uploadPath: string }> = (props) => {
         {image ? (
           <StyledInputImage src={window.URL.createObjectURL(image)} />
         ) : (
-          <span>ファイルを選択してください</span>
+          <span>画像を選択してください</span>
         )}
       </StyledInputInfo>
       <StyledButton onClick={upload} disabled={image ? false : true}>
-        アップロード
+        画像をアップロードする
       </StyledButton>
     </StyledUploadFile>
   );

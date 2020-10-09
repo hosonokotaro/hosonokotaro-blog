@@ -2,18 +2,23 @@ import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 
 import { publicImages } from '../../../adapter';
+import Spinner from '../../Spinner';
 
-const UploadFiles: React.FC<{ uploadPath: string }> = (props) => {
+type TypeImagePath = {
+  fullpath: string;
+  filename: string;
+};
+
+const UploadFiles: React.FC<{
+  uploadPath: string;
+  uploadFilename: string;
+}> = (props) => {
   const filepathRef = useRef<HTMLInputElement>(null);
 
   const [imageRef, setImageRef] = useState<firebase.storage.Reference[]>([]);
-
-  const [downloadPaths, setDownloadPaths] = useState<string[]>([]);
-
-  // 画像のフルパスと、画像のファイル名のリストが必要
-  const [imagePaths, setImagePaths] = useState<string[]>([]);
-
+  const [imagePaths, setImagePaths] = useState<TypeImagePath[]>([]);
   const [loaded, setLoaded] = useState(false);
+  const [reload, setReload] = useState(0);
 
   const copyClipboard = () => {
     if (filepathRef.current) {
@@ -29,10 +34,15 @@ const UploadFiles: React.FC<{ uploadPath: string }> = (props) => {
       return false;
     }
 
-    // const fetchPublicImages = () =>
-    //   publicImages.child(`${props.uploadPath}/${imagepath}`);
+    publicImages
+      .child(`${props.uploadPath}/${imagePath}`)
+      .delete()
+      .then(() => {
+        confirm(`${imagePath}を削除しました`);
 
-    // desertRef.delete().then(
+        const fixReload = reload + 1;
+        setReload(fixReload);
+      });
   };
 
   useEffect(() => {
@@ -42,57 +52,57 @@ const UploadFiles: React.FC<{ uploadPath: string }> = (props) => {
       .then((list) => {
         setImageRef(list.items);
       });
-  }, [props.uploadPath]);
+  }, [props.uploadPath, props.uploadFilename, reload]);
 
   useEffect(() => {
-    const tmpDownloadPaths: string[] = [];
+    const downloadPath: TypeImagePath[] = [];
 
     imageRef.map((item) => {
-      item.getDownloadURL().then((url) => {
-        tmpDownloadPaths.push(url);
+      item.getDownloadURL().then((fullpath) => {
+        downloadPath.push({ fullpath, filename: item.name });
       });
     });
 
-    setDownloadPaths(tmpDownloadPaths);
-  }, [imageRef]);
-
-  useEffect(() => {
-    setImagePaths(downloadPaths);
-
     const unmount = setTimeout(() => {
+      setImagePaths(downloadPath);
       setLoaded(true);
     }, 1000);
 
     return () => clearTimeout(unmount);
-  }, [downloadPaths]);
+  }, [imageRef]);
 
   return (
     <>
       <StyledTitle>画像一覧</StyledTitle>
       <StyledImagePaths>
-        {loaded &&
+        {loaded ? (
           imagePaths.map((item, index) => {
             return (
               <StyledItem key={index}>
                 <StyledFilePath
                   ref={filepathRef}
                   type="text"
-                  defaultValue={item}
+                  defaultValue={item.fullpath}
                 />
                 <StyledButtonWrap>
                   <button onClick={copyClipboard}>
                     画像パスをクリップボードにコピーする
                   </button>
-                  <StyledDeleteButton onClick={() => deleteImage(item)}>
+                  <StyledDeleteButton
+                    onClick={() => deleteImage(item.filename)}
+                  >
                     画像を削除する
                   </StyledDeleteButton>
                 </StyledButtonWrap>
                 <StyledImgWrap>
-                  <StyledImg src={item} />
+                  <StyledImg src={item.fullpath} />
                 </StyledImgWrap>
               </StyledItem>
             );
-          })}
+          })
+        ) : (
+          <Spinner />
+        )}
       </StyledImagePaths>
     </>
   );
