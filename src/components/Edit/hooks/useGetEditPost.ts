@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 
 import {
   collectionPosts,
+  publicImages,
   Timestamp,
   TPost,
   TypeTimestamp,
@@ -83,6 +84,15 @@ const useGetEditPost = (): {
     if (!deleteConfirm) {
       return false;
     }
+
+    publicImages
+      .child(id)
+      .listAll()
+      .then((list) => {
+        list.items.map((item) => {
+          item.delete();
+        });
+      });
 
     collectionPosts
       .doc(id)

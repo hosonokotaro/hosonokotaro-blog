@@ -38,8 +38,6 @@ const UploadFiles: React.FC<{
       .child(`${props.uploadPath}/${imagePath}`)
       .delete()
       .then(() => {
-        confirm(`${imagePath}を削除しました`);
-
         const fixReload = reload + 1;
         setReload(fixReload);
       });
@@ -73,7 +71,6 @@ const UploadFiles: React.FC<{
 
   return (
     <>
-      <StyledTitle>画像一覧</StyledTitle>
       <StyledImagePaths>
         {loaded ? (
           imagePaths.map((item, index) => {
@@ -109,11 +106,6 @@ const UploadFiles: React.FC<{
 };
 
 export default UploadFiles;
-
-const StyledTitle = styled.div`
-  margin-top: 40px;
-  font-size: 1.6rem;
-`;
 
 const StyledImagePaths = styled.div`
   display: flex;
