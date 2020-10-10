@@ -1,27 +1,15 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
+import React from 'react';
 
-import { publicImages } from '../../../adapter';
+import useUploadFile, { TypeUploadFile } from './hooks/useUploadFile';
+import {
+  StyledButton,
+  StyledInputImage,
+  StyledInputInfo,
+  StyledUploadFile,
+} from './styled/styledUploadFile';
 
-const UploadFile: React.FC<{
-  uploadPath: string;
-  setUploadFilename: React.Dispatch<React.SetStateAction<string>>;
-}> = (props) => {
-  const [image, setImage] = useState<File | null>(null);
-
-  const upload = () => {
-    if (!image) {
-      return false;
-    }
-
-    publicImages
-      .child(`${props.uploadPath}/${image.name}`)
-      .put(image)
-      .then(() => {
-        props.setUploadFilename(image.name);
-        setImage(null);
-      });
-  };
+const UploadFile: React.FC<TypeUploadFile> = (props) => {
+  const [image, setImage, upload] = useUploadFile(props);
 
   return (
     <StyledUploadFile>
@@ -44,19 +32,3 @@ const UploadFile: React.FC<{
 };
 
 export default UploadFile;
-
-const StyledUploadFile = styled.div`
-  margin-top: 20px;
-`;
-
-const StyledInputInfo = styled.div`
-  margin-top: 10px;
-`;
-
-const StyledInputImage = styled.img`
-  max-width: 50%;
-`;
-
-const StyledButton = styled.button`
-  margin-top: 10px;
-`;
