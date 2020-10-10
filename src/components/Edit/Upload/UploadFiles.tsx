@@ -1,8 +1,16 @@
 import React, { useEffect, useRef, useState } from 'react';
-import styled from 'styled-components';
 
 import { publicImages } from '../../../adapter';
 import Spinner from '../../Spinner';
+import {
+  StyledButtonWrap,
+  StyledDeleteButton,
+  StyledFilePath,
+  StyledImagePaths,
+  StyledImg,
+  StyledImgWrap,
+  StyledItem,
+} from './styled/styledUploadFiles';
 
 type TypeImagePath = {
   fullpath: string;
@@ -106,45 +114,3 @@ const UploadFiles: React.FC<{
 };
 
 export default UploadFiles;
-
-const StyledImagePaths = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  margin-top: 20px;
-`;
-
-const StyledItem = styled.div`
-  width: calc(50% - 10px);
-  margin-bottom: 40px;
-`;
-
-const StyledFilePath = styled.input`
-  display: block;
-  width: 100%;
-`;
-
-const StyledButtonWrap = styled.div`
-  display: flex;
-  justify-content: space-between;
-  margin-top: 10px;
-`;
-
-const StyledDeleteButton = styled.button`
-  color: #f66;
-
-  button + & {
-    margin-left: 20px;
-  }
-`;
-
-const StyledImgWrap = styled.div`
-  margin-top: 20px;
-  text-align: center;
-  background-color: #eee;
-`;
-
-const StyledImg = styled.img`
-  max-width: 100%;
-  max-height: 300px;
-`;

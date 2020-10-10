@@ -1,7 +1,12 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
 
 import { publicImages } from '../../../adapter';
+import {
+  StyledButton,
+  StyledInputImage,
+  StyledInputInfo,
+  StyledUploadFile,
+} from './styled/styledUploadFile';
 
 const UploadFile: React.FC<{
   uploadPath: string;
@@ -44,19 +49,3 @@ const UploadFile: React.FC<{
 };
 
 export default UploadFile;
-
-const StyledUploadFile = styled.div`
-  margin-top: 20px;
-`;
-
-const StyledInputInfo = styled.div`
-  margin-top: 10px;
-`;
-
-const StyledInputImage = styled.img`
-  max-width: 50%;
-`;
-
-const StyledButton = styled.button`
-  margin-top: 10px;
-`;
