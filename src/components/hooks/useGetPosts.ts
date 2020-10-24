@@ -9,8 +9,9 @@ const useGetPosts = (): TPost[] => {
     const unsubscribe = collectionPosts
       .where('release', '==', true)
       .orderBy('createDate', 'desc')
-      .onSnapshot((snapshot) => {
-        const allPosts = snapshot.docs.map<TPost>((doc) => ({
+      .get()
+      .then((postsSnapshot) => {
+        const allPosts = postsSnapshot.docs.map<TPost>((doc) => ({
           id: doc.id,
           title: doc.data().title,
           content: doc.data().content,
@@ -21,7 +22,9 @@ const useGetPosts = (): TPost[] => {
         setPosts(allPosts);
       });
 
-    return () => unsubscribe();
+    return () => {
+      unsubscribe;
+    };
   }, []);
 
   return posts;
