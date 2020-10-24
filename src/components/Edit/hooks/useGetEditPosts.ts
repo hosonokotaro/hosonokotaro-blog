@@ -20,7 +20,9 @@ const useGetEditPosts = (): TPost[] => {
         setPosts(allPosts);
       });
 
-    return () => unsubscribe();
+    return () => {
+      unsubscribe;
+    };
   }, []);
 
   return posts;

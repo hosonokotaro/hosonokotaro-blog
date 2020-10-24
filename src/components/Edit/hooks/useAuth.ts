@@ -15,7 +15,7 @@ const useAuth = (): {
     });
 
     return () => {
-      unsubscribe();
+      unsubscribe;
     };
   }, []);
 
