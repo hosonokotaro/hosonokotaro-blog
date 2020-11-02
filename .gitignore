@@ -7,3 +7,5 @@
 /report
 
 .DS_Store
+.node-version
+
