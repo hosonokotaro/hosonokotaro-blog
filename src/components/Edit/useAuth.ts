@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { Auth, GoogleAuthProvider, TypeUser } from '../../../adapter';
+import { Auth, GoogleAuthProvider, TypeUser } from '../../adapter';
 
 const useAuth = (): {
   user: TypeUser | null | undefined;

@@ -4,12 +4,12 @@ import { Helmet } from 'react-helmet';
 import Spinner from '../components/Spinner';
 import formatTimestampToDate from '../utility/formatTimestampToDate';
 import CodeBlock from './CodeBlock';
-import useGetPost from './hooks/useGetPost';
 import {
   StyledReactMarkdown,
   StyledSection,
   StyledTimestamp,
-} from './styled/styledSinglePost';
+} from './styledSinglePost';
+import useGetPost from './useGetPost';
 
 const SinglePost: React.FC = () => {
   const post = useGetPost();

@@ -3,13 +3,8 @@ import React from 'react';
 import { TPostTitle } from '../adapter';
 import Spinner from '../components/Spinner';
 import formatTimestampToDate from '../utility/formatTimestampToDate';
-import useGetPosts from './hooks/useGetPosts';
-import {
-  StyledArticle,
-  StyledDate,
-  StyledLink,
-  StyledPost,
-} from './styled/styledTop';
+import { StyledArticle, StyledDate, StyledLink, StyledPost } from './styledTop';
+import useGetPosts from './useGetPosts';
 
 const Top: React.FC = () => {
   const posts = useGetPosts();

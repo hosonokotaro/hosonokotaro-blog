@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { publicImages } from '../../../../adapter';
+import { publicImages } from '../../../adapter';
 
 const useUploadFile = (
   props: TypeUploadFile

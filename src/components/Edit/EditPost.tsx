@@ -3,8 +3,7 @@ import { Link } from 'react-router-dom';
 
 import formatTimestampToDate from '../../utility/formatTimestampToDate';
 import CodeBlock from '../CodeBlock';
-import { StyledReactMarkdown } from '../styled/styledSinglePost';
-import useGetEditPost from './hooks/useGetEditPost';
+import { StyledReactMarkdown } from '../styledSinglePost';
 import {
   StyledArticle,
   StyledButton,
@@ -17,8 +16,9 @@ import {
   StyledReturn,
   StyledTextarea,
   StyledTimestamp,
-} from './styled/styledEditPost';
+} from './styledEditPost';
 import UploadFiles from './Upload';
+import useGetEditPost from './useGetEditPost';
 
 const EditPost: React.FC = () => {
   const {

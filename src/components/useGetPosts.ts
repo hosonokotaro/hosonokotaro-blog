@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { collectionPosts, TPost } from '../../adapter';
+import { collectionPosts, TPost } from '../adapter';
 
 const useGetPosts = (): TPost[] => {
   const [posts, setPosts] = useState<TPost[]>([]);

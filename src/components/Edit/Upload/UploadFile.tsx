@@ -1,12 +1,12 @@
 import React from 'react';
 
-import useUploadFile, { TypeUploadFile } from './hooks/useUploadFile';
 import {
   StyledButton,
   StyledInputImage,
   StyledInputInfo,
   StyledUploadFile,
-} from './styled/styledUploadFile';
+} from './styledUploadFile';
+import useUploadFile, { TypeUploadFile } from './useUploadFile';
 
 const UploadFile: React.FC<TypeUploadFile> = (props) => {
   const [image, setImage, upload] = useUploadFile(props);

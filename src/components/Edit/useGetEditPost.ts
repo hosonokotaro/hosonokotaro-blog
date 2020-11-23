@@ -7,7 +7,7 @@ import {
   Timestamp,
   TPost,
   TypeTimestamp,
-} from '../../../adapter';
+} from '../../adapter';
 
 const useGetEditPost = (): {
   id: string;

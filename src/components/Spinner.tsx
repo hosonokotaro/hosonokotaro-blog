@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { StyledSpinner, StyledSpinnerWrapper } from './styled/styledSpinner';
+import { StyledSpinner, StyledSpinnerWrapper } from './styledSpinner';
 
 const Spinner: React.FC = () => {
   return (

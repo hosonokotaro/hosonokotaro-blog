@@ -1,13 +1,13 @@
 import React from 'react';
 
-import useNewPost from '../hooks/useNewPost';
+import useNewPost from '../useNewPost';
 import {
   StyledButton,
   StyledInputText,
   StyledLabel,
   StyledSection,
   StyledWrapper,
-} from './styled/styledNewPost';
+} from './styledNewPost';
 
 const NewPost: React.FC = () => {
   const { title, handleSubmit, onTitleChanged, canSaveNewPost } = useNewPost();

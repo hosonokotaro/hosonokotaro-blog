@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { collectionPosts, Timestamp, TPost } from '../../adapter';
+import { collectionPosts, Timestamp, TPost } from '../adapter';
 
 const useGetPost = (): TPost | undefined => {
   const { id } = useParams<{ id: TPost['id'] }>();
