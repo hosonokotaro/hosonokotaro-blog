@@ -1,7 +1,6 @@
 import React from 'react';
 
 import Spinner from '../../Spinner';
-import useUploadFiles, { TypeUploadFiles } from './hooks/useUploadFiles';
 import {
   StyledButtonWrap,
   StyledDeleteButton,
@@ -10,7 +9,8 @@ import {
   StyledImg,
   StyledImgWrap,
   StyledItem,
-} from './styled/styledUploadFiles';
+} from './styledUploadFiles';
+import useUploadFiles, { TypeUploadFiles } from './useUploadFiles';
 
 const UploadFiles: React.FC<TypeUploadFiles> = (props) => {
   const [

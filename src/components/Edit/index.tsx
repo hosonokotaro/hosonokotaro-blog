@@ -3,9 +3,9 @@ import { Helmet } from 'react-helmet';
 
 import Spinner from '../Spinner';
 import EditPosts from './EditPosts';
-import useAuth from './hooks/useAuth';
 import NewPost from './NewPost';
-import { StyledLogin, StyledUid } from './styled/styledIndex';
+import { StyledLogin, StyledUid } from './styledIndex';
+import useAuth from './useAuth';
 
 const Edit: React.FC = () => {
   const { user, login, logout } = useAuth();

@@ -5,7 +5,7 @@ import {
   StyledHeaderWrapper,
   StyledInlineBlock,
   StyleLink,
-} from './styled/styledHeader';
+} from './styledHeader';
 
 const Header: React.FC = () => {
   return (

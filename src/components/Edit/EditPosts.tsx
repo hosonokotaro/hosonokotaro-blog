@@ -2,13 +2,13 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import formatTimestampToDate from '../../utility/formatTimestampToDate';
-import useGetEditPosts from './hooks/useGetEditPosts';
 import {
   StyledPost,
   StyledPosts,
   StyledSection,
   StyledTimestamp,
-} from './styled/styledEditPosts';
+} from './styledEditPosts';
+import useGetEditPosts from './useGetEditPosts';
 
 const EditPosts: React.FC = () => {
   const posts = useGetEditPosts();

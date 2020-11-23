@@ -9,7 +9,7 @@ import Top from './Top';
 
 const slug: TPost['id'] = 'id';
 
-const Container: React.FC = () => {
+const Pages: React.FC = () => {
   return (
     <Switch>
       <Route exact path="/" component={Top} />
@@ -20,4 +20,4 @@ const Container: React.FC = () => {
   );
 };
 
-export default Container;
+export default Pages;
