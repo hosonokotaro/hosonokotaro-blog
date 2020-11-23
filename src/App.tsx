@@ -5,9 +5,9 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { createGlobalStyle } from 'styled-components';
 import reset from 'styled-reset';
 
-import Container from './components/Container';
 import Footer from './components/Footer';
 import Header from './components/Header';
+import Pages from './components/Pages';
 import ScrollToTop from './utility/ScrollToTop';
 
 const App: React.FC = () => {
@@ -24,7 +24,7 @@ const App: React.FC = () => {
       <Router>
         <ScrollToTop />
         <Header />
-        <Container />
+        <Pages />
         <Footer />
       </Router>
     </>
