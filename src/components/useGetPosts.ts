@@ -1,33 +1,18 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { collectionPosts, TPost } from '../adapter';
+import { fetchPosts, Post } from '../postsSlice';
+import { RootState } from '../rootReducer';
 
-const useGetPosts = (): TPost[] => {
-  const [posts, setPosts] = useState<TPost[]>([]);
+const useGetPosts = (): { loaded: boolean; posts: Post[] } => {
+  const dispatch = useDispatch();
+  const { loaded, posts } = useSelector((state: RootState) => state.posts);
 
   useEffect(() => {
-    const unsubscribe = collectionPosts
-      .where('release', '==', true)
-      .orderBy('createDate', 'desc')
-      .get()
-      .then((postsSnapshot) => {
-        const allPosts = postsSnapshot.docs.map<TPost>((doc) => ({
-          id: doc.id,
-          title: doc.data().title,
-          content: doc.data().content,
-          release: doc.data().release,
-          createDate: doc.data().createDate,
-        }));
+    dispatch(fetchPosts());
+  }, [dispatch]);
 
-        setPosts(allPosts);
-      });
-
-    return () => {
-      unsubscribe;
-    };
-  }, []);
-
-  return posts;
+  return { loaded, posts };
 };
 
 export default useGetPosts;
