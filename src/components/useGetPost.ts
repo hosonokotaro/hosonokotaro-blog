@@ -1,37 +1,26 @@
 import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
-import { collectionPosts, Timestamp, TPost } from '../adapter';
+import { fetchPost, Post } from '../postsSlice';
+import { RootState } from '../rootReducer';
 
-const useGetPost = (): TPost | undefined => {
-  const { id } = useParams<{ id: TPost['id'] }>();
-  const [post, setPost] = useState<TPost>();
+const useGetPost = (): Post | undefined => {
+  const [post, setPost] = useState<Post>();
+  const { id } = useParams<{ id: Post['id'] }>();
+  const dispatch = useDispatch();
+  const { posts } = useSelector((state: RootState) => state.posts);
+  const content = posts.find((post) => post.id === id)?.content;
 
   useEffect(() => {
-    const unsubscribe = collectionPosts
-      .doc(id)
-      .get()
-      .then((doc) => {
-        if (!doc.exists || !doc.data()?.release) {
-          location.href = '/';
-          return false;
-        }
+    if (content) return;
 
-        const data = doc.data();
+    dispatch(fetchPost(id));
+  }, [content, dispatch, id]);
 
-        setPost({
-          id: doc.id,
-          title: data?.title ? data.title : '',
-          content: data?.content ? data.content : '',
-          release: data?.release ? data.release : false,
-          createDate: data?.createDate ? data.createDate : Timestamp.now(),
-        });
-      });
-
-    return () => {
-      unsubscribe;
-    };
-  }, [id]);
+  useEffect(() => {
+    setPost(posts.find((post) => post.id === id));
+  }, [posts, id]);
 
   return post;
 };

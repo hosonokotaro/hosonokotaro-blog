@@ -11,15 +11,14 @@ interface TitleDate {
   createDate: string;
 }
 
-// 有限状態マシン
-type status = 'idle' | 'loading' | 'success' | 'failure';
+type Status = 'idle' | 'loading' | 'success' | 'failure';
 
-export interface InitialStateType {
-  status: status;
+export interface InitialState {
+  status: Status;
   titleDateList: TitleDate[];
 }
 
-const initialState: InitialStateType = {
+const initialState: InitialState = {
   status: 'idle',
   titleDateList: [],
 };
@@ -39,11 +38,11 @@ export default blogPostSlice.reducer;
 
 export const { setPostList } = blogPostSlice.actions;
 
-type PostsState = ReturnType<typeof blogPostSlice.reducer>;
+type BlogPostState = ReturnType<typeof blogPostSlice.reducer>;
 
-type PostsThunk = ThunkAction<void, PostsState, unknown, Action<string>>;
+type BlogPostThunk = ThunkAction<void, BlogPostState, unknown, Action<string>>;
 
-export const fetchPostList = (): PostsThunk => async (dispatch) => {
+export const fetchPostList = (): BlogPostThunk => async (dispatch) => {
   try {
     const allPosts = await collectionPosts
       .where('release', '==', true)

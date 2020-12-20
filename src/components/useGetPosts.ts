@@ -1,10 +1,10 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { fetchPostList, InitialStateType } from '../blogPostSlice';
+import { fetchPostList, InitialState } from '../blogPostSlice';
 import { RootState } from '../rootReducer';
 
-const useGetPosts = (): InitialStateType => {
+const useGetPosts = (): InitialState => {
   const dispatch = useDispatch();
   const { status, titleDateList } = useSelector(
     (state: RootState) => state.blogPost
