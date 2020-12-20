@@ -4,10 +4,9 @@ import { ThunkAction } from 'redux-thunk';
 import { collectionPosts } from './adapter';
 import formatTimestampToDate from './utility/formatTimestampToDate';
 
-interface Post {
+interface TitleDate {
   id: string;
   title: string;
-  content: string;
   release: boolean;
   createDate: string;
 }
@@ -17,44 +16,43 @@ type status = 'idle' | 'loading' | 'success' | 'failure';
 
 export interface InitialStateType {
   status: status;
-  posts: Post[];
+  titleDateList: TitleDate[];
 }
 
 const initialState: InitialStateType = {
   status: 'idle',
-  posts: [],
+  titleDateList: [],
 };
 
-const postsSlice = createSlice({
-  name: 'posts',
+const blogPostSlice = createSlice({
+  name: 'blogPost',
   initialState,
   reducers: {
-    setPosts(state, action: PayloadAction<Post[]>) {
+    setPostList(state, action: PayloadAction<TitleDate[]>) {
       state.status = 'success';
-      state.posts = action.payload;
+      state.titleDateList = action.payload;
     },
   },
 });
 
-export default postsSlice.reducer;
+export default blogPostSlice.reducer;
 
-export const { setPosts } = postsSlice.actions;
+export const { setPostList } = blogPostSlice.actions;
 
-type PostsState = ReturnType<typeof postsSlice.reducer>;
+type PostsState = ReturnType<typeof blogPostSlice.reducer>;
 
 type PostsThunk = ThunkAction<void, PostsState, unknown, Action<string>>;
 
-export const fetchPosts = (): PostsThunk => async (dispatch) => {
+export const fetchPostList = (): PostsThunk => async (dispatch) => {
   try {
     const allPosts = await collectionPosts
       .where('release', '==', true)
       .orderBy('createDate', 'desc')
       .get()
       .then((postsSnapshot) => {
-        const allPosts = postsSnapshot.docs.map<Post>((doc) => ({
+        const allPosts = postsSnapshot.docs.map<TitleDate>((doc) => ({
           id: doc.id,
           title: doc.data().title,
-          content: doc.data().content,
           release: doc.data().release,
           createDate: formatTimestampToDate(doc.data().createDate),
         }));
@@ -62,7 +60,7 @@ export const fetchPosts = (): PostsThunk => async (dispatch) => {
         return allPosts;
       });
 
-    dispatch(setPosts(allPosts));
+    dispatch(setPostList(allPosts));
   } catch (error) {
     console.log(error.message);
   }

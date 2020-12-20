@@ -5,17 +5,17 @@ import { StyledArticle, StyledDate, StyledLink, StyledPost } from './styledTop';
 import useGetPosts from './useGetPosts';
 
 const Top: React.FC = () => {
-  const { status, posts } = useGetPosts();
+  const { status, titleDateList } = useGetPosts();
 
   return (
     <StyledArticle>
       <h2>記事一覧</h2>
       {status === 'success' ? (
         <>
-          {posts.map((post) => (
-            <StyledPost key={post.id}>
-              <StyledLink to={post.id}>{post.title}</StyledLink>
-              <StyledDate>{post.createDate}</StyledDate>
+          {titleDateList.map((item) => (
+            <StyledPost key={item.id}>
+              <StyledLink to={item.id}>{item.title}</StyledLink>
+              <StyledDate>{item.createDate}</StyledDate>
             </StyledPost>
           ))}
         </>
