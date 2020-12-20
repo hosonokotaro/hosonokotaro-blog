@@ -2,7 +2,6 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 
 import Spinner from '../components/Spinner';
-import { Post } from '../postsSlice';
 import CodeBlock from './CodeBlock';
 import {
   StyledReactMarkdown,
