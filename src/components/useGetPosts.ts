@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { fetchPostList, InitialStateType } from '../postListSlice';
+import { fetchPostList, InitialStateType } from '../blogPostSlice';
 import { RootState } from '../rootReducer';
 
 const useGetPosts = (): InitialStateType => {
