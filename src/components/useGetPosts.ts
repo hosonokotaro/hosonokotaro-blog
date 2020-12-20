@@ -1,18 +1,20 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { fetchPosts, Post } from '../postsSlice';
+import { fetchPosts, InitialStateType } from '../postsSlice';
 import { RootState } from '../rootReducer';
 
-const useGetPosts = (): { loaded: boolean; posts: Post[] } => {
+const useGetPosts = (): InitialStateType => {
   const dispatch = useDispatch();
-  const { loaded, posts } = useSelector((state: RootState) => state.posts);
+  const { status, posts } = useSelector((state: RootState) => state.posts);
 
   useEffect(() => {
-    dispatch(fetchPosts());
-  }, [dispatch]);
+    if (status === 'success') return;
 
-  return { loaded, posts };
+    dispatch(fetchPosts());
+  }, [dispatch, status]);
+
+  return { status, posts };
 };
 
 export default useGetPosts;

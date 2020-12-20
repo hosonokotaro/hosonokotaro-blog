@@ -1,18 +1,27 @@
 import { Action, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { ThunkAction } from 'redux-thunk';
 
-import { collectionPosts, TPost, TypeTimestamp } from './adapter';
+import { collectionPosts } from './adapter';
+import formatTimestampToDate from './utility/formatTimestampToDate';
 
-export interface Post {
+interface Post {
   id: string;
   title: string;
   content: string;
   release: boolean;
-  createDate: TypeTimestamp;
+  createDate: string;
 }
 
-const initialState: { loaded: boolean; posts: Post[] } = {
-  loaded: false,
+// 有限状態マシン
+type status = 'idle' | 'loading' | 'success' | 'failure';
+
+export interface InitialStateType {
+  status: status;
+  posts: Post[];
+}
+
+const initialState: InitialStateType = {
+  status: 'idle',
   posts: [],
 };
 
@@ -21,7 +30,7 @@ const postsSlice = createSlice({
   initialState,
   reducers: {
     setPosts(state, action: PayloadAction<Post[]>) {
-      state.loaded = true;
+      state.status = 'success';
       state.posts = action.payload;
     },
   },
@@ -42,12 +51,12 @@ export const fetchPosts = (): PostsThunk => async (dispatch) => {
       .orderBy('createDate', 'desc')
       .get()
       .then((postsSnapshot) => {
-        const allPosts = postsSnapshot.docs.map<TPost>((doc) => ({
+        const allPosts = postsSnapshot.docs.map<Post>((doc) => ({
           id: doc.id,
           title: doc.data().title,
           content: doc.data().content,
           release: doc.data().release,
-          createDate: doc.data().createDate,
+          createDate: formatTimestampToDate(doc.data().createDate),
         }));
 
         return allPosts;
