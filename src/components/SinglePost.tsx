@@ -2,7 +2,7 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 
 import Spinner from '../components/Spinner';
-import formatTimestampToDate from '../utility/formatTimestampToDate';
+import { Post } from '../postsSlice';
 import CodeBlock from './CodeBlock';
 import {
   StyledReactMarkdown,
@@ -22,9 +22,7 @@ const SinglePost: React.FC = () => {
             <title>{post.title} | WEB DEVELOPER HOSONO KOTARO</title>
           </Helmet>
           <h2>{post.title}</h2>
-          <StyledTimestamp>
-            {formatTimestampToDate(post.createDate)}
-          </StyledTimestamp>
+          <StyledTimestamp>{post.createDate}</StyledTimestamp>
           <StyledReactMarkdown
             source={post.content}
             renderers={{ code: CodeBlock }}

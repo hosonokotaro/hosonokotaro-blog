@@ -42,10 +42,3 @@ export type TPost = {
   release: boolean;
   createDate: TypeTimestamp;
 };
-
-export type TPostTitle = {
-  id: string;
-  title: string;
-  release: boolean;
-  createDate: TypeTimestamp;
-};

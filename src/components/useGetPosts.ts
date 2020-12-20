@@ -1,33 +1,22 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { collectionPosts, TPost } from '../adapter';
+import { fetchPostList, InitialState } from '../blogPostSlice';
+import { RootState } from '../rootReducer';
 
-const useGetPosts = (): TPost[] => {
-  const [posts, setPosts] = useState<TPost[]>([]);
+const useGetPosts = (): InitialState => {
+  const dispatch = useDispatch();
+  const { status, titleDateList } = useSelector(
+    (state: RootState) => state.blogPost
+  );
 
   useEffect(() => {
-    const unsubscribe = collectionPosts
-      .where('release', '==', true)
-      .orderBy('createDate', 'desc')
-      .get()
-      .then((postsSnapshot) => {
-        const allPosts = postsSnapshot.docs.map<TPost>((doc) => ({
-          id: doc.id,
-          title: doc.data().title,
-          content: doc.data().content,
-          release: doc.data().release,
-          createDate: doc.data().createDate,
-        }));
+    if (status === 'success') return;
 
-        setPosts(allPosts);
-      });
+    dispatch(fetchPostList());
+  }, [dispatch, status]);
 
-    return () => {
-      unsubscribe;
-    };
-  }, []);
-
-  return posts;
+  return { status, titleDateList };
 };
 
 export default useGetPosts;

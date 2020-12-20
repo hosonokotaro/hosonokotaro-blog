@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { collectionPosts, Timestamp } from '../adapter';
+import { collectionPosts, Timestamp } from '../../adapter';
 
 const useNewPost = (): {
   title: string;
