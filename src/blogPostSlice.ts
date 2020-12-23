@@ -1,5 +1,9 @@
-import { Action, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { ThunkAction } from 'redux-thunk';
+import {
+  Action,
+  createSlice,
+  PayloadAction,
+  ThunkAction,
+} from '@reduxjs/toolkit';
 
 import { collectionPosts } from './adapter';
 import formatTimestampToDate from './utility/formatTimestampToDate';
