@@ -10,6 +10,7 @@ const useGetPost = (): Post | undefined => {
   const { id } = useParams<{ id: Post['id'] }>();
   const dispatch = useDispatch();
   const { posts } = useSelector((state: RootState) => state.posts);
+
   const content = posts.find((post) => post.id === id)?.content;
 
   useEffect(() => {

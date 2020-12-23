@@ -52,6 +52,11 @@ export const fetchPost = (id: Post['id']): PostsThunk => async (dispatch) => {
       .then((doc) => {
         const data = doc.data();
 
+        if (!doc.exists || !data?.release) {
+          location.href = '/';
+          return;
+        }
+
         const post = {
           id: doc.id,
           title: data?.title ? data.title : '',
@@ -64,6 +69,8 @@ export const fetchPost = (id: Post['id']): PostsThunk => async (dispatch) => {
 
         return post;
       });
+
+    if (!post) return;
 
     dispatch(pushPost(post));
   } catch (error) {
