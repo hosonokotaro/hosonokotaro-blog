@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import { styled } from '@linaria/react';
 
 export const StyledLogin = styled.div`
   max-width: 1000px;
