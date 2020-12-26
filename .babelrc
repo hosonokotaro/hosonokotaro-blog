@@ -7,7 +7,8 @@
       {
         "onlyRemoveTypeImports": true
       }
-    ]
+    ],
+    "@linaria"
   ],
   "plugins": ["react-hot-loader/babel"]
 }
