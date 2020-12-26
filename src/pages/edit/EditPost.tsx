@@ -1,8 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+import CodeBlock from '../../components/CodeBlock';
+import UploadFiles from '../../components/edit/upload/Upload';
 import formatTimestampToDate from '../../utility/formatTimestampToDate';
-import CodeBlock from '../CodeBlock';
 import { StyledReactMarkdown } from '../styledSinglePost';
 import {
   StyledArticle,
@@ -17,8 +18,7 @@ import {
   StyledTextarea,
   StyledTimestamp,
 } from './styledEditPost';
-import UploadFiles from './Upload';
-import useGetEditPost from './useGetEditPost';
+import useEditPost from './useEditPost';
 
 const EditPost: React.FC = () => {
   const {
@@ -33,7 +33,7 @@ const EditPost: React.FC = () => {
     updatePost,
     deletePost,
     canSaveEditPost,
-  } = useGetEditPost();
+  } = useEditPost();
 
   return (
     <StyledArticle>

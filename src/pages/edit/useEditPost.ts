@@ -9,7 +9,7 @@ import {
   TypeTimestamp,
 } from '../../adapter';
 
-const useGetEditPost = (): {
+const useEditPost = (): {
   id: string;
   title: string | null;
   content: string | null;
@@ -123,4 +123,4 @@ const useGetEditPost = (): {
   };
 };
 
-export default useGetEditPost;
+export default useEditPost;
