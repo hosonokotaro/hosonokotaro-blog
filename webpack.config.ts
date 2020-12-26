@@ -2,6 +2,7 @@ import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
 import ForkTsCheckerPlugin from 'fork-ts-checker-webpack-plugin';
 import HTMLWebpackPlugin from 'html-webpack-plugin';
+import MiniCssExactPlugin from 'mini-css-extract-plugin';
 import path from 'path';
 import webpack, { Configuration as WebpackConfiguration } from 'webpack';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
@@ -11,8 +12,10 @@ interface Configuration extends WebpackConfiguration {
   devServer?: WebpackDevServerConfiguration;
 }
 
+const dev = process.env.NODE_ENV === 'production';
+
 const config: Configuration = {
-  mode: 'development',
+  mode: dev ? 'development' : 'production',
   entry: ['@babel/polyfill', './src/index.tsx'],
   output: {
     path: path.resolve(__dirname, 'dist/'),
@@ -30,16 +33,34 @@ const config: Configuration = {
       {
         test: /\.(ts|tsx)$/,
         exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader',
-          options: {
-            presets: ['@babel/env'],
+        use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              presets: ['@babel/env'],
+            },
           },
-        },
+          {
+            loader: '@linaria/webpack-loader',
+            options: {
+              sourceMap: dev,
+            },
+          },
+        ],
       },
       {
         test: /\.css$/,
-        use: ['style-loader', 'css-loader'],
+        use: [
+          {
+            loader: MiniCssExactPlugin.loader,
+          },
+          {
+            loader: 'css-loader',
+            options: {
+              sourceMap: dev,
+            },
+          },
+        ],
       },
       {
         test: /\.(png|jpe?g|gif)$/i,
@@ -90,6 +111,9 @@ const config: Configuration = {
       openAnalyzer: false,
       analyzerMode: 'static',
       reportFilename: path.resolve(__dirname, 'report/index.html'),
+    }),
+    new MiniCssExactPlugin({
+      filename: 'styles-[contenthash].css',
     }),
   ],
 };
