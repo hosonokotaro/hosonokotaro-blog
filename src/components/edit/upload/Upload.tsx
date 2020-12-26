@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { StyledTitle } from './styledIndex';
+import { StyledTitle } from './styledUpload';
 import UploadFile from './UploadFile';
 import UploadFiles from './UploadFiles';
 

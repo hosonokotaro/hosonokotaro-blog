@@ -2,8 +2,8 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 import { TPost } from '../adapter';
-import Edit from './Edit';
-import EditPost from './Edit/EditPost';
+import Edit from './edit/Edit';
+import EditPost from './edit/EditPost';
 import SinglePost from './SinglePost';
 import Top from './Top';
 

@@ -8,10 +8,10 @@ import {
   StyledSection,
   StyledTimestamp,
 } from './styledEditPosts';
-import useGetEditPosts from './useGetEditPosts';
+import useEditPosts from './useEditPosts';
 
 const EditPosts: React.FC = () => {
-  const posts = useGetEditPosts();
+  const posts = useEditPosts();
 
   return (
     <StyledSection>

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 
 import { collectionPosts, TPost } from '../../adapter';
 
-const useGetEditPosts = (): TPost[] => {
+const useEditPosts = (): TPost[] => {
   const [posts, setPosts] = useState<TPost[]>([]);
 
   useEffect(() => {
@@ -28,4 +28,4 @@ const useGetEditPosts = (): TPost[] => {
   return posts;
 };
 
-export default useGetEditPosts;
+export default useEditPosts;

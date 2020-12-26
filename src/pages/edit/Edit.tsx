@@ -1,10 +1,10 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 
-import Spinner from '../Spinner';
-import EditPosts from './EditPosts';
-import NewPost from './NewPost';
-import { StyledLogin, StyledUid } from './styledIndex';
+import EditPosts from '../../components/edit/EditPosts';
+import NewPost from '../../components/edit/NewPost';
+import Spinner from '../../components/Spinner';
+import { StyledLogin, StyledUid } from './styledEdit';
 import useAuth from './useAuth';
 
 const Edit: React.FC = () => {

@@ -6,7 +6,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 
 import Footer from './components/Footer';
 import Header from './components/Header';
-import Pages from './components/Pages';
+import Pages from './pages/Pages';
 import ScrollToTop from './utility/ScrollToTop';
 
 const App: React.FC = () => {
