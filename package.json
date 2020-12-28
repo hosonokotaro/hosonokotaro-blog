@@ -45,7 +45,7 @@
     "copy-webpack-plugin": "^6.4.0",
     "css-loader": "^3.6.0",
     "cypress": "^6.2.0",
-    "dayjs": "^1.9.7",
+    "dayjs": "^1.9.8",
     "eslint": "^7.16.0",
     "eslint-config-prettier": "^6.15.0",
     "eslint-plugin-cypress": "^2.11.2",
