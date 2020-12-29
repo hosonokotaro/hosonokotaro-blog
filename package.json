@@ -43,7 +43,7 @@
     "babel-loader": "^8.2.2",
     "clean-webpack-plugin": "^3.0.0",
     "copy-webpack-plugin": "^6.4.0",
-    "css-loader": "^3.6.0",
+    "css-loader": "^5.0.1",
     "cypress": "^6.2.0",
     "dayjs": "^1.9.8",
     "eslint": "^7.16.0",
