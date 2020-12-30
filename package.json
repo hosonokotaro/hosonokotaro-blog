@@ -5,7 +5,7 @@
   "description": "",
   "main": "",
   "scripts": {
-    "start": "webpack-dev-server",
+    "start": "webpack serve",
     "build": "webpack --mode=production",
     "lint": "eslint './**/*.{ts,tsx}' --fix",
     "prettier-format": "prettier --config .prettierrc './**/*.{ts,tsx}' --write",
