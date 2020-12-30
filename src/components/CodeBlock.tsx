@@ -6,6 +6,10 @@ import syntaxStyle from 'react-syntax-highlighter/dist/esm/styles/prism/tomorrow
 SyntaxHighlighter.registerLanguage('tsx', tsx);
 
 const CodeBlock: React.FC<{ value: string; language: string }> = (props) => {
+  if (props.value === undefined) {
+    return null;
+  }
+
   return (
     <SyntaxHighlighter language={props.language} style={syntaxStyle}>
       {props.value}
