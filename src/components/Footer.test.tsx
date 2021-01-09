@@ -6,8 +6,8 @@ import React from 'react';
 import Footer from './Footer';
 
 jest.mock('@linaria/react', () => {
-  const styled = (tag: any) => {
-    return jest.fn(() => `${tag}`);
+  const styled = (tag: string | number | symbol) => {
+    return jest.fn(() => tag.toString());
   };
 
   return {
