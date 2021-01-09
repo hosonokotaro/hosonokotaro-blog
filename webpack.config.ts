@@ -19,13 +19,13 @@ const config: Configuration = {
   entry: ['@babel/polyfill', './src/index.tsx'],
   output: {
     path: path.resolve(__dirname, 'dist/'),
-    filename: 'bundle.js',
+    filename: 'bundle.[contenthash].js',
     publicPath: '/',
   },
   optimization: {
+    chunkIds: 'named',
     splitChunks: {
-      name: true,
-      chunks: 'initial',
+      chunks: 'all',
     },
   },
   module: {
