@@ -20,7 +20,9 @@ export default firebase;
 
 export const collectionPosts = firebase
   .firestore()
-  .collection('posts') as firebase.firestore.CollectionReference<TPost>;
+  .collection(
+    'posts'
+  ) as firebase.firestore.CollectionReference<CollectionPost>;
 
 export const Timestamp = firebase.firestore.Timestamp;
 export type TypeTimestamp = firebase.firestore.Timestamp;
@@ -35,10 +37,10 @@ const storage = firebase.storage();
 const storageRef = storage.ref();
 export const publicImages = storageRef.child('public/images');
 
-export type TPost = {
+export interface CollectionPost {
   id: string;
   title: string;
   content: string;
   release: boolean;
   createDate: TypeTimestamp;
-};
+}
