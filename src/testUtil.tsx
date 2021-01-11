@@ -1,6 +1,8 @@
 import { render, RenderResult } from '@testing-library/react';
 import React, { ReactElement } from 'react';
 
+import firebase from './adapter';
+
 interface Props {
   children: ReactElement;
 }
@@ -15,6 +17,10 @@ const customRender = (ui: ReactElement, options?: any): RenderResult => {
 
 const noop = () => null;
 Object.defineProperty(window, 'scrollTo', { value: noop, writable: true });
+
+afterAll(() => {
+  firebase.firestore().terminate();
+});
 
 export * from '@testing-library/react';
 
