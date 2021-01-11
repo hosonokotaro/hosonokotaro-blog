@@ -10,6 +10,7 @@
     "lint": "eslint './**/*.{ts,tsx}' --fix",
     "prettier-format": "prettier --config .prettierrc './**/*.{ts,tsx}' --write",
     "test": "jest",
+    "test:watch": "jest --watch",
     "cypress:open": "cypress open"
   },
   "author": "",
