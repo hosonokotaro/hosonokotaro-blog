@@ -8,14 +8,14 @@ import {
 import { collectionPosts } from './adapter';
 import formatTimestampToDate from './utility/formatTimestampToDate';
 
+type Status = 'idle' | 'loading' | 'success' | 'failure';
+
 interface TitleDate {
   id: string;
   title: string;
   release: boolean;
   createDate: string;
 }
-
-type Status = 'idle' | 'loading' | 'success' | 'failure';
 
 export interface InitialState {
   status: Status;

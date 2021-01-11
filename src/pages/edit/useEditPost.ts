@@ -2,10 +2,10 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import {
+  CollectionPost,
   collectionPosts,
   publicImages,
   Timestamp,
-  TPost,
   TypeTimestamp,
 } from '../../adapter';
 
@@ -18,15 +18,17 @@ const useEditPost = (): {
   onTitleChanged: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onContentChanged: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
   onReleaseChanged: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  updatePost: (id: TPost['id']) => void;
-  deletePost: (id: TPost['id']) => false | undefined;
+  updatePost: (id: CollectionPost['id']) => void;
+  deletePost: (id: CollectionPost['id']) => false | undefined;
   canSaveEditPost: boolean;
 } => {
-  const { id } = useParams<{ id: TPost['id'] }>();
-  const [title, setTitle] = useState<TPost['title'] | null>(null);
-  const [content, setContent] = useState<TPost['content'] | null>(null);
-  const [release, setRelease] = useState<TPost['release']>(false);
-  const [createDate, setCreateDate] = useState<TPost['createDate']>(
+  const { id } = useParams<{ id: CollectionPost['id'] }>();
+  const [title, setTitle] = useState<CollectionPost['title'] | null>(null);
+  const [content, setContent] = useState<CollectionPost['content'] | null>(
+    null
+  );
+  const [release, setRelease] = useState<CollectionPost['release']>(false);
+  const [createDate, setCreateDate] = useState<CollectionPost['createDate']>(
     Timestamp.now()
   );
 
@@ -65,7 +67,7 @@ const useEditPost = (): {
     setRelease(e.target.checked);
   };
 
-  const updatePost = (id: TPost['id']) => {
+  const updatePost = (id: CollectionPost['id']) => {
     collectionPosts
       .doc(id)
       .update({
@@ -78,7 +80,7 @@ const useEditPost = (): {
       });
   };
 
-  const deletePost = (id: TPost['id']) => {
+  const deletePost = (id: CollectionPost['id']) => {
     const deleteConfirm = confirm('削除します');
 
     if (!deleteConfirm) {
