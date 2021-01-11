@@ -11,7 +11,12 @@ const CodeBlock: React.FC<{ value: string; language: string }> = (props) => {
   }
 
   return (
-    <SyntaxHighlighter language={props.language} style={syntaxStyle}>
+    <SyntaxHighlighter
+      language={props.language}
+      style={syntaxStyle}
+      role="img"
+      aria-label="コードスニペットによる説明"
+    >
       {props.value}
     </SyntaxHighlighter>
   );
