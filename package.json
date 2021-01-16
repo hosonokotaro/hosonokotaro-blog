@@ -77,7 +77,7 @@
     "webpack": "^5.12.1",
     "webpack-bundle-analyzer": "^4.3.0",
     "webpack-cli": "^4.3.1",
-    "webpack-dev-server": "^3.11.1"
+    "webpack-dev-server": "^3.11.2"
   },
   "dependencies": {
     "@linaria/babel-preset": "^3.0.0-beta.1",
