@@ -5,10 +5,7 @@ import {
   ThunkAction,
 } from '@reduxjs/toolkit';
 
-import { collectionPosts, Timestamp } from './adapter';
-import formatTimestampToDate from './utility/formatTimestampToDate';
-
-type Status = 'idle' | 'loading' | 'success' | 'failure';
+import axiosInstance from './adapter/axiosInstance';
 
 export interface Post {
   id: string;
@@ -46,29 +43,7 @@ type PostsThunk = ThunkAction<void, PostsState, unknown, Action<string>>;
 
 export const fetchPost = (id: Post['id']): PostsThunk => async (dispatch) => {
   try {
-    const post = await collectionPosts
-      .doc(id)
-      .get()
-      .then((doc) => {
-        const data = doc.data();
-
-        if (!doc.exists || !data?.release) {
-          location.href = '/';
-          return;
-        }
-
-        const post = {
-          id: doc.id,
-          title: data?.title ? data.title : '',
-          content: data?.content ? data.content : '',
-          release: data?.release ? data.release : false,
-          createDate: data?.createDate
-            ? formatTimestampToDate(data.createDate)
-            : formatTimestampToDate(Timestamp.now()),
-        };
-
-        return post;
-      });
+    const post = (await axiosInstance.get<Post>(`/posts/${id}`)).data;
 
     if (!post) return;
 

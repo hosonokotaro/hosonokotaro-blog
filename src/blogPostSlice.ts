@@ -5,8 +5,7 @@ import {
   ThunkAction,
 } from '@reduxjs/toolkit';
 
-import { collectionPosts } from './adapter';
-import formatTimestampToDate from './utility/formatTimestampToDate';
+import axiosInstance from './adapter/axiosInstance';
 
 type Status = 'idle' | 'loading' | 'success' | 'failure';
 
@@ -48,22 +47,10 @@ type BlogPostThunk = ThunkAction<void, BlogPostState, unknown, Action<string>>;
 
 export const fetchPostList = (): BlogPostThunk => async (dispatch) => {
   try {
-    const allPosts = await collectionPosts
-      .where('release', '==', true)
-      .orderBy('createDate', 'desc')
-      .get()
-      .then((postsSnapshot) => {
-        const allPosts = postsSnapshot.docs.map<TitleDate>((doc) => ({
-          id: doc.id,
-          title: doc.data().title,
-          release: doc.data().release,
-          createDate: formatTimestampToDate(doc.data().createDate),
-        }));
+    const titleList = (await axiosInstance.get<TitleDate[]>(`/posts/titlelist`))
+      .data;
 
-        return allPosts;
-      });
-
-    dispatch(setPostList(allPosts));
+    dispatch(setPostList(titleList));
   } catch (error) {
     console.log(error.message);
   }
