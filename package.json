@@ -87,6 +87,7 @@
     "@reduxjs/toolkit": "^1.5.0",
     "@types/mini-css-extract-plugin": "^1.2.2",
     "@types/react-redux": "^7.1.14",
+    "axios": "^0.21.1",
     "react-redux": "^7.2.2",
     "save-dev": "0.0.1-security"
   }
