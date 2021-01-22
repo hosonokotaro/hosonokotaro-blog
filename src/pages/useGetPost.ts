@@ -2,14 +2,14 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
-import { fetchPost, Post } from '../postsSlice';
+import { fetchPost, Post } from '../postSlice';
 import { RootState } from '../rootReducer';
 
 const useGetPost = (): Post | undefined => {
   const [post, setPost] = useState<Post>();
   const { id } = useParams<{ id: Post['id'] }>();
   const dispatch = useDispatch();
-  const { posts } = useSelector((state: RootState) => state.posts);
+  const { posts } = useSelector((state: RootState) => state.post);
 
   const content = posts.find((post) => post.id === id)?.content;
 

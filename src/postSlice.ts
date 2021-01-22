@@ -23,7 +23,7 @@ const initialState: InitialState = {
   posts: [],
 };
 
-const postsSlice = createSlice({
+const postSlice = createSlice({
   name: 'posts',
   initialState,
   reducers: {
@@ -33,22 +33,21 @@ const postsSlice = createSlice({
   },
 });
 
-export default postsSlice.reducer;
+export default postSlice.reducer;
 
-export const { pushPost } = postsSlice.actions;
+export const { pushPost } = postSlice.actions;
 
-type PostsState = ReturnType<typeof postsSlice.reducer>;
+type PostsState = ReturnType<typeof postSlice.reducer>;
 
 type PostsThunk = ThunkAction<void, PostsState, unknown, Action<string>>;
 
 export const fetchPost = (id: Post['id']): PostsThunk => async (dispatch) => {
-  try {
-    const post = (await axiosInstance.get<Post>(`/posts/${id}`)).data;
-
-    if (!post) return;
-
-    dispatch(pushPost(post));
-  } catch (error) {
-    console.log(error.message);
-  }
+  await axiosInstance
+    .get<Post>(`/post/${id}`)
+    .then((res) => {
+      dispatch(pushPost(res.data));
+    })
+    .catch((error) => {
+      console.log(error.response.status);
+    });
 };
