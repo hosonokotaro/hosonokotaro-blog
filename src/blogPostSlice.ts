@@ -46,12 +46,12 @@ type BlogPostState = ReturnType<typeof blogPostSlice.reducer>;
 type BlogPostThunk = ThunkAction<void, BlogPostState, unknown, Action<string>>;
 
 export const fetchPostList = (): BlogPostThunk => async (dispatch) => {
-  try {
-    const titleList = (await axiosInstance.get<TitleDate[]>(`/posts/titlelist`))
-      .data;
-
-    dispatch(setPostList(titleList));
-  } catch (error) {
-    console.log(error.message);
-  }
+  await axiosInstance
+    .get<TitleDate[]>(`/posts/titlelist`)
+    .then((res) => {
+      dispatch(setPostList(res.data));
+    })
+    .catch((error) => {
+      console.log(error.response.status);
+    });
 };
