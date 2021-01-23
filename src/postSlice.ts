@@ -48,6 +48,6 @@ export const fetchPost = (id: Post['id']): PostsThunk => async (dispatch) => {
       dispatch(pushPost(res.data));
     })
     .catch((error) => {
-      console.log(error.response.status);
+      if (error.response.status === 404) location.replace('/');
     });
 };
