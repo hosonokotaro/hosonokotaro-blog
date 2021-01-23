@@ -79,7 +79,7 @@
     "@linaria/shaker": "^3.0.0-beta.1",
     "@reduxjs/toolkit": "^1.5.0",
     "@types/mini-css-extract-plugin": "^1.2.2",
-    "@types/react-redux": "^7.1.14",
+    "@types/react-redux": "^7.1.16",
     "axios": "^0.21.1",
     "react-redux": "^7.2.2"
   }
