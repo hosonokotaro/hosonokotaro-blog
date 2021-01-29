@@ -86,7 +86,6 @@ export const globals = css`
     dl,
     dt,
     dd,
-    menu,
     ol,
     ul,
     li,
