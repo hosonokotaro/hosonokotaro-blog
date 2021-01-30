@@ -16,7 +16,11 @@
     "postinstall": "is-ci || husky install"
   },
   "lint-staged": {
-    "./**/*.{ts,tsx}": ["eslint --fix", "stylelint --fix", "prettier --config .prettierrc --write"]
+    "./**/*.{ts,tsx}": [
+      "eslint --fix",
+      "stylelint --fix",
+      "prettier --config .prettierrc --write"
+    ]
   },
   "husky": {
     "hooks": {
