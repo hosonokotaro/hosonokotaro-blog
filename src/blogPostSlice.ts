@@ -47,7 +47,7 @@ type BlogPostThunk = ThunkAction<void, BlogPostState, unknown, Action<string>>;
 
 export const fetchPostList = (): BlogPostThunk => async (dispatch) => {
   await axiosInstance
-    .get<TitleDate[]>(`/posts/titlelist`)
+    .get<TitleDate[]>(`/get/titlelist`)
     .then((res) => {
       dispatch(setPostList(res.data));
     })
