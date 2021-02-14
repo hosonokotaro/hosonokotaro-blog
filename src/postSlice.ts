@@ -43,7 +43,7 @@ type PostsThunk = ThunkAction<void, PostsState, unknown, Action<string>>;
 
 export const fetchPost = (id: Post['id']): PostsThunk => async (dispatch) => {
   await axiosInstance
-    .get<Post>(`/post/${id}`)
+    .get<Post>(`/get/post/${id}`)
     .then((res) => {
       dispatch(pushPost(res.data));
     })
