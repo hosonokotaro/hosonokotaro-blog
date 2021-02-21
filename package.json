@@ -15,18 +15,6 @@
     "cypress:open": "cypress open",
     "postinstall": "is-ci || husky install"
   },
-  "lint-staged": {
-    "./**/*.{ts,tsx}": [
-      "eslint --fix",
-      "stylelint --fix",
-      "prettier --config .prettierrc --write"
-    ]
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
   "author": "",
   "license": "MIT",
   "devDependencies": {
