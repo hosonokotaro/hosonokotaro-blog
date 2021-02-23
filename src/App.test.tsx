@@ -4,7 +4,7 @@ import React from 'react';
 import { Provider } from 'react-redux';
 
 import App from './App';
-import store from './store';
+import store from './store/store';
 import { render, screen } from './testUtil';
 
 it('it should render: App の article に指定された className が存在する', () => {
