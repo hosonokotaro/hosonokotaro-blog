@@ -16,10 +16,13 @@ const dev = process.env.NODE_ENV === 'production';
 
 const config: Configuration = {
   mode: dev ? 'development' : 'production',
-  entry: ['@babel/polyfill', './src/pages/index.tsx'],
+  entry: {
+    index: ['@babel/polyfill', './src/pages/index.tsx'],
+    edit: ['@babel/polyfill', './src/pages/edit/index.tsx'],
+  },
   output: {
     path: path.resolve(__dirname, 'dist/'),
-    filename: 'bundle.[contenthash].js',
+    filename: '[name].bundle.[contenthash].js',
     publicPath: '/',
   },
   optimization: {
@@ -88,7 +91,16 @@ const config: Configuration = {
   devtool: 'source-map',
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
-    new HTMLWebpackPlugin({ template: './src/pages/index.html' }),
+    new HTMLWebpackPlugin({
+      chunks: ['index'],
+      template: './src/pages/index.html',
+      filename: path.resolve(__dirname, 'dist/index.html'),
+    }),
+    new HTMLWebpackPlugin({
+      chunks: ['edit'],
+      template: './src/pages/edit/index.html',
+      filename: path.resolve(__dirname, 'dist/edit/index.html'),
+    }),
     new CleanWebpackPlugin(),
     new CopyWebpackPlugin({
       patterns: [
