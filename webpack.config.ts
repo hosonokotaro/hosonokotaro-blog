@@ -16,7 +16,7 @@ const dev = process.env.NODE_ENV === 'production';
 
 const config: Configuration = {
   mode: dev ? 'development' : 'production',
-  entry: ['@babel/polyfill', './src/index.tsx'],
+  entry: ['@babel/polyfill', './src/pages/index.tsx'],
   output: {
     path: path.resolve(__dirname, 'dist/'),
     filename: 'bundle.[contenthash].js',
@@ -88,7 +88,7 @@ const config: Configuration = {
   devtool: 'source-map',
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
-    new HTMLWebpackPlugin({ template: './src/index.html' }),
+    new HTMLWebpackPlugin({ template: './src/pages/index.html' }),
     new CleanWebpackPlugin(),
     new CopyWebpackPlugin({
       patterns: [
