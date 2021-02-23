@@ -26,7 +26,6 @@ const config: Configuration = {
     publicPath: '/',
   },
   optimization: {
-    chunkIds: 'named',
     splitChunks: {
       chunks: 'all',
     },
