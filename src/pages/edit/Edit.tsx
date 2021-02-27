@@ -2,36 +2,17 @@ import React from 'react';
 
 // import EditPosts from '../../components/edit/EditPosts';
 import CreatePost from '../../components/CreatePost';
+import Login from '../../components/Login';
 import Spinner from '../../components/Spinner';
-// import { StyledLogin, StyledUid } from './styledEdit';
-import useAuth from './useAuth';
+import useEdit from './useEdit';
 
 const Edit: React.FC = () => {
-  const { login, logout, user } = useAuth();
+  const { user, login, logout } = useEdit();
 
   return (
     <>
-      <article>
-        {user ? (
-          <>
-            <CreatePost />
-            {/* 
-            <EditPosts /> */}
-          </>
-        ) : (
-          <Spinner />
-        )}
-        <div>
-          {user ? (
-            <button onClick={logout}>ログアウトする</button>
-          ) : (
-            <button onClick={login}>ログインする</button>
-          )}
-          {user && <div>uid: {user.uid}</div>}
-        </div>
-        {/* <StyledLogin>
-        </StyledLogin> */}
-      </article>
+      <article>{user ? <CreatePost /> : <Spinner />}</article>
+      <Login user={user} login={login} logout={logout} />
     </>
   );
 };

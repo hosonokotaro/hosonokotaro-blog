@@ -2,12 +2,14 @@ import { useEffect, useState } from 'react';
 
 import { Auth, GoogleAuthProvider, User } from '../../adapter/firebase';
 
-const useAuth = (): {
-  user: User | null | undefined;
+export interface Props {
+  user: User | undefined;
   login: () => void;
   logout: () => void;
-} => {
-  const [user, setUser] = useState<User | null>();
+}
+
+const useEdit = (): Props => {
+  const [user, setUser] = useState<User>();
 
   const login = () => {
     Auth.signInWithRedirect(GoogleAuthProvider);
@@ -15,11 +17,12 @@ const useAuth = (): {
 
   const logout = () => {
     Auth.signOut();
+    setUser(undefined);
   };
 
   useEffect(() => {
     const unsubscribe = Auth.onAuthStateChanged((user) => {
-      setUser(user);
+      user && setUser(user);
     });
 
     return () => {
@@ -34,4 +37,4 @@ const useAuth = (): {
   };
 };
 
-export default useAuth;
+export default useEdit;
