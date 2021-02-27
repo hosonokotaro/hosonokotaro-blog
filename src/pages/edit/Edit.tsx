@@ -1,8 +1,7 @@
 import React from 'react';
-import { Helmet } from 'react-helmet';
 
 // import EditPosts from '../../components/edit/EditPosts';
-// import NewPost from '../../components/edit/NewPost';
+import CreatePost from '../../components/CreatePost';
 import Spinner from '../../components/Spinner';
 // import { StyledLogin, StyledUid } from './styledEdit';
 import useAuth from './useAuth';
@@ -12,15 +11,11 @@ const Edit: React.FC = () => {
 
   return (
     <>
-      <Helmet>
-        <meta name="robots" content="noindex,nofollow" />
-        <title>Edit | WEB DEVELOPER HOSONO KOTARO</title>
-      </Helmet>
       <article>
         {user ? (
           <>
-            <p>is login</p>
-            {/* <NewPost />
+            <CreatePost />
+            {/* 
             <EditPosts /> */}
           </>
         ) : (
