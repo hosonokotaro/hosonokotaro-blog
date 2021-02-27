@@ -17,8 +17,8 @@ const dev = process.env.NODE_ENV === 'production';
 const config: Configuration = {
   mode: dev ? 'development' : 'production',
   entry: {
-    index: ['@babel/polyfill', './src/pages/index.tsx'],
-    edit: ['@babel/polyfill', './src/pages/edit/index.tsx'],
+    index: ['./src/pages/index.tsx'],
+    edit: ['./src/pages/edit/index.tsx'],
   },
   output: {
     path: path.resolve(__dirname, 'dist/'),
