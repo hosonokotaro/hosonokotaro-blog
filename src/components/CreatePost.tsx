@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { Props as CreatePostProps } from '../pages/edit/useCreatePost';
 import {
   StyledButton,
   StyledInputText,
@@ -7,16 +8,13 @@ import {
   StyledSection,
   StyledWrapper,
 } from './styledCreatePost';
-import useCreatePost from './useCreatePost';
 
-const NewPost: React.FC = () => {
-  const {
-    title,
-    handleSubmit,
-    onTitleChanged,
-    canSaveNewPost,
-  } = useCreatePost();
-
+const CreatePost: React.FC<CreatePostProps> = ({
+  title,
+  handleSubmit,
+  onTitleChanged,
+  canSaveNewPost,
+}) => {
   return (
     <StyledSection>
       <h2>記事の新規作成</h2>
@@ -39,4 +37,4 @@ const NewPost: React.FC = () => {
   );
 };
 
-export default NewPost;
+export default CreatePost;

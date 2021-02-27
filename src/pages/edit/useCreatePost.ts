@@ -3,16 +3,14 @@ import { useState } from 'react';
 // TODO: POST する Adapter を作成する
 // import { collectionPosts, Timestamp } from '../adapter/';
 
-const useCreatePost = (): {
+export interface Props {
   title: string;
-  content: string;
-  release: boolean;
   handleSubmit: () => void;
   onTitleChanged: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onContentChanged: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
-  onReleaseChanged: (e: React.ChangeEvent<HTMLInputElement>) => void;
   canSaveNewPost: boolean;
-} => {
+}
+
+const useCreatePost = (): Props => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [release, setRelease] = useState(false);
@@ -37,24 +35,12 @@ const useCreatePost = (): {
     setTitle(e.target.value);
   };
 
-  const onContentChanged = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setContent(e.target.value);
-  };
-
-  const onReleaseChanged = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setRelease(e.target.checked);
-  };
-
   const canSaveNewPost = Boolean(title);
 
   return {
     title,
-    content,
-    release,
     handleSubmit,
     onTitleChanged,
-    onContentChanged,
-    onReleaseChanged,
     canSaveNewPost,
   };
 };
