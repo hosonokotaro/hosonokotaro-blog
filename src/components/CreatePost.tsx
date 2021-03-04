@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { Props as CreatePostProps } from '../pages/edit/useCreatePost';
 import {
   StyledButton,
   StyledInputText,
@@ -9,7 +8,14 @@ import {
   StyledWrapper,
 } from './styledCreatePost';
 
-const CreatePost: React.FC<CreatePostProps> = ({
+export interface Props {
+  title: string;
+  handleSubmit: () => void;
+  onTitleChanged: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  canSaveNewPost: boolean;
+}
+
+const CreatePost: React.FC<Props> = ({
   title,
   handleSubmit,
   onTitleChanged,
