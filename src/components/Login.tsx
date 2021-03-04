@@ -3,7 +3,7 @@ import React from 'react';
 import { Props as EditProps } from '../pages/edit/useEdit';
 import { StyledLogin, StyledUid } from './styledLogin';
 
-const Edit: React.FC<EditProps> = ({ user, login, logout }) => {
+const Login: React.FC<EditProps> = ({ user, login, logout }) => {
   return (
     <StyledLogin>
       {user ? (
@@ -16,4 +16,4 @@ const Edit: React.FC<EditProps> = ({ user, login, logout }) => {
   );
 };
 
-export default Edit;
+export default Login;
