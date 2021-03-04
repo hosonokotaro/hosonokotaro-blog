@@ -1,9 +1,10 @@
 import React from 'react';
 
-// import EditPosts from '../../components/edit/EditPosts';
-import CreatePost from '../../components/CreatePost';
-import Login from '../../components/Login';
-import Spinner from '../../components/Spinner';
+// import EditPosts from '@/edit/EditPosts';
+import CreatePost from '@/CreatePost';
+import Login from '@/Login';
+import Spinner from '@/Spinner';
+
 import useCreatePost from './useCreatePost';
 import useEdit from './useEdit';
 
