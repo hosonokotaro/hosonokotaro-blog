@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 import {
   StyledPost,
@@ -8,32 +7,32 @@ import {
   StyledTimestamp,
 } from './styledEditPostList';
 
-interface Post {
+export interface Post {
   id: string;
-  title: string;
   release: boolean;
   createDate: string;
+  routerLink: React.ReactNode;
 }
 
-export interface Props {
-  posts: Post[];
+interface Props {
+  postList: Post[];
 }
 
-const EditPostList: React.FC<Props> = ({ posts }) => {
+const EditPostList: React.FC<Props> = ({ postList }) => {
   return (
     <StyledSection>
       <h2>投稿された記事一覧</h2>
       <StyledPosts>
-        {posts.map((post) => (
-          <StyledPost key={post.id}>
+        {postList.map(({ id, release, createDate, routerLink }) => (
+          <StyledPost key={id}>
             <div>
-              {!post.release && <span>【非公開】</span>}
-              <Link to={`/edit/${post.id}`}>{post.title}</Link>
+              {!release && <span>【非公開】</span>}
+              {routerLink}
             </div>
             <StyledTimestamp>
-              作成日時: {post.createDate}
+              作成日時: {createDate}
               <br />
-              id: {post.id}
+              id: {id}
             </StyledTimestamp>
           </StyledPost>
         ))}

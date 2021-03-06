@@ -1,7 +1,8 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import CreatePost from '@/CreatePost';
-import EditPostList from '@/EditPostList';
+import EditPostList, { Post as EditPost } from '@/EditPostList';
 import Login from '@/Login';
 import Spinner from '@/Spinner';
 import useGetPosts from '~/pages/useGetPosts';
@@ -20,6 +21,21 @@ const Edit: React.FC = () => {
 
   const { status, titleDateList } = useGetPosts();
 
+  const titleDateListAddLink = () => {
+    const titleDateListFix: EditPost[] = [];
+
+    titleDateList.map(({ id, title, release, createDate }) => {
+      titleDateListFix.push({
+        id,
+        release,
+        createDate,
+        routerLink: <Link to={`/edit/${id}`}>{title}</Link>,
+      });
+    });
+
+    return titleDateListFix;
+  };
+
   return (
     <>
       <article>
@@ -34,9 +50,7 @@ const Edit: React.FC = () => {
           <Spinner />
         )}
         {status === 'success' ? (
-          <>
-            <EditPostList posts={titleDateList} />
-          </>
+          <EditPostList postList={titleDateListAddLink()} />
         ) : (
           <Spinner />
         )}
