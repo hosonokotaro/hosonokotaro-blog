@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { Props as EditProps } from '../pages/edit/useEdit';
+import { Props as EditProps } from '~/pages/edit/useLogin';
+
 import { StyledLogin, StyledUid } from './styledLogin';
 
 const Login: React.FC<EditProps> = ({ user, login, logout }) => {

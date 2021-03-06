@@ -8,7 +8,7 @@ export interface Props {
   logout: () => void;
 }
 
-const useEdit = (): Props => {
+const useLogin = (): Props => {
   const [user, setUser] = useState<User>();
 
   const login = () => {
@@ -37,4 +37,4 @@ const useEdit = (): Props => {
   };
 };
 
-export default useEdit;
+export default useLogin;

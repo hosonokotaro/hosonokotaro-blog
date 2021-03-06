@@ -1,21 +1,24 @@
 import React from 'react';
 
-// import EditPosts from '@/edit/EditPosts';
 import CreatePost from '@/CreatePost';
+import EditPostList from '@/EditPostList';
 import Login from '@/Login';
 import Spinner from '@/Spinner';
+import useGetPosts from '~/pages/useGetPosts';
 
 import useCreatePost from './useCreatePost';
-import useEdit from './useEdit';
+import useLogin from './useLogin';
 
 const Edit: React.FC = () => {
-  const { user, login, logout } = useEdit();
+  const { user, login, logout } = useLogin();
   const {
     title,
     handleSubmit,
     onTitleChanged,
     canSaveNewPost,
   } = useCreatePost();
+
+  const { status, titleDateList } = useGetPosts();
 
   return (
     <>
@@ -27,6 +30,13 @@ const Edit: React.FC = () => {
             onTitleChanged={onTitleChanged}
             canSaveNewPost={canSaveNewPost}
           />
+        ) : (
+          <Spinner />
+        )}
+        {status === 'success' ? (
+          <>
+            <EditPostList posts={titleDateList} />
+          </>
         ) : (
           <Spinner />
         )}
