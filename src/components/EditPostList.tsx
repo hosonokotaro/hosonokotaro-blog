@@ -19,7 +19,7 @@ export interface Props {
   posts: Post[];
 }
 
-const EditPosts: React.FC<Props> = ({ posts }) => {
+const EditPostList: React.FC<Props> = ({ posts }) => {
   return (
     <StyledSection>
       <h2>投稿された記事一覧</h2>
@@ -42,4 +42,4 @@ const EditPosts: React.FC<Props> = ({ posts }) => {
   );
 };
 
-export default EditPosts;
+export default EditPostList;
