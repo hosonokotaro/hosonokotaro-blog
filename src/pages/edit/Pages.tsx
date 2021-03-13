@@ -1,9 +1,11 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
-import SinglePost from '../SinglePost';
-import Top from '../Top';
+import SinglePost from '~/pages/SinglePost';
+import Top from '~/pages/Top';
+
 import Edit from './Edit';
+import EditPost from './EditPost';
 
 const Pages: React.FC = () => {
   return (
@@ -11,6 +13,7 @@ const Pages: React.FC = () => {
       <Route exact path="/" component={Top} />
       <Route exact path="/edit" component={Edit} />
       <Route exact path="/:id" component={SinglePost} />
+      <Route exact path="/edit/:id" component={EditPost} />
     </Switch>
   );
 };
