@@ -39,18 +39,16 @@ const Edit: React.FC = () => {
   return (
     <>
       <article>
-        {user ? (
-          <CreatePost
-            title={title}
-            handleSubmit={handleSubmit}
-            onTitleChanged={onTitleChanged}
-            canSaveNewPost={canSaveNewPost}
-          />
-        ) : (
-          <Spinner />
-        )}
-        {status === 'success' ? (
-          <EditPostList postList={titleDateListAddLink()} />
+        {user && status === 'success' ? (
+          <>
+            <CreatePost
+              title={title}
+              handleSubmit={handleSubmit}
+              onTitleChanged={onTitleChanged}
+              canSaveNewPost={canSaveNewPost}
+            />
+            <EditPostList postList={titleDateListAddLink()} />
+          </>
         ) : (
           <Spinner />
         )}
