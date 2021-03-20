@@ -16,14 +16,16 @@ const dev = process.env.NODE_ENV === 'production';
 
 const config: Configuration = {
   mode: dev ? 'development' : 'production',
-  entry: ['@babel/polyfill', './src/index.tsx'],
+  entry: {
+    index: ['./src/pages/index.tsx'],
+    edit: ['./src/pages/edit/index.tsx'],
+  },
   output: {
     path: path.resolve(__dirname, 'dist/'),
-    filename: 'bundle.[contenthash].js',
+    filename: '[name].bundle.[contenthash].js',
     publicPath: '/',
   },
   optimization: {
-    chunkIds: 'named',
     splitChunks: {
       chunks: 'all',
     },
@@ -72,6 +74,8 @@ const config: Configuration = {
     extensions: ['*', '.js', '.ts', '.tsx'],
     alias: {
       'react-dom': '@hot-loader/react-dom',
+      '~': path.resolve(__dirname, 'src/'),
+      '@': path.resolve(__dirname, 'src/components/'),
     },
   },
   devServer: {
@@ -88,7 +92,16 @@ const config: Configuration = {
   devtool: 'source-map',
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
-    new HTMLWebpackPlugin({ template: './src/index.html' }),
+    new HTMLWebpackPlugin({
+      chunks: ['index'],
+      template: './src/pages/index.html',
+      filename: path.resolve(__dirname, 'dist/index.html'),
+    }),
+    new HTMLWebpackPlugin({
+      chunks: ['edit'],
+      template: './src/pages/edit/index.html',
+      filename: path.resolve(__dirname, 'dist/edit/index.html'),
+    }),
     new CleanWebpackPlugin(),
     new CopyWebpackPlugin({
       patterns: [

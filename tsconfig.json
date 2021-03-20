@@ -11,7 +11,9 @@
     "esModuleInterop": true,
     "baseUrl": ".",
     "paths": {
-      "@App/*": ["src/*"]
+      "@App/*": ["src/*"],
+      "~/*": ["src/*"],
+      "@/*": ["src/components/*"],
     }
   },
   "include": ["./src", "./types/**/*.d.ts"]

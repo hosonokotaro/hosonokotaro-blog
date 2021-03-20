@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { fetchPostList, InitialState } from '../blogPostSlice';
-import { RootState } from '../rootReducer';
+import { fetchPostList, InitialState } from '../store/blogPostSlice';
+import { RootState } from '../store/rootReducer';
 
 const useGetPosts = (): InitialState => {
   const dispatch = useDispatch();

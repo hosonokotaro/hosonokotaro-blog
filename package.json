@@ -19,7 +19,6 @@
   "license": "MIT",
   "devDependencies": {
     "@babel/core": "^7.12.10",
-    "@babel/polyfill": "^7.12.1",
     "@babel/preset-env": "^7.13.8",
     "@babel/preset-react": "^7.12.13",
     "@babel/preset-typescript": "^7.12.17",
@@ -89,7 +88,10 @@
     "@types/mini-css-extract-plugin": "^1.2.2",
     "@types/react-redux": "^7.1.16",
     "axios": "^0.21.1",
+    "core-js": "^3.9.0",
+    "firebase": "^8.2.7",
     "lint-staged": "^10.5.4",
-    "react-redux": "^7.2.2"
+    "react-redux": "^7.2.2",
+    "regenerator-runtime": "^0.13.7"
   }
 }
