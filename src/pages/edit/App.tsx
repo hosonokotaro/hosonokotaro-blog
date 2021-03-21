@@ -8,7 +8,7 @@ import Footer from '@/Footer';
 import Header from '@/Header';
 import ScrollToTop from '~/utility/ScrollToTop';
 
-import Pages from './Pages';
+import EditPages from './EditPages';
 
 const App: React.FC = () => {
   return (
@@ -22,7 +22,7 @@ const App: React.FC = () => {
       <Router>
         <ScrollToTop />
         <Header />
-        <Pages />
+        <EditPages />
         <Footer />
       </Router>
     </>

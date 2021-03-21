@@ -17,8 +17,8 @@ const dev = process.env.NODE_ENV === 'production';
 const config: Configuration = {
   mode: dev ? 'development' : 'production',
   entry: {
-    index: ['./src/pages/index.tsx'],
-    edit: ['./src/pages/edit/index.tsx'],
+    index: './src/pages/index.tsx',
+    edit: './src/pages/edit/index.tsx',
   },
   output: {
     path: path.resolve(__dirname, 'dist/'),
@@ -83,7 +83,12 @@ const config: Configuration = {
     port: 3000,
     host: '0.0.0.0',
     hotOnly: true,
-    historyApiFallback: true,
+    historyApiFallback: {
+      rewrites: [
+        { from: /^\/$/, to: '/index.html' },
+        { from: /^\/edit/, to: '/edit/index.html' },
+      ],
+    },
     watchOptions: {
       poll: 1000,
       ignored: ['node_modules'],

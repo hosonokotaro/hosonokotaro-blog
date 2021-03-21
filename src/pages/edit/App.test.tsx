@@ -8,7 +8,7 @@ import { render, screen } from '~/testUtil';
 
 import App from './App';
 
-it('it should render: Edit の App の article に指定された className が存在する', () => {
+it('it should render: Edit の App の link に指定された className が存在する', () => {
   // NOTE: App は index に記載がある通り、Provider で wrap する必要がある
   render(
     <Provider store={store}>
@@ -16,5 +16,5 @@ it('it should render: Edit の App の article に指定された className が�
     </Provider>
   );
 
-  expect(screen.getByRole('article').getElementsByClassName('s1kml9dm'));
+  expect(screen.getByRole('link').getElementsByClassName('s120tbqn'));
 });
