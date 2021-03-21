@@ -7,7 +7,7 @@ import Top from '~/pages/Top';
 import Edit from './Edit';
 import EditPost from './EditPost';
 
-const Pages: React.FC = () => {
+const EditPages: React.FC = () => {
   return (
     <Switch>
       <Route exact path="/" component={Top} />
@@ -18,4 +18,4 @@ const Pages: React.FC = () => {
   );
 };
 
-export default Pages;
+export default EditPages;
