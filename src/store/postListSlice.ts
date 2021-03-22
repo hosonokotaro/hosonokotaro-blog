@@ -26,8 +26,8 @@ const initialState: InitialState = {
   titleDateList: [],
 };
 
-const blogPostSlice = createSlice({
-  name: 'blogPost',
+const postListSlice = createSlice({
+  name: 'postList',
   initialState,
   reducers: {
     setPostList(state, action: PayloadAction<TitleDate[]>) {
@@ -37,15 +37,15 @@ const blogPostSlice = createSlice({
   },
 });
 
-export default blogPostSlice.reducer;
+export default postListSlice.reducer;
 
-export const { setPostList } = blogPostSlice.actions;
+export const { setPostList } = postListSlice.actions;
 
-type BlogPostState = ReturnType<typeof blogPostSlice.reducer>;
+type PostListState = ReturnType<typeof postListSlice.reducer>;
 
-type BlogPostThunk = ThunkAction<void, BlogPostState, unknown, Action<string>>;
+type PostListThunk = ThunkAction<void, PostListState, unknown, Action<string>>;
 
-export const fetchPostList = (): BlogPostThunk => async (dispatch) => {
+export const fetchPostList = (): PostListThunk => async (dispatch) => {
   await axiosInstance
     .get<TitleDate[]>(`/get/titlelist`)
     .then((res) => {
