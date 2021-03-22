@@ -5,7 +5,7 @@ import { StyledArticle, StyledDate, StyledLink, StyledPost } from './styledTop';
 import useGetPostList from './useGetPostList';
 
 const Top: React.FC = () => {
-  const { status, titleDateList } = useGetPostList();
+  const { status, titleDateList } = useGetPostList('publicOnly');
 
   return (
     <StyledArticle>

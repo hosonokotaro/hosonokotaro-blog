@@ -19,7 +19,7 @@ const Edit: React.FC = () => {
     canSaveNewPost,
   } = useCreatePost();
 
-  const { status, titleDateList } = useGetPostList();
+  const { status, titleDateList } = useGetPostList('all');
 
   const titleDateListAddLink = () => {
     const titleDateListFix: EditPost[] = [];
