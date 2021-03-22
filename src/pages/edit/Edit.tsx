@@ -1,4 +1,3 @@
-import useGetPostList from '@App/pages/useGetPostList';
 import React from 'react';
 import { Link } from 'react-router-dom';
 
@@ -6,6 +5,7 @@ import CreatePost from '@/CreatePost';
 import EditPostList, { Post as EditPost } from '@/EditPostList';
 import Login from '@/Login';
 import Spinner from '@/Spinner';
+import useGetPostList from '~/pages/useGetPostList';
 
 import useCreatePost from './useCreatePost';
 import useLogin from './useLogin';
