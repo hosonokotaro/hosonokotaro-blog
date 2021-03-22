@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchPostList, InitialState } from '~/store/postListSlice';
 import { RootState } from '~/store/rootReducer';
 
-const useGetPosts = (): InitialState => {
+const useGetPostList = (): InitialState => {
   const dispatch = useDispatch();
   const { status, titleDateList } = useSelector(
     (state: RootState) => state.postList
@@ -13,10 +13,10 @@ const useGetPosts = (): InitialState => {
   useEffect(() => {
     if (status === 'success') return;
 
-    dispatch(fetchPostList());
+    dispatch(fetchPostList('/get/titlelist'));
   }, [dispatch, status]);
 
   return { status, titleDateList };
 };
 
-export default useGetPosts;
+export default useGetPostList;

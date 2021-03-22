@@ -1,3 +1,4 @@
+import useGetPostList from '@App/pages/useGetPostList';
 import React from 'react';
 import { Link } from 'react-router-dom';
 
@@ -5,7 +6,6 @@ import CreatePost from '@/CreatePost';
 import EditPostList, { Post as EditPost } from '@/EditPostList';
 import Login from '@/Login';
 import Spinner from '@/Spinner';
-import useGetPosts from '~/pages/useGetPosts';
 
 import useCreatePost from './useCreatePost';
 import useLogin from './useLogin';
@@ -19,7 +19,7 @@ const Edit: React.FC = () => {
     canSaveNewPost,
   } = useCreatePost();
 
-  const { status, titleDateList } = useGetPosts();
+  const { status, titleDateList } = useGetPostList();
 
   const titleDateListAddLink = () => {
     const titleDateListFix: EditPost[] = [];

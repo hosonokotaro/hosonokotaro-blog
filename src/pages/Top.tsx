@@ -2,10 +2,10 @@ import React from 'react';
 
 import Spinner from '../components/Spinner';
 import { StyledArticle, StyledDate, StyledLink, StyledPost } from './styledTop';
-import useGetPosts from './useGetPosts';
+import useGetPostList from './useGetPostList';
 
 const Top: React.FC = () => {
-  const { status, titleDateList } = useGetPosts();
+  const { status, titleDateList } = useGetPostList();
 
   return (
     <StyledArticle>
