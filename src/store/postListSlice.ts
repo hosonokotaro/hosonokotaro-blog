@@ -45,9 +45,11 @@ type PostListState = ReturnType<typeof postListSlice.reducer>;
 
 type PostListThunk = ThunkAction<void, PostListState, unknown, Action<string>>;
 
-export const fetchPostList = (): PostListThunk => async (dispatch) => {
+export const fetchPostList = (getPath: string): PostListThunk => async (
+  dispatch
+) => {
   await axiosInstance
-    .get<TitleDate[]>(`/get/titlelist`)
+    .get<TitleDate[]>(getPath)
     .then((res) => {
       dispatch(setPostList(res.data));
     })
