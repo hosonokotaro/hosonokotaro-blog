@@ -5,7 +5,7 @@ import {
   ThunkAction,
 } from '@reduxjs/toolkit';
 
-import axiosInstance from '../adapter/axiosInstance';
+import axiosInstance from '~/adapter/axiosInstance';
 
 type Status = 'idle' | 'loading' | 'success' | 'failure';
 

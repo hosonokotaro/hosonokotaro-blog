@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
-import { fetchPost, Post } from '../store/postSlice';
-import { RootState } from '../store/rootReducer';
+import { fetchPost, Post } from '~/store/postSlice';
+import { RootState } from '~/store/rootReducer';
 
 const useGetPost = (): Post | undefined => {
   const [post, setPost] = useState<Post>();
