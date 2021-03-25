@@ -18,7 +18,6 @@ interface Props {
   postList: Post[];
 }
 
-// TODO: どこかの処理で、release が false の状態だと弾く処理が入っているようだ
 const EditPostList: React.FC<Props> = ({ postList }) => {
   return (
     <StyledSection>

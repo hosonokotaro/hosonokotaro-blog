@@ -30,6 +30,26 @@ const useLogin = (): Props => {
     };
   }, []);
 
+  // TODO: idToken を API へ Request header に含めて渡す？
+
+  // これを使えばいけるか。request 時に headers を設定して問い合わせる
+  // axios.get('https://api.example.com/api/v1/foo', {
+  //   headers: {
+  //     Authorization: `Bearer ${token}`,
+  //   }
+  // })
+
+  if (Auth.currentUser) {
+    Auth.currentUser
+      .getIdToken(true)
+      .then((idToken) => {
+        console.log(idToken);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
+
   return {
     user,
     login,
