@@ -11,7 +11,8 @@ import useCreatePost from './useCreatePost';
 import useLogin from './useLogin';
 
 const Edit: React.FC = () => {
-  const { user, login, logout } = useLogin();
+  const { status, titleDateList } = useGetPostList('all');
+
   const {
     title,
     handleSubmit,
@@ -19,7 +20,7 @@ const Edit: React.FC = () => {
     canSaveNewPost,
   } = useCreatePost();
 
-  const { status, titleDateList } = useGetPostList('all');
+  const { user, login, logout } = useLogin();
 
   const titleDateListAddLink = () => {
     const titleDateListFix: EditPost[] = [];
