@@ -1,6 +1,4 @@
-import axios, { AxiosInstance } from 'axios';
-
-import { Auth } from './firebase';
+import axios from 'axios';
 
 // NOTE: dev: local, prod: cloud functions
 const baseURL =
@@ -15,28 +13,3 @@ const axiosInstance = axios.create({
 });
 
 export default axiosInstance;
-
-// NOTE: Edit 画面認証
-export const axiosAuthenticatedInstance = (): AxiosInstance => {
-  let bearerToken = '';
-
-  if (Auth.currentUser) {
-    Auth.currentUser
-      .getIdToken(true)
-      .then((idToken) => {
-        bearerToken = idToken;
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  }
-
-  return axios.create({
-    baseURL,
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${bearerToken}`,
-    },
-    responseType: 'json',
-  });
-};

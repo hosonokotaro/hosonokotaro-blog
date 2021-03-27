@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
-import { Auth, GoogleAuthProvider, User } from '../../adapter/firebase';
-
+import axiosInstance from '~/adapter/axiosInstance';
+import { Auth, GoogleAuthProvider, User } from '~/adapter/firebase';
 export interface Props {
   user: User | undefined;
   login: () => void;
@@ -23,6 +23,19 @@ const useLogin = (): Props => {
   useEffect(() => {
     const unsubscribe = Auth.onAuthStateChanged((user) => {
       user && setUser(user);
+
+      if (!Auth.currentUser) return;
+
+      Auth.currentUser
+        .getIdToken(true)
+        .then((idToken) => {
+          axiosInstance.defaults.headers.common[
+            'Authorization'
+          ] = `Bearer ${idToken}`;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     });
 
     return () => {
