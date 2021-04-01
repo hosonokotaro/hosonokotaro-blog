@@ -5,6 +5,8 @@ import {
   ThunkAction,
 } from '@reduxjs/toolkit';
 
+import { Auth } from '~/adapter/firebase';
+
 type Status = 'idle' | 'loading' | 'success' | 'failure';
 
 interface AuthHeader {
@@ -47,17 +49,15 @@ type authHeaderThunk = ThunkAction<
   Action<string>
 >;
 
-// TODO: 認証後に Bearer token をセットする処理を書く
+export const setBearerToken = (): authHeaderThunk => (dispatch) => {
+  if (!Auth.currentUser) return;
 
-// if (!Auth.currentUser) return;
-
-//       Auth.currentUser
-//         .getIdToken(true)
-//         .then((idToken) => {
-//           axiosInstance.defaults.headers.common[
-//             'Authorization'
-//           ] = `Bearer ${idToken}`;
-//         })
-//         .catch((error) => {
-//           console.log(error);
-//         });
+  Auth.currentUser
+    .getIdToken(true)
+    .then((bearerToken) => {
+      dispatch(setAuthHeader({ bearerToken }));
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};

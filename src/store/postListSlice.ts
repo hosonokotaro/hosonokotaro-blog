@@ -52,11 +52,21 @@ export const getPath = {
 
 export type getPathTarget = keyof typeof getPath;
 
-export const fetchPostList = (target: getPathTarget): PostListThunk => async (
-  dispatch
-) => {
+export const fetchPostList = (
+  target: getPathTarget,
+  idToken?: string
+): PostListThunk => async (dispatch) => {
   await axiosInstance
-    .get<TitleDate[]>(getPath[target])
+    .get<TitleDate[]>(
+      getPath[target],
+      target === 'all' && idToken
+        ? {
+            headers: {
+              Authorization: `Bearer ${idToken}`,
+            },
+          }
+        : undefined
+    )
     .then((res) => {
       dispatch(setPostList(res.data));
     })
