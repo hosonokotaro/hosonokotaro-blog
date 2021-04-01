@@ -7,42 +7,42 @@ import {
 
 type Status = 'idle' | 'loading' | 'success' | 'failure';
 
-interface Authorization {
+interface AuthHeader {
   bearerToken: string | undefined;
 }
 
 export interface InitialState {
   status: Status;
-  authorization: Authorization;
+  authHeader: AuthHeader;
 }
 
 const initialState: InitialState = {
   status: 'idle',
-  authorization: {
+  authHeader: {
     bearerToken: undefined,
   },
 };
 
-const authorizationSlice = createSlice({
-  name: 'authorization',
+const authHeaderSlice = createSlice({
+  name: 'authHeader',
   initialState,
   reducers: {
-    setAuthorization(state, action: PayloadAction<Authorization>) {
+    setAuthHeader(state, action: PayloadAction<AuthHeader>) {
       state.status = 'success';
-      state.authorization = action.payload;
+      state.authHeader = action.payload;
     },
   },
 });
 
-export default authorizationSlice.reducer;
+export default authHeaderSlice.reducer;
 
-export const { setAuthorization } = authorizationSlice.actions;
+export const { setAuthHeader } = authHeaderSlice.actions;
 
-type authorizationState = ReturnType<typeof authorizationSlice.reducer>;
+type authHeaderState = ReturnType<typeof authHeaderSlice.reducer>;
 
-type authorizationThunk = ThunkAction<
+type authHeaderThunk = ThunkAction<
   void,
-  authorizationState,
+  authHeaderState,
   unknown,
   Action<string>
 >;

@@ -1,11 +1,11 @@
 import { combineReducers } from '@reduxjs/toolkit';
 
-import authorizationReducer from './authorizationSlice';
+import authHeaderReducer from './authHeaderSlice';
 import postListReducer from './postListSlice';
 import postReducer from './postSlice';
 
 const rootReducer = combineReducers({
-  authorization: authorizationReducer,
+  authHeader: authHeaderReducer,
   postList: postListReducer,
   post: postReducer,
 });
