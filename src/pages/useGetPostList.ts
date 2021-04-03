@@ -13,12 +13,11 @@ const useGetPostList = (target: getPathTarget): InitialState => {
   const { status, titleDateList } = useSelector(
     (state: RootState) => state.postList
   );
+  const { authHeader } = useSelector((state: RootState) => state.authHeader);
 
   useEffect(() => {
-    if (status === 'success') return;
-
-    dispatch(fetchPostList(target));
-  }, [dispatch, target, status]);
+    dispatch(fetchPostList(target, authHeader.bearerToken));
+  }, [dispatch, target, authHeader.bearerToken]);
 
   return { status, titleDateList };
 };
