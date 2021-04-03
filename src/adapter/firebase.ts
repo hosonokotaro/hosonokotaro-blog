@@ -14,11 +14,9 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
-// NOTE: firebase 認証機能を利用する
-export const Auth = firebase.auth();
+export const firebaseAuth = firebase.auth();
 
-// NOTE: Google 認証を利用する
-export const GoogleAuthProvider = new firebase.auth.GoogleAuthProvider();
+export const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
 
 export type User = firebase.User;
 

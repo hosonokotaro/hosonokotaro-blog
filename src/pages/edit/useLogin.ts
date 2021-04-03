@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { Auth, GoogleAuthProvider, User } from '~/adapter/firebase';
+import { firebaseAuth, googleAuthProvider, User } from '~/adapter/firebase';
 import { setAuthHeader, setBearerToken } from '~/store/authHeaderSlice';
 import { RootState } from '~/store/rootReducer';
 
@@ -17,17 +17,17 @@ const useLogin = (): Props => {
   const { authHeader } = useSelector((state: RootState) => state.authHeader);
 
   const login = () => {
-    Auth.signInWithRedirect(GoogleAuthProvider);
+    firebaseAuth.signInWithRedirect(googleAuthProvider);
   };
 
   const logout = () => {
     setUser(undefined);
     dispatch(setAuthHeader({ bearerToken: undefined }));
-    Auth.signOut();
+    firebaseAuth.signOut();
   };
 
   useEffect(() => {
-    const unsubscribe = Auth.onAuthStateChanged((user) => {
+    const unsubscribe = firebaseAuth.onAuthStateChanged((user) => {
       user && setUser(user);
     });
 

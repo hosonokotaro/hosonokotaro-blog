@@ -5,7 +5,7 @@ import {
   ThunkAction,
 } from '@reduxjs/toolkit';
 
-import { Auth } from '~/adapter/firebase';
+import { firebaseAuth } from '~/adapter/firebase';
 
 type Status = 'idle' | 'loading' | 'success' | 'failure';
 
@@ -50,9 +50,9 @@ type authHeaderThunk = ThunkAction<
 >;
 
 export const setBearerToken = (): authHeaderThunk => (dispatch) => {
-  if (!Auth.currentUser) return;
+  if (!firebaseAuth.currentUser) return;
 
-  Auth.currentUser
+  firebaseAuth.currentUser
     .getIdToken(true)
     .then((bearerToken) => {
       dispatch(setAuthHeader({ bearerToken }));
