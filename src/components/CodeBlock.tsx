@@ -5,6 +5,7 @@ import syntaxStyle from 'react-syntax-highlighter/dist/cjs/styles/prism/tomorrow
 
 SyntaxHighlighter.registerLanguage('tsx', tsx);
 
+// FIXME: 副作用のないコンポーネントにしたい
 const CodeBlock: React.FC<{ value: string; language: string }> = (props) => {
   if (props.value === undefined) {
     return null;
