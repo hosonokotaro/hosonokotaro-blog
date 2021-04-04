@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { firebaseAuth, googleAuthProvider, User } from '~/adapter/firebase';
+import type { User } from '~/adapter/firebase';
+import { firebaseAuth, googleAuthProvider } from '~/adapter/firebase';
 import { setAuthHeader, setBearerToken } from '~/store/authHeaderSlice';
-import { RootState } from '~/store/rootReducer';
+import type { RootState } from '~/store/rootReducer';
 
 export interface Props {
   user: User | undefined;

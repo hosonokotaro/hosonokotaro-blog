@@ -1,12 +1,9 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import {
-  fetchPostList,
-  getPathTarget,
-  InitialState,
-} from '~/store/postListSlice';
-import { RootState } from '~/store/rootReducer';
+import type { getPathTarget, InitialState } from '~/store/postListSlice';
+import { fetchPostList } from '~/store/postListSlice';
+import type { RootState } from '~/store/rootReducer';
 
 const useGetPostList = (target: getPathTarget): InitialState => {
   const dispatch = useDispatch();

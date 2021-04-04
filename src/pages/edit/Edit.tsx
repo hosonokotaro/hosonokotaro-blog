@@ -2,7 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import CreatePost from '@/CreatePost';
-import EditPostList, { Post as EditPost } from '@/EditPostList';
+import type { Post as EditPost } from '@/EditPostList';
+import EditPostList from '@/EditPostList';
 import Login from '@/Login';
 import Spinner from '@/Spinner';
 import useGetPostList from '~/pages/useGetPostList';
