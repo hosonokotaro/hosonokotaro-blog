@@ -6,6 +6,7 @@ import type { Post } from '~/store/postSlice';
 import { fetchPost } from '~/store/postSlice';
 import type { RootState } from '~/store/rootReducer';
 
+// TODO: auth が存在する時、非公開記事を取得する
 const useGetPost = (): Post | undefined => {
   const [post, setPost] = useState<Post>();
   const { id } = useParams<{ id: Post['id'] }>();

@@ -19,6 +19,8 @@ export interface InitialState {
   posts: Post[];
 }
 
+// FIXME: posts → postList にしたい
+// 既存の postList → titleList にしたい
 const initialState: InitialState = {
   posts: [],
 };
