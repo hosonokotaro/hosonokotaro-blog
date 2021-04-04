@@ -5,10 +5,10 @@ import { Helmet } from 'react-helmet';
 import { hot } from 'react-hot-loader/root';
 import { BrowserRouter as Router } from 'react-router-dom';
 
-import Footer from '../components/Footer';
-import Header from '../components/Header';
-import Pages from '../pages/Pages';
-import ScrollToTop from '../utility/ScrollToTop';
+import Footer from '@/Footer';
+import Header from '@/Header';
+import Pages from '~/pages/Pages';
+import ScrollToTop from '~/utility/ScrollToTop';
 
 const App: React.FC = () => {
   return (

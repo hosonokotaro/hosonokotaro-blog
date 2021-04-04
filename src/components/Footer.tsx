@@ -1,6 +1,7 @@
 import React from 'react';
 
-import getYear from '../utility/getYear';
+import getYear from '~/utility/getYear';
+
 import { StyledFooter } from './styledFooter';
 
 const Footer: React.FC = () => {

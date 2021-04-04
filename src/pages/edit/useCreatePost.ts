@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Props } from '@/CreatePost';
 
 // TODO: POST する Adapter を作成する
-// import { collectionPosts, Timestamp } from '../adapter/';
+// import { collectionPosts, Timestamp } from '~/adapter/';
 
 const useCreatePost = (): Props => {
   const [title, setTitle] = useState('');

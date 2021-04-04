@@ -1,6 +1,7 @@
 import React from 'react';
 
-import Spinner from '../components/Spinner';
+import Spinner from '@/Spinner';
+
 import { StyledArticle, StyledDate, StyledLink, StyledPost } from './styledTop';
 import useGetPostList from './useGetPostList';
 
