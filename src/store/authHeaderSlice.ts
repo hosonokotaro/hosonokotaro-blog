@@ -40,16 +40,16 @@ export default authHeaderSlice.reducer;
 
 export const { setAuthHeader } = authHeaderSlice.actions;
 
-type authHeaderState = ReturnType<typeof authHeaderSlice.reducer>;
+type AuthHeaderState = ReturnType<typeof authHeaderSlice.reducer>;
 
-type authHeaderThunk = ThunkAction<
+type AuthHeaderThunk = ThunkAction<
   void,
-  authHeaderState,
+  AuthHeaderState,
   unknown,
   Action<string>
 >;
 
-export const setBearerToken = (): authHeaderThunk => (dispatch) => {
+export const setBearerToken = (): AuthHeaderThunk => (dispatch) => {
   if (!firebaseAuth.currentUser) return;
 
   firebaseAuth.currentUser

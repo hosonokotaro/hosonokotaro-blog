@@ -45,20 +45,20 @@ type PostListState = ReturnType<typeof postListSlice.reducer>;
 
 type PostListThunk = ThunkAction<void, PostListState, unknown, Action<string>>;
 
-export const getPath = {
+export const getTitleList = {
   publicOnly: '/get/titlelist',
   all: '/get/titlelist?private=enabled',
 } as const;
 
-export type getPathTarget = keyof typeof getPath;
+export type getTitleListTarget = keyof typeof getTitleList;
 
 export const fetchPostList = (
-  target: getPathTarget,
+  target: getTitleListTarget,
   idToken?: string
 ): PostListThunk => async (dispatch) => {
   await axiosInstance
     .get<TitleDate[]>(
-      getPath[target],
+      getTitleList[target],
       target === 'all' && idToken
         ? {
             headers: {
