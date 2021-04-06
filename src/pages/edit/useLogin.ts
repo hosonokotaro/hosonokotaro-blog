@@ -1,6 +1,10 @@
 import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { Auth, GoogleAuthProvider, User } from '../../adapter/firebase';
+import type { User } from '~/adapter/firebase';
+import { firebaseAuth, googleAuthProvider } from '~/adapter/firebase';
+import { setAuthHeader, setBearerToken } from '~/store/authHeaderSlice';
+import type { RootState } from '~/store/rootReducer';
 
 export interface Props {
   user: User | undefined;
@@ -10,18 +14,21 @@ export interface Props {
 
 const useLogin = (): Props => {
   const [user, setUser] = useState<User>();
+  const dispatch = useDispatch();
+  const { authHeader } = useSelector((state: RootState) => state.authHeader);
 
   const login = () => {
-    Auth.signInWithRedirect(GoogleAuthProvider);
+    firebaseAuth.signInWithRedirect(googleAuthProvider);
   };
 
   const logout = () => {
-    Auth.signOut();
     setUser(undefined);
+    dispatch(setAuthHeader({ bearerToken: undefined }));
+    firebaseAuth.signOut();
   };
 
   useEffect(() => {
-    const unsubscribe = Auth.onAuthStateChanged((user) => {
+    const unsubscribe = firebaseAuth.onAuthStateChanged((user) => {
       user && setUser(user);
     });
 
@@ -29,6 +36,11 @@ const useLogin = (): Props => {
       unsubscribe;
     };
   }, []);
+
+  useEffect(() => {
+    if (authHeader.bearerToken) return;
+    dispatch(setBearerToken());
+  });
 
   return {
     user,

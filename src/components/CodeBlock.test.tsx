@@ -2,7 +2,8 @@ import '@testing-library/jest-dom/extend-expect';
 
 import React from 'react';
 
-import { render, screen } from '../testUtil';
+import { render, screen } from '~/testUtil';
+
 import CodeBlock from './CodeBlock';
 
 const language = 'tsx';

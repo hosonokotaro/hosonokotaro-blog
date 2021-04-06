@@ -1,8 +1,9 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 
-import CodeBlock from '../components/CodeBlock';
-import Spinner from '../components/Spinner';
+import CodeBlock from '@/CodeBlock';
+import Spinner from '@/Spinner';
+
 import {
   StyledReactMarkdown,
   StyledSection,

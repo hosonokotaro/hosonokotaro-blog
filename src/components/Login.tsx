@@ -1,10 +1,10 @@
 import React from 'react';
 
-import { Props as EditProps } from '~/pages/edit/useLogin';
+import type { Props } from '~/pages/edit/useLogin';
 
 import { StyledLogin, StyledUid } from './styledLogin';
 
-const Login: React.FC<EditProps> = ({ user, login, logout }) => {
+const Login: React.FC<Props> = ({ user, login, logout }) => {
   return (
     <StyledLogin>
       {user ? (

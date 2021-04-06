@@ -23,18 +23,7 @@ import {
 import useEditPost from './useEditPost';
 
 const EditPost: React.FC = () => {
-  // NOTE: 初期化時に一度だけ読み込まれる
-  const post = useGetPost();
-
-  // TODO: 既に存在する記事データを初期値として一度だけ読み込む必要がある
-  useEffect(() => {
-    if (post) {
-      setTitle(post.title);
-      setContent(post.content);
-      setRelease(post.release);
-      console.log('effect');
-    }
-  }, [post]);
+  const post = useGetPost('all');
 
   const {
     title,
@@ -49,6 +38,14 @@ const EditPost: React.FC = () => {
     updatePost,
     deletePost,
   } = useEditPost();
+
+  useEffect(() => {
+    if (!post) return;
+
+    setTitle(post.title);
+    setContent(post.content);
+    setRelease(post.release);
+  }, [post]);
 
   return (
     <StyledArticle>

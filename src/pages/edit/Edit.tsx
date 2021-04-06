@@ -2,16 +2,18 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import CreatePost from '@/CreatePost';
-import EditPostList, { Post as EditPost } from '@/EditPostList';
+import type { Post as EditPost } from '@/EditPostList';
+import EditPostList from '@/EditPostList';
 import Login from '@/Login';
 import Spinner from '@/Spinner';
-import useGetPosts from '~/pages/useGetPosts';
+import useGetPostList from '~/pages/useGetPostList';
 
 import useCreatePost from './useCreatePost';
 import useLogin from './useLogin';
 
 const Edit: React.FC = () => {
-  const { user, login, logout } = useLogin();
+  const { status, titleDateList } = useGetPostList('all');
+
   const {
     title,
     handleSubmit,
@@ -19,7 +21,7 @@ const Edit: React.FC = () => {
     canSaveNewPost,
   } = useCreatePost();
 
-  const { status, titleDateList } = useGetPosts();
+  const { user, login, logout } = useLogin();
 
   const titleDateListAddLink = () => {
     const titleDateListFix: EditPost[] = [];
