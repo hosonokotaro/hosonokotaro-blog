@@ -43,9 +43,31 @@ type PostsState = ReturnType<typeof postSlice.reducer>;
 
 type PostsThunk = ThunkAction<void, PostsState, unknown, Action<string>>;
 
-export const fetchPost = (id: Post['id']): PostsThunk => async (dispatch) => {
+const getPost = (id: string): { publicOnly: string; all: string } => {
+  return {
+    publicOnly: `/get/post/${id}`,
+    all: `/get/post/${id}?private=enabled`,
+  };
+};
+
+export type Target = 'publicOnly' | 'all';
+
+export const fetchPost = (
+  id: Post['id'],
+  target?: Target,
+  idToken?: string
+): PostsThunk => async (dispatch) => {
   await axiosInstance
-    .get<Post>(`/get/post/${id}`)
+    .get<Post>(
+      target === 'all' ? getPost(id).all : getPost(id).publicOnly,
+      target === 'all' && idToken
+        ? {
+            headers: {
+              Authorization: `Bearer ${idToken}`,
+            },
+          }
+        : undefined
+    )
     .then((res) => {
       dispatch(pushPost(res.data));
     })
