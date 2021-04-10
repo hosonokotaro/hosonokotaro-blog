@@ -1,5 +1,7 @@
 import { useState } from 'react';
 
+import type { Post } from '~/store/postSlice';
+
 interface Props {
   title: string;
   setTitle: React.Dispatch<React.SetStateAction<string>>;
@@ -10,25 +12,26 @@ interface Props {
   onTitleChanged: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onContentChanged: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
   onReleaseChanged: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  updatePost: (id: string) => void;
-  deletePost: (id: string) => undefined;
+  updatePost: (id: Post['id']) => void;
+  deletePost: (id: Post['id']) => undefined;
 }
 
 const useEditPost = (): Props => {
-  const [title, setTitle] = useState<string>('');
-  const [content, setContent] = useState<string>('');
-  const [release, setRelease] = useState<boolean>(false);
+  // NOTE: form には初期値が必須となる
+  const [title, setTitle] = useState<Post['title']>('');
+  const [content, setContent] = useState<Post['content']>('');
+  const [release, setRelease] = useState<Post['release']>(false);
 
-  const onTitleChanged = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setTitle(e.target.value);
+  const onTitleChanged = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setTitle(event.target.value);
   };
 
-  const onContentChanged = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setContent(e.target.value);
+  const onContentChanged = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setContent(event.target.value);
   };
 
-  const onReleaseChanged = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setRelease(e.target.checked);
+  const onReleaseChanged = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setRelease(event.target.checked);
   };
 
   const updatePost = (id: string) => {

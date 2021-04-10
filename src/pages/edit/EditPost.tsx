@@ -45,7 +45,7 @@ const EditPost: React.FC = () => {
     setTitle(post.title);
     setContent(post.content);
     setRelease(post.release);
-  }, [post]);
+  }, [post, setTitle, setContent, setRelease]);
 
   return (
     <StyledArticle>
@@ -95,10 +95,10 @@ const EditPost: React.FC = () => {
           </StyledTimestamp>
           <StyledPreview>
             <StyledPreviewTitle>Preview</StyledPreviewTitle>
-            <h2>{post.title}</h2>
+            <h2>{title}</h2>
             <StyledTimestamp>{post.createDate}</StyledTimestamp>
             <StyledReactMarkdown
-              source={post.content ? post.content : ''}
+              source={content}
               renderers={{ code: CodeBlock }}
             />
           </StyledPreview>

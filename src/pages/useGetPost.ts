@@ -6,7 +6,6 @@ import type { Post, Target } from '~/store/postSlice';
 import { fetchPost } from '~/store/postSlice';
 import type { RootState } from '~/store/rootReducer';
 
-// FIXME: reload すると bearer token が空になってしまうのを修正したい
 const useGetPost = (target?: Target): Post | undefined => {
   const [post, setPost] = useState<Post>();
   const { id } = useParams<{ id: Post['id'] }>();
