@@ -7,6 +7,8 @@ import {
 
 import axiosInstance from '~/adapter/axiosInstance';
 
+type Status = 'idle' | 'loading' | 'success' | 'failure';
+
 export interface Post {
   id: string;
   title: string;
@@ -16,34 +18,41 @@ export interface Post {
 }
 
 export interface InitialState {
-  posts: Post[];
+  status: Status;
+  post: Post;
 }
 
-// FIXME: posts → postList にしたい
-// 既存の postList → titleList にしたい
 const initialState: InitialState = {
-  posts: [],
+  status: 'idle',
+  post: {
+    id: '',
+    title: '',
+    content: '',
+    release: false,
+    createDate: '',
+  },
 };
 
 const postSlice = createSlice({
-  name: 'posts',
+  name: 'post',
   initialState,
   reducers: {
-    pushPost(state, action: PayloadAction<Post>) {
-      state.posts.push(action.payload);
+    setPost(state, action: PayloadAction<Post>) {
+      state.status = 'success';
+      state.post = action.payload;
     },
   },
 });
 
 export default postSlice.reducer;
 
-export const { pushPost } = postSlice.actions;
+export const { setPost } = postSlice.actions;
 
-type PostsState = ReturnType<typeof postSlice.reducer>;
+type PostState = ReturnType<typeof postSlice.reducer>;
 
-type PostsThunk = ThunkAction<void, PostsState, unknown, Action<string>>;
+type PostThunk = ThunkAction<void, PostState, unknown, Action<string>>;
 
-const getPost = (id: string): { publicOnly: string; all: string } => {
+const getTarget = (id: string): { publicOnly: string; all: string } => {
   return {
     publicOnly: `/get/post/${id}`,
     all: `/get/post/${id}?private=enabled`,
@@ -56,10 +65,10 @@ export const fetchPost = (
   id: Post['id'],
   target?: Target,
   idToken?: string
-): PostsThunk => async (dispatch) => {
+): PostThunk => async (dispatch) => {
   await axiosInstance
     .get<Post>(
-      target === 'all' ? getPost(id).all : getPost(id).publicOnly,
+      target === 'all' ? getTarget(id).all : getTarget(id).publicOnly,
       target === 'all' && idToken
         ? {
             headers: {
@@ -69,7 +78,7 @@ export const fetchPost = (
         : undefined
     )
     .then((res) => {
-      dispatch(pushPost(res.data));
+      dispatch(setPost(res.data));
     })
     .catch((error) => {
       if (error.response.status === 404) location.replace('/');

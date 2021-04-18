@@ -23,7 +23,7 @@ import {
 import useEditPost from './useEditPost';
 
 const EditPost: React.FC = () => {
-  const post = useGetPost('all');
+  const { status, post } = useGetPost('all');
 
   const {
     title,
@@ -40,8 +40,6 @@ const EditPost: React.FC = () => {
   } = useEditPost();
 
   useEffect(() => {
-    if (!post) return;
-
     setTitle(post.title);
     setContent(post.content);
     setRelease(post.release);
@@ -49,7 +47,7 @@ const EditPost: React.FC = () => {
 
   return (
     <StyledArticle>
-      {post ? (
+      {status === 'success' ? (
         <>
           <h2>記事を編集する</h2>
           <StyledLabel htmlFor={`editPostTitle-${post.id}`}>
