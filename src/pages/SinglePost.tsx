@@ -12,11 +12,11 @@ import {
 import useGetPost from './useGetPost';
 
 const SinglePost: React.FC = () => {
-  const post = useGetPost();
+  const { status, post } = useGetPost();
 
   return (
     <StyledSection>
-      {post ? (
+      {status === 'success' ? (
         <>
           <Helmet>
             <title>{post.title} | WEB DEVELOPER HOSONO KOTARO</title>
