@@ -55,6 +55,7 @@ export const setBearerToken = (): AuthHeaderThunk => (dispatch) => {
   firebaseAuth.currentUser
     .getIdToken(true)
     .then((bearerToken) => {
+      // NOTE: ここで言う Token とは、Firebase クライアント SDK で取得できる ID トークンを指す
       dispatch(setAuthHeader({ bearerToken }));
     })
     .catch((error) => {
