@@ -84,7 +84,7 @@
     "@linaria/react": "^3.0.0-beta.1",
     "@linaria/shaker": "^3.0.0-beta.1",
     "@linaria/stylelint": "^3.0.0-beta.1",
-    "@reduxjs/toolkit": "^1.5.0",
+    "@reduxjs/toolkit": "^1.5.1",
     "@types/mini-css-extract-plugin": "^1.2.2",
     "@types/react-redux": "^7.1.16",
     "axios": "^0.21.1",
