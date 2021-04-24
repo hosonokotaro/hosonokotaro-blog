@@ -1,10 +1,10 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
-import SinglePost from './SinglePost';
-import Top from './Top';
+import SinglePost from '~/container/SinglePost';
+import Top from '~/container/Top';
 
-const Pages: React.FC = () => {
+const Router: React.FC = () => {
   return (
     <Switch>
       <Route exact path="/" component={Top} />
@@ -13,4 +13,4 @@ const Pages: React.FC = () => {
   );
 };
 
-export default Pages;
+export default Router;

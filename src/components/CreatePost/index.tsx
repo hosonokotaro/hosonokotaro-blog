@@ -6,7 +6,7 @@ import {
   StyledLabel,
   StyledSection,
   StyledWrapper,
-} from './styledCreatePost';
+} from './styledIndex';
 
 export interface Props {
   title: string;

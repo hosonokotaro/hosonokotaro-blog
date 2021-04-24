@@ -5,7 +5,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 
 import { render, screen } from '~/testUtil';
 
-import Header from './Header';
+import Header from '.';
 
 it('it should render: Header の heading に指定した文字列が存在する', () => {
   render(

@@ -6,12 +6,11 @@ import type { Post as EditPost } from '@/EditPostList';
 import EditPostList from '@/EditPostList';
 import Login from '@/Login';
 import Spinner from '@/Spinner';
-import useGetPostList from '~/pages/useGetPostList';
+import useCreatePost from '~/customHooks/useCreatePost';
+import useGetPostList from '~/customHooks/useGetPostList';
+import useLogin from '~/customHooks/useLogin';
 
-import useCreatePost from './useCreatePost';
-import useLogin from './useLogin';
-
-const Edit: React.FC = () => {
+const EditTop: React.FC = () => {
   const { status, titleDateList } = useGetPostList('all');
 
   const {
@@ -60,4 +59,4 @@ const Edit: React.FC = () => {
   );
 };
 
-export default Edit;
+export default EditTop;

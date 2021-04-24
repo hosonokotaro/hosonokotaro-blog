@@ -10,7 +10,7 @@ import Header from '@/Header';
 import getDate from '~/utility/getDate';
 import ScrollToTop from '~/utility/ScrollToTop';
 
-import EditPages from './EditPages';
+import EditRouter from './Router';
 
 const App: React.FC = () => {
   return (
@@ -24,7 +24,7 @@ const App: React.FC = () => {
       <Router>
         <ScrollToTop />
         <Header />
-        <EditPages />
+        <EditRouter />
         <Footer year={getDate('year')} />
       </Router>
     </>

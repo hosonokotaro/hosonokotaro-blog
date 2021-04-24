@@ -6,8 +6,8 @@ import { Link, MemoryRouter } from 'react-router-dom';
 
 import { render, screen } from '~/testUtil';
 
-import type { Post } from './EditPostList';
-import EditPostList from './EditPostList';
+import type { Post } from '.';
+import EditPostList from '.';
 
 const postList: Post[] = [
   {
