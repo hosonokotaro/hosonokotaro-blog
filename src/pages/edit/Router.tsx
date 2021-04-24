@@ -4,7 +4,7 @@ import { Route, Switch } from 'react-router-dom';
 import Edit from './Edit';
 import EditPost from './EditPost';
 
-const EditPages: React.FC = () => {
+const Router: React.FC = () => {
   return (
     <Switch>
       <Route exact path="/edit" component={Edit} />
@@ -13,4 +13,4 @@ const EditPages: React.FC = () => {
   );
 };
 
-export default EditPages;
+export default Router;

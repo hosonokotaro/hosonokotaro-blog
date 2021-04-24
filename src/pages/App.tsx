@@ -7,7 +7,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 
 import Footer from '@/Footer';
 import Header from '@/Header';
-import Pages from '~/pages/Pages';
+import SiteRouter from '~/pages/Router';
 import getDate from '~/utility/getDate';
 import ScrollToTop from '~/utility/ScrollToTop';
 
@@ -24,7 +24,7 @@ const App: React.FC = () => {
       <Router>
         <ScrollToTop />
         <Header />
-        <Pages />
+        <SiteRouter />
         <Footer year={getDate('year')} />
       </Router>
     </>
