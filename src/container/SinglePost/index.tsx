@@ -3,13 +3,13 @@ import { Helmet } from 'react-helmet';
 
 import CodeBlock from '@/CodeBlock';
 import Spinner from '@/Spinner';
+import useGetPost from '~/customHooks/useGetPost';
 
 import {
   StyledReactMarkdown,
   StyledSection,
   StyledTimestamp,
-} from './styledSinglePost';
-import useGetPost from './useGetPost';
+} from './styledIndex';
 
 const SinglePost: React.FC = () => {
   const { status, post } = useGetPost();

@@ -1,13 +1,13 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
-import Edit from './Edit';
-import EditPost from './EditPost';
+import EditPost from '~/container/EditPost';
+import EditTop from '~/container/EditTop';
 
 const Router: React.FC = () => {
   return (
     <Switch>
-      <Route exact path="/edit" component={Edit} />
+      <Route exact path="/edit" component={EditTop} />
       <Route exact path="/edit/:id" component={EditPost} />
     </Switch>
   );

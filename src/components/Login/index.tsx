@@ -1,6 +1,6 @@
 import React from 'react';
 
-import type { Props } from '~/pages/edit/useLogin';
+import type { Props } from '~/customHooks/useLogin';
 
 import { StyledLogin, StyledUid } from './styledIndex';
 

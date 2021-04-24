@@ -4,8 +4,9 @@ import { Link } from 'react-router-dom';
 // import UploadFiles from '@/edit/upload/Upload';
 import CodeBlock from '@/CodeBlock';
 import Spinner from '@/Spinner';
-import { StyledReactMarkdown } from '~/pages/styledSinglePost';
-import useGetPost from '~/pages/useGetPost';
+import { StyledReactMarkdown } from '~/container/SinglePost/styledIndex';
+import useEditPost from '~/customHooks/useEditPost';
+import useGetPost from '~/customHooks/useGetPost';
 
 import {
   StyledArticle,
@@ -19,8 +20,7 @@ import {
   StyledReturn,
   StyledTextarea,
   StyledTimestamp,
-} from './styledEditPost';
-import useEditPost from './useEditPost';
+} from './styledIndex';
 
 const EditPost: React.FC = () => {
   const { status, post } = useGetPost('all');

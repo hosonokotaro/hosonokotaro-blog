@@ -1,8 +1,8 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
-import SinglePost from './SinglePost';
-import Top from './Top';
+import SinglePost from '~/container/SinglePost';
+import Top from '~/container/Top';
 
 const Router: React.FC = () => {
   return (
