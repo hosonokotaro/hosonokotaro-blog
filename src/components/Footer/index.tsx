@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { StyledFooter } from './styledFooter';
+import { StyledFooter } from './styledIndex';
 
 const Footer: React.FC<{ year: string }> = ({ year }) => {
   return <StyledFooter>© {year} HOSONOKOTARO Tech Blog</StyledFooter>;

@@ -4,7 +4,7 @@ import React from 'react';
 
 import { render, screen } from '~/testUtil';
 
-import CreatePost from './CreatePost';
+import CreatePost from '.';
 
 const handleSubmit = jest.fn();
 const onTitleChanged = jest.fn();

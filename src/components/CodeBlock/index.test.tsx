@@ -4,7 +4,7 @@ import React from 'react';
 
 import { render, screen } from '~/testUtil';
 
-import CodeBlock from './CodeBlock';
+import CodeBlock from '.';
 
 const language = 'tsx';
 

@@ -5,7 +5,7 @@ import {
   StyledPosts,
   StyledSection,
   StyledTimestamp,
-} from './styledEditPostList';
+} from './styledIndex';
 
 export interface Post {
   id: string;

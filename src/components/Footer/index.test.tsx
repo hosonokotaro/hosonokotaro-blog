@@ -5,7 +5,7 @@ import React from 'react';
 import { render, screen } from '~/testUtil';
 import getDate from '~/utility/getDate';
 
-import Footer from './Footer';
+import Footer from '.';
 
 it('it should render: Footer', () => {
   render(<Footer year={getDate('year')} />);

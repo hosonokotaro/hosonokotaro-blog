@@ -2,7 +2,7 @@ import React from 'react';
 
 import type { Props } from '~/pages/edit/useLogin';
 
-import { StyledLogin, StyledUid } from './styledLogin';
+import { StyledLogin, StyledUid } from './styledIndex';
 
 const Login: React.FC<Props> = ({ user, login, logout }) => {
   return (
