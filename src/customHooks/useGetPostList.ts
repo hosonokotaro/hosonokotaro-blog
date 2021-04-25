@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import type { getTitleListTarget, InitialState } from '~/store/postListSlice';
-import { fetchPostList } from '~/store/postListSlice';
+import { fetchPostList, setPostList } from '~/store/postListSlice';
 import type { RootState } from '~/store/rootReducer';
 
 const useGetPostList = (target: getTitleListTarget): InitialState => {
@@ -14,6 +14,10 @@ const useGetPostList = (target: getTitleListTarget): InitialState => {
 
   useEffect(() => {
     dispatch(fetchPostList(target, authHeader.bearerToken));
+
+    return () => {
+      dispatch(setPostList({ status: 'idle', titleDateList: [] }));
+    };
   }, [dispatch, target, authHeader.bearerToken]);
 
   return { status, titleDateList };
