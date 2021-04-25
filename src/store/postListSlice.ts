@@ -30,9 +30,9 @@ const postListSlice = createSlice({
   name: 'postList',
   initialState,
   reducers: {
-    setPostList(state, action: PayloadAction<TitleDate[]>) {
+    setPostList(state, action: PayloadAction<InitialState>) {
       state.status = 'success';
-      state.titleDateList = action.payload;
+      state.titleDateList = action.payload.titleDateList;
     },
   },
 });
@@ -68,7 +68,7 @@ export const fetchPostList = (
         : undefined
     )
     .then((res) => {
-      dispatch(setPostList(res.data));
+      dispatch(setPostList({ status: 'success', titleDateList: res.data }));
     })
     .catch((error) => {
       console.log(error.response.status);

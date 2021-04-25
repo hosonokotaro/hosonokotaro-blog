@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
 import type { InitialState, Target } from '~/store/postSlice';
-import { fetchPost } from '~/store/postSlice';
+import { fetchPost, setPost } from '~/store/postSlice';
 import type { RootState } from '~/store/rootReducer';
 
 const useGetPost = (target?: Target): InitialState => {
@@ -14,6 +14,21 @@ const useGetPost = (target?: Target): InitialState => {
 
   useEffect(() => {
     dispatch(fetchPost(id, target, authHeader.bearerToken));
+
+    return () => {
+      dispatch(
+        setPost({
+          status: 'idle',
+          post: {
+            id: '',
+            title: '',
+            content: '',
+            release: false,
+            createDate: '',
+          },
+        })
+      );
+    };
   }, [dispatch, id, target, authHeader.bearerToken]);
 
   return { post, status };

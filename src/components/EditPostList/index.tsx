@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import {
   StyledPost,
@@ -9,9 +10,9 @@ import {
 
 export interface Post {
   id: string;
+  title: string;
   release: boolean;
   createDate: string;
-  routerLink: React.ReactNode;
 }
 
 interface Props {
@@ -23,11 +24,11 @@ const EditPostList: React.FC<Props> = ({ postList }) => {
     <StyledSection>
       <h2>投稿された記事一覧</h2>
       <StyledPosts>
-        {postList.map(({ id, release, createDate, routerLink }) => (
+        {postList.map(({ id, title, release, createDate }) => (
           <StyledPost key={id}>
             <div>
               {!release && <span>【非公開】</span>}
-              {routerLink}
+              <Link to={`/edit/${id}`}>{title}</Link>
             </div>
             <StyledTimestamp>
               作成日時: {createDate}

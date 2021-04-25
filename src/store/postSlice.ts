@@ -37,9 +37,9 @@ const postSlice = createSlice({
   name: 'post',
   initialState,
   reducers: {
-    setPost(state, action: PayloadAction<Post>) {
-      state.status = 'success';
-      state.post = action.payload;
+    setPost(state, action: PayloadAction<InitialState>) {
+      state.status = action.payload.status;
+      state.post = action.payload.post;
     },
   },
 });
@@ -78,7 +78,7 @@ export const fetchPost = (
         : undefined
     )
     .then((res) => {
-      dispatch(setPost(res.data));
+      dispatch(setPost({ status: 'success', post: res.data }));
     })
     .catch((error) => {
       if (error.response.status === 404) location.replace('/');
