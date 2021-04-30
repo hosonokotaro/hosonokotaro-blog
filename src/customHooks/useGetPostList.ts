@@ -5,7 +5,11 @@ import type { getTitleListTarget, InitialState } from '~/store/postListSlice';
 import { fetchPostList, setPostList } from '~/store/postListSlice';
 import type { RootState } from '~/store/rootReducer';
 
-const useGetPostList = (target: getTitleListTarget): InitialState => {
+interface Props {
+  target: getTitleListTarget;
+}
+
+const useGetPostList = ({ target }: Props): InitialState => {
   const dispatch = useDispatch();
   const { status, titleDateList } = useSelector(
     (state: RootState) => state.postList

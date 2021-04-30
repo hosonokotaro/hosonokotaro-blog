@@ -1,30 +1,27 @@
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 
-import type { Props } from '@/CreatePost';
+import type { Props as ReturnProps } from '@/CreatePost';
+import createPost from '~/services/createPost';
+import type { RootState } from '~/store/rootReducer';
 
-// TODO: POST する Adapter を作成する
-// import { collectionPosts, Timestamp } from '~/adapter/';
-
-const useCreatePost = (): Props => {
+// FIXME: 現状ではタイトル以外は決め打ちになっているので再考したい
+const useCreatePost = (): ReturnProps => {
   const [title, setTitle] = useState('');
-  const [content, setContent] = useState('');
-  const [release, setRelease] = useState(false);
 
-  // TODO: Submit の時に、APIに投げる処理を実装する
+  const { authHeader } = useSelector((state: RootState) => state.authHeader);
+
   const handleSubmit = () => {
-    // collectionPosts.add({
-    //   id: collectionPosts.doc().id,
-    //   title,
-    //   content,
-    //   release,
-    //   createDate: Timestamp.now(),
-    // });
+    if (!authHeader.bearerToken) return;
 
-    console.log(title, content, release);
+    createPost({
+      title,
+      content: '',
+      release: false,
+      bearerToken: authHeader.bearerToken,
+    });
 
     setTitle('');
-    setContent('');
-    setRelease(false);
   };
 
   const onTitleChanged = (e: React.ChangeEvent<HTMLInputElement>) => {

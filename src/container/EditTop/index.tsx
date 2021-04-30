@@ -9,7 +9,7 @@ import useGetPostList from '~/customHooks/useGetPostList';
 import useLogin from '~/customHooks/useLogin';
 
 const EditTop: React.FC = () => {
-  const { status, titleDateList } = useGetPostList('all');
+  const { status, titleDateList } = useGetPostList({ target: 'all' });
 
   const {
     title,

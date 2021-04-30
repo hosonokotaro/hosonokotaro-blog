@@ -11,7 +11,7 @@ import {
 } from './styledIndex';
 
 const Top: React.FC = () => {
-  const { status, titleDateList } = useGetPostList('publicOnly');
+  const { status, titleDateList } = useGetPostList({ target: 'publicOnly' });
 
   return (
     <StyledArticle>

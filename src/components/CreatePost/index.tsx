@@ -10,7 +10,7 @@ import {
 
 export interface Props {
   title: string;
-  handleSubmit: () => void;
+  handleSubmit: VoidFunction;
   onTitleChanged: (e: React.ChangeEvent<HTMLInputElement>) => void;
   canSaveNewPost: boolean;
 }
