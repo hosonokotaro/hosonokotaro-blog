@@ -14,7 +14,7 @@ const createPost = async ({
   release,
   bearerToken,
 }: CreatePost): Promise<void> => {
-  await axiosInstance.post<CreatePost>(
+  await axiosInstance.post(
     '/post/createpost',
     { title, content, release },
     {

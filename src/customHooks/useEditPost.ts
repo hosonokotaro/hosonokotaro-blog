@@ -1,6 +1,9 @@
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 
+import deletePostService from '~/services/deletePost';
 import type { Post } from '~/store/postSlice';
+import type { RootState } from '~/store/rootReducer';
 
 interface Props {
   title: string;
@@ -13,7 +16,7 @@ interface Props {
   onContentChanged: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
   onReleaseChanged: (event: React.ChangeEvent<HTMLInputElement>) => void;
   updatePost: (id: Post['id']) => void;
-  deletePost: (id: Post['id']) => undefined;
+  deletePost: (id: Post['id']) => void | undefined;
 }
 
 const useEditPost = (): Props => {
@@ -21,6 +24,8 @@ const useEditPost = (): Props => {
   const [title, setTitle] = useState<Post['title']>('');
   const [content, setContent] = useState<Post['content']>('');
   const [release, setRelease] = useState<Post['release']>(false);
+
+  const { authHeader } = useSelector((state: RootState) => state.authHeader);
 
   const onTitleChanged = (event: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(event.target.value);
@@ -40,14 +45,15 @@ const useEditPost = (): Props => {
   };
 
   const deletePost = (id: string) => {
+    if (!authHeader.bearerToken) return;
+
     const deleteConfirm = confirm('削除します');
 
-    if (!deleteConfirm) {
-      return undefined;
+    if (deleteConfirm) {
+      // FIXME: 早期 return しても非同期処理が走った原因を知りたい
+      deletePostService({ id, bearerToken: authHeader.bearerToken });
+      alert(`${id}を削除しました`);
     }
-
-    // TODO: API に削除指示を投げる
-    alert(`${id}を削除しました`);
   };
 
   return {
