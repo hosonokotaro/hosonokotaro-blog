@@ -23,7 +23,9 @@ const useLogin = (): Props => {
 
   const logout = () => {
     setUser(undefined);
-    dispatch(setAuthHeader({ bearerToken: undefined }));
+    dispatch(
+      setAuthHeader({ status: 'idle', authHeader: { bearerToken: undefined } })
+    );
     firebaseAuth.signOut();
   };
 

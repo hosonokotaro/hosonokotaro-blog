@@ -29,9 +29,9 @@ const authHeaderSlice = createSlice({
   name: 'authHeader',
   initialState,
   reducers: {
-    setAuthHeader(state, action: PayloadAction<AuthHeader>) {
-      state.status = 'success';
-      state.authHeader = action.payload;
+    setAuthHeader(state, action: PayloadAction<InitialState>) {
+      state.status = action.payload.status;
+      state.authHeader = action.payload.authHeader;
     },
   },
 });
@@ -56,7 +56,9 @@ export const setBearerToken = (): AuthHeaderThunk => (dispatch) => {
     .getIdToken(true)
     .then((bearerToken) => {
       // NOTE: ここで言う Token とは、Firebase クライアント SDK で取得できる ID トークンを指す
-      dispatch(setAuthHeader({ bearerToken }));
+      dispatch(
+        setAuthHeader({ status: 'success', authHeader: { bearerToken } })
+      );
     })
     .catch((error) => {
       console.log(error);
