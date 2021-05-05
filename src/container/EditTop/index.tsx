@@ -4,19 +4,18 @@ import CreatePost from '@/CreatePost';
 import EditPostList from '@/EditPostList';
 import Login from '@/Login';
 import Spinner from '@/Spinner';
-import useCreatePost from '~/customHooks/useCreatePost';
-import useGetPostList from '~/customHooks/useGetPostList';
+import useEditTop from '~/customHooks/useEditTop';
 import useLogin from '~/customHooks/useLogin';
 
 const EditTop: React.FC = () => {
-  const { status, titleDateList } = useGetPostList({ target: 'all' });
-
   const {
+    status,
+    titleDateList,
     title,
     handleSubmit,
     onTitleChanged,
     canSaveNewPost,
-  } = useCreatePost();
+  } = useEditTop({ target: 'all' });
 
   const { user, login, logout } = useLogin();
 

@@ -14,15 +14,15 @@ const useGetPostList = ({ target }: Props): InitialState => {
   const { status, titleDateList } = useSelector(
     (state: RootState) => state.postList
   );
-  const { authHeader } = useSelector((state: RootState) => state.authHeader);
 
+  // NOTE: fetch, set と命名した理由は、取得時は非同期だが、destructor 時は同期的に state を変更するため
   useEffect(() => {
-    dispatch(fetchPostList(target, authHeader.bearerToken));
+    dispatch(fetchPostList(target));
 
     return () => {
       dispatch(setPostList({ status: 'idle', titleDateList: [] }));
     };
-  }, [dispatch, target, authHeader.bearerToken]);
+  }, [dispatch, target]);
 
   return { status, titleDateList };
 };

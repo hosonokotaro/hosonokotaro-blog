@@ -12,6 +12,7 @@ const useGetPost = (target?: Target): InitialState => {
   const { post, status } = useSelector((state: RootState) => state.post);
   const { authHeader } = useSelector((state: RootState) => state.authHeader);
 
+  // NOTE: fetch, set と命名した理由は、取得時は非同期だが、destructor 時は同期的に state を変更するため
   useEffect(() => {
     dispatch(fetchPost(id, target, authHeader.bearerToken));
 
