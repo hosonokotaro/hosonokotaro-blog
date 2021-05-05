@@ -20,7 +20,6 @@ interface UseEditTop {
 }
 
 const useEditTop = ({ target }: Props): UseEditTop => {
-  const [title, setTitle] = useState('');
   const dispatch = useDispatch();
 
   const { status, titleDateList } = useSelector(
@@ -29,11 +28,15 @@ const useEditTop = ({ target }: Props): UseEditTop => {
 
   const { authHeader } = useSelector((state: RootState) => state.authHeader);
 
+  const [title, setTitle] = useState('');
+
   // TODO: 投稿時のタイムゾーンが正しく設定されていないので修正する
-  const handleSubmit = () => {
+  // NOTE: 仮説として、ローカル開発環境でタイムゾーンが異なる可能性がある
+
+  const handleSubmit = async () => {
     if (!authHeader.bearerToken) return;
 
-    createPost({
+    await createPost({
       title,
       content: '',
       release: false,

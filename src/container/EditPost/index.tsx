@@ -69,10 +69,10 @@ const EditPost: React.FC = () => {
               onChange={onReleaseChanged}
             />
             <StyledButtonWrapper>
-              <StyledButton onClick={() => updatePost(id)}>
+              <StyledButton onClick={updatePost}>
                 この記事を更新する
               </StyledButton>
-              <StyledButton onClick={() => deletePost(id)}>
+              <StyledButton onClick={deletePost}>
                 この記事を削除する
               </StyledButton>
             </StyledButtonWrapper>

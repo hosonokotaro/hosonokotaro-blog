@@ -21,8 +21,8 @@ interface UseEditPost {
   onTitleChanged: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onContentChanged: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
   onReleaseChanged: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  updatePost: (id: Post['id']) => void;
-  deletePost: (id: Post['id']) => void | undefined;
+  updatePost: VoidFunction;
+  deletePost: VoidFunction;
 }
 
 const useEditPost = ({ target }: Props): UseEditPost => {
@@ -50,19 +50,20 @@ const useEditPost = ({ target }: Props): UseEditPost => {
     setDraftRelease(event.target.checked);
   };
 
-  const updatePost = (id: string) => {
+  const updatePost = () => {
     // TODO: API に更新データを投げる
     console.log(id);
   };
 
-  const deletePost = (id: string) => {
+  const deletePost = async () => {
     if (!authHeader.bearerToken) return;
 
     const deleteConfirm = confirm('削除します');
 
     if (deleteConfirm) {
-      deletePostService({ id, bearerToken: authHeader.bearerToken });
+      await deletePostService({ id, bearerToken: authHeader.bearerToken });
       alert(`${id}を削除しました`);
+
       // FIXME: 存在しないページに戻ると白い画面になるのを修正したい
       history.push('/edit');
     }
