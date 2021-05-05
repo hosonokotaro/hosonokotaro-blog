@@ -19,19 +19,19 @@ const Preview: React.FC<Post> = ({
 }) => {
   return (
     <div>
+      <StyledTimestamp>
+        記事作成日時: {createDate}
+        <br />
+        id: {id}
+        <br />
+        現在の Release フラグ: {release ? 'true' : 'false'}
+      </StyledTimestamp>
       <StyledPreview>
         <StyledPreviewTitle>Preview</StyledPreviewTitle>
         <h2>{title}</h2>
         <StyledTimestamp>{createDate}</StyledTimestamp>
         <StyledReactMarkdown source={content} renderers={{ code: CodeBlock }} />
       </StyledPreview>
-      <StyledTimestamp>
-        作成日時: {createDate}
-        <br />
-        id: {id}
-        <br />
-        release: {release ? 'true' : 'false'}
-      </StyledTimestamp>
     </div>
   );
 };

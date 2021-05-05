@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 
 import deletePostService from '~/services/deletePost';
 import type { InitialState, Post, Target } from '~/store/postSlice';
@@ -15,6 +15,9 @@ interface UseEditPost {
   id: Post['id'];
   post: InitialState['post'];
   status: InitialState['status'];
+  draftTitle?: Post['title'];
+  draftContent?: Post['content'];
+  draftRelease?: Post['release'];
   onTitleChanged: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onContentChanged: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
   onReleaseChanged: (event: React.ChangeEvent<HTMLInputElement>) => void;
@@ -23,24 +26,28 @@ interface UseEditPost {
 }
 
 const useEditPost = ({ target }: Props): UseEditPost => {
-  // TODO: Preview 機能を再作成する
-
   const { id } = useParams<{ id: Post['id'] }>();
 
   const dispatch = useDispatch();
   const { post, status } = useSelector((state: RootState) => state.post);
   const { authHeader } = useSelector((state: RootState) => state.authHeader);
 
+  const [draftTitle, setDraftTitle] = useState<Post['title']>();
+  const [draftContent, setDraftContent] = useState<Post['content']>();
+  const [draftRelease, setDraftRelease] = useState<Post['release']>();
+
+  const history = useHistory();
+
   const onTitleChanged = (event: React.ChangeEvent<HTMLInputElement>) => {
-    // setTitle(event.target.value);
+    setDraftTitle(event.target.value);
   };
 
   const onContentChanged = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    // setContent(event.target.value);
+    setDraftContent(event.target.value);
   };
 
   const onReleaseChanged = (event: React.ChangeEvent<HTMLInputElement>) => {
-    // setRelease(event.target.checked);
+    setDraftRelease(event.target.checked);
   };
 
   const updatePost = (id: string) => {
@@ -54,9 +61,10 @@ const useEditPost = ({ target }: Props): UseEditPost => {
     const deleteConfirm = confirm('削除します');
 
     if (deleteConfirm) {
-      // FIXME: 早期 return しても非同期処理が走った原因を知りたい
       deletePostService({ id, bearerToken: authHeader.bearerToken });
       alert(`${id}を削除しました`);
+      // FIXME: 存在しないページに戻ると白い画面になるのを修正したい
+      history.push('/edit');
     }
   };
 
@@ -80,10 +88,19 @@ const useEditPost = ({ target }: Props): UseEditPost => {
     };
   }, [dispatch, id, target, authHeader.bearerToken]);
 
+  useEffect(() => {
+    setDraftTitle(post.title);
+    setDraftContent(post.content);
+    setDraftRelease(post.release);
+  }, [post]);
+
   return {
     id,
     post,
     status,
+    draftTitle,
+    draftContent,
+    draftRelease,
     onTitleChanged,
     onContentChanged,
     onReleaseChanged,

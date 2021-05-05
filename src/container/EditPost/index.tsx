@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 // import UploadFiles from '@/edit/upload/Upload';
@@ -24,6 +24,9 @@ const EditPost: React.FC = () => {
     id,
     post,
     status,
+    draftTitle,
+    draftContent,
+    draftRelease,
     onTitleChanged,
     onContentChanged,
     onReleaseChanged,
@@ -62,7 +65,7 @@ const EditPost: React.FC = () => {
               type="checkbox"
               id={`editPostRelease-${id}`}
               name={`editPostRelease-${id}`}
-              checked={post.release}
+              checked={draftRelease}
               onChange={onReleaseChanged}
             />
             <StyledButtonWrapper>
@@ -75,8 +78,8 @@ const EditPost: React.FC = () => {
             </StyledButtonWrapper>
             <Preview
               id={id}
-              title={post.title}
-              content={post.content}
+              title={draftTitle ?? ''}
+              content={draftContent ?? ''}
               release={post.release}
               createDate={post.createDate}
             />
