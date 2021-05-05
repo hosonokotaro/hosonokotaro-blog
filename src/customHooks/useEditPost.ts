@@ -1,17 +1,20 @@
-import { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
 
 import deletePostService from '~/services/deletePost';
-import type { Post } from '~/store/postSlice';
+import type { InitialState, Post, Target } from '~/store/postSlice';
+import { fetchPost, setPost } from '~/store/postSlice';
 import type { RootState } from '~/store/rootReducer';
 
 interface Props {
-  title: string;
-  setTitle: React.Dispatch<React.SetStateAction<string>>;
-  content: string;
-  setContent: React.Dispatch<React.SetStateAction<string>>;
-  release: boolean;
-  setRelease: React.Dispatch<React.SetStateAction<boolean>>;
+  target: Target;
+}
+
+interface UseEditPost {
+  id: Post['id'];
+  post: InitialState['post'];
+  status: InitialState['status'];
   onTitleChanged: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onContentChanged: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
   onReleaseChanged: (event: React.ChangeEvent<HTMLInputElement>) => void;
@@ -19,24 +22,25 @@ interface Props {
   deletePost: (id: Post['id']) => void | undefined;
 }
 
-const useEditPost = (): Props => {
-  // NOTE: form には初期値が必須となる
-  const [title, setTitle] = useState<Post['title']>('');
-  const [content, setContent] = useState<Post['content']>('');
-  const [release, setRelease] = useState<Post['release']>(false);
+const useEditPost = ({ target }: Props): UseEditPost => {
+  // TODO: Preview 機能を再作成する
 
+  const { id } = useParams<{ id: Post['id'] }>();
+
+  const dispatch = useDispatch();
+  const { post, status } = useSelector((state: RootState) => state.post);
   const { authHeader } = useSelector((state: RootState) => state.authHeader);
 
   const onTitleChanged = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setTitle(event.target.value);
+    // setTitle(event.target.value);
   };
 
   const onContentChanged = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setContent(event.target.value);
+    // setContent(event.target.value);
   };
 
   const onReleaseChanged = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setRelease(event.target.checked);
+    // setRelease(event.target.checked);
   };
 
   const updatePost = (id: string) => {
@@ -56,13 +60,30 @@ const useEditPost = (): Props => {
     }
   };
 
+  // NOTE: fetch, set と命名した理由は、取得時は非同期だが、destructor 時は同期的に state を変更するため
+  useEffect(() => {
+    dispatch(fetchPost(id, target, authHeader.bearerToken));
+
+    return () => {
+      dispatch(
+        setPost({
+          status: 'idle',
+          post: {
+            id: '',
+            title: '',
+            content: '',
+            release: false,
+            createDate: '',
+          },
+        })
+      );
+    };
+  }, [dispatch, id, target, authHeader.bearerToken]);
+
   return {
-    title,
-    setTitle,
-    content,
-    setContent,
-    release,
-    setRelease,
+    id,
+    post,
+    status,
     onTitleChanged,
     onContentChanged,
     onReleaseChanged,
