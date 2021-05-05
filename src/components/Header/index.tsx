@@ -7,11 +7,15 @@ import {
   StyleLink,
 } from './styledIndex';
 
-const Header: React.FC = () => {
+interface Props {
+  linkPath?: string;
+}
+
+const Header: React.FC<Props> = ({ linkPath = '/' }) => {
   return (
     <StyledHeaderWrapper>
       <StyledHeader>
-        <StyleLink to="/">
+        <StyleLink to={linkPath}>
           <h1>
             <StyledInlineBlock>HOSONO</StyledInlineBlock>
             <StyledInlineBlock>KOTARO</StyledInlineBlock> Tech Blog
