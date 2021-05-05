@@ -2,10 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 // import UploadFiles from '@/edit/upload/Upload';
-import CodeBlock from '@/CodeBlock';
 import Login from '@/Login';
 import Spinner from '@/Spinner';
-import { StyledReactMarkdown } from '~/container/SinglePost/styledIndex';
+import Preview from '~/container/Preview';
 import useEditPost from '~/customHooks/useEditPost';
 import useLogin from '~/customHooks/useLogin';
 
@@ -16,11 +15,8 @@ import {
   StyledInputText,
   StyledLabel,
   StyledLabelInlineBlock,
-  StyledPreview,
-  StyledPreviewTitle,
   StyledReturn,
   StyledTextarea,
-  StyledTimestamp,
 } from './styledIndex';
 
 const EditPost: React.FC = () => {
@@ -77,20 +73,13 @@ const EditPost: React.FC = () => {
                 この記事を削除する
               </StyledButton>
             </StyledButtonWrapper>
-            <StyledTimestamp>
-              作成日時: {post.createDate}
-              <br />
-              id: {id}
-            </StyledTimestamp>
-            <StyledPreview>
-              <StyledPreviewTitle>Preview</StyledPreviewTitle>
-              <h2>{post.title}</h2>
-              <StyledTimestamp>{post.createDate}</StyledTimestamp>
-              <StyledReactMarkdown
-                source={post.content}
-                renderers={{ code: CodeBlock }}
-              />
-            </StyledPreview>
+            <Preview
+              id={id}
+              title={post.title}
+              content={post.content}
+              release={post.release}
+              createDate={post.createDate}
+            />
             <StyledReturn>
               <Link to="/edit">投稿された記事一覧に行く</Link>
             </StyledReturn>
