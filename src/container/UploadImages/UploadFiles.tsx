@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Spinner from '@/Spinner';
-import useUploadFiles, { TypeUploadFiles } from '~/customHooks/useUploadFiles';
+import useUploadFiles, { Props } from '~/customHooks/useUploadFiles';
 
 import {
   StyledButtonWrap,
@@ -13,14 +13,14 @@ import {
   StyledItem,
 } from './styledUploadFiles';
 
-const UploadFiles: React.FC<TypeUploadFiles> = (props) => {
-  const [
+const UploadFiles: React.FC<Props> = (props) => {
+  const {
     loaded,
     imagePaths,
     filepathRef,
     copyClipboard,
     deleteImage,
-  ] = useUploadFiles(props);
+  } = useUploadFiles(props);
 
   return (
     <>

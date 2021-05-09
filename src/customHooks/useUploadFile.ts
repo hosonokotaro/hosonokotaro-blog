@@ -4,28 +4,26 @@ import { publicImages } from '~/adapter/firebase';
 
 const useUploadFile = (
   props: TypeUploadFile
-): [
-  File | null,
-  React.Dispatch<React.SetStateAction<File | null>>,
-  () => false | undefined
-] => {
-  const [image, setImage] = useState<File | null>(null);
+): {
+  image?: File;
+  setImage: React.Dispatch<React.SetStateAction<File | undefined>>;
+  upload: VoidFunction;
+} => {
+  const [image, setImage] = useState<File>();
 
   const upload = () => {
-    if (!image) {
-      return false;
-    }
+    if (!image) return;
 
     publicImages
       .child(`${props.uploadPath}/${image.name}`)
       .put(image)
       .then(() => {
         props.setUploadFilename(image.name);
-        setImage(null);
+        setImage(undefined);
       });
   };
 
-  return [image, setImage, upload];
+  return { image, setImage, upload };
 };
 
 export default useUploadFile;

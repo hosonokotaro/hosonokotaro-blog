@@ -1,19 +1,29 @@
 import { RefObject, useEffect, useRef, useState } from 'react';
 
-import { publicImages } from '~/adapter/firebase';
+import { PublicImages, publicImages } from '~/adapter/firebase';
+
+type TypeImagePath = {
+  fullpath: string;
+  filename: string;
+};
+
+export type Props = {
+  uploadPath: string;
+  uploadFilename: string;
+};
 
 const useUploadFiles = (
-  props: TypeUploadFiles
-): [
-  boolean,
-  TypeImagePath[],
-  RefObject<HTMLInputElement>,
-  () => void,
-  (imagePath: string) => void
-] => {
+  props: Props
+): {
+  loaded: boolean;
+  imagePaths: TypeImagePath[];
+  filepathRef: RefObject<HTMLInputElement>;
+  copyClipboard: VoidFunction;
+  deleteImage: (imagePath: string) => void;
+} => {
   const filepathRef = useRef<HTMLInputElement>(null);
 
-  const [imageRef, setImageRef] = useState<firebase.storage.Reference[]>([]);
+  const [imageRef, setImageRef] = useState<PublicImages[]>([]);
   const [imagePaths, setImagePaths] = useState<TypeImagePath[]>([]);
   const [loaded, setLoaded] = useState(false);
   const [reload, setReload] = useState(0);
@@ -65,17 +75,7 @@ const useUploadFiles = (
     return () => clearTimeout(unmount);
   }, [imageRef]);
 
-  return [loaded, imagePaths, filepathRef, copyClipboard, deleteImage];
+  return { loaded, imagePaths, filepathRef, copyClipboard, deleteImage };
 };
 
 export default useUploadFiles;
-
-type TypeImagePath = {
-  fullpath: string;
-  filename: string;
-};
-
-export type TypeUploadFiles = {
-  uploadPath: string;
-  uploadFilename: string;
-};

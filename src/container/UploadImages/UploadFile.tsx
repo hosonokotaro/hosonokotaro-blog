@@ -10,7 +10,7 @@ import {
 } from './styledUploadFile';
 
 const UploadFile: React.FC<TypeUploadFile> = (props) => {
-  const [image, setImage, upload] = useUploadFile(props);
+  const { image, setImage, upload } = useUploadFile(props);
 
   return (
     <StyledUploadFile>

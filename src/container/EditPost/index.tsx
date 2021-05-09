@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 
 // import UploadFiles from '@/edit/upload/Upload';
 import Login from '@/Login';
 import Spinner from '@/Spinner';
 import Preview from '~/container/Preview';
+import UploadImages from '~/container/UploadImages';
 import useEditPost from '~/customHooks/useEditPost';
 import useLogin from '~/customHooks/useLogin';
 
@@ -57,7 +58,7 @@ const EditPost: React.FC = () => {
               defaultValue={post.content}
               onChange={onContentChanged}
             ></StyledTextarea>
-            {/* <UploadFiles uploadPath={id} /> */}
+            <UploadImages uploadPath={id} />
             <StyledLabelInlineBlock htmlFor={`editPostRelease-${id}`}>
               公開フラグ
             </StyledLabelInlineBlock>
@@ -73,6 +74,7 @@ const EditPost: React.FC = () => {
                 この記事を更新する
               </StyledButton>
               <StyledButton onClick={deletePost}>
+                {/* TODO: 記事を削除したときに画像を削除する機能を復活させる */}
                 この記事を削除する
               </StyledButton>
             </StyledButtonWrapper>
