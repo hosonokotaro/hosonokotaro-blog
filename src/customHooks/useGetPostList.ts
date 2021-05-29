@@ -1,30 +1,29 @@
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
 
-import type { getTitleListTarget, InitialState } from '~/store/postListSlice';
-import { fetchPostList, setPostList } from '~/store/postListSlice';
-import type { RootState } from '~/store/rootReducer';
+import type { Props, Response } from '~/services/getPostList';
+import getPostList from '~/services/getPostList';
 
-interface Props {
-  target: getTitleListTarget;
-}
+const useGetPostList = ({ target, idToken }: Props): Response => {
+  const [status, setStatus] = useState<Response['status']>('idle');
+  const [postTitleDateList, setPostTitleDateList] = useState<
+    Response['postTitleDateList']
+  >([]);
 
-const useGetPostList = ({ target }: Props): InitialState => {
-  const dispatch = useDispatch();
-  const { status, titleDateList } = useSelector(
-    (state: RootState) => state.postList
-  );
-
-  // NOTE: fetch, set と命名した理由は、取得時は非同期だが、destructor 時は同期的に state を変更するため
   useEffect(() => {
-    dispatch(fetchPostList(target));
+    const fetchGetPostList = async () => {
+      const { status, postTitleDateList } = await getPostList({
+        target,
+        idToken,
+      });
 
-    return () => {
-      dispatch(setPostList({ status: 'idle', titleDateList: [] }));
+      setStatus(status);
+      setPostTitleDateList(postTitleDateList);
     };
-  }, [dispatch, target]);
 
-  return { status, titleDateList };
+    fetchGetPostList();
+  }, [target, idToken]);
+
+  return { status, postTitleDateList };
 };
 
 export default useGetPostList;

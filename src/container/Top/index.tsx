@@ -11,14 +11,14 @@ import {
 } from './styledIndex';
 
 const Top: React.FC = () => {
-  const { status, titleDateList } = useGetPostList({ target: 'publicOnly' });
+  const { status, postTitleDateList } = useGetPostList({ target: 'default' });
 
   return (
     <StyledArticle>
       <h2>記事一覧</h2>
       {status === 'success' ? (
         <>
-          {titleDateList.map((item) => (
+          {postTitleDateList.map((item) => (
             <StyledPost key={item.id}>
               <StyledLink to={item.id}>{item.title}</StyledLink>
               <StyledDate>{item.createDate}</StyledDate>
