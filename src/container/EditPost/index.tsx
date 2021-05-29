@@ -1,12 +1,13 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 
 // import UploadFiles from '@/edit/upload/Upload';
-import CodeBlock from '@/CodeBlock';
+import Login from '@/Login';
 import Spinner from '@/Spinner';
-import { StyledReactMarkdown } from '~/container/SinglePost/styledIndex';
+import Preview from '~/container/Preview';
+import UploadImages from '~/container/UploadImages';
 import useEditPost from '~/customHooks/useEditPost';
-import useGetPost from '~/customHooks/useGetPost';
+import useLogin from '~/customHooks/useLogin';
 
 import {
   StyledArticle,
@@ -15,99 +16,85 @@ import {
   StyledInputText,
   StyledLabel,
   StyledLabelInlineBlock,
-  StyledPreview,
-  StyledPreviewTitle,
   StyledReturn,
   StyledTextarea,
-  StyledTimestamp,
 } from './styledIndex';
 
 const EditPost: React.FC = () => {
-  const { status, post } = useGetPost('all');
-
   const {
-    title,
-    setTitle,
-    content,
-    setContent,
-    release,
-    setRelease,
+    id,
+    post,
+    status,
+    draftTitle,
+    draftContent,
+    draftRelease,
     onTitleChanged,
     onContentChanged,
     onReleaseChanged,
     updatePost,
     deletePost,
-  } = useEditPost();
+  } = useEditPost({ target: 'all' });
 
-  useEffect(() => {
-    setTitle(post.title);
-    setContent(post.content);
-    setRelease(post.release);
-  }, [post, setTitle, setContent, setRelease]);
+  const { user, login, logout } = useLogin();
 
   return (
-    <StyledArticle>
-      {status === 'success' ? (
-        <>
-          <h2>記事を編集する</h2>
-          <StyledLabel htmlFor={`editPostTitle-${post.id}`}>
-            タイトル
-          </StyledLabel>
-          <StyledInputText
-            type="text"
-            id={`editPostTitle-${post.id}`}
-            name={`editPostTitle-${post.id}`}
-            defaultValue={title}
-            onChange={onTitleChanged}
-          />
-          <StyledLabel htmlFor={`editPostContent-${post.id}`}>本文</StyledLabel>
-          <StyledTextarea
-            id={`editPostContent-${post.id}`}
-            name={`editPostContent-${post.id}`}
-            defaultValue={content}
-            onChange={onContentChanged}
-          ></StyledTextarea>
-          {/* <UploadFiles uploadPath={id} /> */}
-          <StyledLabelInlineBlock htmlFor={`editPostRelease-${post.id}`}>
-            公開フラグ
-          </StyledLabelInlineBlock>
-          <input
-            type="checkbox"
-            id={`editPostRelease-${post.id}`}
-            name={`editPostRelease-${post.id}`}
-            checked={release}
-            onChange={onReleaseChanged}
-          />
-          <StyledButtonWrapper>
-            <StyledButton onClick={() => updatePost(post.id)}>
-              この記事を更新する
-            </StyledButton>
-            <StyledButton onClick={() => deletePost(post.id)}>
-              この記事を削除する
-            </StyledButton>
-          </StyledButtonWrapper>
-          <StyledTimestamp>
-            作成日時: {post.createDate}
-            <br />
-            id: {post.id}
-          </StyledTimestamp>
-          <StyledPreview>
-            <StyledPreviewTitle>Preview</StyledPreviewTitle>
-            <h2>{title}</h2>
-            <StyledTimestamp>{post.createDate}</StyledTimestamp>
-            <StyledReactMarkdown
-              source={content}
-              renderers={{ code: CodeBlock }}
+    <>
+      <StyledArticle>
+        {user && post && status === 'success' ? (
+          <>
+            <h2>記事を編集する</h2>
+            <StyledLabel htmlFor={`editPostTitle-${id}`}>タイトル</StyledLabel>
+            <StyledInputText
+              type="text"
+              id={`editPostTitle-${id}`}
+              name={`editPostTitle-${id}`}
+              defaultValue={post.title}
+              onChange={onTitleChanged}
             />
-          </StyledPreview>
-          <StyledReturn>
-            <Link to="/edit">投稿された記事一覧に行く</Link>
-          </StyledReturn>
-        </>
-      ) : (
-        <Spinner />
-      )}
-    </StyledArticle>
+            <StyledLabel htmlFor={`editPostContent-${id}`}>本文</StyledLabel>
+            <StyledTextarea
+              id={`editPostContent-${id}`}
+              name={`editPostContent-${id}`}
+              defaultValue={post.content}
+              onChange={onContentChanged}
+            ></StyledTextarea>
+            <UploadImages uploadPath={id} />
+            <StyledLabelInlineBlock htmlFor={`editPostRelease-${id}`}>
+              公開フラグ
+            </StyledLabelInlineBlock>
+            <input
+              type="checkbox"
+              id={`editPostRelease-${id}`}
+              name={`editPostRelease-${id}`}
+              checked={draftRelease}
+              onChange={onReleaseChanged}
+            />
+            <StyledButtonWrapper>
+              <StyledButton onClick={updatePost}>
+                この記事を更新する
+              </StyledButton>
+              <StyledButton onClick={deletePost}>
+                {/* TODO: 記事を削除したときに画像を削除する機能を復活させる */}
+                この記事を削除する
+              </StyledButton>
+            </StyledButtonWrapper>
+            <Preview
+              id={id}
+              title={draftTitle ?? ''}
+              content={draftContent ?? ''}
+              release={post.release}
+              createDate={post.createDate}
+            />
+            <StyledReturn>
+              <Link to="/edit">投稿された記事一覧に行く</Link>
+            </StyledReturn>
+          </>
+        ) : (
+          <Spinner />
+        )}
+      </StyledArticle>
+      <Login user={user} login={login} logout={logout} />
+    </>
   );
 };
 

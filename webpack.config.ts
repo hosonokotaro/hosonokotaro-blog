@@ -94,7 +94,7 @@ const config: Configuration = {
       ignored: ['node_modules'],
     },
   },
-  devtool: 'source-map',
+  devtool: dev && 'source-map',
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new HTMLWebpackPlugin({

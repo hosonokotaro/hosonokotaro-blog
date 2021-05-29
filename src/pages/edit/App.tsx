@@ -23,7 +23,7 @@ const App: React.FC = () => {
       </Helmet>
       <Router>
         <ScrollToTop />
-        <Header />
+        <Header linkPath="/edit" />
         <EditRouter />
         <Footer year={getDate('year')} />
       </Router>

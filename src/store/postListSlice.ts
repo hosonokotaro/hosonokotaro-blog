@@ -31,7 +31,7 @@ const postListSlice = createSlice({
   initialState,
   reducers: {
     setPostList(state, action: PayloadAction<InitialState>) {
-      state.status = 'success';
+      state.status = action.payload.status;
       state.titleDateList = action.payload.titleDateList;
     },
   },
