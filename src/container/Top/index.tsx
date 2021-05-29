@@ -1,5 +1,6 @@
 import React from 'react';
 
+import ErrorMessage from '@/ErrorMessage';
 import Spinner from '@/Spinner';
 import useGetPostList from '~/customHooks/useGetPostList';
 
@@ -16,7 +17,8 @@ const Top: React.FC = () => {
   return (
     <StyledArticle>
       <h2>記事一覧</h2>
-      {status === 'success' ? (
+      {status === 'loading' && <Spinner />}
+      {status === 'success' && (
         <>
           {postTitleDateList.map((item) => (
             <StyledPost key={item.id}>
@@ -25,9 +27,8 @@ const Top: React.FC = () => {
             </StyledPost>
           ))}
         </>
-      ) : (
-        <Spinner />
       )}
+      {status === 'failure' && <ErrorMessage />}
     </StyledArticle>
   );
 };

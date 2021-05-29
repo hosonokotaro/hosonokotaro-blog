@@ -44,8 +44,11 @@ const getPostList = async ({ target, idToken }: Props): Promise<Response> => {
         postTitleDateList: res.data,
       };
     })
-    .catch((error) => {
-      throw new Error(error);
+    .catch(() => {
+      return {
+        status: 'failure' as const,
+        postTitleDateList: [],
+      };
     });
 };
 

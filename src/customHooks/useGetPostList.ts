@@ -10,6 +10,8 @@ const useGetPostList = ({ target, idToken }: Props): Response => {
   >([]);
 
   useEffect(() => {
+    setStatus('loading');
+
     const fetchGetPostList = async () => {
       const { status, postTitleDateList } = await getPostList({
         target,
