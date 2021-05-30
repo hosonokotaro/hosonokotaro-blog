@@ -23,7 +23,7 @@ type Status = 'idle' | 'loading' | 'success' | 'failure';
 
 export interface Response {
   status: Status;
-  postTitleDateList: PostTitleDate[];
+  titleDateList: PostTitleDate[];
 }
 
 const getPostList = async ({ target, idToken }: Props): Promise<Response> => {
@@ -41,13 +41,13 @@ const getPostList = async ({ target, idToken }: Props): Promise<Response> => {
       // NOTE: status はそのままでは string として認識されるので as const を利用した
       return {
         status: 'success' as const,
-        postTitleDateList: res.data,
+        titleDateList: res.data,
       };
     })
     .catch(() => {
       return {
         status: 'failure' as const,
-        postTitleDateList: [],
+        titleDateList: [],
       };
     });
 };

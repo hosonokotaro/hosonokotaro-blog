@@ -12,7 +12,7 @@ import {
 } from './styledIndex';
 
 const Top: React.FC = () => {
-  const { status, postTitleDateList } = useGetPostList({ target: 'default' });
+  const { status, titleDateList } = useGetPostList({ target: 'default' });
 
   return (
     <StyledArticle>
@@ -20,7 +20,7 @@ const Top: React.FC = () => {
       {status === 'loading' && <Spinner />}
       {status === 'success' && (
         <>
-          {postTitleDateList.map((item) => (
+          {titleDateList.map((item) => (
             <StyledPost key={item.id}>
               <StyledLink to={item.id}>{item.title}</StyledLink>
               <StyledDate>{item.createDate}</StyledDate>

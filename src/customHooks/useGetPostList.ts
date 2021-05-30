@@ -5,27 +5,27 @@ import getPostList from '~/services/getPostList';
 
 const useGetPostList = ({ target, idToken }: Props): Response => {
   const [status, setStatus] = useState<Response['status']>('idle');
-  const [postTitleDateList, setPostTitleDateList] = useState<
-    Response['postTitleDateList']
-  >([]);
+  const [titleDateList, setTitleDateList] = useState<Response['titleDateList']>(
+    []
+  );
 
   useEffect(() => {
     setStatus('loading');
 
     const fetchGetPostList = async () => {
-      const { status, postTitleDateList } = await getPostList({
+      const { status, titleDateList } = await getPostList({
         target,
         idToken,
       });
 
       setStatus(status);
-      setPostTitleDateList(postTitleDateList);
+      setTitleDateList(titleDateList);
     };
 
     fetchGetPostList();
   }, [target, idToken]);
 
-  return { status, postTitleDateList };
+  return { status, titleDateList };
 };
 
 export default useGetPostList;

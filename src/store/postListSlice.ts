@@ -5,7 +5,7 @@ import {
   ThunkAction,
 } from '@reduxjs/toolkit';
 
-import axiosInstance from '~/adapter/axiosInstance';
+import getPostList from '~/services/getPostList';
 
 type Status = 'idle' | 'loading' | 'success' | 'failure';
 
@@ -53,24 +53,14 @@ export const getTitleList = {
 export type getTitleListTarget = keyof typeof getTitleList;
 
 export const fetchPostList = (
-  target: getTitleListTarget,
+  targetOld: getTitleListTarget,
   idToken?: string
 ): PostListThunk => async (dispatch) => {
-  await axiosInstance
-    .get<TitleDate[]>(
-      getTitleList[target],
-      target === 'all' && idToken
-        ? {
-            headers: {
-              Authorization: `Bearer ${idToken}`,
-            },
-          }
-        : undefined
-    )
-    .then((res) => {
-      dispatch(setPostList({ status: 'success', titleDateList: res.data }));
-    })
-    .catch((error) => {
-      console.log(error.response.status);
-    });
+  // NOTE: 本来はやらないが、差し替え対応のためにここで Service を呼ぶ
+
+  // NOTE: slice と互換性を取るため publicOnly → privateEnabled, all → default
+  const target = targetOld === 'all' ? 'privateEnabled' : 'default';
+
+  const response = await getPostList({ target, idToken });
+  dispatch(setPostList(response));
 };
