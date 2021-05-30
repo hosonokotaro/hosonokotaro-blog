@@ -23,6 +23,7 @@ type Status = 'idle' | 'loading' | 'success' | 'failure';
 
 export interface Response {
   status: Status;
+  // FIXME: titleDateList が取れる確証は無いので本来は ? だが、Redux State の為に取れる前提になっている。今後修正したい
   titleDateList: PostTitleDate[];
 }
 
