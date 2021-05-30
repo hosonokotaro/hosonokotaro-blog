@@ -7,15 +7,15 @@ interface PostTitleDate {
   createDate: string;
 }
 
-const getTitleList = {
+const getTitleListTarget = {
   default: '/get/titlelist',
   privateEnabled: '/get/titlelist?private=enabled',
 } as const;
 
-type GetTitleListKey = keyof typeof getTitleList;
+type GetTitleListTarget = keyof typeof getTitleListTarget;
 
 export interface Props {
-  target: GetTitleListKey;
+  target: GetTitleListTarget;
   idToken?: string;
 }
 
@@ -34,7 +34,7 @@ const getPostList = async ({ target, idToken }: Props): Promise<Response> => {
   }
 
   return await axiosInstance
-    .get<PostTitleDate[]>(getTitleList[target], {
+    .get<PostTitleDate[]>(getTitleListTarget[target], {
       headers,
     })
     .then((res) => {
