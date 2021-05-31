@@ -5,7 +5,7 @@ import {
   ThunkAction,
 } from '@reduxjs/toolkit';
 
-import { firebaseAuth } from '~/adapter/firebase';
+import getBearerToken from '~/services/getBearerToken';
 
 type Status = 'idle' | 'loading' | 'success' | 'failure';
 
@@ -49,18 +49,11 @@ type AuthHeaderThunk = ThunkAction<
   Action<string>
 >;
 
-export const setBearerToken = (): AuthHeaderThunk => (dispatch) => {
-  if (!firebaseAuth.currentUser) return;
+export const setBearerToken = (): AuthHeaderThunk => async (dispatch) => {
+  // NOTE: 本来はやらないが、差し替え対応のためにここで Service を呼ぶ
+  const response = await getBearerToken();
 
-  firebaseAuth.currentUser
-    .getIdToken(true)
-    .then((bearerToken) => {
-      // NOTE: ここで言う Token とは、Firebase クライアント SDK で取得できる ID トークンを指す
-      dispatch(
-        setAuthHeader({ status: 'success', authHeader: { bearerToken } })
-      );
-    })
-    .catch((error) => {
-      console.log(error);
-    });
+  if (!response) return;
+
+  dispatch(setAuthHeader(response));
 };
