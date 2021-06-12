@@ -19,15 +19,7 @@ export interface Props {
   idToken?: string;
 }
 
-type Status = 'idle' | 'loading' | 'success' | 'failure';
-
-export interface Response {
-  status: Status;
-  // FIXME: titleDateList が取れる確証は無いので本来は ? だが、Redux State の為に取れる前提になっている。今後修正したい
-  titleDateList: PostTitleDate[];
-}
-
-const getPostList = async ({ target, idToken }: Props): Promise<Response> => {
+const getPostList = async ({ target, idToken }: Props) => {
   let headers: { Authorization?: string } = {};
 
   if (target === 'privateEnabled' && idToken) {
@@ -54,3 +46,6 @@ const getPostList = async ({ target, idToken }: Props): Promise<Response> => {
 };
 
 export default getPostList;
+
+// FIXME: titleDateList が取れる確証は無いので本来は ? だが、Redux State の為に取れる前提になっている。今後修正したい
+export type PostListType = ReturnType<typeof getPostList>;

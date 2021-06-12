@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+import Spinner from '@/Spinner';
+
 import {
   StyledPost,
   StyledPosts,
@@ -16,7 +18,7 @@ export interface Post {
 }
 
 interface Props {
-  postList: Post[];
+  postList?: Post[];
 }
 
 const EditPostList: React.FC<Props> = ({ postList }) => {
@@ -24,19 +26,23 @@ const EditPostList: React.FC<Props> = ({ postList }) => {
     <StyledSection>
       <h2>投稿された記事一覧</h2>
       <StyledPosts>
-        {postList.map(({ id, title, release, createDate }) => (
-          <StyledPost key={id}>
-            <div>
-              {!release && <span>【非公開】</span>}
-              <Link to={`/edit/${id}`}>{title}</Link>
-            </div>
-            <StyledTimestamp>
-              作成日時: {createDate}
-              <br />
-              id: {id}
-            </StyledTimestamp>
-          </StyledPost>
-        ))}
+        {postList ? (
+          postList.map(({ id, title, release, createDate }) => (
+            <StyledPost key={id}>
+              <div>
+                {!release && <span>【非公開】</span>}
+                <Link to={`/edit/${id}`}>{title}</Link>
+              </div>
+              <StyledTimestamp>
+                作成日時: {createDate}
+                <br />
+                id: {id}
+              </StyledTimestamp>
+            </StyledPost>
+          ))
+        ) : (
+          <Spinner />
+        )}
       </StyledPosts>
     </StyledSection>
   );

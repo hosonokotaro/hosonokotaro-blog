@@ -5,12 +5,12 @@ import {
   ThunkAction,
 } from '@reduxjs/toolkit';
 
-import getBearerToken from '~/services/getBearerToken';
+import getCurrentUser from '~/services/getCurrentUser';
 
 type Status = 'idle' | 'loading' | 'success' | 'failure';
 
 interface AuthHeader {
-  bearerToken: string | undefined;
+  idToken: string | undefined;
 }
 
 export interface InitialState {
@@ -21,7 +21,7 @@ export interface InitialState {
 const initialState: InitialState = {
   status: 'idle',
   authHeader: {
-    bearerToken: undefined,
+    idToken: undefined,
   },
 };
 
@@ -49,9 +49,9 @@ type AuthHeaderThunk = ThunkAction<
   Action<string>
 >;
 
-export const setBearerToken = (): AuthHeaderThunk => async (dispatch) => {
+export const setIdToken = (): AuthHeaderThunk => async (dispatch) => {
   // NOTE: 本来はやらないが、差し替え対応のためにここで Service を呼ぶ
-  const response = await getBearerToken();
+  const response = await getCurrentUser();
 
   if (!response) return;
 

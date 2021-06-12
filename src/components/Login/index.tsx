@@ -1,18 +1,20 @@
 import React from 'react';
 
-import type { Props } from '~/customHooks/useLogin';
+import useSession from '~/customHooks/useSession';
 
 import { StyledLogin, StyledUid } from './styledIndex';
 
-const Login: React.FC<Props> = ({ user, login, logout }) => {
+const Login: React.FC = () => {
+  const { userId, login, logout } = useSession();
+
   return (
     <StyledLogin>
-      {user ? (
+      {userId ? (
         <button onClick={logout}>ログアウトする</button>
       ) : (
         <button onClick={login}>ログインする</button>
       )}
-      {user && <StyledUid>uid: {user.uid}</StyledUid>}
+      {userId && <StyledUid>uid: {userId}</StyledUid>}
     </StyledLogin>
   );
 };

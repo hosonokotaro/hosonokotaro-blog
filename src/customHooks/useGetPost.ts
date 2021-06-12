@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import type { Props, Response } from '~/services/getPost';
 import getPost from '~/services/getPost';
 
-const useGetPost = ({ id, target, idToken }: Props): Response => {
+const useGetPost = ({ id, target, idToken }: Props) => {
   const [status, setStatus] = useState<Response['status']>('idle');
   const [post, setPost] = useState<Response['post']>({
     id: '',

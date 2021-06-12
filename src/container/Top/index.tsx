@@ -12,21 +12,22 @@ import {
 } from './styledIndex';
 
 const Top: React.FC = () => {
-  const { status, titleDateList } = useGetPostList({ target: 'default' });
+  const postListWithStatus = useGetPostList({ target: 'default' });
 
   return (
     <StyledArticle>
       <h2>記事一覧</h2>
-      {status === 'loading' && <Spinner />}
-      {status === 'success' && (
+      {postListWithStatus ? (
         <>
-          {titleDateList.map((item) => (
+          {postListWithStatus.titleDateList.map((item) => (
             <StyledPost key={item.id}>
               <StyledLink to={item.id}>{item.title}</StyledLink>
               <StyledDate>{item.createDate}</StyledDate>
             </StyledPost>
           ))}
         </>
+      ) : (
+        <Spinner />
       )}
       {status === 'failure' && <ErrorMessage />}
     </StyledArticle>

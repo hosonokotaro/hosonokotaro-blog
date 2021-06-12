@@ -1,72 +1,70 @@
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 
+import useSession from '~/customHooks/useSession';
 import createPost from '~/services/createPost';
-import type { getTitleListTarget, InitialState } from '~/store/postListSlice';
-import { fetchPostList, setPostList } from '~/store/postListSlice';
-import type { RootState } from '~/store/rootReducer';
+import type { getCurrentUserType } from '~/services/getCurrentUser';
+import getCurrentUser from '~/services/getCurrentUser';
+import type { PostListType } from '~/services/getPostList';
+import getPostList from '~/services/getPostList';
 
-interface Props {
-  target: getTitleListTarget;
-}
+// NOTE: https://log.pocka.io/ja/posts/typescript-promisetype/
+type PromiseType<T> = T extends Promise<infer P> ? P : never;
 
-interface UseEditTop {
-  status: string;
-  titleDateList: InitialState['titleDateList'];
-  title: string;
-  handleSubmit: VoidFunction;
-  onTitleChanged: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  canSaveNewPost: boolean;
-}
+const useEditTop = () => {
+  const [createTitle, setCreateTitle] = useState<string>();
+  const [idToken, setIdToken] = useState<string>();
+  const [postListWithStatus, setPostListWithStatus] = useState<
+    PromiseType<PostListType>
+  >();
+  const [currentUser, setCurrentUser] = useState<
+    PromiseType<getCurrentUserType>
+  >();
 
-const useEditTop = ({ target }: Props): UseEditTop => {
-  const dispatch = useDispatch();
+  const { userId } = useSession();
 
-  const { status, titleDateList } = useSelector(
-    (state: RootState) => state.postList
-  );
-
-  const { authHeader } = useSelector((state: RootState) => state.authHeader);
-
-  const [title, setTitle] = useState('');
-
-  // TODO: 投稿時のタイムゾーンが正しく設定されていないので修正する
-  // NOTE: 仮説として、ローカル開発環境でタイムゾーンが異なる可能性がある
-
+  // FIXME: 投稿時のタイムゾーンが正しく設定されていないので修正する（ローカル環境の問題の可能性もある）
   const handleSubmit = async () => {
-    if (!authHeader.bearerToken) return;
+    if (!createTitle || !currentUser || !currentUser.authHeader) return;
 
     await createPost({
-      title,
+      title: createTitle,
       content: '',
       release: false,
-      bearerToken: authHeader.bearerToken,
+      idToken: currentUser.authHeader.idToken,
     });
 
-    setTitle('');
-
-    dispatch(fetchPostList(target, authHeader.bearerToken));
+    setCreateTitle(undefined);
   };
 
   const onTitleChanged = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setTitle(e.target.value);
+    setCreateTitle(e.target.value);
   };
 
-  const canSaveNewPost = Boolean(title);
+  const canSaveNewPost = Boolean(createTitle);
 
-  // NOTE: fetch, set と命名した理由は、取得時は非同期だが、destructor 時は同期的に state を変更するため
   useEffect(() => {
-    dispatch(fetchPostList(target, authHeader.bearerToken));
+    if (!userId) return;
 
-    return () => {
-      dispatch(setPostList({ status: 'idle', titleDateList: [] }));
+    const loggedIn = async () => {
+      const currentUser = await getCurrentUser();
+
+      const postListWithStatus = await getPostList({
+        target: 'privateEnabled',
+        idToken: currentUser.authHeader.idToken,
+      });
+
+      setPostListWithStatus(postListWithStatus);
+      setCurrentUser(currentUser);
+      setIdToken(currentUser.authHeader.idToken);
     };
-  }, [dispatch, target, authHeader.bearerToken]);
+
+    loggedIn();
+  }, [userId]);
 
   return {
-    status,
-    titleDateList,
-    title,
+    idToken,
+    postListWithStatus,
+    createTitle,
     handleSubmit,
     onTitleChanged,
     canSaveNewPost,

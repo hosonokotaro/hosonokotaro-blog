@@ -7,7 +7,6 @@ import Spinner from '@/Spinner';
 import Preview from '~/container/Preview';
 import UploadImages from '~/container/UploadImages';
 import useEditPost from '~/customHooks/useEditPost';
-import useLogin from '~/customHooks/useLogin';
 
 import {
   StyledArticle,
@@ -22,6 +21,7 @@ import {
 
 const EditPost: React.FC = () => {
   const {
+    userId,
     id,
     post,
     status,
@@ -33,14 +33,12 @@ const EditPost: React.FC = () => {
     onReleaseChanged,
     updatePost,
     deletePost,
-  } = useEditPost({ target: 'all' });
-
-  const { user, login, logout } = useLogin();
+  } = useEditPost();
 
   return (
     <>
       <StyledArticle>
-        {user && post && status === 'success' ? (
+        {userId && post && status === 'success' ? (
           <>
             <h2>記事を編集する</h2>
             <StyledLabel htmlFor={`editPostTitle-${id}`}>タイトル</StyledLabel>
@@ -93,7 +91,7 @@ const EditPost: React.FC = () => {
           <Spinner />
         )}
       </StyledArticle>
-      <Login user={user} login={login} logout={logout} />
+      <Login />
     </>
   );
 };
