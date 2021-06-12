@@ -20,8 +20,7 @@ const SinglePost: React.FC = () => {
 
   return (
     <StyledSection>
-      {status === 'loading' && <Spinner />}
-      {status === 'success' && (
+      {status === 'success' ? (
         <>
           <Helmet>
             <title>{post.title} | WEB DEVELOPER HOSONO KOTARO</title>
@@ -33,6 +32,8 @@ const SinglePost: React.FC = () => {
             renderers={{ code: CodeBlock }}
           />
         </>
+      ) : (
+        <Spinner />
       )}
       {status === 'failure' && <ErrorMessage />}
     </StyledSection>

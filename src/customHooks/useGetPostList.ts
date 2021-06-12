@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import type { PostListType, Props } from '~/services/getPostList';
+import type { PostListWithStatusType, Props } from '~/services/getPostList';
 import getPostList from '~/services/getPostList';
 
 // NOTE: https://log.pocka.io/ja/posts/typescript-promisetype/
@@ -8,7 +8,7 @@ type PromiseType<T> = T extends Promise<infer P> ? P : never;
 
 const useGetPostList = ({ target, idToken }: Props) => {
   const [postListWithStatus, setPostListWithStatus] = useState<
-    PromiseType<PostListType>
+    PromiseType<PostListWithStatusType>
   >();
 
   useEffect(() => {
@@ -23,9 +23,6 @@ const useGetPostList = ({ target, idToken }: Props) => {
 
     fetchGetPostList();
   }, [target, idToken]);
-
-  // NOTE: status = 'failure' の場合はデータ取得に問題があるので、FE側では扱わない
-  if (postListWithStatus && postListWithStatus.status === 'failure') return;
 
   return postListWithStatus;
 };

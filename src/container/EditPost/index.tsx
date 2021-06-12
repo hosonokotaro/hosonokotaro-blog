@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 // import UploadFiles from '@/edit/upload/Upload';
+import ErrorMessage from '@/ErrorMessage';
 import Login from '@/Login';
 import Spinner from '@/Spinner';
 import Preview from '~/container/Preview';
@@ -23,7 +24,7 @@ const EditPost: React.FC = () => {
   const {
     userId,
     id,
-    post,
+    postWithStatus,
     status,
     draftTitle,
     draftContent,
@@ -38,7 +39,7 @@ const EditPost: React.FC = () => {
   return (
     <>
       <StyledArticle>
-        {userId && post && status === 'success' ? (
+        {userId && postWithStatus && postWithStatus.status === 'success' ? (
           <>
             <h2>記事を編集する</h2>
             <StyledLabel htmlFor={`editPostTitle-${id}`}>タイトル</StyledLabel>
@@ -46,14 +47,14 @@ const EditPost: React.FC = () => {
               type="text"
               id={`editPostTitle-${id}`}
               name={`editPostTitle-${id}`}
-              defaultValue={post.title}
+              defaultValue={postWithStatus.post.title}
               onChange={onTitleChanged}
             />
             <StyledLabel htmlFor={`editPostContent-${id}`}>本文</StyledLabel>
             <StyledTextarea
               id={`editPostContent-${id}`}
               name={`editPostContent-${id}`}
-              defaultValue={post.content}
+              defaultValue={postWithStatus.post.content}
               onChange={onContentChanged}
             ></StyledTextarea>
             <UploadImages uploadPath={id} />
@@ -80,8 +81,8 @@ const EditPost: React.FC = () => {
               id={id}
               title={draftTitle ?? ''}
               content={draftContent ?? ''}
-              release={post.release}
-              createDate={post.createDate}
+              release={postWithStatus.post.release}
+              createDate={postWithStatus.post.createDate}
             />
             <StyledReturn>
               <Link to="/edit">投稿された記事一覧に行く</Link>
@@ -90,6 +91,7 @@ const EditPost: React.FC = () => {
         ) : (
           <Spinner />
         )}
+        {status === 'failure' && <ErrorMessage />}
       </StyledArticle>
       <Login />
     </>

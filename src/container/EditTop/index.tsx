@@ -8,7 +8,6 @@ import useEditTop from '~/customHooks/useEditTop';
 
 const EditTop: React.FC = () => {
   const {
-    idToken,
     postListWithStatus,
     createTitle,
     handleSubmit,
@@ -19,9 +18,7 @@ const EditTop: React.FC = () => {
   return (
     <>
       <article>
-        {idToken &&
-        postListWithStatus &&
-        postListWithStatus.status === 'success' ? (
+        {postListWithStatus && postListWithStatus.status === 'success' ? (
           <>
             <CreatePost
               title={createTitle}

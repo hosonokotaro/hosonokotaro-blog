@@ -25,15 +25,15 @@ export interface Props {
   idToken?: string;
 }
 
-type Status = 'idle' | 'loading' | 'success' | 'failure';
+// type Status = 'idle' | 'loading' | 'success' | 'failure';
 
-export interface Response {
-  status: Status;
-  // FIXME: post が取れる確証は無いので本来は ? だが、Redux State の為に取れる前提になっている。今後修正したい
-  post: Post;
-}
+// export interface Response {
+//   status: Status;
+//   // FIXME: post が取れる確証は無いので本来は ? だが、Redux State の為に取れる前提になっている。今後修正したい
+//   post: Post;
+// }
 
-const getPost = async ({ id, target, idToken }: Props): Promise<Response> => {
+const getPost = async ({ id, target, idToken }: Props) => {
   let headers: { Authorization?: string } = {};
 
   if (target === 'privateEnabled' && idToken) {
@@ -69,3 +69,5 @@ const getPost = async ({ id, target, idToken }: Props): Promise<Response> => {
 };
 
 export default getPost;
+
+export type PostWithStatusType = ReturnType<typeof getPost>;
