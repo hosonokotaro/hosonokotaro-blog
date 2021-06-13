@@ -5,8 +5,8 @@
   "description": "",
   "main": "",
   "scripts": {
-    "start": "webpack serve --mode=development",
-    "build": "webpack --mode=production",
+    "start": "NODE_ENV=development webpack serve",
+    "build": "NODE_ENV=production webpack",
     "lint": "eslint './**/*.{ts,tsx}' --fix",
     "lint:css": "stylelint './**/*.tsx' --fix",
     "prettier-format": "prettier --config .prettierrc './**/*.{ts,tsx}' --write",
