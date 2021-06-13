@@ -24,6 +24,8 @@ const useEditPost = () => {
     PromiseType<getCurrentUserType>
   >();
 
+  // TODO: Preview に渡す draftContent の内容が undefined になっているのを確認したい
+
   const { id } = useParams<{ id: Post['id'] }>();
   const history = useHistory();
 
