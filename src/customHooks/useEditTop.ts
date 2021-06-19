@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import { firebaseAuth } from '~/services/authentication';
 import createPost from '~/services/createPost';
@@ -11,8 +11,7 @@ import getPostList from '~/services/getPostList';
 type PromiseType<T> = T extends Promise<infer P> ? P : never;
 
 const useEditTop = () => {
-  const [userId, setUserId] = useState<string>();
-  const [createTitle, setCreateTitle] = useState<string>();
+  const [createTitle, setCreateTitle] = useState<string>('');
   const [postListWithStatus, setPostListWithStatus] = useState<
     PromiseType<PostListWithStatusType>
   >();
@@ -31,42 +30,38 @@ const useEditTop = () => {
       idToken: currentUser.authHeader.idToken,
     });
 
-    setCreateTitle(undefined);
+    setCreateTitle('');
+
+    await getUserAndPost();
   };
 
   const onTitleChanged = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCreateTitle(e.target.value);
   };
 
+  const getUserAndPost = useCallback(async () => {
+    const currentUser = await getCurrentUser();
+
+    const postListWithStatus = await getPostList({
+      target: 'privateEnabled',
+      idToken: currentUser.authHeader.idToken,
+    });
+
+    setPostListWithStatus(postListWithStatus);
+    setCurrentUser(currentUser);
+  }, []);
+
   const canSaveNewPost = Boolean(createTitle);
 
   useEffect(() => {
-    if (!userId) return;
-
-    const loggedIn = async () => {
-      const currentUser = await getCurrentUser();
-
-      const postListWithStatus = await getPostList({
-        target: 'privateEnabled',
-        idToken: currentUser.authHeader.idToken,
-      });
-
-      setPostListWithStatus(postListWithStatus);
-      setCurrentUser(currentUser);
-    };
-
-    loggedIn();
-  }, [userId]);
-
-  useEffect(() => {
-    const unsubscribe = firebaseAuth.onAuthStateChanged((user) => {
-      user && setUserId(user.uid);
+    const unsubscribe = firebaseAuth.onAuthStateChanged(() => {
+      getUserAndPost();
     });
 
     return () => {
       unsubscribe;
     };
-  }, []);
+  }, [getUserAndPost]);
 
   return {
     postListWithStatus,

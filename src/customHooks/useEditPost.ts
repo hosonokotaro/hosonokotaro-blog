@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 
 import { firebaseAuth } from '~/services/authentication';
@@ -12,10 +12,9 @@ import getPost from '~/services/getPost';
 type PromiseType<T> = T extends Promise<infer P> ? P : never;
 
 const useEditPost = () => {
-  const [userId, setUserId] = useState<string>();
-  const [draftTitle, setDraftTitle] = useState<Post['title']>();
-  const [draftContent, setDraftContent] = useState<Post['content']>();
-  const [draftRelease, setDraftRelease] = useState<Post['release']>();
+  const [draftTitle, setDraftTitle] = useState<Post['title']>('');
+  const [draftContent, setDraftContent] = useState<Post['content']>('');
+  const [draftRelease, setDraftRelease] = useState<Post['release']>(false);
   const [postWithStatus, setPostWithStatus] = useState<
     PromiseType<PostWithStatusType>
   >();
@@ -25,6 +24,8 @@ const useEditPost = () => {
   >();
 
   const { id } = useParams<{ id: Post['id'] }>();
+
+  const history = useHistory();
 
   const onTitleChanged = (event: React.ChangeEvent<HTMLInputElement>) => {
     setDraftTitle(event.target.value);
@@ -43,18 +44,31 @@ const useEditPost = () => {
     console.log(id);
   };
 
-  const deletePost = async () => {
-    // if (!authHeader) return;
-    // const deleteConfirm = confirm('削除します');
-    // if (deleteConfirm) {
-    //   await deletePostService({ id, bearerToken: authHeader.idToken });
-    //   alert(`${id}を削除しました`);
-    //   // FIXME: 存在しないページに戻ると白い画面になるのを修正したい
-    //   history.push('/edit');
-    // }
+  const handleDeletePost = async () => {
+    if (!currentUser || !currentUser.authHeader) return;
+
+    const deleteConfirm = confirm('削除します');
+
+    if (deleteConfirm) {
+      // TODO: 記事を削除したときに画像を削除する機能を復活させる
+      await deletePostService({ id, idToken: currentUser.authHeader.idToken });
+      alert(`${id}を削除しました`);
+      history.push('/edit');
+    }
   };
 
-  // const userId = getLoggedInUserId();
+  const getUserAndPost = useCallback(async () => {
+    const currentUser = await getCurrentUser();
+
+    const postWithStatus = await getPost({
+      id,
+      target: 'privateEnabled',
+      idToken: currentUser.authHeader.idToken,
+    });
+
+    setPostWithStatus(postWithStatus);
+    setCurrentUser(currentUser);
+  }, [id]);
 
   useEffect(() => {
     if (!postWithStatus) return;
@@ -65,36 +79,16 @@ const useEditPost = () => {
   }, [postWithStatus]);
 
   useEffect(() => {
-    if (!userId) return;
-
-    const loggedIn = async () => {
-      const currentUser = await getCurrentUser();
-
-      const postWithStatus = await getPost({
-        id,
-        target: 'privateEnabled',
-        idToken: currentUser.authHeader.idToken,
-      });
-
-      setPostWithStatus(postWithStatus);
-      setCurrentUser(currentUser);
-    };
-
-    loggedIn();
-  }, [id, userId]);
-
-  useEffect(() => {
-    const unsubscribe = firebaseAuth.onAuthStateChanged((user) => {
-      user && setUserId(user.uid);
+    const unsubscribe = firebaseAuth.onAuthStateChanged(() => {
+      getUserAndPost();
     });
 
     return () => {
       unsubscribe;
     };
-  }, []);
+  }, [getUserAndPost]);
 
   return {
-    userId,
     id,
     postWithStatus,
     status,
@@ -105,7 +99,7 @@ const useEditPost = () => {
     onContentChanged,
     onReleaseChanged,
     updatePost,
-    deletePost,
+    handleDeletePost,
   };
 };
 

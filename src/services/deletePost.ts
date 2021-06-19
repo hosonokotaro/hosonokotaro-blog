@@ -10,16 +10,16 @@ interface Post {
 
 export interface DeletePost {
   id: Post['id'];
-  bearerToken: string;
+  idToken: string;
 }
 
-const deletePost = async ({ id, bearerToken }: DeletePost) => {
+const deletePost = async ({ id, idToken }: DeletePost) => {
   await axiosInstance.post(
     `/post/deletepost/${id}`,
     {},
     {
       headers: {
-        Authorization: `Bearer ${bearerToken}`,
+        Authorization: `Bearer ${idToken}`,
       },
     }
   );
