@@ -8,6 +8,7 @@ SyntaxHighlighter.registerLanguage('tsx', tsx);
 
 // TODO: 編集画面を修正したら書き直す
 const CodeBlock: React.FC<{ value: string; language: string }> = (props) => {
+  // FIXME: なにかの事情で undefined になっている。調査したい
   if (props.value === undefined) {
     return null;
   }
