@@ -13,7 +13,7 @@ export interface DeletePost {
   bearerToken: string;
 }
 
-const deletePost = async ({ id, bearerToken }: DeletePost): Promise<void> => {
+const deletePost = async ({ id, bearerToken }: DeletePost) => {
   await axiosInstance.post(
     `/post/deletepost/${id}`,
     {},

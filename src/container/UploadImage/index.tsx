@@ -1,20 +1,20 @@
 import React, { useState } from 'react';
 
-import { StyledTitle } from './styledUploadImages';
-import UploadFile from './UploadFile';
-import UploadFiles from './UploadFiles';
+import { StyledTitle } from './styledUploadImageList';
+import UploadFileList from './UploadFileList';
+import UploadSelectFile from './UploadSelectFile';
 
-const UploadImages: React.FC<{ uploadPath: string }> = (props) => {
+const UploadImage: React.FC<{ uploadPath: string }> = (props) => {
   const [uploadFilename, setUploadFilename] = useState('');
 
   return (
     <>
       <StyledTitle>画像</StyledTitle>
-      <UploadFile
+      <UploadSelectFile
         uploadPath={props.uploadPath}
         setUploadFilename={setUploadFilename}
       />
-      <UploadFiles
+      <UploadFileList
         uploadPath={props.uploadPath}
         uploadFilename={uploadFilename}
       />
@@ -22,4 +22,4 @@ const UploadImages: React.FC<{ uploadPath: string }> = (props) => {
   );
 };
 
-export default UploadImages;
+export default UploadImage;

@@ -6,7 +6,7 @@ import ErrorMessage from '@/ErrorMessage';
 import Login from '@/Login';
 import Spinner from '@/Spinner';
 import Preview from '~/container/Preview';
-import UploadImages from '~/container/UploadImages';
+import UploadImage from '~/container/UploadImage';
 import useEditPost from '~/customHooks/useEditPost';
 
 import {
@@ -57,7 +57,7 @@ const EditPost: React.FC = () => {
               defaultValue={postWithStatus.post.content}
               onChange={onContentChanged}
             ></StyledTextarea>
-            <UploadImages uploadPath={id} />
+            <UploadImage uploadPath={id} />
             <StyledLabelInlineBlock htmlFor={`editPostRelease-${id}`}>
               公開フラグ
             </StyledLabelInlineBlock>

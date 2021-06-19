@@ -24,10 +24,7 @@ const useEditPost = () => {
     PromiseType<getCurrentUserType>
   >();
 
-  // TODO: Preview に渡す draftContent の内容が undefined になっているのを確認したい
-
   const { id } = useParams<{ id: Post['id'] }>();
-  const history = useHistory();
 
   const onTitleChanged = (event: React.ChangeEvent<HTMLInputElement>) => {
     setDraftTitle(event.target.value);
@@ -59,31 +56,13 @@ const useEditPost = () => {
 
   // const userId = getLoggedInUserId();
 
-  // NOTE: fetch, set と命名した理由は、取得時は非同期だが、destructor 時は同期的に state を変更するため
-  // useEffect(() => {
-  //   dispatch(fetchPost(id, target, authHeader.bearerToken));
+  useEffect(() => {
+    if (!postWithStatus) return;
 
-  //   return () => {
-  //     dispatch(
-  //       setPost({
-  //         status: 'idle',
-  //         post: {
-  //           id: '',
-  //           title: '',
-  //           content: '',
-  //           release: false,
-  //           createDate: '',
-  //         },
-  //       })
-  //     );
-  //   };
-  // }, [dispatch, id, target, authHeader.bearerToken]);
-
-  // useEffect(() => {
-  //   setDraftTitle(post.title);
-  //   setDraftContent(post.content);
-  //   setDraftRelease(post.release);
-  // }, [post]);
+    setDraftTitle(postWithStatus.post.title);
+    setDraftContent(postWithStatus.post.content);
+    setDraftRelease(postWithStatus.post.release);
+  }, [postWithStatus]);
 
   useEffect(() => {
     if (!userId) return;

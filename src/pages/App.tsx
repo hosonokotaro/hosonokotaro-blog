@@ -9,7 +9,6 @@ import Footer from '@/Footer';
 import Header from '@/Header';
 import SiteRouter from '~/pages/Router';
 import getDate from '~/utility/getDate';
-import ScrollToTop from '~/utility/ScrollToTop';
 
 const App: React.FC = () => {
   return (
@@ -22,7 +21,6 @@ const App: React.FC = () => {
         </style>
       </Helmet>
       <Router>
-        <ScrollToTop />
         <Header />
         <SiteRouter />
         <Footer year={getDate('year')} />

@@ -8,9 +8,7 @@ export interface Post {
   createDate: string;
 }
 
-const getPostTarget = (
-  id: string
-): { default: string; privateEnabled: string } => {
+const getPostTarget = (id: string) => {
   return {
     default: `/get/post/${id}`,
     privateEnabled: `/get/post/${id}?private=enabled`,
@@ -24,14 +22,6 @@ export interface Props {
   target: GetPostTarget;
   idToken?: string;
 }
-
-// type Status = 'idle' | 'loading' | 'success' | 'failure';
-
-// export interface Response {
-//   status: Status;
-//   // FIXME: post が取れる確証は無いので本来は ? だが、Redux State の為に取れる前提になっている。今後修正したい
-//   post: Post;
-// }
 
 const getPost = async ({ id, target, idToken }: Props) => {
   let headers: { Authorization?: string } = {};

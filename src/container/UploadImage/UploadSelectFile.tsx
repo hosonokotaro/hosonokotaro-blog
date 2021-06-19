@@ -1,16 +1,16 @@
 import React from 'react';
 
-import useUploadFile, { TypeUploadFile } from '~/customHooks/useUploadFile';
+import useUploadSelectFile, { Props } from '~/customHooks/useUploadSelectFile';
 
 import {
   StyledButton,
   StyledInputImage,
   StyledInputInfo,
   StyledUploadFile,
-} from './styledUploadFile';
+} from './styledUploadSelectFile';
 
-const UploadFile: React.FC<TypeUploadFile> = (props) => {
-  const { image, setImage, upload } = useUploadFile(props);
+const UploadSelectFile: React.FC<Props> = (props) => {
+  const { image, setImage, upload } = useUploadSelectFile(props);
 
   return (
     <StyledUploadFile>
@@ -32,4 +32,4 @@ const UploadFile: React.FC<TypeUploadFile> = (props) => {
   );
 };
 
-export default UploadFile;
+export default UploadSelectFile;

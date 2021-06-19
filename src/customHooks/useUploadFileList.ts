@@ -1,39 +1,22 @@
-import { RefObject, useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { PublicImages, publicImages } from '~/adapter/firebase';
 
-type TypeImagePath = {
+export interface TypeImagePath {
   fullpath: string;
   filename: string;
-};
+}
 
 export type Props = {
   uploadPath: string;
   uploadFilename: string;
 };
 
-const useUploadFiles = (
-  props: Props
-): {
-  loaded: boolean;
-  imagePaths: TypeImagePath[];
-  filepathRef: RefObject<HTMLInputElement>;
-  copyClipboard: VoidFunction;
-  deleteImage: (imagePath: string) => void;
-} => {
-  const filepathRef = useRef<HTMLInputElement>(null);
-
-  const [imageRef, setImageRef] = useState<PublicImages[]>([]);
-  const [imagePaths, setImagePaths] = useState<TypeImagePath[]>([]);
+const useUploadFileList = (props: Props) => {
+  const [imageRef, setImageRef] = useState<PublicImages[]>();
+  const [imagePathList, setImagePathList] = useState<TypeImagePath[]>();
   const [loaded, setLoaded] = useState(false);
   const [reload, setReload] = useState(0);
-
-  const copyClipboard = () => {
-    if (filepathRef.current) {
-      filepathRef.current.select();
-      document.execCommand('copy');
-    }
-  };
 
   const deleteImage = (imagePath: string) => {
     const deleteConfirm = confirm(`${imagePath}を削除します`);
@@ -59,6 +42,8 @@ const useUploadFiles = (
   }, [props.uploadPath, props.uploadFilename, reload]);
 
   useEffect(() => {
+    if (!imageRef) return;
+
     const downloadPath: TypeImagePath[] = [];
 
     imageRef.map((item) => {
@@ -68,14 +53,14 @@ const useUploadFiles = (
     });
 
     const unmount = setTimeout(() => {
-      setImagePaths(downloadPath);
+      setImagePathList(downloadPath);
       setLoaded(true);
     }, 1000);
 
     return () => clearTimeout(unmount);
   }, [imageRef]);
 
-  return { loaded, imagePaths, filepathRef, copyClipboard, deleteImage };
+  return { loaded, imagePathList, deleteImage };
 };
 
-export default useUploadFiles;
+export default useUploadFileList;
