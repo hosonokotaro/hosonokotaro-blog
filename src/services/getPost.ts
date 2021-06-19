@@ -1,5 +1,6 @@
 import axiosInstance from '~/adapter/axiosInstance';
 
+// NOTE: id: 記事の unique id
 export interface Post {
   id: string;
   title: string;

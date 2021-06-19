@@ -22,7 +22,6 @@ import {
 
 const EditPost: React.FC = () => {
   const {
-    userId,
     id,
     postWithStatus,
     status,
@@ -33,13 +32,13 @@ const EditPost: React.FC = () => {
     onContentChanged,
     onReleaseChanged,
     updatePost,
-    deletePost,
+    handleDeletePost,
   } = useEditPost();
 
   return (
     <>
       <StyledArticle>
-        {userId && postWithStatus && postWithStatus.status === 'success' ? (
+        {postWithStatus && postWithStatus.status === 'success' ? (
           <>
             <h2>記事を編集する</h2>
             <StyledLabel htmlFor={`editPostTitle-${id}`}>タイトル</StyledLabel>
@@ -72,8 +71,7 @@ const EditPost: React.FC = () => {
               <StyledButton onClick={updatePost}>
                 この記事を更新する
               </StyledButton>
-              <StyledButton onClick={deletePost}>
-                {/* TODO: 記事を削除したときに画像を削除する機能を復活させる */}
+              <StyledButton onClick={handleDeletePost}>
                 この記事を削除する
               </StyledButton>
             </StyledButtonWrapper>

@@ -5,7 +5,7 @@ import UploadFileList from './UploadFileList';
 import UploadSelectFile from './UploadSelectFile';
 
 const UploadImage: React.FC<{ uploadPath: string }> = (props) => {
-  const [uploadFilename, setUploadFilename] = useState('');
+  const [uploadFilename, setUploadFilename] = useState<string>('');
 
   return (
     <>
