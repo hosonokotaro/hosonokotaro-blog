@@ -2,13 +2,12 @@ import { useState } from 'react';
 
 import { publicImages } from '~/adapter/firebase';
 
-const useUploadFile = (
-  props: TypeUploadFile
-): {
-  image?: File;
-  setImage: React.Dispatch<React.SetStateAction<File | undefined>>;
-  upload: VoidFunction;
-} => {
+export interface Props {
+  uploadPath: string;
+  setUploadFilename: React.Dispatch<React.SetStateAction<string>>;
+}
+
+const useUploadSelectFile = (props: Props) => {
   const [image, setImage] = useState<File>();
 
   const upload = () => {
@@ -26,9 +25,4 @@ const useUploadFile = (
   return { image, setImage, upload };
 };
 
-export default useUploadFile;
-
-export type TypeUploadFile = {
-  uploadPath: string;
-  setUploadFilename: React.Dispatch<React.SetStateAction<string>>;
-};
+export default useUploadSelectFile;

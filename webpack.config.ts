@@ -12,7 +12,7 @@ interface Configuration extends WebpackConfiguration {
   devServer?: WebpackDevServerConfiguration;
 }
 
-const dev = process.env.NODE_ENV === 'production';
+const dev = process.env.NODE_ENV === 'development';
 
 const config: Configuration = {
   mode: dev ? 'development' : 'production',

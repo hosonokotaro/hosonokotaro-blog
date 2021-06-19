@@ -1,30 +1,30 @@
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
 
-import type { getTitleListTarget, InitialState } from '~/store/postListSlice';
-import { fetchPostList, setPostList } from '~/store/postListSlice';
-import type { RootState } from '~/store/rootReducer';
+import type { PostListWithStatusType, Props } from '~/services/getPostList';
+import getPostList from '~/services/getPostList';
 
-interface Props {
-  target: getTitleListTarget;
-}
+// NOTE: https://log.pocka.io/ja/posts/typescript-promisetype/
+type PromiseType<T> = T extends Promise<infer P> ? P : never;
 
-const useGetPostList = ({ target }: Props): InitialState => {
-  const dispatch = useDispatch();
-  const { status, titleDateList } = useSelector(
-    (state: RootState) => state.postList
-  );
+const useGetPostList = ({ target, idToken }: Props) => {
+  const [postListWithStatus, setPostListWithStatus] = useState<
+    PromiseType<PostListWithStatusType>
+  >();
 
-  // NOTE: fetch, set と命名した理由は、取得時は非同期だが、destructor 時は同期的に state を変更するため
   useEffect(() => {
-    dispatch(fetchPostList(target));
+    const fetchGetPostList = async () => {
+      const getPostListWithStatus = await getPostList({
+        target,
+        idToken,
+      });
 
-    return () => {
-      dispatch(setPostList({ status: 'idle', titleDateList: [] }));
+      setPostListWithStatus(getPostListWithStatus);
     };
-  }, [dispatch, target]);
 
-  return { status, titleDateList };
+    fetchGetPostList();
+  }, [target, idToken]);
+
+  return postListWithStatus;
 };
 
 export default useGetPostList;

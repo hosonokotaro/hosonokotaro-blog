@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 
 import {
   StyledHeader,
@@ -12,6 +13,12 @@ interface Props {
 }
 
 const Header: React.FC<Props> = ({ linkPath = '/' }) => {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
   return (
     <StyledHeaderWrapper>
       <StyledHeader>

@@ -5,38 +5,34 @@ import EditPostList from '@/EditPostList';
 import Login from '@/Login';
 import Spinner from '@/Spinner';
 import useEditTop from '~/customHooks/useEditTop';
-import useLogin from '~/customHooks/useLogin';
 
 const EditTop: React.FC = () => {
   const {
-    status,
-    titleDateList,
-    title,
+    postListWithStatus,
+    createTitle,
     handleSubmit,
     onTitleChanged,
     canSaveNewPost,
-  } = useEditTop({ target: 'all' });
-
-  const { user, login, logout } = useLogin();
+  } = useEditTop();
 
   return (
     <>
       <article>
-        {user && status === 'success' ? (
+        {postListWithStatus && postListWithStatus.status === 'success' ? (
           <>
             <CreatePost
-              title={title}
+              title={createTitle}
               handleSubmit={handleSubmit}
               onTitleChanged={onTitleChanged}
               canSaveNewPost={canSaveNewPost}
             />
-            <EditPostList postList={titleDateList} />
+            <EditPostList postList={postListWithStatus.titleDateList} />
           </>
         ) : (
           <Spinner />
         )}
       </article>
-      <Login user={user} login={login} logout={logout} />
+      <Login />
     </>
   );
 };

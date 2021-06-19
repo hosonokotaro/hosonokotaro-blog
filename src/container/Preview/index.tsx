@@ -2,7 +2,7 @@ import React from 'react';
 
 import CodeBlock from '@/CodeBlock';
 import { StyledReactMarkdown } from '~/container/SinglePost/styledIndex';
-import type { Post } from '~/store/postSlice';
+import type { Post } from '~/services/getPost';
 
 import {
   StyledPreview,

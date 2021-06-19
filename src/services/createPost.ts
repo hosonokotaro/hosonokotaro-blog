@@ -1,24 +1,19 @@
 import axiosInstance from '~/adapter/axiosInstance';
 
-export interface CreatePost {
+export interface Props {
   title: string;
   content: string;
   release: boolean;
-  bearerToken: string;
+  idToken: string;
 }
 
-const createPost = async ({
-  title,
-  content,
-  release,
-  bearerToken,
-}: CreatePost): Promise<void> => {
+const createPost = async ({ title, content, release, idToken }: Props) => {
   await axiosInstance.post(
     '/post/createpost',
     { title, content, release },
     {
       headers: {
-        Authorization: `Bearer ${bearerToken}`,
+        Authorization: `Bearer ${idToken}`,
       },
     }
   );

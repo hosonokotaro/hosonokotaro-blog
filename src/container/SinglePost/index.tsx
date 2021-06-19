@@ -1,9 +1,12 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
+import { useParams } from 'react-router-dom';
 
 import CodeBlock from '@/CodeBlock';
+import ErrorMessage from '@/ErrorMessage';
 import Spinner from '@/Spinner';
 import useGetPost from '~/customHooks/useGetPost';
+import type { Props } from '~/services/getPost';
 
 import {
   StyledReactMarkdown,
@@ -12,7 +15,8 @@ import {
 } from './styledIndex';
 
 const SinglePost: React.FC = () => {
-  const { status, post } = useGetPost();
+  const { id } = useParams<{ id: Props['id'] }>();
+  const { status, post } = useGetPost({ id, target: 'default' });
 
   return (
     <StyledSection>
@@ -31,6 +35,7 @@ const SinglePost: React.FC = () => {
       ) : (
         <Spinner />
       )}
+      {status === 'failure' && <ErrorMessage />}
     </StyledSection>
   );
 };

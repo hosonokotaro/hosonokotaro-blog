@@ -1,42 +1,30 @@
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 
+import { firebaseAuth } from '~/services/authentication';
 import deletePostService from '~/services/deletePost';
-import type { InitialState, Post, Target } from '~/store/postSlice';
-import { fetchPost, setPost } from '~/store/postSlice';
-import type { RootState } from '~/store/rootReducer';
+import type { getCurrentUserType } from '~/services/getCurrentUser';
+import getCurrentUser from '~/services/getCurrentUser';
+import type { Post, PostWithStatusType } from '~/services/getPost';
+import getPost from '~/services/getPost';
 
-interface Props {
-  target: Target;
-}
+// NOTE: https://log.pocka.io/ja/posts/typescript-promisetype/
+type PromiseType<T> = T extends Promise<infer P> ? P : never;
 
-interface UseEditPost {
-  id: Post['id'];
-  post: InitialState['post'];
-  status: InitialState['status'];
-  draftTitle?: Post['title'];
-  draftContent?: Post['content'];
-  draftRelease?: Post['release'];
-  onTitleChanged: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  onContentChanged: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
-  onReleaseChanged: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  updatePost: VoidFunction;
-  deletePost: VoidFunction;
-}
-
-const useEditPost = ({ target }: Props): UseEditPost => {
-  const { id } = useParams<{ id: Post['id'] }>();
-
-  const dispatch = useDispatch();
-  const { post, status } = useSelector((state: RootState) => state.post);
-  const { authHeader } = useSelector((state: RootState) => state.authHeader);
-
+const useEditPost = () => {
+  const [userId, setUserId] = useState<string>();
   const [draftTitle, setDraftTitle] = useState<Post['title']>();
   const [draftContent, setDraftContent] = useState<Post['content']>();
   const [draftRelease, setDraftRelease] = useState<Post['release']>();
+  const [postWithStatus, setPostWithStatus] = useState<
+    PromiseType<PostWithStatusType>
+  >();
+  // TODO: currentUser は記事更新時に利用する
+  const [currentUser, setCurrentUser] = useState<
+    PromiseType<getCurrentUserType>
+  >();
 
-  const history = useHistory();
+  const { id } = useParams<{ id: Post['id'] }>();
 
   const onTitleChanged = (event: React.ChangeEvent<HTMLInputElement>) => {
     setDraftTitle(event.target.value);
@@ -56,48 +44,59 @@ const useEditPost = ({ target }: Props): UseEditPost => {
   };
 
   const deletePost = async () => {
-    if (!authHeader.bearerToken) return;
-
-    const deleteConfirm = confirm('削除します');
-
-    if (deleteConfirm) {
-      await deletePostService({ id, bearerToken: authHeader.bearerToken });
-      alert(`${id}を削除しました`);
-
-      // FIXME: 存在しないページに戻ると白い画面になるのを修正したい
-      history.push('/edit');
-    }
+    // if (!authHeader) return;
+    // const deleteConfirm = confirm('削除します');
+    // if (deleteConfirm) {
+    //   await deletePostService({ id, bearerToken: authHeader.idToken });
+    //   alert(`${id}を削除しました`);
+    //   // FIXME: 存在しないページに戻ると白い画面になるのを修正したい
+    //   history.push('/edit');
+    // }
   };
 
-  // NOTE: fetch, set と命名した理由は、取得時は非同期だが、destructor 時は同期的に state を変更するため
+  // const userId = getLoggedInUserId();
+
   useEffect(() => {
-    dispatch(fetchPost(id, target, authHeader.bearerToken));
+    if (!postWithStatus) return;
+
+    setDraftTitle(postWithStatus.post.title);
+    setDraftContent(postWithStatus.post.content);
+    setDraftRelease(postWithStatus.post.release);
+  }, [postWithStatus]);
+
+  useEffect(() => {
+    if (!userId) return;
+
+    const loggedIn = async () => {
+      const currentUser = await getCurrentUser();
+
+      const postWithStatus = await getPost({
+        id,
+        target: 'privateEnabled',
+        idToken: currentUser.authHeader.idToken,
+      });
+
+      setPostWithStatus(postWithStatus);
+      setCurrentUser(currentUser);
+    };
+
+    loggedIn();
+  }, [id, userId]);
+
+  useEffect(() => {
+    const unsubscribe = firebaseAuth.onAuthStateChanged((user) => {
+      user && setUserId(user.uid);
+    });
 
     return () => {
-      dispatch(
-        setPost({
-          status: 'idle',
-          post: {
-            id: '',
-            title: '',
-            content: '',
-            release: false,
-            createDate: '',
-          },
-        })
-      );
+      unsubscribe;
     };
-  }, [dispatch, id, target, authHeader.bearerToken]);
-
-  useEffect(() => {
-    setDraftTitle(post.title);
-    setDraftContent(post.content);
-    setDraftRelease(post.release);
-  }, [post]);
+  }, []);
 
   return {
+    userId,
     id,
-    post,
+    postWithStatus,
     status,
     draftTitle,
     draftContent,
@@ -111,3 +110,5 @@ const useEditPost = ({ target }: Props): UseEditPost => {
 };
 
 export default useEditPost;
+
+export type EditPostType = ReturnType<typeof useEditPost>;

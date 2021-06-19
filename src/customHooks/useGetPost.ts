@@ -1,36 +1,33 @@
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 
-import type { InitialState, Target } from '~/store/postSlice';
-import { fetchPost, setPost } from '~/store/postSlice';
-import type { RootState } from '~/store/rootReducer';
+import type { PostWithStatusType, Props } from '~/services/getPost';
+import getPost from '~/services/getPost';
 
-const useGetPost = (target?: Target): InitialState => {
-  const { id } = useParams<{ id: InitialState['post']['id'] }>();
-  const dispatch = useDispatch();
-  const { post, status } = useSelector((state: RootState) => state.post);
-  const { authHeader } = useSelector((state: RootState) => state.authHeader);
+// NOTE: https://log.pocka.io/ja/posts/typescript-promisetype/
+type PromiseType<T> = T extends Promise<infer P> ? P : never;
 
-  // NOTE: fetch, set と命名した理由は、取得時は非同期だが、destructor 時は同期的に state を変更するため
+const useGetPost = ({ id, target, idToken }: Props) => {
+  const [status, setStatus] = useState<
+    PromiseType<PostWithStatusType>['status']
+  >();
+  const [post, setPost] = useState<PromiseType<PostWithStatusType>['post']>({
+    id: '',
+    title: '',
+    content: '',
+    release: false,
+    createDate: '',
+  });
+
   useEffect(() => {
-    dispatch(fetchPost(id, target, authHeader.bearerToken));
+    const fetchGetPost = async () => {
+      const { status, post } = await getPost({ id, target, idToken });
 
-    return () => {
-      dispatch(
-        setPost({
-          status: 'idle',
-          post: {
-            id: '',
-            title: '',
-            content: '',
-            release: false,
-            createDate: '',
-          },
-        })
-      );
+      setStatus(status);
+      setPost(post);
     };
-  }, [dispatch, id, target, authHeader.bearerToken]);
+
+    fetchGetPost();
+  }, [id, target, idToken]);
 
   return { post, status };
 };

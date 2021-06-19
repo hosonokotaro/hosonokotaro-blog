@@ -1,12 +1,19 @@
 import axiosInstance from '~/adapter/axiosInstance';
-import type { Post } from '~/store/postSlice';
+
+interface Post {
+  id: string;
+  title: string;
+  content: string;
+  release: boolean;
+  createDate: string;
+}
 
 export interface DeletePost {
   id: Post['id'];
   bearerToken: string;
 }
 
-const deletePost = async ({ id, bearerToken }: DeletePost): Promise<void> => {
+const deletePost = async ({ id, bearerToken }: DeletePost) => {
   await axiosInstance.post(
     `/post/deletepost/${id}`,
     {},

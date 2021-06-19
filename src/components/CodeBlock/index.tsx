@@ -3,9 +3,10 @@ import { PrismLight as SyntaxHighlighter } from 'react-syntax-highlighter';
 import tsx from 'react-syntax-highlighter/dist/cjs/languages/prism/tsx';
 import syntaxStyle from 'react-syntax-highlighter/dist/cjs/styles/prism/tomorrow';
 
+// FIXME: 呼び出し方を修正したい
 SyntaxHighlighter.registerLanguage('tsx', tsx);
 
-// FIXME: 副作用のないコンポーネントにしたい
+// TODO: 編集画面を修正したら書き直す
 const CodeBlock: React.FC<{ value: string; language: string }> = (props) => {
   if (props.value === undefined) {
     return null;
