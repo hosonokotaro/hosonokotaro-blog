@@ -47,5 +47,4 @@ const getPostList = async ({ target, idToken }: Props) => {
 
 export default getPostList;
 
-// FIXME: titleDateList が取れる確証は無いので本来は ? だが、Redux State の為に取れる前提になっている。今後修正したい
 export type PostListWithStatusType = ReturnType<typeof getPostList>;
