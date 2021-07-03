@@ -9,7 +9,7 @@ import {
 } from './styledIndex';
 
 export interface Props {
-  title?: string;
+  title: string;
   handleSubmit: VoidFunction;
   onTitleChanged: (e: React.ChangeEvent<HTMLInputElement>) => void;
   canSaveNewPost: boolean;

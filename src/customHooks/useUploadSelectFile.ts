@@ -8,7 +8,7 @@ export interface Props {
 }
 
 const useUploadSelectFile = (props: Props) => {
-  const [image, setImage] = useState<File>();
+  const [image, setImage] = useState<File | null>(null);
 
   const upload = () => {
     if (!image) return;
@@ -18,7 +18,7 @@ const useUploadSelectFile = (props: Props) => {
       .put(image)
       .then(() => {
         props.setUploadFilename(image.name);
-        setImage(undefined);
+        setImage(null);
       });
   };
 
