@@ -31,7 +31,7 @@ const EditPost: React.FC = () => {
     onTitleChanged,
     onContentChanged,
     onReleaseChanged,
-    updatePost,
+    handleUpdatePost,
     handleDeletePost,
   } = useEditPost();
 
@@ -68,7 +68,7 @@ const EditPost: React.FC = () => {
               onChange={onReleaseChanged}
             />
             <StyledButtonWrapper>
-              <StyledButton onClick={updatePost}>
+              <StyledButton onClick={handleUpdatePost}>
                 この記事を更新する
               </StyledButton>
               <StyledButton onClick={handleDeletePost}>
