@@ -26,7 +26,7 @@ const EditPostList: React.FC<Props> = ({ postList }) => {
     <StyledSection>
       <h2>投稿された記事一覧</h2>
       <StyledPosts>
-        {postList ? (
+        {postList &&
           postList.map(({ id, title, release, createDate }) => (
             <StyledPost key={id}>
               <div>
@@ -39,10 +39,8 @@ const EditPostList: React.FC<Props> = ({ postList }) => {
                 id: {id}
               </StyledTimestamp>
             </StyledPost>
-          ))
-        ) : (
-          <Spinner />
-        )}
+          ))}
+        {!postList && <Spinner />}
       </StyledPosts>
     </StyledSection>
   );

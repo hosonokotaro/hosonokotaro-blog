@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { ChangeEvent, useCallback, useEffect, useState } from 'react';
 
 import { firebaseAuth } from '~/services/authentication';
 import createPost from '~/services/createPost';
@@ -35,7 +35,7 @@ const useEditTop = () => {
     await getUserAndPost();
   };
 
-  const onTitleChanged = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onTitleChanged = (e: ChangeEvent<HTMLInputElement>) => {
     setCreateTitle(e.target.value);
   };
 

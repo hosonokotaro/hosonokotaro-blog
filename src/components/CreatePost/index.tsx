@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ChangeEvent } from 'react';
 
 import {
   StyledButton,
@@ -11,7 +11,7 @@ import {
 export interface Props {
   title: string;
   handleSubmit: VoidFunction;
-  onTitleChanged: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onTitleChanged: (e: ChangeEvent<HTMLInputElement>) => void;
   canSaveNewPost: boolean;
 }
 

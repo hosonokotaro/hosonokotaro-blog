@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 
 import { firebaseAuth } from '~/services/authentication';
@@ -29,15 +29,15 @@ const useEditPost = () => {
 
   const history = useHistory();
 
-  const onTitleChanged = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const onTitleChanged = (event: ChangeEvent<HTMLInputElement>) => {
     setDraftTitle(event.target.value);
   };
 
-  const onContentChanged = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const onContentChanged = (event: ChangeEvent<HTMLTextAreaElement>) => {
     setDraftContent(event.target.value);
   };
 
-  const onReleaseChanged = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const onReleaseChanged = (event: ChangeEvent<HTMLInputElement>) => {
     setDraftRelease(event.target.checked);
   };
 
@@ -64,7 +64,7 @@ const useEditPost = () => {
     const deleteConfirm = confirm('削除します');
 
     if (deleteConfirm) {
-      // TODO: 記事を削除したときに画像を削除する機能を復活させる
+      // FIXME: 記事を削除したときに画像を削除するためには、全ての画像を一つずつ全て削除しないといけない
       await deletePostService({ id, idToken: currentUser.authHeader.idToken });
       history.push('/edit');
     }

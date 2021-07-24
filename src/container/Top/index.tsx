@@ -17,7 +17,7 @@ const Top: React.FC = () => {
   return (
     <StyledArticle>
       <h2>記事一覧</h2>
-      {postListWithStatus && postListWithStatus.status === 'success' ? (
+      {postListWithStatus && postListWithStatus.status === 'success' && (
         <>
           {postListWithStatus.titleDateList.map((item) => (
             <StyledPost key={item.id}>
@@ -26,9 +26,8 @@ const Top: React.FC = () => {
             </StyledPost>
           ))}
         </>
-      ) : (
-        <Spinner />
       )}
+      {!postListWithStatus && <Spinner />}
       {postListWithStatus && postListWithStatus.status === 'failure' && (
         <ErrorMessage />
       )}

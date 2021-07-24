@@ -1,10 +1,10 @@
-import { useState } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 
 import { publicImages } from '~/adapter/firebase';
 
 export interface Props {
   uploadPath: string;
-  setUploadFilename: React.Dispatch<React.SetStateAction<string>>;
+  setUploadFilename: Dispatch<SetStateAction<string>>;
 }
 
 const useUploadSelectFile = (props: Props) => {

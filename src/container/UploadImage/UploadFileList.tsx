@@ -12,14 +12,18 @@ const UploadFileList: React.FC<Props> = (props) => {
   return (
     <>
       <StyledImagePaths>
-        {loaded ? (
+        {loaded &&
           imagePathList &&
-          imagePathList.map((item, index) => (
-            <UploadFileItem key={index} item={item} deleteImage={deleteImage} />
-          ))
-        ) : (
-          <Spinner />
-        )}
+          imagePathList.map((item, index) => {
+            return (
+              <UploadFileItem
+                key={index}
+                item={item}
+                deleteImage={deleteImage}
+              />
+            );
+          })}
+        {!loaded && <Spinner />}
       </StyledImagePaths>
     </>
   );

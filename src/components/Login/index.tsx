@@ -9,11 +9,8 @@ const Login: React.FC = () => {
 
   return (
     <StyledLogin>
-      {userId ? (
-        <button onClick={logout}>ログアウトする</button>
-      ) : (
-        <button onClick={login}>ログインする</button>
-      )}
+      {userId && <button onClick={logout}>ログアウトする</button>}
+      {!userId && <button onClick={login}>ログインする</button>}
       {userId && <StyledUid>uid: {userId}</StyledUid>}
     </StyledLogin>
   );

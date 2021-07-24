@@ -12,10 +12,11 @@ export type Props = {
   uploadFilename: string;
 };
 
-const useUploadFileList = (props: Props) => {
+const useUploadFileList = ({ uploadPath, uploadFilename }: Props) => {
   const [imageRef, setImageRef] = useState<PublicImages[]>();
   const [imagePathList, setImagePathList] = useState<TypeImagePath[]>();
   const [loaded, setLoaded] = useState(false);
+  // HACK: Page をリフレッシュするため
   const [reload, setReload] = useState(0);
 
   const deleteImage = (imagePath: string) => {
@@ -24,7 +25,7 @@ const useUploadFileList = (props: Props) => {
     if (!deleteConfirm) return;
 
     publicImages
-      .child(`${props.uploadPath}/${imagePath}`)
+      .child(`${uploadPath}/${imagePath}`)
       .delete()
       .then(() => {
         const fixReload = reload + 1;
@@ -32,14 +33,15 @@ const useUploadFileList = (props: Props) => {
       });
   };
 
+  // NOTE: 指定したディレクトリ配下のファイル一覧を取得する
   useEffect(() => {
     publicImages
-      .child(`${props.uploadPath}`)
+      .child(`${uploadPath}`)
       .listAll()
       .then((list) => {
         setImageRef(list.items);
       });
-  }, [props.uploadPath, props.uploadFilename, reload]);
+  }, [uploadPath, uploadFilename, reload]);
 
   useEffect(() => {
     if (!imageRef) return;
@@ -52,6 +54,7 @@ const useUploadFileList = (props: Props) => {
       });
     });
 
+    // HACK: await が使えないので、setTimeout を使って処理を遅らせる
     const unmount = setTimeout(() => {
       setImagePathList(downloadPath);
       setLoaded(true);

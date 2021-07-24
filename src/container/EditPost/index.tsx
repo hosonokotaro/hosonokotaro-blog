@@ -38,7 +38,7 @@ const EditPost: React.FC = () => {
   return (
     <>
       <StyledArticle>
-        {postWithStatus && postWithStatus.status === 'success' ? (
+        {postWithStatus && postWithStatus.status === 'success' && (
           <>
             <h2>記事を編集する</h2>
             <StyledLabel htmlFor={`editPostTitle-${id}`}>タイトル</StyledLabel>
@@ -86,9 +86,9 @@ const EditPost: React.FC = () => {
               <Link to="/edit">投稿された記事一覧に行く</Link>
             </StyledReturn>
           </>
-        ) : (
-          <Spinner />
         )}
+        {!postWithStatus && <Spinner />}
+        {/* FIXME: Status が二重管理になっているのは何故かを確認したい */}
         {status === 'failure' && <ErrorMessage />}
       </StyledArticle>
       <Login />
