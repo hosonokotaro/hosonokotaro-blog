@@ -18,13 +18,13 @@ const getPostTarget = (id: string) => {
 
 type GetPostTarget = keyof ReturnType<typeof getPostTarget>;
 
-export interface Props {
+export interface Params {
   id: Post['id'];
   target: GetPostTarget;
   idToken?: string;
 }
 
-const getPost = async ({ id, target, idToken }: Props) => {
+const getPost = async ({ id, target, idToken }: Params) => {
   let headers: { Authorization?: string } = {};
 
   if (target === 'privateEnabled' && idToken) {

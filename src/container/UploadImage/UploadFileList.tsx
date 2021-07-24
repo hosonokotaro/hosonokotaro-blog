@@ -1,7 +1,9 @@
 import React from 'react';
 
 import Spinner from '@/Spinner';
-import useUploadFileList, { Props } from '~/customHooks/useUploadFileList';
+import useUploadFileList, {
+  Params as Props,
+} from '~/customHooks/useUploadFileList';
 
 import { StyledImagePaths } from './styledUploadFileList';
 import UploadFileItem from './UploadFileItem';

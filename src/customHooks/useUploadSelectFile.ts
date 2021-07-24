@@ -2,22 +2,22 @@ import { Dispatch, SetStateAction, useState } from 'react';
 
 import { publicImages } from '~/adapter/firebase';
 
-export interface Props {
+export interface Params {
   uploadPath: string;
   setUploadFilename: Dispatch<SetStateAction<string>>;
 }
 
-const useUploadSelectFile = (props: Props) => {
+const useUploadSelectFile = ({ uploadPath, setUploadFilename }: Params) => {
   const [image, setImage] = useState<File | null>(null);
 
   const upload = () => {
     if (!image) return;
 
     publicImages
-      .child(`${props.uploadPath}/${image.name}`)
+      .child(`${uploadPath}/${image.name}`)
       .put(image)
       .then(() => {
-        props.setUploadFilename(image.name);
+        setUploadFilename(image.name);
         setImage(null);
       });
   };

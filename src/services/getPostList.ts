@@ -14,12 +14,12 @@ const getTitleListTarget = {
 
 type GetTitleListTarget = keyof typeof getTitleListTarget;
 
-export interface Props {
+export interface Params {
   target: GetTitleListTarget;
   idToken?: string;
 }
 
-const getPostList = async ({ target, idToken }: Props) => {
+const getPostList = async ({ target, idToken }: Params) => {
   let headers: { Authorization?: string } = {};
 
   if (target === 'privateEnabled' && idToken) {

@@ -1,6 +1,8 @@
 import React from 'react';
 
-import useUploadSelectFile, { Props } from '~/customHooks/useUploadSelectFile';
+import useUploadSelectFile, {
+  Params as Props,
+} from '~/customHooks/useUploadSelectFile';
 
 import {
   StyledButton,

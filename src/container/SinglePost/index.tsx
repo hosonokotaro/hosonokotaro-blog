@@ -6,7 +6,7 @@ import CodeBlock from '@/CodeBlock';
 import ErrorMessage from '@/ErrorMessage';
 import Spinner from '@/Spinner';
 import useGetPost from '~/customHooks/useGetPost';
-import type { Props } from '~/services/getPost';
+import type { Params } from '~/services/getPost';
 
 import {
   StyledReactMarkdown,
@@ -15,7 +15,7 @@ import {
 } from './styledIndex';
 
 const SinglePost: React.FC = () => {
-  const { id } = useParams<{ id: Props['id'] }>();
+  const { id } = useParams<{ id: Params['id'] }>();
   const { status, post } = useGetPost({ id, target: 'default' });
 
   return (

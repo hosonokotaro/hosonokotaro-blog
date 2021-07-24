@@ -7,12 +7,12 @@ export interface TypeImagePath {
   filename: string;
 }
 
-export type Props = {
+export type Params = {
   uploadPath: string;
   uploadFilename: string;
 };
 
-const useUploadFileList = ({ uploadPath, uploadFilename }: Props) => {
+const useUploadFileList = ({ uploadPath, uploadFilename }: Params) => {
   const [imageRef, setImageRef] = useState<PublicImages[]>();
   const [imagePathList, setImagePathList] = useState<TypeImagePath[]>();
   const [loaded, setLoaded] = useState(false);
@@ -54,7 +54,7 @@ const useUploadFileList = ({ uploadPath, uploadFilename }: Props) => {
       });
     });
 
-    // HACK: await が使えないので、setTimeout を使って処理を遅らせる
+    // HACK: await が使えないので、setTimeout を使って処理を遅らせる
     const unmount = setTimeout(() => {
       setImagePathList(downloadPath);
       setLoaded(true);
