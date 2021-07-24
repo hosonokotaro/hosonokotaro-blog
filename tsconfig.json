@@ -2,7 +2,6 @@
   "compilerOptions": {
     "jsx": "react",
     "target": "ES2019",
-    "module": "CommonJS",
     "moduleResolution": "node",
     "allowJs": true,
     "noEmit": true,

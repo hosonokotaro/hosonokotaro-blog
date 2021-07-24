@@ -18,7 +18,7 @@ const EditTop: React.FC = () => {
   return (
     <>
       <article>
-        {postListWithStatus && postListWithStatus.status === 'success' ? (
+        {postListWithStatus && postListWithStatus.status === 'success' && (
           <>
             <CreatePost
               title={createTitle}
@@ -28,9 +28,8 @@ const EditTop: React.FC = () => {
             />
             <EditPostList postList={postListWithStatus.titleDateList} />
           </>
-        ) : (
-          <Spinner />
         )}
+        {!postListWithStatus && <Spinner />}
       </article>
       <Login />
     </>

@@ -22,7 +22,6 @@ import {
 
 const EditPost: React.FC = () => {
   const {
-    userId,
     id,
     postWithStatus,
     status,
@@ -32,14 +31,14 @@ const EditPost: React.FC = () => {
     onTitleChanged,
     onContentChanged,
     onReleaseChanged,
-    updatePost,
-    deletePost,
+    handleUpdatePost,
+    handleDeletePost,
   } = useEditPost();
 
   return (
     <>
       <StyledArticle>
-        {userId && postWithStatus && postWithStatus.status === 'success' ? (
+        {postWithStatus && postWithStatus.status === 'success' && (
           <>
             <h2>記事を編集する</h2>
             <StyledLabel htmlFor={`editPostTitle-${id}`}>タイトル</StyledLabel>
@@ -69,11 +68,10 @@ const EditPost: React.FC = () => {
               onChange={onReleaseChanged}
             />
             <StyledButtonWrapper>
-              <StyledButton onClick={updatePost}>
+              <StyledButton onClick={handleUpdatePost}>
                 この記事を更新する
               </StyledButton>
-              <StyledButton onClick={deletePost}>
-                {/* TODO: 記事を削除したときに画像を削除する機能を復活させる */}
+              <StyledButton onClick={handleDeletePost}>
                 この記事を削除する
               </StyledButton>
             </StyledButtonWrapper>
@@ -88,9 +86,9 @@ const EditPost: React.FC = () => {
               <Link to="/edit">投稿された記事一覧に行く</Link>
             </StyledReturn>
           </>
-        ) : (
-          <Spinner />
         )}
+        {!postWithStatus && <Spinner />}
+        {/* FIXME: Status が二重管理になっているのは何故かを確認したい */}
         {status === 'failure' && <ErrorMessage />}
       </StyledArticle>
       <Login />

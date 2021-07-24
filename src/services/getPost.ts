@@ -1,5 +1,6 @@
 import axiosInstance from '~/adapter/axiosInstance';
 
+// NOTE: id: 記事の unique id
 export interface Post {
   id: string;
   title: string;
@@ -8,7 +9,7 @@ export interface Post {
   createDate: string;
 }
 
-const getPostTarget = (id: string) => {
+const getPostTarget = (id: Post['id']) => {
   return {
     default: `/get/post/${id}`,
     privateEnabled: `/get/post/${id}?private=enabled`,
@@ -17,13 +18,13 @@ const getPostTarget = (id: string) => {
 
 type GetPostTarget = keyof ReturnType<typeof getPostTarget>;
 
-export interface Props {
+export interface Params {
   id: Post['id'];
   target: GetPostTarget;
   idToken?: string;
 }
 
-const getPost = async ({ id, target, idToken }: Props) => {
+const getPost = async ({ id, target, idToken }: Params) => {
   let headers: { Authorization?: string } = {};
 
   if (target === 'privateEnabled' && idToken) {

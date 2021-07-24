@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 
-import type { PostWithStatusType, Props } from '~/services/getPost';
+import type { Params, PostWithStatusType } from '~/services/getPost';
 import getPost from '~/services/getPost';
 
 // NOTE: https://log.pocka.io/ja/posts/typescript-promisetype/
 type PromiseType<T> = T extends Promise<infer P> ? P : never;
 
-const useGetPost = ({ id, target, idToken }: Props) => {
+const useGetPost = ({ id, target, idToken }: Params) => {
   const [status, setStatus] = useState<
     PromiseType<PostWithStatusType>['status']
   >();

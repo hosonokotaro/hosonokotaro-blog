@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 
 import { firebaseAuth } from '~/services/authentication';
@@ -7,54 +7,68 @@ import type { getCurrentUserType } from '~/services/getCurrentUser';
 import getCurrentUser from '~/services/getCurrentUser';
 import type { Post, PostWithStatusType } from '~/services/getPost';
 import getPost from '~/services/getPost';
+import type { Post as ServicesPost } from '~/services/updatePost';
+import updatePost from '~/services/updatePost';
 
 // NOTE: https://log.pocka.io/ja/posts/typescript-promisetype/
 type PromiseType<T> = T extends Promise<infer P> ? P : never;
 
 const useEditPost = () => {
-  const [userId, setUserId] = useState<string>();
-  const [draftTitle, setDraftTitle] = useState<Post['title']>();
-  const [draftContent, setDraftContent] = useState<Post['content']>();
-  const [draftRelease, setDraftRelease] = useState<Post['release']>();
+  const [draftTitle, setDraftTitle] = useState<Post['title']>('');
+  const [draftContent, setDraftContent] = useState<Post['content']>('');
+  const [draftRelease, setDraftRelease] = useState<Post['release']>(false);
   const [postWithStatus, setPostWithStatus] = useState<
     PromiseType<PostWithStatusType>
   >();
-  // TODO: currentUser は記事更新時に利用する
+  // NOTE: currentUser は記事更新時に利用する
   const [currentUser, setCurrentUser] = useState<
     PromiseType<getCurrentUserType>
   >();
 
   const { id } = useParams<{ id: Post['id'] }>();
 
-  const onTitleChanged = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const history = useHistory();
+
+  const onTitleChanged = (event: ChangeEvent<HTMLInputElement>) => {
     setDraftTitle(event.target.value);
   };
 
-  const onContentChanged = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const onContentChanged = (event: ChangeEvent<HTMLTextAreaElement>) => {
     setDraftContent(event.target.value);
   };
 
-  const onReleaseChanged = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const onReleaseChanged = (event: ChangeEvent<HTMLInputElement>) => {
     setDraftRelease(event.target.checked);
   };
 
-  const updatePost = () => {
-    // TODO: API に更新データを投げる
-    console.log(id);
+  const handleUpdatePost = async () => {
+    if (!currentUser || !currentUser.authHeader) return;
+
+    const updateConfirm = confirm('更新します');
+
+    const post: ServicesPost = {
+      title: draftTitle,
+      content: draftContent,
+      release: draftRelease,
+    };
+
+    if (updateConfirm) {
+      await updatePost({ id, idToken: currentUser.authHeader.idToken }, post);
+      history.push('/edit');
+    }
   };
 
-  const deletePost = async () => {
-    // if (!authHeader) return;
-    // const deleteConfirm = confirm('削除します');
-    // if (deleteConfirm) {
-    //   await deletePostService({ id, bearerToken: authHeader.idToken });
-    //   alert(`${id}を削除しました`);
-    //   // FIXME: 存在しないページに戻ると白い画面になるのを修正したい
-    //   history.push('/edit');
-    // }
-  };
+  const handleDeletePost = async () => {
+    if (!currentUser || !currentUser.authHeader) return;
 
-  // const userId = getLoggedInUserId();
+    const deleteConfirm = confirm('削除します');
+
+    if (deleteConfirm) {
+      // FIXME: 記事を削除したときに画像を削除するためには、全ての画像を一つずつ全て削除しないといけない
+      await deletePostService({ id, idToken: currentUser.authHeader.idToken });
+      history.push('/edit');
+    }
+  };
 
   useEffect(() => {
     if (!postWithStatus) return;
@@ -65,36 +79,24 @@ const useEditPost = () => {
   }, [postWithStatus]);
 
   useEffect(() => {
-    if (!userId) return;
-
-    const loggedIn = async () => {
-      const currentUser = await getCurrentUser();
-
-      const postWithStatus = await getPost({
+    const unsubscribe = firebaseAuth.onAuthStateChanged(async () => {
+      const tempCurrentUser = await getCurrentUser();
+      const tempPostWithStatus = await getPost({
         id,
         target: 'privateEnabled',
-        idToken: currentUser.authHeader.idToken,
+        idToken: tempCurrentUser.authHeader.idToken,
       });
 
-      setPostWithStatus(postWithStatus);
-      setCurrentUser(currentUser);
-    };
-
-    loggedIn();
-  }, [id, userId]);
-
-  useEffect(() => {
-    const unsubscribe = firebaseAuth.onAuthStateChanged((user) => {
-      user && setUserId(user.uid);
+      setPostWithStatus(tempPostWithStatus);
+      setCurrentUser(tempCurrentUser);
     });
 
     return () => {
       unsubscribe;
     };
-  }, []);
+  }, [id]);
 
   return {
-    userId,
     id,
     postWithStatus,
     status,
@@ -104,8 +106,8 @@ const useEditPost = () => {
     onTitleChanged,
     onContentChanged,
     onReleaseChanged,
-    updatePost,
-    deletePost,
+    handleUpdatePost,
+    handleDeletePost,
   };
 };
 

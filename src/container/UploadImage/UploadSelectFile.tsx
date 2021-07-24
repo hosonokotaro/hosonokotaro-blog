@@ -1,6 +1,8 @@
 import React from 'react';
 
-import useUploadSelectFile, { Props } from '~/customHooks/useUploadSelectFile';
+import useUploadSelectFile, {
+  Params as Props,
+} from '~/customHooks/useUploadSelectFile';
 
 import {
   StyledButton,
@@ -19,11 +21,8 @@ const UploadSelectFile: React.FC<Props> = (props) => {
         onChange={(e) => (e.target.files ? setImage(e.target.files[0]) : null)}
       />
       <StyledInputInfo>
-        {image ? (
-          <StyledInputImage src={window.URL.createObjectURL(image)} />
-        ) : (
-          <span>画像を選択してください</span>
-        )}
+        {image && <StyledInputImage src={window.URL.createObjectURL(image)} />}
+        {!image && <span>画像を選択してください</span>}
       </StyledInputInfo>
       <StyledButton onClick={upload} disabled={image ? false : true}>
         画像をアップロードする

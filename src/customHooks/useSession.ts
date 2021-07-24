@@ -7,7 +7,7 @@ import {
 } from '~/services/authentication';
 
 const useSession = () => {
-  const [userId, setUserId] = useState<string>();
+  const [userId, setUserId] = useState<string>('');
 
   const login = () => {
     loginFromService();
