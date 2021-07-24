@@ -6,14 +6,14 @@ import syntaxStyle from 'react-syntax-highlighter/dist/cjs/styles/prism/tomorrow
 // FIXME: 呼び出し方を修正したい
 SyntaxHighlighter.registerLanguage('tsx', tsx);
 
+// NOTE: Syntax highlighter は value という props 名を受け入れる？
 interface Props {
-  content: string;
+  value: string;
   language: string;
 }
 
-const CodeBlock: React.FC<Props> = ({ content, language }) => {
-  // NOTE: 存在しない場合、undefined として入ってくるため
-  if (content === undefined) {
+const CodeBlock: React.FC<Props> = ({ value, language }) => {
+  if (value === undefined) {
     return null;
   }
 
@@ -24,7 +24,7 @@ const CodeBlock: React.FC<Props> = ({ content, language }) => {
       role="img"
       aria-label="コードスニペットによる説明"
     >
-      {content}
+      {value}
     </SyntaxHighlighter>
   );
 };

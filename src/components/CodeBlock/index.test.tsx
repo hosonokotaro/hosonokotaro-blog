@@ -9,7 +9,7 @@ import CodeBlock from '.';
 const language = 'tsx';
 
 it('it should render: CodeBlock に tsx を指定した時に期待する Style が存在する', () => {
-  render(<CodeBlock content="" language={language} />);
+  render(<CodeBlock value="" language={language} />);
 
   expect(screen.getByRole('img')).toHaveStyle('color: rgb(204, 204, 204)');
 });
