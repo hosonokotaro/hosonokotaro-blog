@@ -12,19 +12,12 @@ export interface Post {
   release: boolean;
 }
 
-const updatePost = async (
-  { id, idToken }: Params,
-  { title, content, release }: Post
-) => {
-  await axiosInstance.post(
-    `/post/updatepost/${id}`,
-    { title, content, release },
-    {
-      headers: {
-        Authorization: `Bearer ${idToken}`,
-      },
-    }
-  );
+const updatePost = async ({ id, idToken }: Params, post: Post) => {
+  await axiosInstance.post(`/post/updatepost/${id}`, post, {
+    headers: {
+      Authorization: `Bearer ${idToken}`,
+    },
+  });
 };
 
 export default updatePost;

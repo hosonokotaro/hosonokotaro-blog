@@ -23,11 +23,10 @@ const useEditTop = () => {
   const handleSubmit = async () => {
     if (!createTitle || !currentUser || !currentUser.authHeader) return;
 
-    await createPost({
+    await createPost(currentUser.authHeader.idToken, {
       title: createTitle,
       content: '',
       release: false,
-      idToken: currentUser.authHeader.idToken,
     });
 
     setCreateTitle('');

@@ -9,7 +9,7 @@ export interface Post {
   createDate: string;
 }
 
-const getPostTarget = (id: string) => {
+const getPostTarget = (id: Post['id']) => {
   return {
     default: `/get/post/${id}`,
     privateEnabled: `/get/post/${id}?private=enabled`,
