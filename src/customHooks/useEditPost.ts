@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 
 import { firebaseAuth } from '~/services/authentication';
@@ -7,7 +7,7 @@ import type { getCurrentUserType } from '~/services/getCurrentUser';
 import getCurrentUser from '~/services/getCurrentUser';
 import type { Post, PostWithStatusType } from '~/services/getPost';
 import getPost from '~/services/getPost';
-import type { Params, Post as ServicesPost } from '~/services/updatePost';
+import type { Post as ServicesPost } from '~/services/updatePost';
 import updatePost from '~/services/updatePost';
 
 // NOTE: https://log.pocka.io/ja/posts/typescript-promisetype/
@@ -20,7 +20,7 @@ const useEditPost = () => {
   const [postWithStatus, setPostWithStatus] = useState<
     PromiseType<PostWithStatusType>
   >();
-  // TODO: currentUser は記事更新時に利用する
+  // NOTE: currentUser は記事更新時に利用する
   const [currentUser, setCurrentUser] = useState<
     PromiseType<getCurrentUserType>
   >();
@@ -46,8 +46,6 @@ const useEditPost = () => {
 
     const updateConfirm = confirm('更新します');
 
-    // NOTE: わざわざ変数を作る必要はないかもしれないが、忘れる可能性が高いので念の為に残します
-    const params: Params = { id, idToken: currentUser.authHeader.idToken };
     const post: ServicesPost = {
       title: draftTitle,
       content: draftContent,
@@ -55,7 +53,7 @@ const useEditPost = () => {
     };
 
     if (updateConfirm) {
-      await updatePost(params, post);
+      await updatePost({ id, idToken: currentUser.authHeader.idToken }, post);
       history.push('/edit');
     }
   };
@@ -72,19 +70,6 @@ const useEditPost = () => {
     }
   };
 
-  const getUserAndPost = useCallback(async () => {
-    const currentUser = await getCurrentUser();
-
-    const postWithStatus = await getPost({
-      id,
-      target: 'privateEnabled',
-      idToken: currentUser.authHeader.idToken,
-    });
-
-    setPostWithStatus(postWithStatus);
-    setCurrentUser(currentUser);
-  }, [id]);
-
   useEffect(() => {
     if (!postWithStatus) return;
 
@@ -94,14 +79,22 @@ const useEditPost = () => {
   }, [postWithStatus]);
 
   useEffect(() => {
-    const unsubscribe = firebaseAuth.onAuthStateChanged(() => {
-      getUserAndPost();
+    const unsubscribe = firebaseAuth.onAuthStateChanged(async () => {
+      const tempCurrentUser = await getCurrentUser();
+      const tempPostWithStatus = await getPost({
+        id,
+        target: 'privateEnabled',
+        idToken: tempCurrentUser.authHeader.idToken,
+      });
+
+      setPostWithStatus(tempPostWithStatus);
+      setCurrentUser(tempCurrentUser);
     });
 
     return () => {
       unsubscribe;
     };
-  }, [getUserAndPost]);
+  }, [id]);
 
   return {
     id,
