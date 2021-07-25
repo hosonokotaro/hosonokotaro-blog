@@ -2,7 +2,6 @@ import '~/pages/globalCss';
 
 import React from 'react';
 import { Helmet } from 'react-helmet';
-import { hot } from 'react-hot-loader/root';
 import { BrowserRouter as Router } from 'react-router-dom';
 
 import Footer from '@/Footer';
@@ -29,4 +28,4 @@ const App: React.FC = () => {
   );
 };
 
-export default hot(App);
+export default App;

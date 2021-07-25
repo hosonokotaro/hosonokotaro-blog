@@ -1,6 +1,6 @@
 import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
-import ForkTsCheckerPlugin from 'fork-ts-checker-webpack-plugin';
+import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
 import HTMLWebpackPlugin from 'html-webpack-plugin';
 import MiniCssExactPlugin from 'mini-css-extract-plugin';
 import path from 'path';
@@ -73,7 +73,6 @@ const config: Configuration = {
   resolve: {
     extensions: ['*', '.js', '.ts', '.tsx'],
     alias: {
-      'react-dom': '@hot-loader/react-dom',
       '~': path.resolve(__dirname, 'src/'),
       '@': path.resolve(__dirname, 'src/components/'),
     },
@@ -82,6 +81,7 @@ const config: Configuration = {
     contentBase: path.join(__dirname, 'public/'),
     port: 3000,
     host: '0.0.0.0',
+    hot: true,
     hotOnly: true,
     historyApiFallback: {
       rewrites: [
@@ -117,12 +117,15 @@ const config: Configuration = {
         },
       ],
     }),
-    new ForkTsCheckerPlugin({
+    new ForkTsCheckerWebpackPlugin({
       typescript: {
         diagnosticOptions: {
           semantic: true,
           syntactic: true,
         },
+      },
+      eslint: {
+        files: './src/**/*.{ts,tsx,js,jsx}',
       },
     }),
     new BundleAnalyzerPlugin({

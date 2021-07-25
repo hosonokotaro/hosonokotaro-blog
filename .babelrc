@@ -17,5 +17,5 @@
     ],
     "@linaria"
   ],
-  "plugins": ["react-hot-loader/babel"]
+  "plugins": []
 }
