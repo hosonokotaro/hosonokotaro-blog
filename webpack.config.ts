@@ -1,6 +1,6 @@
 import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
-import ForkTsCheckerPlugin from 'fork-ts-checker-webpack-plugin';
+import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
 import HTMLWebpackPlugin from 'html-webpack-plugin';
 import MiniCssExactPlugin from 'mini-css-extract-plugin';
 import path from 'path';
@@ -118,12 +118,15 @@ const config: Configuration = {
         },
       ],
     }),
-    new ForkTsCheckerPlugin({
+    new ForkTsCheckerWebpackPlugin({
       typescript: {
         diagnosticOptions: {
           semantic: true,
           syntactic: true,
         },
+      },
+      eslint: {
+        files: './src/**/*.{ts,tsx,js,jsx}',
       },
     }),
     new BundleAnalyzerPlugin({
