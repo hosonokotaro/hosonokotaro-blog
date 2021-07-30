@@ -37,9 +37,9 @@ const config: Configuration = {
         exclude: /node_modules/,
         use: [
           {
-            loader: 'babel-loader',
+            loader: 'ts-loader',
             options: {
-              presets: ['@babel/env'],
+              transpileOnly: true,
             },
           },
           {
@@ -94,7 +94,7 @@ const config: Configuration = {
       ignored: ['node_modules'],
     },
   },
-  devtool: dev && 'source-map',
+  devtool: dev ? 'inline-source-map' : 'source-map',
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new HTMLWebpackPlugin({
