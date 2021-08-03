@@ -34,9 +34,8 @@ export const StyledReactMarkdown = styled(ReactMarkdown)`
   & > p code {
     margin: 0 2px;
     padding: 0 4px;
-    border: 1px solid #999;
     border-radius: 3px;
-    background: #f9f9f9;
+    background: #e8e8e8;
   }
 
   & > p img {
