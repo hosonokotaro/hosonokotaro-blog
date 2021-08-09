@@ -15,7 +15,7 @@
     "cypress:open": "cypress open",
     "postinstall": "is-ci || husky install",
     "prepare": "husky install",
-    "storybook": "start-storybook -p 9000",
+    "storybook": "start-storybook -p 6001",
     "build-storybook": "build-storybook"
   },
   "author": "",
