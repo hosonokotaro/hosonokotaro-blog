@@ -1,7 +1,9 @@
 import React, { ChangeEvent } from 'react';
 
+import Button from '@/atoms/Button';
+import SubTitle from '@/atoms/Title';
+
 import {
-  StyledButton,
   StyledInputText,
   StyledLabel,
   StyledSection,
@@ -23,7 +25,7 @@ const CreatePost: React.FC<Props> = ({
 }) => {
   return (
     <StyledSection>
-      <h2>記事の新規作成</h2>
+      <SubTitle text="記事の新規作成" />
       <StyledWrapper>
         <form>
           <StyledLabel htmlFor="postTitle">タイトル</StyledLabel>
@@ -35,9 +37,12 @@ const CreatePost: React.FC<Props> = ({
             onChange={onTitleChanged}
           />
         </form>
-        <StyledButton onClick={handleSubmit} disabled={!canSaveNewPost}>
-          記事を準備する
-        </StyledButton>
+        <Button
+          text="記事を準備する"
+          onClick={handleSubmit}
+          disabled={!canSaveNewPost}
+          isMargin
+        />
       </StyledWrapper>
     </StyledSection>
   );

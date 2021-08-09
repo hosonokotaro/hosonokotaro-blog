@@ -1,6 +1,7 @@
 import React from 'react';
 
-import CodeBlock from '@/CodeBlock';
+import SubTitle from '@/atoms/Title';
+import CodeBlock from '@/molecules/CodeBlock';
 import { StyledReactMarkdown } from '~/container/SinglePost/styledIndex';
 import type { Post } from '~/services/getPost';
 
@@ -28,7 +29,7 @@ const Preview: React.FC<Post> = ({
       </StyledTimestamp>
       <StyledPreview>
         <StyledPreviewTitle>Preview</StyledPreviewTitle>
-        <h2>{title}</h2>
+        <SubTitle text={title} />
         <StyledTimestamp>{createDate}</StyledTimestamp>
         <StyledReactMarkdown source={content} renderers={{ code: CodeBlock }} />
       </StyledPreview>

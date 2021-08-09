@@ -42,7 +42,3 @@ export const StyledTextarea = styled.textarea`
     margin-top: 4px;
   }
 `;
-
-export const StyledButton = styled.button`
-  margin-top: 20px;
-`;

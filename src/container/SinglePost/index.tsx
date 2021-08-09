@@ -2,9 +2,10 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 import { useParams } from 'react-router-dom';
 
-import CodeBlock from '@/CodeBlock';
-import ErrorMessage from '@/ErrorMessage';
-import Spinner from '@/Spinner';
+import ErrorMessage from '@/atoms/ErrorMessage';
+import Spinner from '@/atoms/Spinner';
+import SubTitle from '@/atoms/Title';
+import CodeBlock from '@/molecules/CodeBlock';
 import useGetPost from '~/customHooks/useGetPost';
 import type { Params } from '~/services/getPost';
 
@@ -23,9 +24,10 @@ const SinglePost: React.FC = () => {
       {status === 'success' && (
         <>
           <Helmet>
+            {/* FIXME: OGP の為のタグを設定する？設定が生きるかどうかも確認したい */}
             <title>{post.title} | WEB DEVELOPER HOSONO KOTARO</title>
           </Helmet>
-          <h2>{post.title}</h2>
+          <SubTitle text={post.title} />
           <StyledTimestamp>{post.createDate}</StyledTimestamp>
           <StyledReactMarkdown
             source={post.content}

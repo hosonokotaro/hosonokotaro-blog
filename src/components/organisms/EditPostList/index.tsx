@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import Spinner from '@/Spinner';
+import Spinner from '@/atoms/Spinner';
+import SubTitle from '@/atoms/Title';
 
 import {
   StyledPost,
@@ -24,7 +25,7 @@ interface Props {
 const EditPostList: React.FC<Props> = ({ postList }) => {
   return (
     <StyledSection>
-      <h2>投稿された記事一覧</h2>
+      <SubTitle text="投稿された記事一覧" />
       <StyledPosts>
         {postList &&
           postList.map(({ id, title, release, createDate }) => (

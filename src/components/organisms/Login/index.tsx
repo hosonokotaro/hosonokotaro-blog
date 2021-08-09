@@ -1,5 +1,6 @@
 import React from 'react';
 
+import Button from '@/atoms/Button';
 import useSession from '~/customHooks/useSession';
 
 import { StyledLogin, StyledUid } from './styledIndex';
@@ -9,8 +10,8 @@ const Login: React.FC = () => {
 
   return (
     <StyledLogin>
-      {userId && <button onClick={logout}>ログアウトする</button>}
-      {!userId && <button onClick={login}>ログインする</button>}
+      {userId && <Button text="ログアウトする" onClick={logout} />}
+      {!userId && <Button text="ログインする" onClick={login} />}
       {userId && <StyledUid>uid: {userId}</StyledUid>}
     </StyledLogin>
   );
