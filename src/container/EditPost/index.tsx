@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-// import UploadFiles from '@/edit/upload/Upload';
-import ErrorMessage from '@/ErrorMessage';
-import Login from '@/Login';
-import Spinner from '@/Spinner';
+import ErrorMessage from '@/atoms/ErrorMessage';
+import Spinner from '@/atoms/Spinner';
+import SubTitle from '@/atoms/Title';
+import Login from '@/organisms/Login';
 import Preview from '~/container/Preview';
 import UploadImage from '~/container/UploadImage';
 import useEditPost from '~/customHooks/useEditPost';
@@ -40,7 +40,7 @@ const EditPost: React.FC = () => {
       <StyledArticle>
         {postWithStatus && postWithStatus.status === 'success' && (
           <>
-            <h2>記事を編集する</h2>
+            <SubTitle text="記事を編集する" />
             <StyledLabel htmlFor={`editPostTitle-${id}`}>タイトル</StyledLabel>
             <StyledInputText
               type="text"

@@ -1,7 +1,8 @@
 import React from 'react';
 
-import ErrorMessage from '@/ErrorMessage';
-import Spinner from '@/Spinner';
+import ErrorMessage from '@/atoms/ErrorMessage';
+import Spinner from '@/atoms/Spinner';
+import SubTitle from '@/atoms/Title';
 import useGetPostList from '~/customHooks/useGetPostList';
 
 import {
@@ -16,7 +17,7 @@ const Top: React.FC = () => {
 
   return (
     <StyledArticle>
-      <h2>記事一覧</h2>
+      <SubTitle text="記事一覧" />
       {postListWithStatus && postListWithStatus.status === 'success' && (
         <>
           {postListWithStatus.titleDateList.map((item) => (

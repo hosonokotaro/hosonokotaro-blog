@@ -17,7 +17,3 @@ export const StyleLink = styled(Link)`
   text-decoration: none;
   color: unset;
 `;
-
-export const StyledInlineBlock = styled.span`
-  display: inline-block;
-`;

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
-import { StyledTitle } from './styledUploadImageList';
+import Title from '@/atoms/Title';
+
 import UploadFileList from './UploadFileList';
 import UploadSelectFile from './UploadSelectFile';
 
@@ -13,7 +14,7 @@ const UploadImage: React.FC<Props> = ({ uploadPath }) => {
 
   return (
     <>
-      <StyledTitle>画像</StyledTitle>
+      <Title text="画像" rank="h3" isMargin />
       <UploadSelectFile
         uploadPath={uploadPath}
         setUploadFilename={setUploadFilename}

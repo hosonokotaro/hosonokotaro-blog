@@ -4,8 +4,8 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 import { BrowserRouter as Router } from 'react-router-dom';
 
-import Footer from '@/Footer';
-import Header from '@/Header';
+import Footer from '@/atoms/Footer';
+import Header from '@/organisms/Header';
 import getDate from '~/utility/getDate';
 
 import EditRouter from './Router';

@@ -1,9 +1,9 @@
 import React from 'react';
 
-import CreatePost from '@/CreatePost';
-import EditPostList from '@/EditPostList';
-import Login from '@/Login';
-import Spinner from '@/Spinner';
+import Spinner from '@/atoms/Spinner';
+import CreatePost from '@/organisms/CreatePost';
+import EditPostList from '@/organisms/EditPostList';
+import Login from '@/organisms/Login';
 import useEditTop from '~/customHooks/useEditTop';
 
 const EditTop: React.FC = () => {
