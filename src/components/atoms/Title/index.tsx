@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { StyledSubTitle, StyledTitle } from './styledIndex';
+import { StyledTitle } from './styledIndex';
 
 export interface Props {
   text: string;
@@ -9,14 +9,11 @@ export interface Props {
 }
 
 const SubTitle: React.FC<Props> = ({ text, rank = 'h2', isMargin = false }) => {
-  if (rank === 'h3')
-    return (
-      <StyledSubTitle style={!isMargin ? {} : { marginTop: '40px' }}>
-        {text}
-      </StyledSubTitle>
-    );
-
-  return <StyledTitle>{text}</StyledTitle>;
+  return (
+    <StyledTitle isMargin={isMargin} as={rank}>
+      {text}
+    </StyledTitle>
+  );
 };
 
 export default SubTitle;
