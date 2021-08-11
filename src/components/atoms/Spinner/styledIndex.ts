@@ -1,4 +1,4 @@
-import { styled } from '@linaria/react';
+import styled from 'styled-components';
 
 export const StyledSpinnerWrapper = styled.div`
   text-align: center;

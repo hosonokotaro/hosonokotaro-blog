@@ -1,8 +1,5 @@
 {
-  "extends": [
-    "stylelint-config-recommended",
-    "@linaria/stylelint"
-  ],
+  "extends": ["stylelint-config-recommended"],
   "rules": {
     "selector-pseudo-class-no-unknown": [
       true,

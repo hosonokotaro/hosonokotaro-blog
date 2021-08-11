@@ -14,8 +14,7 @@
       {
         "onlyRemoveTypeImports": true
       }
-    ],
-    "@linaria"
+    ]
   ],
-  "plugins": []
+  "plugins": ["babel-plugin-styled-components"]
 }
