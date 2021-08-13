@@ -1,15 +1,14 @@
-import { render, RenderResult } from '@testing-library/react';
+import { render, RenderOptions, RenderResult } from '@testing-library/react';
 import React, { ReactElement } from 'react';
 
-interface Props {
-  children: ReactElement;
-}
-
-const Providers: React.FC<Props> = ({ children }) => {
+const Providers: React.FC = ({ children }) => {
   return <div>{children}</div>;
 };
 
-const customRender = (ui: ReactElement, options?: any): RenderResult => {
+const customRender = (
+  ui: ReactElement,
+  options?: Omit<RenderOptions, 'wrapper'>
+): RenderResult => {
   return render(ui, { wrapper: Providers, ...options });
 };
 
