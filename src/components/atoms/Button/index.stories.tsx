@@ -1,3 +1,5 @@
+import { action } from '@storybook/addon-actions';
+import { boolean, text, withKnobs } from '@storybook/addon-knobs';
 import { Meta } from '@storybook/react';
 import React from 'react';
 
@@ -6,20 +8,14 @@ import Button from './';
 export default {
   component: Button,
   title: 'components/atoms/Button',
-  argTypes: {
-    buttonText: {
-      control: {
-        type: 'text',
-      },
-    },
-  },
+  decorators: [withKnobs],
 } as Meta;
 
-// text,
-// onClick,
-// disabled = false,
-// isMargin = false,
-
 export const Default: React.FC = () => (
-  <Button text="Default" onClick={() => null} />
+  <Button
+    text={text('label', 'button')}
+    onClick={action('clicked')}
+    disabled={boolean('disabled', false)}
+    isMargin={boolean('isMargin', false)}
+  />
 );

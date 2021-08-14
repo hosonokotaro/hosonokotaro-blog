@@ -8,7 +8,7 @@ export interface Props {
   isMargin?: boolean;
 }
 
-const SubTitle: React.FC<Props> = ({ text, rank = 'h2', isMargin = false }) => {
+const Title: React.FC<Props> = ({ text, rank = 'h2', isMargin = false }) => {
   return (
     <StyledTitle isMargin={isMargin} as={rank}>
       {text}
@@ -16,4 +16,4 @@ const SubTitle: React.FC<Props> = ({ text, rank = 'h2', isMargin = false }) => {
   );
 };
 
-export default SubTitle;
+export default Title;
