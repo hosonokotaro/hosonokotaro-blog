@@ -24,7 +24,6 @@ const SinglePost: React.FC = () => {
       {status === 'success' && (
         <>
           <Helmet>
-            {/* FIXME: OGP の為のタグを設定する？設定が生きるかどうかも確認したい */}
             <title>{post.title} | WEB DEVELOPER HOSONO KOTARO</title>
           </Helmet>
           <SubTitle text={post.title} />
