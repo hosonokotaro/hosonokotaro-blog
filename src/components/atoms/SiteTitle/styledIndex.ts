@@ -1,4 +1,4 @@
-import { styled } from '@linaria/react';
+import styled from 'styled-components';
 
 export const StyledInlineBlock = styled.span`
   display: inline-block;

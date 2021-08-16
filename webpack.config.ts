@@ -42,12 +42,6 @@ const config: Configuration = {
               transpileOnly: true,
             },
           },
-          {
-            loader: '@linaria/webpack-loader',
-            options: {
-              sourceMap: dev,
-            },
-          },
         ],
       },
       {

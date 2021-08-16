@@ -4,8 +4,7 @@
       "@babel/preset-env",
       {
         "useBuiltIns": "usage",
-        "corejs": 3,
-        "debug": true
+        "corejs": 3
       }
     ],
     "@babel/preset-react",
@@ -14,8 +13,7 @@
       {
         "onlyRemoveTypeImports": true
       }
-    ],
-    "@linaria"
+    ]
   ],
-  "plugins": []
+  "plugins": ["babel-plugin-styled-components"]
 }

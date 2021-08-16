@@ -1,4 +1,4 @@
-import { styled } from '@linaria/react';
+import styled from 'styled-components';
 
 export const StyledArticle = styled.article`
   max-width: 1000px;

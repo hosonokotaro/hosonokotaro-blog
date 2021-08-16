@@ -1,4 +1,4 @@
-import { styled } from '@linaria/react';
+import styled from 'styled-components';
 
 export const StyledErrorMessageWrapper = styled.div`
   margin-top: 50px;

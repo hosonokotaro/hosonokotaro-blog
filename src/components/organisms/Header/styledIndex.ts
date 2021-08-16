@@ -1,5 +1,5 @@
-import { styled } from '@linaria/react';
 import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 
 export const StyledHeaderWrapper = styled.header`
   border-bottom: 2px solid #333;

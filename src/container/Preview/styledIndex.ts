@@ -1,4 +1,4 @@
-import { styled } from '@linaria/react';
+import styled from 'styled-components';
 
 export const StyledPreviewTitle = styled.div`
   margin-bottom: 40px;
