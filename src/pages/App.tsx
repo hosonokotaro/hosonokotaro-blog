@@ -11,12 +11,9 @@ import getDate from '~/utility/getDate';
 const App: React.FC = () => {
   return (
     <>
+      {/* NOTE: 動的に更新される Helmet は、指定しないと何も変わらないため、初期値を入れます。 */}
       <Helmet>
         <title>Tech Blog | WEB DEVELOPER HOSONO KOTARO</title>
-        <style>
-          @import
-          url(https://fonts.googleapis.com/css2?family=Noto+Sans+JP&family=Roboto&display=swap);
-        </style>
       </Helmet>
       <GlobalStyle />
       <Router>

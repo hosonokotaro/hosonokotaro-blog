@@ -13,10 +13,7 @@ const App: React.FC = () => {
   return (
     <>
       <Helmet>
-        <style>
-          @import
-          url(https://fonts.googleapis.com/css2?family=Noto+Sans+JP&family=Roboto&display=swap);
-        </style>
+        <title>Edit | Tech Blog | WEB DEVELOPER HOSONO KOTARO</title>
       </Helmet>
       <GlobalStyle />
       <Router>

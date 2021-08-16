@@ -1,4 +1,5 @@
 import React from 'react';
+import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
 
 import ErrorMessage from '@/atoms/ErrorMessage';
@@ -37,6 +38,9 @@ const EditPost: React.FC = () => {
 
   return (
     <>
+      <Helmet>
+        <title>{draftTitle} | WEB DEVELOPER HOSONO KOTARO</title>
+      </Helmet>
       <StyledArticle>
         {postWithStatus && postWithStatus.status === 'success' && (
           <>
