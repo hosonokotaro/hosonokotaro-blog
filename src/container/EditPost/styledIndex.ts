@@ -1,11 +1,5 @@
 import styled from 'styled-components';
 
-export const StyledArticle = styled.article`
-  max-width: 1000px;
-  margin: 0 auto;
-  padding: 40px 40px 0 40px;
-`;
-
 export const StyledLabel = styled.label`
   display: block;
   h2 + & {

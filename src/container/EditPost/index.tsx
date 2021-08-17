@@ -3,6 +3,7 @@ import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
 
 import ErrorMessage from '@/atoms/ErrorMessage';
+import Layout from '@/atoms/Layout';
 import Spinner from '@/atoms/Spinner';
 import SubTitle from '@/atoms/Title';
 import Login from '@/organisms/Login';
@@ -11,7 +12,6 @@ import UploadImage from '~/container/UploadImage';
 import useEditPost from '~/customHooks/useEditPost';
 
 import {
-  StyledArticle,
   StyledButton,
   StyledButtonWrapper,
   StyledInputText,
@@ -41,7 +41,7 @@ const EditPost: React.FC = () => {
       <Helmet>
         <title>{draftTitle} | WEB DEVELOPER HOSONO KOTARO</title>
       </Helmet>
-      <StyledArticle>
+      <Layout tag="article">
         {postWithStatus && postWithStatus.status === 'success' && (
           <>
             <SubTitle text="記事を編集する" />
@@ -94,7 +94,7 @@ const EditPost: React.FC = () => {
         {!postWithStatus && <Spinner />}
         {/* FIXME: Status が二重管理になっているのは何故かを確認したい */}
         {status === 'failure' && <ErrorMessage />}
-      </StyledArticle>
+      </Layout>
       <Login />
     </>
   );

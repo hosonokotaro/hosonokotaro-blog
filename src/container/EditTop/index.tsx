@@ -1,5 +1,6 @@
 import React from 'react';
 
+import Layout from '@/atoms/Layout';
 import Spinner from '@/atoms/Spinner';
 import CreatePost from '@/organisms/CreatePost';
 import EditPostList from '@/organisms/EditPostList';
@@ -17,7 +18,7 @@ const EditTop: React.FC = () => {
 
   return (
     <>
-      <article>
+      <Layout tag="article">
         {postListWithStatus && postListWithStatus.status === 'success' && (
           <>
             <CreatePost
@@ -30,7 +31,7 @@ const EditTop: React.FC = () => {
           </>
         )}
         {!postListWithStatus && <Spinner />}
-      </article>
+      </Layout>
       <Login />
     </>
   );

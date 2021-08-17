@@ -12,7 +12,7 @@ const Login: React.FC = () => {
     <StyledLogin>
       {userId && <Button text="ログアウトする" onClick={logout} />}
       {!userId && <Button text="ログインする" onClick={login} />}
-      {userId && <StyledUid>uid: {userId}</StyledUid>}
+      <StyledUid>uid: {userId}</StyledUid>
     </StyledLogin>
   );
 };
