@@ -19,7 +19,7 @@ const useEditTop = () => {
     PromiseType<getCurrentUserType>
   >();
 
-  // FIXME: 投稿時のタイムゾーンが正しく設定されていないので修正する（ローカル環境の問題の可能性もある）
+  // FIXME: ローカル環境のタイムゾーンが正しく設定されていないので修正したい
   const handleSubmit = async () => {
     if (!createTitle || !currentUser || !currentUser.authHeader) return;
 

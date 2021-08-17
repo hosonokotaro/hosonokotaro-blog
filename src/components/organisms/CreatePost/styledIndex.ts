@@ -1,15 +1,14 @@
 import styled from 'styled-components';
 
 export const StyledSection = styled.section`
-  max-width: 1000px;
-  margin: 0 auto;
-  padding: 40px 40px 0 40px;
+  margin-bottom: 40px;
 `;
 
 export const StyledWrapper = styled.div`
   padding-top: 20px;
 `;
 
+// FIXME: 別の component に分割したい
 export const StyledLabel = styled.label`
   display: block;
   input + & {

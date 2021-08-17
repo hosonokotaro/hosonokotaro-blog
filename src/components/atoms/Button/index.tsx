@@ -16,11 +16,7 @@ const Button: React.FC<Props> = ({
   isMargin = false,
 }) => {
   return (
-    <StyledButton
-      onClick={onClick}
-      disabled={disabled}
-      style={!isMargin ? { marginTop: 0 } : {}}
-    >
+    <StyledButton onClick={onClick} disabled={disabled} isMargin={isMargin}>
       {text}
     </StyledButton>
   );

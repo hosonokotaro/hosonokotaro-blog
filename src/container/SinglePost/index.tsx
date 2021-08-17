@@ -3,24 +3,21 @@ import { Helmet } from 'react-helmet';
 import { useParams } from 'react-router-dom';
 
 import ErrorMessage from '@/atoms/ErrorMessage';
+import Layout from '@/atoms/Layout';
 import Spinner from '@/atoms/Spinner';
 import SubTitle from '@/atoms/Title';
 import CodeBlock from '@/molecules/CodeBlock';
 import useGetPost from '~/customHooks/useGetPost';
 import type { Params } from '~/services/getPost';
 
-import {
-  StyledReactMarkdown,
-  StyledSection,
-  StyledTimestamp,
-} from './styledIndex';
+import { StyledReactMarkdown, StyledTimestamp } from './styledIndex';
 
 const SinglePost: React.FC = () => {
   const { id } = useParams<{ id: Params['id'] }>();
   const { status, post } = useGetPost({ id, target: 'default' });
 
   return (
-    <StyledSection>
+    <Layout tag="section">
       {status === 'success' && (
         <>
           <Helmet>
@@ -36,7 +33,7 @@ const SinglePost: React.FC = () => {
       )}
       {!status && <Spinner />}
       {status === 'failure' && <ErrorMessage />}
-    </StyledSection>
+    </Layout>
   );
 };
 

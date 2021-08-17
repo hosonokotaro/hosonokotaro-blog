@@ -1,13 +1,6 @@
 import ReactMarkdown from 'react-markdown';
 import styled from 'styled-components';
 
-export const StyledSection = styled.section`
-  max-width: 1000px;
-  min-height: calc(100vh - 120px - 98px);
-  margin: 0 auto;
-  padding: 80px 40px 240px 40px;
-`;
-
 export const StyledTimestamp = styled.div`
   padding-top: 20px;
 `;

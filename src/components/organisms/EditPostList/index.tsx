@@ -4,12 +4,7 @@ import { Link } from 'react-router-dom';
 import Spinner from '@/atoms/Spinner';
 import SubTitle from '@/atoms/Title';
 
-import {
-  StyledPost,
-  StyledPosts,
-  StyledSection,
-  StyledTimestamp,
-} from './styledIndex';
+import { StyledPost, StyledPosts, StyledTimestamp } from './styledIndex';
 
 export interface Post {
   id: string;
@@ -24,7 +19,7 @@ interface Props {
 
 const EditPostList: React.FC<Props> = ({ postList }) => {
   return (
-    <StyledSection>
+    <section>
       <SubTitle text="投稿された記事一覧" />
       <StyledPosts>
         {postList &&
@@ -43,7 +38,7 @@ const EditPostList: React.FC<Props> = ({ postList }) => {
           ))}
         {!postList && <Spinner />}
       </StyledPosts>
-    </StyledSection>
+    </section>
   );
 };
 
