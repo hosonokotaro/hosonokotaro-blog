@@ -2,9 +2,9 @@ import { ChangeEvent, useCallback, useEffect, useState } from 'react';
 
 import { firebaseAuth } from '~/services/authentication';
 import createPost from '~/services/createPost';
-import type { getCurrentUserType } from '~/services/getCurrentUser';
+import type { CurrentUser } from '~/services/getCurrentUser';
 import getCurrentUser from '~/services/getCurrentUser';
-import type { PostListWithStatusType } from '~/services/getPostList';
+import type { PostListWithStatus } from '~/services/getPostList';
 import getPostList from '~/services/getPostList';
 
 // NOTE: https://log.pocka.io/ja/posts/typescript-promisetype/
@@ -13,11 +13,9 @@ type PromiseType<T> = T extends Promise<infer P> ? P : never;
 const useEditTop = () => {
   const [createTitle, setCreateTitle] = useState<string>('');
   const [postListWithStatus, setPostListWithStatus] = useState<
-    PromiseType<PostListWithStatusType>
+    PromiseType<PostListWithStatus>
   >();
-  const [currentUser, setCurrentUser] = useState<
-    PromiseType<getCurrentUserType>
-  >();
+  const [currentUser, setCurrentUser] = useState<PromiseType<CurrentUser>>();
 
   // FIXME: ローカル環境のタイムゾーンが正しく設定されていないので修正したい
   const handleSubmit = async () => {

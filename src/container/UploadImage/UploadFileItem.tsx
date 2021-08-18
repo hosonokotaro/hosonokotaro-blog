@@ -1,7 +1,7 @@
 import React from 'react';
 
 import useUploadFileItem from '~/customHooks/useUploadFileItem';
-import type { TypeImagePath } from '~/customHooks/useUploadFileList';
+import type { ImagePath } from '~/customHooks/useUploadFileList';
 
 import {
   StyledButtonWrap,
@@ -13,7 +13,7 @@ import {
 } from './styledUploadFileItem';
 
 interface Props {
-  item: TypeImagePath;
+  item: ImagePath;
   deleteImage: (imagePath: string) => void;
 }
 

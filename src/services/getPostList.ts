@@ -12,10 +12,10 @@ const getTitleListTarget = {
   privateEnabled: '/get/titlelist?private=enabled',
 } as const;
 
-type GetTitleListTarget = keyof typeof getTitleListTarget;
+type TitleListTarget = keyof typeof getTitleListTarget;
 
 export interface Params {
-  target: GetTitleListTarget;
+  target: TitleListTarget;
   idToken?: string;
 }
 
@@ -47,4 +47,4 @@ const getPostList = async ({ target, idToken }: Params) => {
 
 export default getPostList;
 
-export type PostListWithStatusType = ReturnType<typeof getPostList>;
+export type PostListWithStatus = ReturnType<typeof getPostList>;

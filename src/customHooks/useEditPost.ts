@@ -3,9 +3,9 @@ import { useHistory, useParams } from 'react-router-dom';
 
 import { firebaseAuth } from '~/services/authentication';
 import deletePostService from '~/services/deletePost';
-import type { getCurrentUserType } from '~/services/getCurrentUser';
+import type { CurrentUser } from '~/services/getCurrentUser';
 import getCurrentUser from '~/services/getCurrentUser';
-import type { Post, PostWithStatusType } from '~/services/getPost';
+import type { Post, PostWithStatus } from '~/services/getPost';
 import getPost from '~/services/getPost';
 import type { Post as ServicesPost } from '~/services/updatePost';
 import updatePost from '~/services/updatePost';
@@ -18,12 +18,10 @@ const useEditPost = () => {
   const [draftContent, setDraftContent] = useState<Post['content']>('');
   const [draftRelease, setDraftRelease] = useState<Post['release']>(false);
   const [postWithStatus, setPostWithStatus] = useState<
-    PromiseType<PostWithStatusType>
+    PromiseType<PostWithStatus>
   >();
   // NOTE: currentUser は記事更新時に利用する
-  const [currentUser, setCurrentUser] = useState<
-    PromiseType<getCurrentUserType>
-  >();
+  const [currentUser, setCurrentUser] = useState<PromiseType<CurrentUser>>();
 
   const { id } = useParams<{ id: Post['id'] }>();
 
@@ -112,5 +110,3 @@ const useEditPost = () => {
 };
 
 export default useEditPost;
-
-export type EditPostType = ReturnType<typeof useEditPost>;

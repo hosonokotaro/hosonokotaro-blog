@@ -16,11 +16,11 @@ const getPostTarget = (id: Post['id']) => {
   };
 };
 
-type GetPostTarget = keyof ReturnType<typeof getPostTarget>;
+type PostTarget = keyof ReturnType<typeof getPostTarget>;
 
 export interface Params {
   id: Post['id'];
-  target: GetPostTarget;
+  target: PostTarget;
   idToken?: string;
 }
 
@@ -61,4 +61,4 @@ const getPost = async ({ id, target, idToken }: Params) => {
 
 export default getPost;
 
-export type PostWithStatusType = ReturnType<typeof getPost>;
+export type PostWithStatus = ReturnType<typeof getPost>;

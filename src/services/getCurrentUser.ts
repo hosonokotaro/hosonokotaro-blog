@@ -33,4 +33,4 @@ const getCurrentUser = async () => {
 
 export default getCurrentUser;
 
-export type getCurrentUserType = ReturnType<typeof getCurrentUser>;
+export type CurrentUser = ReturnType<typeof getCurrentUser>;
