@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import ErrorMessage from '@/atoms/ErrorMessage';
 import Layout from '@/atoms/Layout';
 import Spinner from '@/atoms/Spinner';
-import SubTitle from '@/atoms/Title';
+import Title from '@/atoms/Title';
 import Login from '@/organisms/Login';
 import Preview from '~/container/Preview';
 import UploadImage from '~/container/UploadImage';
@@ -44,7 +44,7 @@ const EditPost: React.FC = () => {
       <Layout tag="article">
         {postWithStatus && postWithStatus.status === 'success' && (
           <>
-            <SubTitle text="記事を編集する" />
+            <Title text="記事を編集する" />
             <StyledLabel htmlFor={`editPostTitle-${id}`}>タイトル</StyledLabel>
             <StyledInputText
               type="text"

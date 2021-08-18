@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom';
 import ErrorMessage from '@/atoms/ErrorMessage';
 import Layout from '@/atoms/Layout';
 import Spinner from '@/atoms/Spinner';
-import SubTitle from '@/atoms/Title';
+import Title from '@/atoms/Title';
 import CodeBlock from '@/molecules/CodeBlock';
 import useGetPost from '~/customHooks/useGetPost';
 import type { Params } from '~/services/getPost';
@@ -23,7 +23,7 @@ const SinglePost: React.FC = () => {
           <Helmet>
             <title>{post.title} | WEB DEVELOPER HOSONO KOTARO</title>
           </Helmet>
-          <SubTitle text={post.title} />
+          <Title text={post.title} />
           <StyledTimestamp>{post.createDate}</StyledTimestamp>
           <StyledReactMarkdown
             source={post.content}

@@ -3,7 +3,7 @@ import React from 'react';
 import ErrorMessage from '@/atoms/ErrorMessage';
 import Layout from '@/atoms/Layout';
 import Spinner from '@/atoms/Spinner';
-import SubTitle from '@/atoms/Title';
+import Title from '@/atoms/Title';
 import useGetPostList from '~/customHooks/useGetPostList';
 
 import { StyledDate, StyledLink, StyledPost } from './styledIndex';
@@ -13,7 +13,7 @@ const Top: React.FC = () => {
 
   return (
     <Layout tag="article">
-      <SubTitle text="記事一覧" />
+      <Title text="記事一覧" />
       {postListWithStatus && postListWithStatus.status === 'success' && (
         <>
           {postListWithStatus.titleDateList.map((item) => (
