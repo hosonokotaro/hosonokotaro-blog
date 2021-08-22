@@ -36,11 +36,9 @@ const getPost = async (
     .get<Post>(targetPath[target], {
       headers,
     })
-    .then((res) => {
-      // NOTE: status はそのままでは string として認識されるので as const を利用した
+    .then((response) => {
       return {
-        status: 'success' as const,
-        post: res.data,
+        post: response.data,
       };
     });
 };

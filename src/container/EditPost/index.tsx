@@ -40,7 +40,7 @@ const EditPost: React.FC = () => {
         <title>{draftTitle} | WEB DEVELOPER HOSONO KOTARO</title>
       </Helmet>
       <Layout tag="article">
-        {postResponse && postResponse.status === 'success' && (
+        {postResponse && (
           <>
             <Title text="記事を編集する" />
             <StyledLabel htmlFor={`editPostTitle-${id}`}>タイトル</StyledLabel>

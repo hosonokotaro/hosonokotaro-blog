@@ -19,7 +19,7 @@ const EditTop: React.FC = () => {
   return (
     <>
       <Layout tag="article">
-        {postListResponse && postListResponse.status === 'success' && (
+        {postListResponse && (
           <>
             <CreatePost
               title={createTitle}

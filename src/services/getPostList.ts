@@ -25,11 +25,9 @@ const getPostList = async (target: TitleListTarget, idToken?: string) => {
     .get<PostTitleDate[]>(getTitleListTarget[target], {
       headers,
     })
-    .then((res) => {
-      // NOTE: status はそのままでは string として認識されるので as const を利用した
+    .then((response) => {
       return {
-        status: 'success' as const,
-        titleDateList: res.data,
+        titleDateList: response.data,
       };
     });
 };
