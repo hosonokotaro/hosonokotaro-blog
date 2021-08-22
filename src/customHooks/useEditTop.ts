@@ -36,6 +36,7 @@ const useEditTop = () => {
     setCreateTitle(e.target.value);
   };
 
+  // FIXME: User, Post を分割したい。Post は、private 状態で取得するものであること
   const getUserAndPost = useCallback(async () => {
     const currentUser = await getCurrentUser();
 
