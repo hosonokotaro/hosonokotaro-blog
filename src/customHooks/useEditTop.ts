@@ -2,9 +2,9 @@ import { ChangeEvent, useCallback, useEffect, useState } from 'react';
 
 import { firebaseAuth } from '~/services/authentication';
 import createPost from '~/services/createPost';
-import type { getCurrentUserType } from '~/services/getCurrentUser';
+import type { CurrentUser } from '~/services/getCurrentUser';
 import getCurrentUser from '~/services/getCurrentUser';
-import type { PostListWithStatusType } from '~/services/getPostList';
+import type { PostListResponse } from '~/services/getPostList';
 import getPostList from '~/services/getPostList';
 
 // NOTE: https://log.pocka.io/ja/posts/typescript-promisetype/
@@ -12,12 +12,10 @@ type PromiseType<T> = T extends Promise<infer P> ? P : never;
 
 const useEditTop = () => {
   const [createTitle, setCreateTitle] = useState<string>('');
-  const [postListWithStatus, setPostListWithStatus] = useState<
-    PromiseType<PostListWithStatusType>
+  const [postListResponse, setPostListResponse] = useState<
+    PromiseType<PostListResponse>
   >();
-  const [currentUser, setCurrentUser] = useState<
-    PromiseType<getCurrentUserType>
-  >();
+  const [currentUser, setCurrentUser] = useState<PromiseType<CurrentUser>>();
 
   // FIXME: ローカル環境のタイムゾーンが正しく設定されていないので修正したい
   const handleSubmit = async () => {
@@ -38,15 +36,19 @@ const useEditTop = () => {
     setCreateTitle(e.target.value);
   };
 
+  // FIXME: User, Post を分割したい。Post は、private 状態で取得するものであること
   const getUserAndPost = useCallback(async () => {
     const currentUser = await getCurrentUser();
 
-    const postListWithStatus = await getPostList({
-      target: 'privateEnabled',
-      idToken: currentUser.authHeader.idToken,
-    });
+    // NOTE: Edit 画面は Private が前提なので固定値を入れている
+    const target = 'privateEnabled';
 
-    setPostListWithStatus(postListWithStatus);
+    const postListResponse = await getPostList(
+      target,
+      currentUser.authHeader.idToken
+    );
+
+    setPostListResponse(postListResponse);
     setCurrentUser(currentUser);
   }, []);
 
@@ -63,7 +65,7 @@ const useEditTop = () => {
   }, [getUserAndPost]);
 
   return {
-    postListWithStatus,
+    postListResponse,
     createTitle,
     handleSubmit,
     onTitleChanged,

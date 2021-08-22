@@ -5,25 +5,30 @@ import { useParams } from 'react-router-dom';
 import ErrorMessage from '@/atoms/ErrorMessage';
 import Layout from '@/atoms/Layout';
 import Spinner from '@/atoms/Spinner';
-import SubTitle from '@/atoms/Title';
+import Title from '@/atoms/Title';
 import CodeBlock from '@/molecules/CodeBlock';
-import useGetPost from '~/customHooks/useGetPost';
-import type { Params } from '~/services/getPost';
+import type { Params } from '~/customHooks/useSinglePost';
+import useSinglePost from '~/customHooks/useSinglePost';
 
 import { StyledReactMarkdown, StyledTimestamp } from './styledIndex';
 
 const SinglePost: React.FC = () => {
   const { id } = useParams<{ id: Params['id'] }>();
-  const { status, post } = useGetPost({ id, target: 'default' });
+  const { postResponse, isLoading, isError } = useSinglePost({
+    id,
+    target: 'default',
+  });
+
+  const post = postResponse?.post;
 
   return (
     <Layout tag="section">
-      {status === 'success' && (
+      {post && (
         <>
           <Helmet>
             <title>{post.title} | WEB DEVELOPER HOSONO KOTARO</title>
           </Helmet>
-          <SubTitle text={post.title} />
+          <Title text={post.title} />
           <StyledTimestamp>{post.createDate}</StyledTimestamp>
           <StyledReactMarkdown
             source={post.content}
@@ -31,8 +36,8 @@ const SinglePost: React.FC = () => {
           />
         </>
       )}
-      {!status && <Spinner />}
-      {status === 'failure' && <ErrorMessage />}
+      {isLoading && <Spinner />}
+      {isError && <ErrorMessage />}
     </Layout>
   );
 };

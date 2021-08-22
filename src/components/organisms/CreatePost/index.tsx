@@ -1,7 +1,7 @@
 import React, { ChangeEvent } from 'react';
 
 import Button from '@/atoms/Button';
-import SubTitle from '@/atoms/Title';
+import Title from '@/atoms/Title';
 
 import {
   StyledInputText,
@@ -25,7 +25,7 @@ const CreatePost: React.FC<Props> = ({
 }) => {
   return (
     <StyledSection>
-      <SubTitle text="記事の新規作成" />
+      <Title text="記事の新規作成" />
       <StyledWrapper>
         <form>
           <StyledLabel htmlFor="postTitle">タイトル</StyledLabel>

@@ -16,15 +16,13 @@ const getPostTarget = (id: Post['id']) => {
   };
 };
 
-type GetPostTarget = keyof ReturnType<typeof getPostTarget>;
+export type PostTarget = keyof ReturnType<typeof getPostTarget>;
 
-export interface Params {
-  id: Post['id'];
-  target: GetPostTarget;
-  idToken?: string;
-}
-
-const getPost = async ({ id, target, idToken }: Params) => {
+const getPost = async (
+  id: Post['id'],
+  target: PostTarget,
+  idToken?: string
+) => {
   let headers: { Authorization?: string } = {};
 
   if (target === 'privateEnabled' && idToken) {
@@ -38,27 +36,13 @@ const getPost = async ({ id, target, idToken }: Params) => {
     .get<Post>(targetPath[target], {
       headers,
     })
-    .then((res) => {
-      // NOTE: status はそのままでは string として認識されるので as const を利用した
+    .then((response) => {
       return {
-        status: 'success' as const,
-        post: res.data,
-      };
-    })
-    .catch(() => {
-      return {
-        status: 'failure' as const,
-        post: {
-          id: '',
-          title: '',
-          content: '',
-          release: false,
-          createDate: '',
-        },
+        post: response.data,
       };
     });
 };
 
 export default getPost;
 
-export type PostWithStatusType = ReturnType<typeof getPost>;
+export type PostResponse = ReturnType<typeof getPost>;

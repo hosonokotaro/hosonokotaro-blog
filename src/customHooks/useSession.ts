@@ -36,5 +36,3 @@ const useSession = () => {
 };
 
 export default useSession;
-
-export type SessionType = ReturnType<typeof useSession>;

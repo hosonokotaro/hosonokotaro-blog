@@ -3,9 +3,9 @@ import { useHistory, useParams } from 'react-router-dom';
 
 import { firebaseAuth } from '~/services/authentication';
 import deletePostService from '~/services/deletePost';
-import type { getCurrentUserType } from '~/services/getCurrentUser';
+import type { CurrentUser } from '~/services/getCurrentUser';
 import getCurrentUser from '~/services/getCurrentUser';
-import type { Post, PostWithStatusType } from '~/services/getPost';
+import type { Post, PostResponse } from '~/services/getPost';
 import getPost from '~/services/getPost';
 import type { Post as ServicesPost } from '~/services/updatePost';
 import updatePost from '~/services/updatePost';
@@ -17,13 +17,9 @@ const useEditPost = () => {
   const [draftTitle, setDraftTitle] = useState<Post['title']>('');
   const [draftContent, setDraftContent] = useState<Post['content']>('');
   const [draftRelease, setDraftRelease] = useState<Post['release']>(false);
-  const [postWithStatus, setPostWithStatus] = useState<
-    PromiseType<PostWithStatusType>
-  >();
+  const [postResponse, setPostResponse] = useState<PromiseType<PostResponse>>();
   // NOTE: currentUser は記事更新時に利用する
-  const [currentUser, setCurrentUser] = useState<
-    PromiseType<getCurrentUserType>
-  >();
+  const [currentUser, setCurrentUser] = useState<PromiseType<CurrentUser>>();
 
   const { id } = useParams<{ id: Post['id'] }>();
 
@@ -71,23 +67,27 @@ const useEditPost = () => {
   };
 
   useEffect(() => {
-    if (!postWithStatus) return;
+    if (!postResponse) return;
 
-    setDraftTitle(postWithStatus.post.title);
-    setDraftContent(postWithStatus.post.content);
-    setDraftRelease(postWithStatus.post.release);
-  }, [postWithStatus]);
+    setDraftTitle(postResponse.post.title);
+    setDraftContent(postResponse.post.content);
+    setDraftRelease(postResponse.post.release);
+  }, [postResponse]);
 
   useEffect(() => {
     const unsubscribe = firebaseAuth.onAuthStateChanged(async () => {
       const tempCurrentUser = await getCurrentUser();
-      const tempPostWithStatus = await getPost({
-        id,
-        target: 'privateEnabled',
-        idToken: tempCurrentUser.authHeader.idToken,
-      });
 
-      setPostWithStatus(tempPostWithStatus);
+      // NOTE: Edit 画面は Private が前提なので固定値を入れている
+      const target = 'privateEnabled';
+
+      const tempPostResponse = await getPost(
+        id,
+        target,
+        tempCurrentUser.authHeader.idToken
+      );
+
+      setPostResponse(tempPostResponse);
       setCurrentUser(tempCurrentUser);
     });
 
@@ -98,8 +98,7 @@ const useEditPost = () => {
 
   return {
     id,
-    postWithStatus,
-    status,
+    postResponse,
     draftTitle,
     draftContent,
     draftRelease,
@@ -112,5 +111,3 @@ const useEditPost = () => {
 };
 
 export default useEditPost;
-
-export type EditPostType = ReturnType<typeof useEditPost>;

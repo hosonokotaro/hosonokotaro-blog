@@ -3,20 +3,24 @@ import React from 'react';
 import ErrorMessage from '@/atoms/ErrorMessage';
 import Layout from '@/atoms/Layout';
 import Spinner from '@/atoms/Spinner';
-import SubTitle from '@/atoms/Title';
-import useGetPostList from '~/customHooks/useGetPostList';
+import Title from '@/atoms/Title';
+import useTop from '~/customHooks/useTop';
 
 import { StyledDate, StyledLink, StyledPost } from './styledIndex';
 
 const Top: React.FC = () => {
-  const postListWithStatus = useGetPostList({ target: 'default' });
+  const { postListResponse, isLoading, isError } = useTop({
+    target: 'default',
+  });
+
+  const titleDateList = postListResponse?.titleDateList;
 
   return (
     <Layout tag="article">
-      <SubTitle text="記事一覧" />
-      {postListWithStatus && postListWithStatus.status === 'success' && (
+      <Title text="記事一覧" />
+      {titleDateList && (
         <>
-          {postListWithStatus.titleDateList.map((item) => (
+          {titleDateList.map((item) => (
             <StyledPost key={item.id}>
               <StyledLink to={item.id}>{item.title}</StyledLink>
               <StyledDate>{item.createDate}</StyledDate>
@@ -24,10 +28,8 @@ const Top: React.FC = () => {
           ))}
         </>
       )}
-      {!postListWithStatus && <Spinner />}
-      {postListWithStatus && postListWithStatus.status === 'failure' && (
-        <ErrorMessage />
-      )}
+      {isLoading && <Spinner />}
+      {isError && <ErrorMessage />}
     </Layout>
   );
 };

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 
 import { PublicImages, publicImages } from '~/adapter/firebase';
 
-export interface TypeImagePath {
+export interface ImagePath {
   fullpath: string;
   filename: string;
 }
@@ -14,7 +14,7 @@ export type Params = {
 
 const useUploadFileList = ({ uploadPath, uploadFilename }: Params) => {
   const [imageRef, setImageRef] = useState<PublicImages[]>();
-  const [imagePathList, setImagePathList] = useState<TypeImagePath[]>();
+  const [imagePathList, setImagePathList] = useState<ImagePath[]>();
   const [loaded, setLoaded] = useState(false);
   // HACK: Page をリフレッシュするため
   const [reload, setReload] = useState(0);
@@ -46,7 +46,7 @@ const useUploadFileList = ({ uploadPath, uploadFilename }: Params) => {
   useEffect(() => {
     if (!imageRef) return;
 
-    const downloadPath: TypeImagePath[] = [];
+    const downloadPath: ImagePath[] = [];
 
     imageRef.map((item) => {
       item.getDownloadURL().then((fullpath) => {

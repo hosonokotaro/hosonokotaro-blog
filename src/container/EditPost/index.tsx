@@ -2,11 +2,10 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
 
-import ErrorMessage from '@/atoms/ErrorMessage';
 import Layout from '@/atoms/Layout';
 import Spinner from '@/atoms/Spinner';
-import SubTitle from '@/atoms/Title';
-import Login from '@/organisms/Login';
+import Title from '@/atoms/Title';
+import Login from '~/container/Login';
 import Preview from '~/container/Preview';
 import UploadImage from '~/container/UploadImage';
 import useEditPost from '~/customHooks/useEditPost';
@@ -24,8 +23,7 @@ import {
 const EditPost: React.FC = () => {
   const {
     id,
-    postWithStatus,
-    status,
+    postResponse,
     draftTitle,
     draftContent,
     draftRelease,
@@ -42,22 +40,22 @@ const EditPost: React.FC = () => {
         <title>{draftTitle} | WEB DEVELOPER HOSONO KOTARO</title>
       </Helmet>
       <Layout tag="article">
-        {postWithStatus && postWithStatus.status === 'success' && (
+        {postResponse && (
           <>
-            <SubTitle text="記事を編集する" />
+            <Title text="記事を編集する" />
             <StyledLabel htmlFor={`editPostTitle-${id}`}>タイトル</StyledLabel>
             <StyledInputText
               type="text"
               id={`editPostTitle-${id}`}
               name={`editPostTitle-${id}`}
-              defaultValue={postWithStatus.post.title}
+              defaultValue={postResponse.post.title}
               onChange={onTitleChanged}
             />
             <StyledLabel htmlFor={`editPostContent-${id}`}>本文</StyledLabel>
             <StyledTextarea
               id={`editPostContent-${id}`}
               name={`editPostContent-${id}`}
-              defaultValue={postWithStatus.post.content}
+              defaultValue={postResponse.post.content}
               onChange={onContentChanged}
             ></StyledTextarea>
             <UploadImage uploadPath={id} />
@@ -83,17 +81,15 @@ const EditPost: React.FC = () => {
               id={id}
               title={draftTitle ?? ''}
               content={draftContent ?? ''}
-              release={postWithStatus.post.release}
-              createDate={postWithStatus.post.createDate}
+              release={postResponse.post.release}
+              createDate={postResponse.post.createDate}
             />
             <StyledReturn>
               <Link to="/edit">投稿された記事一覧に行く</Link>
             </StyledReturn>
           </>
         )}
-        {!postWithStatus && <Spinner />}
-        {/* FIXME: Status が二重管理になっているのは何故かを確認したい */}
-        {status === 'failure' && <ErrorMessage />}
+        {!postResponse && <Spinner />}
       </Layout>
       <Login />
     </>

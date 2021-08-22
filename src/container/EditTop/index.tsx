@@ -4,12 +4,12 @@ import Layout from '@/atoms/Layout';
 import Spinner from '@/atoms/Spinner';
 import CreatePost from '@/organisms/CreatePost';
 import EditPostList from '@/organisms/EditPostList';
-import Login from '@/organisms/Login';
+import Login from '~/container/Login';
 import useEditTop from '~/customHooks/useEditTop';
 
 const EditTop: React.FC = () => {
   const {
-    postListWithStatus,
+    postListResponse,
     createTitle,
     handleSubmit,
     onTitleChanged,
@@ -19,7 +19,7 @@ const EditTop: React.FC = () => {
   return (
     <>
       <Layout tag="article">
-        {postListWithStatus && postListWithStatus.status === 'success' && (
+        {postListResponse && (
           <>
             <CreatePost
               title={createTitle}
@@ -27,10 +27,10 @@ const EditTop: React.FC = () => {
               onTitleChanged={onTitleChanged}
               canSaveNewPost={canSaveNewPost}
             />
-            <EditPostList postList={postListWithStatus.titleDateList} />
+            <EditPostList postList={postListResponse.titleDateList} />
           </>
         )}
-        {!postListWithStatus && <Spinner />}
+        {!postListResponse && <Spinner />}
       </Layout>
       <Login />
     </>

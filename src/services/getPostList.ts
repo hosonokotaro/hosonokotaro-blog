@@ -12,14 +12,9 @@ const getTitleListTarget = {
   privateEnabled: '/get/titlelist?private=enabled',
 } as const;
 
-type GetTitleListTarget = keyof typeof getTitleListTarget;
+export type TitleListTarget = keyof typeof getTitleListTarget;
 
-export interface Params {
-  target: GetTitleListTarget;
-  idToken?: string;
-}
-
-const getPostList = async ({ target, idToken }: Params) => {
+const getPostList = async (target: TitleListTarget, idToken?: string) => {
   let headers: { Authorization?: string } = {};
 
   if (target === 'privateEnabled' && idToken) {
@@ -30,21 +25,13 @@ const getPostList = async ({ target, idToken }: Params) => {
     .get<PostTitleDate[]>(getTitleListTarget[target], {
       headers,
     })
-    .then((res) => {
-      // NOTE: status はそのままでは string として認識されるので as const を利用した
+    .then((response) => {
       return {
-        status: 'success' as const,
-        titleDateList: res.data,
-      };
-    })
-    .catch(() => {
-      return {
-        status: 'failure' as const,
-        titleDateList: [],
+        titleDateList: response.data,
       };
     });
 };
 
 export default getPostList;
 
-export type PostListWithStatusType = ReturnType<typeof getPostList>;
+export type PostListResponse = ReturnType<typeof getPostList>;
