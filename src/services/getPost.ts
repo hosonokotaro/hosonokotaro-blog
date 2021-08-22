@@ -59,4 +59,4 @@ const getPost = async (
 
 export default getPost;
 
-export type PostWithStatus = ReturnType<typeof getPost>;
+export type PostResponse = ReturnType<typeof getPost>;

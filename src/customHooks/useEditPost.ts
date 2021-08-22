@@ -5,7 +5,7 @@ import { firebaseAuth } from '~/services/authentication';
 import deletePostService from '~/services/deletePost';
 import type { CurrentUser } from '~/services/getCurrentUser';
 import getCurrentUser from '~/services/getCurrentUser';
-import type { Post, PostWithStatus } from '~/services/getPost';
+import type { Post, PostResponse } from '~/services/getPost';
 import getPost from '~/services/getPost';
 import type { Post as ServicesPost } from '~/services/updatePost';
 import updatePost from '~/services/updatePost';
@@ -17,9 +17,7 @@ const useEditPost = () => {
   const [draftTitle, setDraftTitle] = useState<Post['title']>('');
   const [draftContent, setDraftContent] = useState<Post['content']>('');
   const [draftRelease, setDraftRelease] = useState<Post['release']>(false);
-  const [postWithStatus, setPostWithStatus] = useState<
-    PromiseType<PostWithStatus>
-  >();
+  const [postResponse, setPostResponse] = useState<PromiseType<PostResponse>>();
   // NOTE: currentUser は記事更新時に利用する
   const [currentUser, setCurrentUser] = useState<PromiseType<CurrentUser>>();
 
@@ -69,12 +67,12 @@ const useEditPost = () => {
   };
 
   useEffect(() => {
-    if (!postWithStatus) return;
+    if (!postResponse) return;
 
-    setDraftTitle(postWithStatus.post.title);
-    setDraftContent(postWithStatus.post.content);
-    setDraftRelease(postWithStatus.post.release);
-  }, [postWithStatus]);
+    setDraftTitle(postResponse.post.title);
+    setDraftContent(postResponse.post.content);
+    setDraftRelease(postResponse.post.release);
+  }, [postResponse]);
 
   useEffect(() => {
     const unsubscribe = firebaseAuth.onAuthStateChanged(async () => {
@@ -83,13 +81,13 @@ const useEditPost = () => {
       // NOTE: Edit 画面は Private が前提なので固定値を入れている
       const target = 'privateEnabled';
 
-      const tempPostWithStatus = await getPost(
+      const tempPostResponse = await getPost(
         id,
         target,
         tempCurrentUser.authHeader.idToken
       );
 
-      setPostWithStatus(tempPostWithStatus);
+      setPostResponse(tempPostResponse);
       setCurrentUser(tempCurrentUser);
     });
 
@@ -100,7 +98,7 @@ const useEditPost = () => {
 
   return {
     id,
-    postWithStatus,
+    postResponse,
     status,
     draftTitle,
     draftContent,

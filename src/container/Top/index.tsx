@@ -9,14 +9,14 @@ import useGetPostList from '~/customHooks/useGetPostList';
 import { StyledDate, StyledLink, StyledPost } from './styledIndex';
 
 const Top: React.FC = () => {
-  const postListWithStatus = useGetPostList({ target: 'default' });
+  const postListResponse = useGetPostList({ target: 'default' });
 
   return (
     <Layout tag="article">
       <Title text="記事一覧" />
-      {postListWithStatus && postListWithStatus.status === 'success' && (
+      {postListResponse && postListResponse.status === 'success' && (
         <>
-          {postListWithStatus.titleDateList.map((item) => (
+          {postListResponse.titleDateList.map((item) => (
             <StyledPost key={item.id}>
               <StyledLink to={item.id}>{item.title}</StyledLink>
               <StyledDate>{item.createDate}</StyledDate>
@@ -24,8 +24,8 @@ const Top: React.FC = () => {
           ))}
         </>
       )}
-      {!postListWithStatus && <Spinner />}
-      {postListWithStatus && postListWithStatus.status === 'failure' && (
+      {!postListResponse && <Spinner />}
+      {postListResponse && postListResponse.status === 'failure' && (
         <ErrorMessage />
       )}
     </Layout>

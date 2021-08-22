@@ -24,7 +24,7 @@ import {
 const EditPost: React.FC = () => {
   const {
     id,
-    postWithStatus,
+    postResponse,
     status,
     draftTitle,
     draftContent,
@@ -42,7 +42,7 @@ const EditPost: React.FC = () => {
         <title>{draftTitle} | WEB DEVELOPER HOSONO KOTARO</title>
       </Helmet>
       <Layout tag="article">
-        {postWithStatus && postWithStatus.status === 'success' && (
+        {postResponse && postResponse.status === 'success' && (
           <>
             <Title text="記事を編集する" />
             <StyledLabel htmlFor={`editPostTitle-${id}`}>タイトル</StyledLabel>
@@ -50,14 +50,14 @@ const EditPost: React.FC = () => {
               type="text"
               id={`editPostTitle-${id}`}
               name={`editPostTitle-${id}`}
-              defaultValue={postWithStatus.post.title}
+              defaultValue={postResponse.post.title}
               onChange={onTitleChanged}
             />
             <StyledLabel htmlFor={`editPostContent-${id}`}>本文</StyledLabel>
             <StyledTextarea
               id={`editPostContent-${id}`}
               name={`editPostContent-${id}`}
-              defaultValue={postWithStatus.post.content}
+              defaultValue={postResponse.post.content}
               onChange={onContentChanged}
             ></StyledTextarea>
             <UploadImage uploadPath={id} />
@@ -83,15 +83,15 @@ const EditPost: React.FC = () => {
               id={id}
               title={draftTitle ?? ''}
               content={draftContent ?? ''}
-              release={postWithStatus.post.release}
-              createDate={postWithStatus.post.createDate}
+              release={postResponse.post.release}
+              createDate={postResponse.post.createDate}
             />
             <StyledReturn>
               <Link to="/edit">投稿された記事一覧に行く</Link>
             </StyledReturn>
           </>
         )}
-        {!postWithStatus && <Spinner />}
+        {!postResponse && <Spinner />}
         {/* FIXME: Status が二重管理になっているのは何故かを確認したい */}
         {status === 'failure' && <ErrorMessage />}
       </Layout>

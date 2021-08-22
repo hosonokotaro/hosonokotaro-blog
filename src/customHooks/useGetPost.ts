@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import type { Post, PostTarget, PostWithStatus } from '~/services/getPost';
+import type { Post, PostResponse, PostTarget } from '~/services/getPost';
 import getPost from '~/services/getPost';
 
 // NOTE: https://log.pocka.io/ja/posts/typescript-promisetype/
@@ -13,8 +13,8 @@ export interface Params {
 }
 
 const useGetPost = ({ id, target, idToken }: Params) => {
-  const [status, setStatus] = useState<PromiseType<PostWithStatus>['status']>();
-  const [post, setPost] = useState<PromiseType<PostWithStatus>['post']>({
+  const [status, setStatus] = useState<PromiseType<PostResponse>['status']>();
+  const [post, setPost] = useState<PromiseType<PostResponse>['post']>({
     id: '',
     title: '',
     content: '',

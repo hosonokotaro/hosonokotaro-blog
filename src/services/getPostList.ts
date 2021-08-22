@@ -42,4 +42,4 @@ const getPostList = async (target: TitleListTarget, idToken?: string) => {
 
 export default getPostList;
 
-export type PostListWithStatus = ReturnType<typeof getPostList>;
+export type PostListResponse = ReturnType<typeof getPostList>;

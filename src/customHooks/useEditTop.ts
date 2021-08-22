@@ -4,7 +4,7 @@ import { firebaseAuth } from '~/services/authentication';
 import createPost from '~/services/createPost';
 import type { CurrentUser } from '~/services/getCurrentUser';
 import getCurrentUser from '~/services/getCurrentUser';
-import type { PostListWithStatus } from '~/services/getPostList';
+import type { PostListResponse } from '~/services/getPostList';
 import getPostList from '~/services/getPostList';
 
 // NOTE: https://log.pocka.io/ja/posts/typescript-promisetype/
@@ -12,8 +12,8 @@ type PromiseType<T> = T extends Promise<infer P> ? P : never;
 
 const useEditTop = () => {
   const [createTitle, setCreateTitle] = useState<string>('');
-  const [postListWithStatus, setPostListWithStatus] = useState<
-    PromiseType<PostListWithStatus>
+  const [postListResponse, setPostListResponse] = useState<
+    PromiseType<PostListResponse>
   >();
   const [currentUser, setCurrentUser] = useState<PromiseType<CurrentUser>>();
 
@@ -43,12 +43,12 @@ const useEditTop = () => {
     // NOTE: Edit 画面は Private が前提なので固定値を入れている
     const target = 'privateEnabled';
 
-    const postListWithStatus = await getPostList(
+    const postListResponse = await getPostList(
       target,
       currentUser.authHeader.idToken
     );
 
-    setPostListWithStatus(postListWithStatus);
+    setPostListResponse(postListResponse);
     setCurrentUser(currentUser);
   }, []);
 
@@ -65,7 +65,7 @@ const useEditTop = () => {
   }, [getUserAndPost]);
 
   return {
-    postListWithStatus,
+    postListResponse,
     createTitle,
     handleSubmit,
     onTitleChanged,
