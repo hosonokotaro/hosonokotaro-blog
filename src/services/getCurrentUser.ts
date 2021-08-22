@@ -1,5 +1,6 @@
 import { firebaseAuth } from '~/adapter/firebase';
 
+// FIXME: status を利用側が正しく使っていないので修正したい
 const getCurrentUser = async () => {
   const { currentUser } = firebaseAuth;
 
