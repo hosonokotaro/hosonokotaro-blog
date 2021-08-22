@@ -6,7 +6,7 @@ import ErrorMessage from '@/atoms/ErrorMessage';
 import Layout from '@/atoms/Layout';
 import Spinner from '@/atoms/Spinner';
 import Title from '@/atoms/Title';
-import Login from '@/organisms/Login';
+import Login from '~/container/Login';
 import Preview from '~/container/Preview';
 import UploadImage from '~/container/UploadImage';
 import useEditPost from '~/customHooks/useEditPost';
