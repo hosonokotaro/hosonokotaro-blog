@@ -99,7 +99,6 @@ const useEditPost = () => {
   return {
     id,
     postResponse,
-    status,
     draftTitle,
     draftContent,
     draftRelease,

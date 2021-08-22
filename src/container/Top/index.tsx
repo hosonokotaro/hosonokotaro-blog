@@ -1,6 +1,5 @@
 import React from 'react';
 
-import ErrorMessage from '@/atoms/ErrorMessage';
 import Layout from '@/atoms/Layout';
 import Spinner from '@/atoms/Spinner';
 import Title from '@/atoms/Title';
@@ -25,9 +24,6 @@ const Top: React.FC = () => {
         </>
       )}
       {!postListResponse && <Spinner />}
-      {postListResponse && postListResponse.status === 'failure' && (
-        <ErrorMessage />
-      )}
     </Layout>
   );
 };

@@ -2,7 +2,6 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 import { useParams } from 'react-router-dom';
 
-import ErrorMessage from '@/atoms/ErrorMessage';
 import Layout from '@/atoms/Layout';
 import Spinner from '@/atoms/Spinner';
 import Title from '@/atoms/Title';
@@ -32,7 +31,6 @@ const SinglePost: React.FC = () => {
         </>
       )}
       {!status && <Spinner />}
-      {status === 'failure' && <ErrorMessage />}
     </Layout>
   );
 };

@@ -42,18 +42,6 @@ const getPost = async (
         status: 'success' as const,
         post: res.data,
       };
-    })
-    .catch(() => {
-      return {
-        status: 'failure' as const,
-        post: {
-          id: '',
-          title: '',
-          content: '',
-          release: false,
-          createDate: '',
-        },
-      };
     });
 };
 

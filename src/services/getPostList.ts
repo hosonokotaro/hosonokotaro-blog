@@ -31,12 +31,6 @@ const getPostList = async (target: TitleListTarget, idToken?: string) => {
         status: 'success' as const,
         titleDateList: res.data,
       };
-    })
-    .catch(() => {
-      return {
-        status: 'failure' as const,
-        titleDateList: [],
-      };
     });
 };
 

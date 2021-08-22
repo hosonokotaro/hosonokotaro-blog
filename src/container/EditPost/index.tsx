@@ -2,7 +2,6 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
 
-import ErrorMessage from '@/atoms/ErrorMessage';
 import Layout from '@/atoms/Layout';
 import Spinner from '@/atoms/Spinner';
 import Title from '@/atoms/Title';
@@ -25,7 +24,6 @@ const EditPost: React.FC = () => {
   const {
     id,
     postResponse,
-    status,
     draftTitle,
     draftContent,
     draftRelease,
@@ -92,8 +90,6 @@ const EditPost: React.FC = () => {
           </>
         )}
         {!postResponse && <Spinner />}
-        {/* FIXME: Status が二重管理になっているのは何故かを確認したい */}
-        {status === 'failure' && <ErrorMessage />}
       </Layout>
       <Login />
     </>
