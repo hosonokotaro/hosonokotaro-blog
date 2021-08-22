@@ -79,11 +79,15 @@ const useEditPost = () => {
   useEffect(() => {
     const unsubscribe = firebaseAuth.onAuthStateChanged(async () => {
       const tempCurrentUser = await getCurrentUser();
-      const tempPostWithStatus = await getPost({
+
+      // NOTE: Edit 画面は Private が前提なので固定値を入れている
+      const target = 'privateEnabled';
+
+      const tempPostWithStatus = await getPost(
         id,
-        target: 'privateEnabled',
-        idToken: tempCurrentUser.authHeader.idToken,
-      });
+        target,
+        tempCurrentUser.authHeader.idToken
+      );
 
       setPostWithStatus(tempPostWithStatus);
       setCurrentUser(tempCurrentUser);

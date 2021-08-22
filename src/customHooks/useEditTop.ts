@@ -39,10 +39,13 @@ const useEditTop = () => {
   const getUserAndPost = useCallback(async () => {
     const currentUser = await getCurrentUser();
 
-    const postListWithStatus = await getPostList({
-      target: 'privateEnabled',
-      idToken: currentUser.authHeader.idToken,
-    });
+    // NOTE: Edit 画面は Private が前提なので固定値を入れている
+    const target = 'privateEnabled';
+
+    const postListWithStatus = await getPostList(
+      target,
+      currentUser.authHeader.idToken
+    );
 
     setPostListWithStatus(postListWithStatus);
     setCurrentUser(currentUser);

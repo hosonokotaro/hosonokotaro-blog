@@ -1,10 +1,18 @@
 import { useEffect, useState } from 'react';
 
-import type { Params, PostListWithStatus } from '~/services/getPostList';
+import type {
+  PostListWithStatus,
+  TitleListTarget,
+} from '~/services/getPostList';
 import getPostList from '~/services/getPostList';
 
 // NOTE: https://log.pocka.io/ja/posts/typescript-promisetype/
 type PromiseType<T> = T extends Promise<infer P> ? P : never;
+
+interface Params {
+  target: TitleListTarget;
+  idToken?: string;
+}
 
 const useGetPostList = ({ target, idToken }: Params) => {
   const [postListWithStatus, setPostListWithStatus] = useState<
@@ -13,10 +21,7 @@ const useGetPostList = ({ target, idToken }: Params) => {
 
   useEffect(() => {
     const fetchGetPostList = async () => {
-      const getPostListWithStatus = await getPostList({
-        target,
-        idToken,
-      });
+      const getPostListWithStatus = await getPostList(target, idToken);
 
       setPostListWithStatus(getPostListWithStatus);
     };

@@ -7,8 +7,8 @@ import Layout from '@/atoms/Layout';
 import Spinner from '@/atoms/Spinner';
 import Title from '@/atoms/Title';
 import CodeBlock from '@/molecules/CodeBlock';
+import type { Params } from '~/customHooks/useGetPost';
 import useGetPost from '~/customHooks/useGetPost';
-import type { Params } from '~/services/getPost';
 
 import { StyledReactMarkdown, StyledTimestamp } from './styledIndex';
 
