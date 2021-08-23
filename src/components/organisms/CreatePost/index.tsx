@@ -4,10 +4,10 @@ import Button from '@/atoms/Button';
 import Title from '@/atoms/Title';
 
 import {
+  StyledForm,
   StyledInputText,
   StyledLabel,
   StyledSection,
-  StyledWrapper,
 } from './styledIndex';
 
 export interface Props {
@@ -26,24 +26,22 @@ const CreatePost: React.FC<Props> = ({
   return (
     <StyledSection>
       <Title text="記事の新規作成" />
-      <StyledWrapper>
-        <form>
-          <StyledLabel htmlFor="postTitle">タイトル</StyledLabel>
-          <StyledInputText
-            type="text"
-            id="postTitle"
-            name="postTitle"
-            value={title}
-            onChange={onTitleChanged}
-          />
-        </form>
+      <StyledForm onSubmit={(event) => event.preventDefault()}>
+        <StyledLabel htmlFor="postTitle">タイトル</StyledLabel>
+        <StyledInputText
+          type="text"
+          id="postTitle"
+          name="postTitle"
+          value={title}
+          onChange={onTitleChanged}
+        />
         <Button
           text="記事を準備する"
           onClick={handleSubmit}
           disabled={!canSaveNewPost}
           isMargin
         />
-      </StyledWrapper>
+      </StyledForm>
     </StyledSection>
   );
 };
