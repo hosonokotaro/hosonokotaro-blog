@@ -4,7 +4,7 @@ export const StyledSection = styled.section`
   margin-bottom: 40px;
 `;
 
-export const StyledWrapper = styled.div`
+export const StyledForm = styled.form`
   padding-top: 20px;
 `;
 
