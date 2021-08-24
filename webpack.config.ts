@@ -4,17 +4,12 @@ import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
 import HTMLWebpackPlugin from 'html-webpack-plugin';
 import MiniCssExactPlugin from 'mini-css-extract-plugin';
 import path from 'path';
-import webpack, { Configuration as WebpackConfiguration } from 'webpack';
+import webpack from 'webpack';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
-import { Configuration as WebpackDevServerConfiguration } from 'webpack-dev-server';
-
-interface Configuration extends WebpackConfiguration {
-  devServer?: WebpackDevServerConfiguration;
-}
 
 const dev = process.env.NODE_ENV === 'development';
 
-const config: Configuration = {
+const config: webpack.Configuration = {
   mode: dev ? 'development' : 'production',
   entry: {
     index: './src/pages/index.tsx',
@@ -72,21 +67,22 @@ const config: Configuration = {
     },
   },
   devServer: {
-    contentBase: path.join(__dirname, 'public/'),
+    static: {
+      directory: path.join(__dirname, 'public/'),
+    },
     port: 3000,
     host: '0.0.0.0',
     hot: true,
-    hotOnly: true,
     historyApiFallback: {
       rewrites: [
         { from: /^\/$/, to: '/index.html' },
         { from: /^\/edit/, to: '/edit/index.html' },
       ],
     },
-    watchOptions: {
-      poll: 1000,
-      ignored: ['node_modules'],
-    },
+  },
+  watchOptions: {
+    poll: 1000,
+    ignored: ['node_modules'],
   },
   devtool: dev ? 'inline-source-map' : 'source-map',
   plugins: [
