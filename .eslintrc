@@ -12,7 +12,6 @@
     "react-hooks",
     "prettier",
     "simple-import-sort",
-    "testing-library",
     "cypress"
   ],
   "extends": [
@@ -21,7 +20,6 @@
     "plugin:@typescript-eslint/recommended",
     "plugin:react/recommended",
     "plugin:react-hooks/recommended",
-    "plugin:testing-library/react",
     "plugin:cypress/recommended",
     "prettier"
   ],
@@ -37,9 +35,6 @@
     "prettier/prettier": "error",
     "simple-import-sort/imports": "warn",
     "simple-import-sort/exports": "warn",
-    "testing-library/await-async-query": "error",
-    "testing-library/no-await-sync-query": "error",
-    "testing-library/no-debug": "warn",
     "cypress/no-assigning-return-values": "error",
     "cypress/no-unnecessary-waiting": "error",
     "cypress/assertion-before-screenshot": "warn",

@@ -31,7 +31,25 @@ const Preview: React.FC<Post> = ({
         <StyledPreviewTitle>Preview</StyledPreviewTitle>
         <Title text={title} />
         <StyledTimestamp>{createDate}</StyledTimestamp>
-        <StyledReactMarkdown source={content} renderers={{ code: CodeBlock }} />
+        <StyledReactMarkdown
+          components={{
+            code({ inline, className, children }) {
+              const match = /language-(\w+)/.exec(className || '');
+
+              return (
+                !inline &&
+                match && (
+                  <CodeBlock
+                    value={String(children).replace(/\n$/, '')}
+                    language={match[1]}
+                  />
+                )
+              );
+            },
+          }}
+        >
+          {content}
+        </StyledReactMarkdown>
       </StyledPreview>
     </div>
   );

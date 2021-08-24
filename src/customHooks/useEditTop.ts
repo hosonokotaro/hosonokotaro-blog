@@ -12,9 +12,8 @@ type PromiseType<T> = T extends Promise<infer P> ? P : never;
 
 const useEditTop = () => {
   const [createTitle, setCreateTitle] = useState<string>('');
-  const [postListResponse, setPostListResponse] = useState<
-    PromiseType<PostListResponse>
-  >();
+  const [postListResponse, setPostListResponse] =
+    useState<PromiseType<PostListResponse>>();
   const [currentUser, setCurrentUser] = useState<PromiseType<CurrentUser>>();
 
   // FIXME: ローカル環境のタイムゾーンが正しく設定されていないので修正したい
