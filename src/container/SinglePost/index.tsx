@@ -31,9 +31,24 @@ const SinglePost: React.FC = () => {
           <Title text={post.title} />
           <StyledTimestamp>{post.createDate}</StyledTimestamp>
           <StyledReactMarkdown
-            source={post.content}
-            renderers={{ code: CodeBlock }}
-          />
+            components={{
+              code({ inline, className, children }) {
+                const match = /language-(\w+)/.exec(className || '');
+
+                return (
+                  !inline &&
+                  match && (
+                    <CodeBlock
+                      value={String(children).replace(/\n$/, '')}
+                      language={match[1]}
+                    />
+                  )
+                );
+              },
+            }}
+          >
+            {post.content}
+          </StyledReactMarkdown>
         </>
       )}
       {isLoading && <Spinner />}
