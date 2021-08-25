@@ -3,15 +3,14 @@ import { Helmet } from 'react-helmet';
 import { useParams } from 'react-router-dom';
 
 import ErrorMessage from '@/atoms/ErrorMessage';
-import InlineCode from '@/atoms/InlineCode';
 import Layout from '@/atoms/Layout';
 import Spinner from '@/atoms/Spinner';
 import Title from '@/atoms/Title';
-import CodeBlock from '@/molecules/CodeBlock';
+import Markdown from '@/organisms/Markdown';
 import type { Params } from '~/customHooks/useSinglePost';
 import useSinglePost from '~/customHooks/useSinglePost';
 
-import { StyledReactMarkdown, StyledTimestamp } from './styledIndex';
+import { StyledTimestamp } from './styledIndex';
 
 const SinglePost: React.FC = () => {
   const { id } = useParams<{ id: Params['id'] }>();
@@ -31,33 +30,7 @@ const SinglePost: React.FC = () => {
           </Helmet>
           <Title text={post.title} />
           <StyledTimestamp>{post.createDate}</StyledTimestamp>
-          <StyledReactMarkdown
-            components={{
-              code({ inline, className, children }) {
-                const match = /language-(\w+)/.exec(className || '');
-
-                if (!inline && match) {
-                  return (
-                    <CodeBlock
-                      value={String(children).replace(/\n$/, '')}
-                      language={match[1]}
-                    />
-                  );
-                }
-
-                if (inline) {
-                  return (
-                    <InlineCode text={String(children).replace(/\n$/, '')} />
-                  );
-                }
-
-                // HACK: どの条件にも一致しない時に null を返さないとエラーを起こす
-                return null;
-              },
-            }}
-          >
-            {post.content}
-          </StyledReactMarkdown>
+          <Markdown content={post.content} />
         </>
       )}
       {isLoading && <Spinner />}
