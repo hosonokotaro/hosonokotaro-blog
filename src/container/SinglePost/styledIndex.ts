@@ -24,13 +24,6 @@ export const StyledReactMarkdown = styled(ReactMarkdown)`
     content: '・';
   }
 
-  & > p code {
-    margin: 0 2px;
-    padding: 0 4px;
-    border-radius: 3px;
-    background: #e8e8e8;
-  }
-
   & > p img {
     max-width: 100%;
   }

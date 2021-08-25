@@ -1,5 +1,6 @@
 import React from 'react';
 
+import InlineCode from '@/atoms/InlineCode';
 import Title from '@/atoms/Title';
 import CodeBlock from '@/molecules/CodeBlock';
 import { StyledReactMarkdown } from '~/container/SinglePost/styledIndex';
@@ -36,15 +37,23 @@ const Preview: React.FC<Post> = ({
             code({ inline, className, children }) {
               const match = /language-(\w+)/.exec(className || '');
 
-              return (
-                !inline &&
-                match && (
+              if (!inline && match) {
+                return (
                   <CodeBlock
                     value={String(children).replace(/\n$/, '')}
                     language={match[1]}
                   />
-                )
-              );
+                );
+              }
+
+              if (inline) {
+                return (
+                  <InlineCode text={String(children).replace(/\n$/, '')} />
+                );
+              }
+
+              // HACK: どの条件にも一致しない時に null を返さないとエラーを起こす
+              return null;
             },
           }}
         >

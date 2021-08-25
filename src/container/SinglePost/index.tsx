@@ -3,6 +3,7 @@ import { Helmet } from 'react-helmet';
 import { useParams } from 'react-router-dom';
 
 import ErrorMessage from '@/atoms/ErrorMessage';
+import InlineCode from '@/atoms/InlineCode';
 import Layout from '@/atoms/Layout';
 import Spinner from '@/atoms/Spinner';
 import Title from '@/atoms/Title';
@@ -35,15 +36,23 @@ const SinglePost: React.FC = () => {
               code({ inline, className, children }) {
                 const match = /language-(\w+)/.exec(className || '');
 
-                return (
-                  !inline &&
-                  match && (
+                if (!inline && match) {
+                  return (
                     <CodeBlock
                       value={String(children).replace(/\n$/, '')}
                       language={match[1]}
                     />
-                  )
-                );
+                  );
+                }
+
+                if (inline) {
+                  return (
+                    <InlineCode text={String(children).replace(/\n$/, '')} />
+                  );
+                }
+
+                // HACK: どの条件にも一致しない時に null を返さないとエラーを起こす
+                return null;
               },
             }}
           >
