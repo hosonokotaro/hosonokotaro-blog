@@ -8,6 +8,7 @@ export const StyledInputInfo = styled.div`
   margin-top: 10px;
 `;
 
+// NOTE: ここでしか利用しない image tag なので style を個別で当てている
 export const StyledInputImage = styled.img`
   max-width: 50%;
 `;

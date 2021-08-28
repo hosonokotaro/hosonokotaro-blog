@@ -29,6 +29,7 @@ export const StyledImgWrap = styled.div`
   background-color: #eee;
 `;
 
+// NOTE: ここでしか利用しない image tag なので style を個別で当てている
 export const StyledImg = styled.img`
   max-width: 100%;
   max-height: 300px;
