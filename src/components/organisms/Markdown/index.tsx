@@ -42,16 +42,38 @@ const Markdown: React.FC<Props> = ({ content }) => {
           return <Image src={src} alt={alt} />;
         },
         p({ children }) {
-          return <Paragraph as="div">{children}</Paragraph>;
+          return (
+            <Paragraph as="div" isMargin>
+              {children}
+            </Paragraph>
+          );
         },
         h2({ children }) {
-          return <Title text={String(children).replace(/\n$/, '')} rank="h2" />;
+          return (
+            <Title
+              text={String(children).replace(/\n$/, '')}
+              rank="h2"
+              isMargin
+            />
+          );
         },
         h3({ children }) {
-          return <Title text={String(children).replace(/\n$/, '')} rank="h3" />;
+          return (
+            <Title
+              text={String(children).replace(/\n$/, '')}
+              rank="h3"
+              isMargin
+            />
+          );
         },
         h4({ children }) {
-          return <Title text={String(children).replace(/\n$/, '')} rank="h4" />;
+          return (
+            <Title
+              text={String(children).replace(/\n$/, '')}
+              rank="h4"
+              isMargin
+            />
+          );
         },
       }}
       // FIXME: A tag と Link tag を自作するときに解決したい

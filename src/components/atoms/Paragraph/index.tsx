@@ -6,11 +6,20 @@ type tagName = 'p' | 'div';
 
 interface Props {
   as?: tagName;
+  isMargin?: boolean;
   children: React.ReactNode;
 }
 
-const Paragraph: React.VFC<Props> = ({ as = 'p', children }) => {
-  return <StyledParagraph as={as}>{children}</StyledParagraph>;
+const Paragraph: React.VFC<Props> = ({
+  as = 'p',
+  isMargin = false,
+  children,
+}) => {
+  return (
+    <StyledParagraph as={as} isMargin={isMargin}>
+      {children}
+    </StyledParagraph>
+  );
 };
 
 export default Paragraph;
