@@ -13,18 +13,14 @@ interface Props {
 
 const CodeBlock: React.FC<Props> = ({ value, language }) => {
   return (
-    <>
-      {value && (
-        <SyntaxHighlighter
-          language={language}
-          style={syntaxStyle}
-          role="img"
-          aria-label="コードスニペットによる説明"
-        >
-          {value}
-        </SyntaxHighlighter>
-      )}
-    </>
+    <SyntaxHighlighter
+      language={language}
+      style={syntaxStyle}
+      role="img"
+      aria-label="コードスニペットによる説明"
+    >
+      {value}
+    </SyntaxHighlighter>
   );
 };
 
