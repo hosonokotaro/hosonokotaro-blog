@@ -10,7 +10,7 @@ import Markdown from '@/organisms/Markdown';
 import type { Params } from '~/customHooks/useSinglePost';
 import useSinglePost from '~/customHooks/useSinglePost';
 
-import { StyledTimestamp } from './styledIndex';
+import { MarkdownWrapper, Timestamp } from './styledIndex';
 
 const SinglePost: React.FC = () => {
   const { id } = useParams<{ id: Params['id'] }>();
@@ -29,8 +29,10 @@ const SinglePost: React.FC = () => {
             <title>{post.title} | WEB DEVELOPER HOSONO KOTARO</title>
           </Helmet>
           <Title text={post.title} />
-          <StyledTimestamp>{post.createDate}</StyledTimestamp>
-          <Markdown content={post.content} />
+          <Timestamp>{post.createDate}</Timestamp>
+          <MarkdownWrapper>
+            <Markdown content={post.content} />
+          </MarkdownWrapper>
         </>
       )}
       {isLoading && <Spinner />}

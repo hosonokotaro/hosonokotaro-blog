@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const StyledPreviewTitle = styled.div`
+export const PreviewTitle = styled.div`
   margin-bottom: 40px;
   font-size: 1.6rem;
 `;
@@ -12,6 +12,10 @@ export const StyledPreview = styled.div`
   border-bottom: 1px solid #999;
 `;
 
-export const StyledTimestamp = styled.div`
-  padding-top: 20px;
+export const Timestamp = styled.div`
+  margin-top: 20px;
+`;
+
+export const MarkdownWrapper = styled.div`
+  margin-top: 80px;
 `;
