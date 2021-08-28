@@ -9,6 +9,7 @@ interface Props {
   uploadPath: string;
 }
 
+// FIXME: 従属する component を分類したい
 const UploadImage: React.FC<Props> = ({ uploadPath }) => {
   const [uploadFilename, setUploadFilename] = useState<string>('');
 

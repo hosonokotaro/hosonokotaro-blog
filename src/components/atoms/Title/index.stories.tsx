@@ -13,7 +13,7 @@ export default {
 export const Default: React.FC = () => (
   <Title
     text={text('text', 'title')}
-    rank={select('rank', ['h2', 'h3'], 'h2')}
+    rank={select('rank', ['h2', 'h3', 'h4'], 'h2')}
     isMargin={boolean('isMargin', false)}
   />
 );

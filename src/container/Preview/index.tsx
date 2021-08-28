@@ -1,14 +1,14 @@
 import React from 'react';
 
 import Title from '@/atoms/Title';
-import CodeBlock from '@/molecules/CodeBlock';
-import { StyledReactMarkdown } from '~/container/SinglePost/styledIndex';
+import Markdown from '@/organisms/Markdown';
 import type { Post } from '~/services/getPost';
 
 import {
+  MarkdownWrapper,
+  PreviewTitle,
   StyledPreview,
-  StyledPreviewTitle,
-  StyledTimestamp,
+  Timestamp,
 } from './styledIndex';
 
 const Preview: React.FC<Post> = ({
@@ -20,36 +20,20 @@ const Preview: React.FC<Post> = ({
 }) => {
   return (
     <div>
-      <StyledTimestamp>
+      <Timestamp>
         記事作成日時: {createDate}
         <br />
         id: {id}
         <br />
         現在の Release フラグ: {release ? 'true' : 'false'}
-      </StyledTimestamp>
+      </Timestamp>
       <StyledPreview>
-        <StyledPreviewTitle>Preview</StyledPreviewTitle>
+        <PreviewTitle>Preview</PreviewTitle>
         <Title text={title} />
-        <StyledTimestamp>{createDate}</StyledTimestamp>
-        <StyledReactMarkdown
-          components={{
-            code({ inline, className, children }) {
-              const match = /language-(\w+)/.exec(className || '');
-
-              return (
-                !inline &&
-                match && (
-                  <CodeBlock
-                    value={String(children).replace(/\n$/, '')}
-                    language={match[1]}
-                  />
-                )
-              );
-            },
-          }}
-        >
-          {content}
-        </StyledReactMarkdown>
+        <Timestamp>{createDate}</Timestamp>
+        <MarkdownWrapper>
+          <Markdown content={content} />
+        </MarkdownWrapper>
       </StyledPreview>
     </div>
   );

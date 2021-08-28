@@ -28,15 +28,14 @@ const useEditTop = () => {
 
     setCreateTitle('');
 
-    await getUserAndPost();
+    await getAllPostList();
   };
 
   const onTitleChanged = (e: ChangeEvent<HTMLInputElement>) => {
     setCreateTitle(e.target.value);
   };
 
-  // FIXME: User, Post を分割したい。Post は、private 状態で取得するものであること
-  const getUserAndPost = useCallback(async () => {
+  const getAllPostList = useCallback(async () => {
     const currentUser = await getCurrentUser();
 
     // NOTE: Edit 画面は Private が前提なので固定値を入れている
@@ -55,13 +54,13 @@ const useEditTop = () => {
 
   useEffect(() => {
     const unsubscribe = firebaseAuth.onAuthStateChanged(() => {
-      getUserAndPost();
+      getAllPostList();
     });
 
     return () => {
       unsubscribe;
     };
-  }, [getUserAndPost]);
+  }, [getAllPostList]);
 
   return {
     postListResponse,

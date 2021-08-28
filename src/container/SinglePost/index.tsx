@@ -6,11 +6,11 @@ import ErrorMessage from '@/atoms/ErrorMessage';
 import Layout from '@/atoms/Layout';
 import Spinner from '@/atoms/Spinner';
 import Title from '@/atoms/Title';
-import CodeBlock from '@/molecules/CodeBlock';
+import Markdown from '@/organisms/Markdown';
 import type { Params } from '~/customHooks/useSinglePost';
 import useSinglePost from '~/customHooks/useSinglePost';
 
-import { StyledReactMarkdown, StyledTimestamp } from './styledIndex';
+import { MarkdownWrapper, Timestamp } from './styledIndex';
 
 const SinglePost: React.FC = () => {
   const { id } = useParams<{ id: Params['id'] }>();
@@ -29,26 +29,10 @@ const SinglePost: React.FC = () => {
             <title>{post.title} | WEB DEVELOPER HOSONO KOTARO</title>
           </Helmet>
           <Title text={post.title} />
-          <StyledTimestamp>{post.createDate}</StyledTimestamp>
-          <StyledReactMarkdown
-            components={{
-              code({ inline, className, children }) {
-                const match = /language-(\w+)/.exec(className || '');
-
-                return (
-                  !inline &&
-                  match && (
-                    <CodeBlock
-                      value={String(children).replace(/\n$/, '')}
-                      language={match[1]}
-                    />
-                  )
-                );
-              },
-            }}
-          >
-            {post.content}
-          </StyledReactMarkdown>
+          <Timestamp>{post.createDate}</Timestamp>
+          <MarkdownWrapper>
+            <Markdown content={post.content} />
+          </MarkdownWrapper>
         </>
       )}
       {isLoading && <Spinner />}
