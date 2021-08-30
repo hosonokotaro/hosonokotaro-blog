@@ -48,6 +48,7 @@ const Markdown: React.FC<Props> = ({ content }) => {
             </Paragraph>
           );
         },
+        // TODO: ul, li を component にする
         h2({ children }) {
           return (
             <Title
