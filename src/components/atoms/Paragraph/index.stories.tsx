@@ -1,4 +1,4 @@
-import { text, withKnobs } from '@storybook/addon-knobs';
+import { boolean, select, text, withKnobs } from '@storybook/addon-knobs';
 import { Meta } from '@storybook/react';
 import React from 'react';
 
@@ -11,7 +11,10 @@ export default {
 } as Meta;
 
 export const Default: React.FC = () => (
-  <Paragraph>
+  <Paragraph
+    tagName={select('tagName', ['p', 'div'], 'p')}
+    isMargin={boolean('isMargin', false)}
+  >
     {text(
       'text',
       'いろはにほへと ちりぬるを わかよたれそ つねならむ うゐのおくやま けふこえて あさきゆめみし ゑひもせすん'

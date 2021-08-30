@@ -43,7 +43,7 @@ const Markdown: React.FC<Props> = ({ content }) => {
         },
         p({ children }) {
           return (
-            <Paragraph as="div" isMargin>
+            <Paragraph tagName="div" isMargin>
               {children}
             </Paragraph>
           );
