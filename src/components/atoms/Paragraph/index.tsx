@@ -2,21 +2,21 @@ import React from 'react';
 
 import { StyledParagraph } from './styledIndex';
 
-type tagName = 'p' | 'div';
+type TagName = 'p' | 'div';
 
-interface Props {
-  as?: tagName;
+export interface Props {
+  tagName?: TagName;
   isMargin?: boolean;
   children: React.ReactNode;
 }
 
 const Paragraph: React.VFC<Props> = ({
-  as = 'p',
+  tagName = 'p',
   isMargin = false,
   children,
 }) => {
   return (
-    <StyledParagraph as={as} isMargin={isMargin}>
+    <StyledParagraph as={tagName} isMargin={isMargin}>
       {children}
     </StyledParagraph>
   );

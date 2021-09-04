@@ -9,6 +9,7 @@ interface Props {
   alt?: string;
 }
 
+// FIXME: logic を container に移動したい
 const Image: React.VFC<Props> = ({ src, alt = 'image' }) => {
   const [loading, isLoading] = useState(true);
 

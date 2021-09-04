@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import Spinner from '@/atoms/Spinner';
 import Title from '@/atoms/Title';
 
+// FIXME: Organisms から Style を削除したい
 import { StyledPost, StyledPosts, StyledTimestamp } from './styledIndex';
 
 export interface Post {
