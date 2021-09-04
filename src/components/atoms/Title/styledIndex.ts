@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 
+// FIXME: atoms から margin を削除したい
 // FIXME: 分岐条件を整理したい
 export const StyledTitle = styled.h2<{
   isMargin: boolean;

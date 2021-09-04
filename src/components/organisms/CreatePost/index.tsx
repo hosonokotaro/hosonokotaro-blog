@@ -3,6 +3,7 @@ import React, { ChangeEvent } from 'react';
 import Button from '@/atoms/Button';
 import Title from '@/atoms/Title';
 
+// FIXME: Organisms から Style を削除したい
 import {
   StyledForm,
   StyledInputText,
