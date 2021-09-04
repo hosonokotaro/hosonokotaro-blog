@@ -1,13 +1,14 @@
 import React from 'react';
+import ReactMarkdown from 'react-markdown';
 
 import InlineCode from '@/atoms/InlineCode';
 import Paragraph from '@/atoms/Paragraph';
+import TextItem from '@/atoms/TextItem';
 import Title from '@/atoms/Title';
 import CodeBlock from '@/molecules/CodeBlock';
+import TextList from '@/molecules/TextList';
 import Image from '@/organisms/Image';
 import type { Post } from '~/services/getPost';
-
-import { StyledMarkdown } from './styledIndex';
 
 interface Props {
   content: Post['content'];
@@ -15,7 +16,7 @@ interface Props {
 
 const Markdown: React.FC<Props> = ({ content }) => {
   return (
-    <StyledMarkdown
+    <ReactMarkdown
       components={{
         code({ inline, className, children }) {
           const match = /language-(\w+)/.exec(className || '');
@@ -48,7 +49,12 @@ const Markdown: React.FC<Props> = ({ content }) => {
             </Paragraph>
           );
         },
-        // TODO: ul, li を component にする
+        ul({ children }) {
+          return <TextList>{children}</TextList>;
+        },
+        li({ children }) {
+          return <TextItem text={String(children).replace(/\n$/, '')} />;
+        },
         h2({ children }) {
           return (
             <Title
@@ -81,7 +87,7 @@ const Markdown: React.FC<Props> = ({ content }) => {
       linkTarget="_blank"
     >
       {content}
-    </StyledMarkdown>
+    </ReactMarkdown>
   );
 };
 
