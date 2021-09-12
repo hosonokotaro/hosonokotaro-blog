@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 
+// TODO: component 分割する
 export const StyledLabel = styled.label`
   display: block;
   h2 + & {
@@ -32,10 +33,6 @@ export const StyledTextarea = styled.textarea`
   label + & {
     margin-top: 4px;
   }
-`;
-
-export const StyledButtonWrapper = styled.div`
-  padding-top: 20px;
 `;
 
 export const StyledButton = styled.button`

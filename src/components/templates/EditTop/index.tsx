@@ -4,7 +4,7 @@ import Layout from '@/atoms/Layout';
 import Spinner from '@/atoms/Spinner';
 import CreatePost from '@/organisms/CreatePost';
 import EditPostList from '@/organisms/EditPostList';
-import Login from '~/container/Login';
+import Login from '@/templates/Login';
 import useEditTop from '~/customHooks/useEditTop';
 
 const EditTop: React.FC = () => {

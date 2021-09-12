@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 
+// TODO: component 分割する
 export const StyledUploadFile = styled.div`
   margin-top: 20px;
 `;

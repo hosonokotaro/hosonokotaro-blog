@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 
+// TODO: component 分割する
 export const PreviewTitle = styled.div`
   margin-bottom: 40px;
   font-size: 1.6rem;

@@ -1,16 +1,11 @@
 import React from 'react';
 
+import Button from '@/atoms/Button';
+import ContentBox from '@/atoms/ContentBox';
 import useUploadFileItem from '~/customHooks/useUploadFileItem';
 import type { ImagePath } from '~/customHooks/useUploadFileList';
 
-import {
-  StyledButtonWrap,
-  StyledDeleteButton,
-  StyledFilePath,
-  StyledImg,
-  StyledImgWrap,
-  StyledItem,
-} from './styledUploadFileItem';
+import { StyledFilePath, StyledImg, StyledItem } from './styledUploadFileItem';
 
 interface Props {
   item: ImagePath;
@@ -27,17 +22,20 @@ const UploadFileItem: React.FC<Props> = ({ item, deleteImage }) => {
         type="text"
         defaultValue={`![alt](${item.fullpath})`}
       />
-      <StyledButtonWrap>
-        <button onClick={copyClipboard}>
-          画像パスをクリップボードにコピーする
-        </button>
-        <StyledDeleteButton onClick={() => deleteImage(item.filename)}>
-          画像を削除する
-        </StyledDeleteButton>
-      </StyledButtonWrap>
-      <StyledImgWrap>
+      <ContentBox isBetween>
+        <Button
+          text="画像パスをクリップボードにコピーする"
+          onClick={copyClipboard}
+        />
+        <Button
+          text="画像を削除する"
+          onClick={() => deleteImage(item.filename)}
+          attention
+        />
+      </ContentBox>
+      <ContentBox>
         <StyledImg src={item.fullpath} />
-      </StyledImgWrap>
+      </ContentBox>
     </StyledItem>
   );
 };

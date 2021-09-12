@@ -2,17 +2,17 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
 
+import Button from '@/atoms/Button';
+import ContentBox from '@/atoms/ContentBox';
 import Layout from '@/atoms/Layout';
 import Spinner from '@/atoms/Spinner';
 import Title from '@/atoms/Title';
-import Login from '~/container/Login';
-import Preview from '~/container/Preview';
-import UploadImage from '~/container/UploadImage';
+import Login from '@/templates/Login';
+import Preview from '@/templates/Preview';
+import UploadImage from '~/components/templates/UploadImage';
 import useEditPost from '~/customHooks/useEditPost';
 
 import {
-  StyledButton,
-  StyledButtonWrapper,
   StyledInputText,
   StyledLabel,
   StyledLabelInlineBlock,
@@ -69,14 +69,14 @@ const EditPost: React.FC = () => {
               checked={draftRelease}
               onChange={onReleaseChanged}
             />
-            <StyledButtonWrapper>
-              <StyledButton onClick={handleUpdatePost}>
-                この記事を更新する
-              </StyledButton>
-              <StyledButton onClick={handleDeletePost}>
-                この記事を削除する
-              </StyledButton>
-            </StyledButtonWrapper>
+            <ContentBox isBetween isHalf>
+              <Button text="この記事を更新する" onClick={handleUpdatePost} />
+              <Button
+                text="この記事を削除する"
+                onClick={handleDeletePost}
+                attention
+              />
+            </ContentBox>
             <Preview
               id={id}
               title={draftTitle ?? ''}
