@@ -1,11 +1,12 @@
 import styled from 'styled-components';
 
-// FIXME: atoms から margin を削除したい
-export const StyledButton = styled.button<{ isMargin: boolean }>`
-  ${({ isMargin }) => {
-    if (isMargin) {
+export const StyledButton = styled.button<{ attention: boolean }>`
+  cursor: pointer;
+
+  ${({ attention }) => {
+    if (attention) {
       return `
-        margin-top: 20px;
+        color: #f66;
       `;
     }
   }}

@@ -16,6 +16,5 @@ export const Default: React.FC = () => (
     text={text('label', 'button')}
     onClick={action('clicked')}
     disabled={boolean('disabled', false)}
-    isMargin={boolean('isMargin', false)}
   />
 );

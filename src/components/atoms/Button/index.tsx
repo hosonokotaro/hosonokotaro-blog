@@ -6,17 +6,17 @@ export interface Props {
   text: string;
   onClick: VoidFunction;
   disabled?: boolean;
-  isMargin?: boolean;
+  attention?: boolean;
 }
 
 const Button: React.FC<Props> = ({
   text,
   onClick,
   disabled = false,
-  isMargin = false,
+  attention = false,
 }) => {
   return (
-    <StyledButton onClick={onClick} disabled={disabled} isMargin={isMargin}>
+    <StyledButton onClick={onClick} disabled={disabled} attention={attention}>
       {text}
     </StyledButton>
   );
