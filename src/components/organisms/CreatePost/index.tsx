@@ -1,6 +1,7 @@
 import React, { ChangeEvent } from 'react';
 
 import Button from '@/atoms/Button';
+import ContentBox from '@/atoms/ContentBox';
 import Title from '@/atoms/Title';
 
 // FIXME: Organisms から Style を削除したい
@@ -36,12 +37,13 @@ const CreatePost: React.FC<Props> = ({
           value={title}
           onChange={onTitleChanged}
         />
-        <Button
-          text="記事を準備する"
-          onClick={handleSubmit}
-          disabled={!canSaveNewPost}
-          isMargin
-        />
+        <ContentBox>
+          <Button
+            text="記事を準備する"
+            onClick={handleSubmit}
+            disabled={!canSaveNewPost}
+          />
+        </ContentBox>
       </StyledForm>
     </StyledSection>
   );
