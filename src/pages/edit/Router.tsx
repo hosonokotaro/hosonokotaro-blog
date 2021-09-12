@@ -1,8 +1,8 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
-import EditPost from '~/container/EditPost';
-import EditTop from '~/container/EditTop';
+import EditPost from '@/templates/EditPost';
+import EditTop from '@/templates/EditTop';
 
 const Router: React.FC = () => {
   return (
