@@ -2,12 +2,12 @@ import React from 'react';
 import ReactMarkdown from 'react-markdown';
 
 import InlineCode from '@/atoms/InlineCode';
+import TextBox from '@/atoms/TextBox';
 import TextItem from '@/atoms/TextItem';
+import TextList from '@/atoms/TextList';
 import Title from '@/atoms/Title';
 import CodeBlock from '@/molecules/CodeBlock';
-import TextList from '@/molecules/TextList';
-import Image from '@/organisms/Image';
-import TextBox from '~/components/atoms/TextBox';
+import Image from '@/molecules/Image';
 import type { Post } from '~/services/getPost';
 
 interface Props {
