@@ -1,7 +1,6 @@
 import React from 'react';
 
 import ErrorMessage from '@/atoms/ErrorMessage';
-import Layout from '@/atoms/Layout';
 import Spinner from '@/atoms/Spinner';
 import Title from '@/atoms/Title';
 import useTop from '~/customHooks/useTop';
@@ -16,7 +15,7 @@ const Top: React.FC = () => {
   const titleDateList = postListResponse?.titleDateList;
 
   return (
-    <Layout tag="article">
+    <>
       <Title text="記事一覧" />
       {titleDateList && (
         <>
@@ -30,7 +29,7 @@ const Top: React.FC = () => {
       )}
       {isLoading && <Spinner />}
       {isError && <ErrorMessage />}
-    </Layout>
+    </>
   );
 };
 

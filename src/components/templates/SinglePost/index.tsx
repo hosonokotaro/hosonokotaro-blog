@@ -3,7 +3,6 @@ import { Helmet } from 'react-helmet';
 import { useParams } from 'react-router-dom';
 
 import ErrorMessage from '@/atoms/ErrorMessage';
-import Layout from '@/atoms/Layout';
 import Spinner from '@/atoms/Spinner';
 import Title from '@/atoms/Title';
 import Markdown from '@/organisms/Markdown';
@@ -22,7 +21,7 @@ const SinglePost: React.FC = () => {
   const post = postResponse?.post;
 
   return (
-    <Layout tag="section">
+    <>
       {post && (
         <>
           <Helmet>
@@ -37,7 +36,7 @@ const SinglePost: React.FC = () => {
       )}
       {isLoading && <Spinner />}
       {isError && <ErrorMessage />}
-    </Layout>
+    </>
   );
 };
 

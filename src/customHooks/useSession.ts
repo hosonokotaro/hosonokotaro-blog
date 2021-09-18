@@ -15,7 +15,8 @@ const useSession = () => {
 
   const logout = () => {
     logoutFromService();
-    window.location.reload();
+    // NOTE: logout が firebase でリダイレクト処理されるため、副作用となる
+    window.location.href = '/edit';
   };
 
   useEffect(() => {

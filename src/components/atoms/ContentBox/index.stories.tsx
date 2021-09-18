@@ -22,6 +22,7 @@ export const Default: React.FC = () => {
           ['20px', '40px', '80px'],
           '20px'
         )}
+        textAlign={select('textAlign', ['left', 'center', 'right'], 'left')}
       >
         何らかの内容が入ります
       </ContentBox>
@@ -33,6 +34,7 @@ export const Default: React.FC = () => {
           ['20px', '40px', '80px'],
           '20px'
         )}
+        textAlign={select('textAlign', ['left', 'center', 'right'], 'left')}
       >
         <Item>関心事の単位に</Item>
         <Item>分けることが望ましい使い方です</Item>

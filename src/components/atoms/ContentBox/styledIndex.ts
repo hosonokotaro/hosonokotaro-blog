@@ -1,18 +1,18 @@
 import styled from 'styled-components';
 
 export type MarginTopSize = '20px' | '40px' | '80px';
+export type TextAlign = 'left' | 'center' | 'right';
 
 export const StyledContentBox = styled.div<{
   isBetween: boolean;
   isHalf: boolean;
   marginTopSize: MarginTopSize;
+  textAlign: TextAlign;
 }>`
   ${({ marginTopSize }) => {
-    if (marginTopSize) {
-      return `
-        margin-top: ${marginTopSize};
-      `;
-    }
+    return `
+      margin-top: ${marginTopSize};
+    `;
   }}
 
   ${({ isBetween }) => {
@@ -30,5 +30,11 @@ export const StyledContentBox = styled.div<{
         width: calc(50% - 10px);
       `;
     }
+  }}
+
+  ${({ textAlign }) => {
+    return `
+      text-align: ${textAlign};
+    `;
   }}
 `;
