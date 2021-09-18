@@ -1,8 +1,6 @@
 import { action } from '@storybook/addon-actions';
 import { Meta } from '@storybook/react';
-import React from 'react';
-
-import useEditTop from '~/customHooks/useEditTop';
+import React, { ChangeEvent, useState } from 'react';
 
 import CreatePost from './';
 
@@ -12,14 +10,18 @@ export default {
 } as Meta;
 
 export const Default: React.FC = () => {
-  const { createTitle, onTitleChanged, canSaveNewPost } = useEditTop();
+  const [createTitle, setCreateTitle] = useState('Test Title');
+
+  const onTitleChanged = (e: ChangeEvent<HTMLInputElement>) => {
+    setCreateTitle(e.target.value);
+  };
 
   return (
     <CreatePost
       title={createTitle}
       handleSubmit={action(createTitle)}
       onTitleChanged={onTitleChanged}
-      canSaveNewPost={canSaveNewPost}
+      canSaveNewPost={!!createTitle}
     />
   );
 };
