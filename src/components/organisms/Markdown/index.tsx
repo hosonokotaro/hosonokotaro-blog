@@ -2,12 +2,12 @@ import React from 'react';
 import ReactMarkdown from 'react-markdown';
 
 import InlineCode from '@/atoms/InlineCode';
-import Paragraph from '@/atoms/Paragraph';
 import TextItem from '@/atoms/TextItem';
 import Title from '@/atoms/Title';
 import CodeBlock from '@/molecules/CodeBlock';
 import TextList from '@/molecules/TextList';
 import Image from '@/organisms/Image';
+import TextBox from '~/components/atoms/TextBox';
 import type { Post } from '~/services/getPost';
 
 interface Props {
@@ -43,11 +43,7 @@ const Markdown: React.FC<Props> = ({ content }) => {
           return <Image src={src} alt={alt} />;
         },
         p({ children }) {
-          return (
-            <Paragraph tagName="div" isMargin>
-              {children}
-            </Paragraph>
-          );
+          return <TextBox isMargin>{children}</TextBox>;
         },
         ul({ children }) {
           return <TextList>{children}</TextList>;
