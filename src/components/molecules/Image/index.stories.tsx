@@ -6,7 +6,7 @@ import Image from '.';
 
 export default {
   component: Image,
-  title: 'components/organisms/Image',
+  title: 'components/molecules/Image',
   decorators: [withKnobs],
 } as Meta;
 

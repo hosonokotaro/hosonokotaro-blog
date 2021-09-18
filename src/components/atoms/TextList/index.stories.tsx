@@ -8,7 +8,7 @@ import TextList from '.';
 
 export default {
   component: TextList,
-  title: 'components/molecules/TextList',
+  title: 'components/atoms/TextList',
   decorators: [withKnobs],
 } as Meta;
 
