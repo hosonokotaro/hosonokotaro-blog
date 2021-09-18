@@ -4,7 +4,7 @@ import React from 'react';
 
 import TextItem from '@/atoms/TextItem';
 
-import TextList from '.';
+import TextList from './';
 
 export default {
   component: TextList,

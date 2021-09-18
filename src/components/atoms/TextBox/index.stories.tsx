@@ -2,7 +2,7 @@ import { boolean, select, text, withKnobs } from '@storybook/addon-knobs';
 import { Meta } from '@storybook/react';
 import React from 'react';
 
-import TextBox from '.';
+import TextBox from './';
 
 export default {
   component: TextBox,

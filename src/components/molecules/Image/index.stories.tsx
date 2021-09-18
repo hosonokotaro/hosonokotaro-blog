@@ -2,7 +2,7 @@ import { text, withKnobs } from '@storybook/addon-knobs';
 import { Meta } from '@storybook/react';
 import React from 'react';
 
-import Image from '.';
+import Image from './';
 
 export default {
   component: Image,
