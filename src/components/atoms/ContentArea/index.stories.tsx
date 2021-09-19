@@ -13,7 +13,11 @@ export default {
 export const Default: React.FC = () => (
   <ContentArea
     tag={select('tag', ['div', 'article', 'section'], 'div')}
-    marginTopSize={select('marginTopSize', ['20px', '40px', '80px'], '40px')}
+    marginTopSize={select(
+      'marginTopSize',
+      ['0px', '20px', '40px', '80px'],
+      '0px'
+    )}
   >
     <div>children</div>
   </ContentArea>

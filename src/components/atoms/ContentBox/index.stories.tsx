@@ -19,8 +19,8 @@ export const Default: React.FC = () => {
         isHalf={boolean('isHalf', false)}
         marginTopSize={select(
           'marginTopSize',
-          ['20px', '40px', '80px'],
-          '20px'
+          ['0px', '20px', '40px', '80px'],
+          '0px'
         )}
         textAlign={select('textAlign', ['left', 'center', 'right'], 'left')}
       >
@@ -31,8 +31,8 @@ export const Default: React.FC = () => {
         isHalf={boolean('isHalf', false)}
         marginTopSize={select(
           'marginTopSize',
-          ['20px', '40px', '80px'],
-          '20px'
+          ['0px', '20px', '40px', '80px'],
+          '0px'
         )}
         textAlign={select('textAlign', ['left', 'center', 'right'], 'left')}
       >

@@ -14,7 +14,7 @@ const ContentBox: React.VFC<Props> = ({
   children,
   isBetween = false,
   isHalf = false,
-  marginTopSize = '20px',
+  marginTopSize = '0px',
   textAlign = 'left',
 }) => {
   return (

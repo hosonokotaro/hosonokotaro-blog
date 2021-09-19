@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 
+import ContentBox from '@/atoms/ContentBox';
 import Title from '@/atoms/Title';
 
 import UploadFileList from './UploadFileList';
@@ -15,7 +16,9 @@ const UploadImage: React.FC<Props> = ({ uploadPath }) => {
 
   return (
     <>
-      <Title text="画像" rank="h3" isMargin />
+      <ContentBox marginTopSize="40px">
+        <Title text="画像" rank="h3" />
+      </ContentBox>
       <UploadSelectFile
         uploadPath={uploadPath}
         setUploadFilename={setUploadFilename}

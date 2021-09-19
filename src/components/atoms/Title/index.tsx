@@ -2,15 +2,15 @@ import React from 'react';
 
 import { StyledTitle } from './styledIndex';
 
+// FIXME: ComponentProps<typeof Component> に置き換えたい
 export interface Props {
   text: string;
   rank?: 'h2' | 'h3' | 'h4';
-  isMargin?: boolean;
 }
 
-const Title: React.FC<Props> = ({ text, rank = 'h2', isMargin = false }) => {
+const Title: React.FC<Props> = ({ text, rank = 'h2' }) => {
   return (
-    <StyledTitle isMargin={isMargin} rankStyle={rank} as={rank}>
+    <StyledTitle rankStyle={rank} as={rank}>
       {text}
     </StyledTitle>
   );

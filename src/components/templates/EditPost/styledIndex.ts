@@ -43,5 +43,5 @@ export const StyledButton = styled.button`
 `;
 
 export const StyledReturn = styled.div`
-  padding: 40px 0;
+  margin: 40px 0;
 `;

@@ -2,6 +2,7 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 import { useParams } from 'react-router-dom';
 
+import ContentBox from '@/atoms/ContentBox';
 import ErrorMessage from '@/atoms/ErrorMessage';
 import Spinner from '@/atoms/Spinner';
 import Title from '@/atoms/Title';
@@ -35,7 +36,11 @@ const SinglePost: React.FC = () => {
         </>
       )}
       {isLoading && <Spinner />}
-      {isError && <ErrorMessage />}
+      {isError && (
+        <ContentBox marginTopSize="40px" textAlign="center">
+          <ErrorMessage />
+        </ContentBox>
+      )}
     </>
   );
 };

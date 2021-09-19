@@ -6,7 +6,7 @@ import Button from '@/atoms/Button';
 import ContentBox from '@/atoms/ContentBox';
 import Footer from '@/atoms/Footer';
 import TextBox from '@/atoms/TextBox';
-import Header from '@/organisms/Header';
+import Header from '@/molecules/Header';
 import useSession from '~/customHooks/useSession';
 import getDate from '~/utility/getDate';
 
@@ -28,7 +28,9 @@ const App: React.FC = () => {
       <ContentBox textAlign="center">
         {userId && <Button text="ログアウトする" onClick={logout} />}
         {!userId && <Button text="ログインする" onClick={login} />}
-        <TextBox isMargin>uid: {userId}</TextBox>
+        <ContentBox marginTopSize="20px" textAlign="center">
+          <TextBox>uid: {userId}</TextBox>
+        </ContentBox>
       </ContentBox>
     </>
   );

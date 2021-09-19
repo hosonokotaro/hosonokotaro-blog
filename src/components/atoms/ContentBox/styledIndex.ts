@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export type MarginTopSize = '20px' | '40px' | '80px';
+export type MarginTopSize = '0px' | '20px' | '40px' | '80px';
 export type TextAlign = 'left' | 'center' | 'right';
 
 export const StyledContentBox = styled.div<{

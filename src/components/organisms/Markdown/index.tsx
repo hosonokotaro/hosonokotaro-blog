@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
 
+import ContentBox from '@/atoms/ContentBox';
 import InlineCode from '@/atoms/InlineCode';
 import TextBox from '@/atoms/TextBox';
 import TextItem from '@/atoms/TextItem';
@@ -43,43 +44,45 @@ const Markdown: React.FC<Props> = ({ content }) => {
           return <Image src={src} alt={alt} />;
         },
         p({ children }) {
-          return <TextBox isMargin>{children}</TextBox>;
+          return (
+            <ContentBox marginTopSize="20px">
+              <TextBox>{children}</TextBox>
+            </ContentBox>
+          );
         },
         ul({ children }) {
-          return <TextList>{children}</TextList>;
+          return (
+            <ContentBox marginTopSize="20px">
+              <TextList>{children}</TextList>
+            </ContentBox>
+          );
         },
         li({ children }) {
           return <TextItem text={String(children).replace(/\n$/, '')} />;
         },
         h2({ children }) {
           return (
-            <Title
-              text={String(children).replace(/\n$/, '')}
-              rank="h2"
-              isMargin
-            />
+            <ContentBox marginTopSize="40px">
+              <Title text={String(children).replace(/\n$/, '')} rank="h2" />
+            </ContentBox>
           );
         },
         h3({ children }) {
           return (
-            <Title
-              text={String(children).replace(/\n$/, '')}
-              rank="h3"
-              isMargin
-            />
+            <ContentBox marginTopSize="40px">
+              <Title text={String(children).replace(/\n$/, '')} rank="h3" />
+            </ContentBox>
           );
         },
         h4({ children }) {
           return (
-            <Title
-              text={String(children).replace(/\n$/, '')}
-              rank="h4"
-              isMargin
-            />
+            <ContentBox marginTopSize="40px">
+              <Title text={String(children).replace(/\n$/, '')} rank="h4" />
+            </ContentBox>
           );
         },
       }}
-      // FIXME: A tag と Link tag を自作するときに解決したい
+      // FIXME: A tag は _blank, Link tag はそのまま遷移としたい
       linkTarget="_blank"
     >
       {content}

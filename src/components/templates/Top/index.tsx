@@ -1,5 +1,6 @@
 import React from 'react';
 
+import ContentBox from '@/atoms/ContentBox';
 import ErrorMessage from '@/atoms/ErrorMessage';
 import Spinner from '@/atoms/Spinner';
 import Title from '@/atoms/Title';
@@ -28,7 +29,11 @@ const Top: React.FC = () => {
         </>
       )}
       {isLoading && <Spinner />}
-      {isError && <ErrorMessage />}
+      {isError && (
+        <ContentBox marginTopSize="40px" textAlign="center">
+          <ErrorMessage />
+        </ContentBox>
+      )}
     </>
   );
 };

@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet';
 import { BrowserRouter as Router } from 'react-router-dom';
 
 import Footer from '@/atoms/Footer';
-import Header from '@/organisms/Header';
+import Header from '@/molecules/Header';
 import SiteRouter from '~/pages/Router';
 import getDate from '~/utility/getDate';
 

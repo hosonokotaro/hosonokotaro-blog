@@ -1,12 +1,12 @@
 import React from 'react';
 
-import { StyledErrorMessageWrapper } from './styledIndex';
+import { StyledErrorMessage } from './styledIndex';
 
 const ErrorMessage: React.FC = () => {
   return (
-    <StyledErrorMessageWrapper>
+    <StyledErrorMessage>
       Something went wrong. Please try again.
-    </StyledErrorMessageWrapper>
+    </StyledErrorMessage>
   );
 };
 

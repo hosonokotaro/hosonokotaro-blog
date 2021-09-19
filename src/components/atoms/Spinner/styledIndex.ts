@@ -4,11 +4,9 @@ export const StyledSpinnerWrapper = styled.div`
   text-align: center;
 `;
 
-// FIXME: atoms から margin を削除したい
 export const StyledSpinner = styled.svg`
   width: 50px;
   height: 50px;
-  margin: 40px;
   animation: rotate 1s linear infinite;
 
   & .path {

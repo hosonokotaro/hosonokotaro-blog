@@ -1,14 +1,10 @@
 import styled from 'styled-components';
 
-export const StyledSection = styled.section`
-  margin-bottom: 40px;
-`;
-
+// FIXME: component 分割したい
 export const StyledForm = styled.form`
-  padding-top: 20px;
+  margin-top: 20px;
 `;
 
-// FIXME: 別の component に分割したい
 export const StyledLabel = styled.label`
   display: block;
   input + & {

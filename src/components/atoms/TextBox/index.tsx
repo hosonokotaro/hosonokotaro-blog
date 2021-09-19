@@ -4,22 +4,14 @@ import { StyledTextBox } from './styledIndex';
 
 type TagName = 'div' | 'p';
 
+// FIXME: ComponentProps<typeof Component> に置き換えたい
 export interface Props {
   tagName?: TagName;
-  isMargin?: boolean;
   children: React.ReactNode;
 }
 
-const TextBox: React.VFC<Props> = ({
-  tagName = 'div',
-  isMargin = false,
-  children,
-}) => {
-  return (
-    <StyledTextBox as={tagName} isMargin={isMargin}>
-      {children}
-    </StyledTextBox>
-  );
+const TextBox: React.VFC<Props> = ({ tagName = 'div', children }) => {
+  return <StyledTextBox as={tagName}>{children}</StyledTextBox>;
 };
 
 export default TextBox;

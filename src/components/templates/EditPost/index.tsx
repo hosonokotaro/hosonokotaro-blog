@@ -18,6 +18,7 @@ import {
   StyledTextarea,
 } from './styledIndex';
 
+// FIXME: Error handling がないので実装したい
 const EditPost: React.FC = () => {
   const {
     id,
@@ -66,7 +67,7 @@ const EditPost: React.FC = () => {
             checked={draftRelease}
             onChange={onReleaseChanged}
           />
-          <ContentBox isBetween isHalf>
+          <ContentBox isBetween isHalf marginTopSize="20px">
             <Button text="この記事を更新する" onClick={handleUpdatePost} />
             <Button
               text="この記事を削除する"

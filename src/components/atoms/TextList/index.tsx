@@ -1,13 +1,12 @@
 import React from 'react';
 
-import { Ul } from './styledIndex';
-
+// FIXME: ComponentProps<typeof Component> に置き換えたい
 export interface Props {
   children: React.ReactNode;
 }
 
 const TextList: React.VFC<Props> = ({ children }) => {
-  return <Ul>{children}</Ul>;
+  return <ul>{children}</ul>;
 };
 
 export default TextList;

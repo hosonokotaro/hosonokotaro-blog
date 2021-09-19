@@ -4,14 +4,9 @@ import Button from '@/atoms/Button';
 import ContentBox from '@/atoms/ContentBox';
 import Title from '@/atoms/Title';
 
-// FIXME: Organisms から Style を削除したい
-import {
-  StyledForm,
-  StyledInputText,
-  StyledLabel,
-  StyledSection,
-} from './styledIndex';
+import { StyledForm, StyledInputText, StyledLabel } from './styledIndex';
 
+// FIXME: ComponentProps<typeof Component> に置き換えたい
 export interface Props {
   title: string;
   handleSubmit: VoidFunction;
@@ -26,7 +21,7 @@ const CreatePost: React.FC<Props> = ({
   canSaveNewPost,
 }) => {
   return (
-    <StyledSection>
+    <section>
       <Title text="記事の新規作成" />
       <StyledForm onSubmit={(event) => event.preventDefault()}>
         <StyledLabel htmlFor="postTitle">タイトル</StyledLabel>
@@ -37,7 +32,7 @@ const CreatePost: React.FC<Props> = ({
           value={title}
           onChange={onTitleChanged}
         />
-        <ContentBox>
+        <ContentBox marginTopSize="20px">
           <Button
             text="記事を準備する"
             onClick={handleSubmit}
@@ -45,7 +40,7 @@ const CreatePost: React.FC<Props> = ({
           />
         </ContentBox>
       </StyledForm>
-    </StyledSection>
+    </section>
   );
 };
 
