@@ -3,20 +3,20 @@ import { text, withKnobs } from '@storybook/addon-knobs';
 import { Meta } from '@storybook/react';
 import React from 'react';
 
-import InputText from './';
+import InputTextInline from './';
 
 export default {
-  component: InputText,
-  title: 'components/atoms/InputText',
+  component: InputTextInline,
+  title: 'components/atoms/InputTextInline',
   decorators: [withKnobs],
 } as Meta;
 
 export const Default: React.FC = () => {
   return (
-    <InputText
+    <InputTextInline
       id={text('id', 'id')}
       name={text('name', 'name')}
-      defaultValue="inputText"
+      defaultValue={text('defaultValue', 'input text')}
       handleChange={action('state を更新する為に使う')}
     />
   );
