@@ -2,7 +2,7 @@ import React, { ChangeEvent } from 'react';
 
 import Button from '@/atoms/Button';
 import ContentBox from '@/atoms/ContentBox';
-import InputText from '@/atoms/InputText';
+import InputTextInline from '@/atoms/InputTextInline';
 import TextLabel from '@/atoms/TextLabel';
 import Title from '@/atoms/Title';
 
@@ -28,7 +28,7 @@ const CreatePost: React.FC<Props> = ({
       <ContentBox marginTopSize="20px">
         <form onSubmit={(event) => event.preventDefault()}>
           <TextLabel htmlFor={groupName} text="タイトル" />
-          <InputText
+          <InputTextInline
             id={groupName}
             name={groupName}
             defaultValue={title}
