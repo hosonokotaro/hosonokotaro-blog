@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-// TODO: component 分割する
+// FIXME: component 分割したい
 export const StyledItem = styled.div`
   width: calc(50% - 10px);
   margin-bottom: 40px;
