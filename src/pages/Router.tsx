@@ -9,12 +9,12 @@ const Router: React.FC = () => {
   return (
     <Switch>
       <Route exact path="/">
-        <Layout tag="article">
+        <Layout tagName="article">
           <Top />
         </Layout>
       </Route>
       <Route exact path="/:id">
-        <Layout tag="section">
+        <Layout tagName="section">
           <SinglePost />
         </Layout>
       </Route>

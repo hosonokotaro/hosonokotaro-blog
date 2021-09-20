@@ -2,13 +2,16 @@ import React from 'react';
 
 import { StyledLayout } from './styledIndex';
 
+type TagName = 'div' | 'article' | 'section';
+
+// FIXME: ComponentProps<typeof Component> に置き換えたい
 export interface Props {
-  tag?: 'div' | 'article' | 'section';
+  tagName?: TagName;
   children: React.ReactNode;
 }
 
-const Layout: React.VFC<Props> = ({ tag = 'div', children }) => {
-  return <StyledLayout as={tag}>{children}</StyledLayout>;
+const Layout: React.VFC<Props> = ({ tagName = 'div', children }) => {
+  return <StyledLayout as={tagName}>{children}</StyledLayout>;
 };
 
 export default Layout;
