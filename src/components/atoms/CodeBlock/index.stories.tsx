@@ -6,7 +6,7 @@ import CodeBlock from './';
 
 export default {
   component: CodeBlock,
-  title: 'components/molecules/CodeBlock',
+  title: 'components/atoms/CodeBlock',
   decorators: [withKnobs],
   parameters: {
     knobs: {

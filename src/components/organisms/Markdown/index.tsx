@@ -1,13 +1,13 @@
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
 
+import CodeBlock from '@/atoms/CodeBlock';
 import ContentBox from '@/atoms/ContentBox';
 import InlineCode from '@/atoms/InlineCode';
 import TextBox from '@/atoms/TextBox';
 import TextItem from '@/atoms/TextItem';
 import TextList from '@/atoms/TextList';
 import Title from '@/atoms/Title';
-import CodeBlock from '@/molecules/CodeBlock';
 import Image from '@/molecules/Image';
 import type { Post } from '~/services/getPost';
 
