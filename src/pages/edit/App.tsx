@@ -26,8 +26,8 @@ const App: React.FC = () => {
         <Footer year={getDate('year')} />
       </Router>
       <ContentBox textAlign="center">
-        {userId && <Button text="ログアウトする" onClick={logout} />}
-        {!userId && <Button text="ログインする" onClick={login} />}
+        {userId && <Button text="ログアウトする" handleClick={logout} />}
+        {!userId && <Button text="ログインする" handleClick={login} />}
         <ContentBox marginTopSize="20px" textAlign="center">
           <TextBox>uid: {userId}</TextBox>
         </ContentBox>

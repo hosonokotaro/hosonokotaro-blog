@@ -2,21 +2,26 @@ import React from 'react';
 
 import { StyledButton } from './styledIndex';
 
+// FIXME: ComponentProps<typeof Component> に置き換えたい
 export interface Props {
   text: string;
-  onClick: VoidFunction;
+  handleClick: VoidFunction;
   disabled?: boolean;
   attention?: boolean;
 }
 
 const Button: React.FC<Props> = ({
   text,
-  onClick,
+  handleClick,
   disabled = false,
   attention = false,
 }) => {
   return (
-    <StyledButton onClick={onClick} disabled={disabled} attention={attention}>
+    <StyledButton
+      onClick={handleClick}
+      disabled={disabled}
+      attention={attention}
+    >
       {text}
     </StyledButton>
   );

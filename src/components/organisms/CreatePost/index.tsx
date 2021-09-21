@@ -37,7 +37,7 @@ const CreatePost: React.FC<Props> = ({
           <ContentBox marginTopSize="20px">
             <Button
               text="記事を準備する"
-              onClick={handleSubmit}
+              handleClick={handleSubmit}
               disabled={!canSaveNewPost}
             />
           </ContentBox>

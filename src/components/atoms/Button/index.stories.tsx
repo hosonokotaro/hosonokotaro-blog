@@ -14,7 +14,7 @@ export default {
 export const Default: React.FC = () => (
   <Button
     text={text('label', 'button')}
-    onClick={action('clicked')}
+    handleClick={action('clicked')}
     disabled={boolean('disabled', false)}
   />
 );
