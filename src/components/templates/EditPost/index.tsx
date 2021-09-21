@@ -4,19 +4,15 @@ import { Link } from 'react-router-dom';
 
 import Button from '@/atoms/Button';
 import ContentBox from '@/atoms/ContentBox';
+import InputCheckBox from '@/atoms/InputCheckBox';
+import InputTextArea from '@/atoms/InputTextArea';
+import InputTextInline from '@/atoms/InputTextInline';
 import Spinner from '@/atoms/Spinner';
+import TextLabel from '@/atoms/TextLabel';
 import Title from '@/atoms/Title';
+import UploadImage from '@/organisms/UploadImage';
 import Preview from '@/templates/Preview';
-import UploadImage from '@/templates/UploadImage';
 import useEditPost from '~/customHooks/useEditPost';
-
-import {
-  StyledInputText,
-  StyledLabel,
-  StyledLabelInlineBlock,
-  StyledReturn,
-  StyledTextarea,
-} from './styledIndex';
 
 // FIXME: Error handling がないので実装したい
 const EditPost: React.FC = () => {
@@ -41,32 +37,36 @@ const EditPost: React.FC = () => {
       {postResponse && (
         <>
           <Title text="記事を編集する" />
-          <StyledLabel htmlFor={`editPostTitle-${id}`}>タイトル</StyledLabel>
-          <StyledInputText
-            type="text"
-            id={`editPostTitle-${id}`}
-            name={`editPostTitle-${id}`}
-            defaultValue={postResponse.post.title}
-            onChange={onTitleChanged}
-          />
-          <StyledLabel htmlFor={`editPostContent-${id}`}>本文</StyledLabel>
-          <StyledTextarea
-            id={`editPostContent-${id}`}
-            name={`editPostContent-${id}`}
-            defaultValue={postResponse.post.content}
-            onChange={onContentChanged}
-          ></StyledTextarea>
+          <ContentBox marginTopSize="20px">
+            <TextLabel text="タイトル" htmlFor={`editPostTitle-${id}`} />
+            <InputTextInline
+              id={`editPostTitle-${id}`}
+              name={`editPostTitle-${id}`}
+              defaultValue={postResponse.post.title}
+              handleChange={onTitleChanged}
+            />
+          </ContentBox>
+          <ContentBox marginTopSize="20px">
+            <TextLabel text="本文" htmlFor={`editPostContent-${id}`} />
+            <InputTextArea
+              id={`editPostContent-${id}`}
+              name={`editPostContent-${id}`}
+              defaultValue={postResponse.post.content}
+              handleChange={onContentChanged}
+            />
+          </ContentBox>
+
           <UploadImage uploadPath={id} />
-          <StyledLabelInlineBlock htmlFor={`editPostRelease-${id}`}>
-            公開フラグ
-          </StyledLabelInlineBlock>
-          <input
-            type="checkbox"
-            id={`editPostRelease-${id}`}
-            name={`editPostRelease-${id}`}
-            checked={draftRelease}
-            onChange={onReleaseChanged}
-          />
+
+          <ContentBox marginTopSize="20px">
+            <TextLabel text="公開フラグ" htmlFor={`editPostRelease-${id}`} />
+            <InputCheckBox
+              id={`editPostRelease-${id}`}
+              name={`editPostRelease-${id}`}
+              checked={draftRelease}
+              handleChange={onReleaseChanged}
+            />
+          </ContentBox>
           <ContentBox isBetween isHalf marginTopSize="20px">
             <Button text="この記事を更新する" onClick={handleUpdatePost} />
             <Button
@@ -82,9 +82,9 @@ const EditPost: React.FC = () => {
             release={postResponse.post.release}
             createDate={postResponse.post.createDate}
           />
-          <StyledReturn>
+          <ContentBox marginTopSize="40px">
             <Link to="/edit">投稿された記事一覧に行く</Link>
-          </StyledReturn>
+          </ContentBox>
         </>
       )}
       {!postResponse && <Spinner />}
