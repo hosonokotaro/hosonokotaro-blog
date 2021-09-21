@@ -2,6 +2,7 @@ import React from 'react';
 
 import { StyledFooter } from './styledIndex';
 
+// FIXME: ComponentProps<typeof Component> に置き換えたい
 export interface Props {
   year: string;
 }

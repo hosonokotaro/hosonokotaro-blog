@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-// TODO: component 分割する
+// FIXME: component 分割したい
 export const Timestamp = styled.div`
   margin-top: 20px;
 `;

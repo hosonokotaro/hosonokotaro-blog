@@ -3,7 +3,6 @@ import { useLocation } from 'react-router-dom';
 
 import SiteTitle from '@/atoms/SiteTitle';
 
-// FIXME: Organisms から Style を削除したい
 import { StyledHeader, StyledHeaderWrapper, StyleLink } from './styledIndex';
 
 interface Props {
