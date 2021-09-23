@@ -1,10 +1,13 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
+import { Route, Switch } from 'react-router-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
 
 import Footer from '@/atoms/Footer';
+import Layout from '@/atoms/Layout';
 import Header from '@/molecules/Header';
-import SiteRouter from '~/pages/Router';
+import SinglePost from '@/templates/SinglePost';
+import Top from '@/templates/Top';
 import getDate from '~/utility/getDate';
 
 const App: React.FC = () => {
@@ -16,7 +19,18 @@ const App: React.FC = () => {
       </Helmet>
       <Router>
         <Header />
-        <SiteRouter />
+        <Switch>
+          <Route exact path="/">
+            <Layout tagName="article">
+              <Top />
+            </Layout>
+          </Route>
+          <Route exact path="/:id">
+            <Layout tagName="section">
+              <SinglePost />
+            </Layout>
+          </Route>
+        </Switch>
         <Footer year={getDate('year')} />
       </Router>
     </>

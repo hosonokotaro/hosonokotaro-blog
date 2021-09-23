@@ -1,16 +1,18 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
+import { Route, Switch } from 'react-router-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
 
 import Button from '@/atoms/Button';
 import ContentBox from '@/atoms/ContentBox';
 import Footer from '@/atoms/Footer';
+import Layout from '@/atoms/Layout';
 import TextBox from '@/atoms/TextBox';
 import Header from '@/molecules/Header';
+import EditPost from '@/templates/EditPost';
+import EditTop from '@/templates/EditTop';
 import useSession from '~/customHooks/useSession';
 import getDate from '~/utility/getDate';
-
-import EditRouter from './Router';
 
 const App: React.FC = () => {
   const { userId, login, logout } = useSession();
@@ -22,7 +24,18 @@ const App: React.FC = () => {
       </Helmet>
       <Router>
         <Header linkPath="/edit" />
-        <EditRouter />
+        <Switch>
+          <Route exact path="/edit">
+            <Layout tagName="article">
+              <EditTop />
+            </Layout>
+          </Route>
+          <Route exact path="/edit/:id">
+            <Layout tagName="article">
+              <EditPost />
+            </Layout>
+          </Route>
+        </Switch>
         <Footer year={getDate('year')} />
       </Router>
       <ContentBox textAlign="center">
