@@ -6,7 +6,7 @@ import Header from './';
 
 export default {
   component: Header,
-  title: 'components/molecules/Header',
+  title: 'components/organisms/Header',
 } as Meta;
 
 export const Default: React.FC = () => {

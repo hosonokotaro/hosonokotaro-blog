@@ -5,7 +5,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 
 import Footer from '@/atoms/Footer';
 import Layout from '@/atoms/Layout';
-import Header from '@/molecules/Header';
+import Header from '@/organisms/Header';
 import SinglePost from '@/templates/SinglePost';
 import Top from '@/templates/Top';
 import getDate from '~/utility/getDate';

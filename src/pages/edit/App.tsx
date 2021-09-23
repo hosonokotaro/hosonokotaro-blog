@@ -8,7 +8,7 @@ import ContentBox from '@/atoms/ContentBox';
 import Footer from '@/atoms/Footer';
 import Layout from '@/atoms/Layout';
 import TextBox from '@/atoms/TextBox';
-import Header from '@/molecules/Header';
+import Header from '@/organisms/Header';
 import EditPost from '@/templates/EditPost';
 import EditTop from '@/templates/EditTop';
 import useSession from '~/customHooks/useSession';
