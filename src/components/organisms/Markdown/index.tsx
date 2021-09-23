@@ -8,7 +8,7 @@ import TextBox from '@/atoms/TextBox';
 import TextItem from '@/atoms/TextItem';
 import TextList from '@/atoms/TextList';
 import Title from '@/atoms/Title';
-import Image from '@/molecules/Image';
+import LoadingImage from '@/molecules/LoadingImage';
 import type { Post } from '~/services/getPost';
 
 interface Props {
@@ -41,7 +41,7 @@ const Markdown: React.FC<Props> = ({ content }) => {
         img({ src, alt }) {
           if (!src) return null;
 
-          return <Image src={src} alt={alt} />;
+          return <LoadingImage src={src} alt={alt} />;
         },
         p({ children }) {
           return (

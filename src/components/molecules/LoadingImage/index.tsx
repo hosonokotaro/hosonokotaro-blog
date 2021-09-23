@@ -1,23 +1,22 @@
 import React, { useState } from 'react';
 
+import Image from '@/atoms/Image';
 import Spinner from '@/atoms/Spinner';
-
-import { StyledImage } from './styledImage';
 
 interface Props {
   src: string;
   alt?: string;
 }
 
-const Image: React.VFC<Props> = ({ src, alt = 'image' }) => {
+const LoadingImage: React.VFC<Props> = ({ src, alt = 'image' }) => {
   const [loading, isLoading] = useState(true);
 
   return (
     <>
       {loading && <Spinner />}
-      <StyledImage src={src} alt={alt} onLoad={() => isLoading(false)} />
+      <Image src={src} alt={alt} handleLoad={() => isLoading(false)} />
     </>
   );
 };
 
-export default Image;
+export default LoadingImage;

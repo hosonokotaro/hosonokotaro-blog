@@ -2,16 +2,16 @@ import { text, withKnobs } from '@storybook/addon-knobs';
 import { Meta } from '@storybook/react';
 import React from 'react';
 
-import Image from './';
+import LoadingImage from './';
 
 export default {
-  component: Image,
-  title: 'components/molecules/Image',
+  component: LoadingImage,
+  title: 'components/molecules/LoadingImage',
   decorators: [withKnobs],
 } as Meta;
 
 export const Default: React.FC = () => (
-  <Image
+  <LoadingImage
     src={text('src', 'https://picsum.photos/800/600')}
     alt={text('alt', 'image')}
   />
