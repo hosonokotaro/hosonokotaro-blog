@@ -5,7 +5,7 @@ import { StyledTitle } from './styledIndex';
 // FIXME: ComponentProps<typeof Component> に置き換えたい
 export interface Props {
   text: string;
-  rank?: 'h2' | 'h3' | 'h4';
+  rank?: 'h2' | 'h3' | 'h4' | 'span';
 }
 
 const Title: React.FC<Props> = ({ text, rank = 'h2' }) => {
