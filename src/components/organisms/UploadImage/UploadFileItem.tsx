@@ -25,11 +25,11 @@ const UploadFileItem: React.FC<Props> = ({ item, deleteImage }) => {
       <ContentBox isBetween>
         <Button
           text="画像パスをクリップボードにコピーする"
-          onClick={copyClipboard}
+          handleClick={copyClipboard}
         />
         <Button
           text="画像を削除する"
-          onClick={() => deleteImage(item.filename)}
+          handleClick={() => deleteImage(item.filename)}
           attention
         />
       </ContentBox>
