@@ -5,7 +5,7 @@ import ContentBox from '@/atoms/ContentBox';
 import useUploadFileItem from '~/customHooks/useUploadFileItem';
 import type { ImagePath } from '~/customHooks/useUploadFileList';
 
-import { StyledFilePath, StyledImg, StyledItem } from './styledUploadFileItem';
+import { StyledFilePath, StyledImg, StyledItem } from './styledIndex';
 
 interface Props {
   item: ImagePath;

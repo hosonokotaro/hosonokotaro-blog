@@ -9,7 +9,7 @@ import {
   StyledInputImage,
   StyledInputInfo,
   StyledUploadFile,
-} from './styledUploadSelectFile';
+} from './styledIndex';
 
 const UploadSelectFile: React.FC<Props> = (props) => {
   const { image, setImage, upload } = useUploadSelectFile(props);
