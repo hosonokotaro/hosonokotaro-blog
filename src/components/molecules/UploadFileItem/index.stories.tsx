@@ -14,8 +14,8 @@ export default {
 export const Default: React.FC = () => {
   const item: Props['item'] = {
     fullpath: text('fullpath', 'https://picsum.photos/800/600'),
-    filename: text('filename', 'filename'),
+    filename: text('filename', 'filename.jpg'),
   };
 
-  return <UploadFileItem item={item} deleteImage={action('deleteImage')} />;
+  return <UploadFileItem item={item} deleteImage={action(item.filename)} />;
 };
