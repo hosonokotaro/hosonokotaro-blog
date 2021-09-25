@@ -1,4 +1,4 @@
-import React, { ChangeEvent } from 'react';
+import React, { ChangeEvent, RefObject } from 'react';
 
 import { StyledInputTextInline } from './styledIndex';
 
@@ -7,6 +7,7 @@ export interface Props {
   name: string;
   defaultValue: string;
   handleChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  refObject: RefObject<HTMLInputElement>;
 }
 
 const InputTextInline: React.VFC<Partial<Props>> = ({
@@ -14,6 +15,7 @@ const InputTextInline: React.VFC<Partial<Props>> = ({
   name = '',
   defaultValue = '',
   handleChange,
+  refObject,
 }) => {
   return (
     <StyledInputTextInline
@@ -21,6 +23,7 @@ const InputTextInline: React.VFC<Partial<Props>> = ({
       name={name}
       defaultValue={defaultValue}
       onChange={handleChange}
+      ref={refObject}
     />
   );
 };

@@ -2,12 +2,12 @@ import React from 'react';
 
 import Button from '@/atoms/Button';
 import ContentBox from '@/atoms/ContentBox';
+import InputTextInline from '@/atoms/InputTextInline';
+import LoadingImage from '@/molecules/LoadingImage';
 import useUploadFileItem from '~/customHooks/useUploadFileItem';
 import type { ImagePath } from '~/customHooks/useUploadFileList';
 
-import { StyledFilePath, StyledImg, StyledItem } from './styledIndex';
-
-interface Props {
+export interface Props {
   item: ImagePath;
   deleteImage: (imagePath: string) => void;
 }
@@ -16,10 +16,9 @@ const UploadFileItem: React.FC<Props> = ({ item, deleteImage }) => {
   const { copyClipboard, filepathRef } = useUploadFileItem();
 
   return (
-    <StyledItem>
-      <StyledFilePath
-        ref={filepathRef}
-        type="text"
+    <div>
+      <InputTextInline
+        refObject={filepathRef}
         defaultValue={`![alt](${item.fullpath})`}
       />
       <ContentBox isBetween>
@@ -34,9 +33,9 @@ const UploadFileItem: React.FC<Props> = ({ item, deleteImage }) => {
         />
       </ContentBox>
       <ContentBox>
-        <StyledImg src={item.fullpath} />
+        <LoadingImage src={item.fullpath} />
       </ContentBox>
-    </StyledItem>
+    </div>
   );
 };
 
