@@ -2,17 +2,25 @@ import { useEffect, useState } from 'react';
 
 import { PublicImages, publicImages } from '~/adapter/firebase';
 
+// NOTE: isStorage = false の場合、fullPath は fileName を含んだものを入れることを想定している
 export interface ImagePath {
-  fullpath: string;
-  filename: string;
+  fullPath: string;
+  fileName: string;
 }
 
 export interface Params {
   uploadFilePath: string;
   uploadFileName: string;
+  isStorage: boolean;
+  fileList: ImagePath[];
 }
 
-const useUploadFileList = ({ uploadFilePath, uploadFileName }: Params) => {
+const useUploadFileList = ({
+  uploadFilePath = '',
+  uploadFileName = '',
+  isStorage = true,
+  fileList = [],
+}: Partial<Params>) => {
   const [imageRef, setImageRef] = useState<PublicImages[]>();
   const [imagePathList, setImagePathList] = useState<ImagePath[]>();
   const [loaded, setLoaded] = useState(false);
@@ -22,7 +30,7 @@ const useUploadFileList = ({ uploadFilePath, uploadFileName }: Params) => {
   const deleteImage = (imagePath: string) => {
     const deleteConfirm = confirm(`${imagePath}を削除します`);
 
-    if (!deleteConfirm) return;
+    if (!deleteConfirm || !isStorage) return;
 
     publicImages
       .child(`${uploadFilePath}/${imagePath}`)
@@ -35,22 +43,24 @@ const useUploadFileList = ({ uploadFilePath, uploadFileName }: Params) => {
 
   // NOTE: 指定したディレクトリ配下のファイル一覧を取得する
   useEffect(() => {
+    if (!isStorage) return;
+
     publicImages
       .child(`${uploadFilePath}`)
       .listAll()
       .then((list) => {
         setImageRef(list.items);
       });
-  }, [uploadFilePath, uploadFileName, reload]);
+  }, [uploadFilePath, uploadFileName, reload, isStorage]);
 
   useEffect(() => {
-    if (!imageRef) return;
+    if (!imageRef || !isStorage) return;
 
     const downloadPath: ImagePath[] = [];
 
     imageRef.map((item) => {
-      item.getDownloadURL().then((fullpath) => {
-        downloadPath.push({ fullpath, filename: item.name });
+      item.getDownloadURL().then((fullPath) => {
+        downloadPath.push({ fullPath, fileName: item.name });
       });
     });
 
@@ -61,7 +71,15 @@ const useUploadFileList = ({ uploadFilePath, uploadFileName }: Params) => {
     }, 1000);
 
     return () => clearTimeout(unmount);
-  }, [imageRef]);
+  }, [imageRef, isStorage]);
+
+  // FIXME: 依存関係を見直したい
+  useEffect(() => {
+    if (isStorage) return;
+
+    setLoaded(true);
+    setImagePathList(fileList);
+  }, []);
 
   return { loaded, imagePathList, deleteImage };
 };

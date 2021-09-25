@@ -8,7 +8,9 @@ import useUploadFileList, {
 
 import { StyledImagePaths } from './styledIndex';
 
-const UploadFileList: React.FC<Props> = (uploadFile) => {
+export type { Props };
+
+const UploadFileList: React.FC<Partial<Props>> = (uploadFile) => {
   const { loaded, imagePathList, deleteImage } = useUploadFileList(uploadFile);
 
   return (

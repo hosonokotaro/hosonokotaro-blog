@@ -19,7 +19,7 @@ const UploadFileItem: React.FC<Props> = ({ item, deleteImage }) => {
     <div>
       <InputTextInline
         refObject={filepathRef}
-        defaultValue={`![alt](${item.fullpath})`}
+        defaultValue={`![alt](${item.fullPath})`}
       />
       <ContentBox isBetween>
         <Button
@@ -28,12 +28,12 @@ const UploadFileItem: React.FC<Props> = ({ item, deleteImage }) => {
         />
         <Button
           text="画像を削除する"
-          handleClick={() => deleteImage(item.filename)}
+          handleClick={() => deleteImage(item.fileName)}
           attention
         />
       </ContentBox>
       <ContentBox>
-        <LoadingImage src={item.fullpath} />
+        <LoadingImage src={item.fullPath} />
       </ContentBox>
     </div>
   );
