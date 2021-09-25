@@ -10,7 +10,7 @@ interface Props {
 }
 
 const UploadImage: React.FC<Props> = ({ uploadPath }) => {
-  const [uploadFilename, setUploadFilename] = useState<string>('');
+  const [uploadFileName, setUploadFileName] = useState<string>('');
 
   return (
     <>
@@ -19,9 +19,9 @@ const UploadImage: React.FC<Props> = ({ uploadPath }) => {
       </ContentBox>
       <UploadSelectFile
         uploadPath={uploadPath}
-        setUploadFilename={setUploadFilename}
+        setUploadFileName={setUploadFileName}
       />
-      <UploadFileList uploadPath={uploadPath} uploadFilename={uploadFilename} />
+      <UploadFileList uploadPath={uploadPath} uploadFileName={uploadFileName} />
     </>
   );
 };

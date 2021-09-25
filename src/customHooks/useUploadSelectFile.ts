@@ -4,10 +4,10 @@ import { publicImages } from '~/adapter/firebase';
 
 export interface Params {
   uploadPath: string;
-  setUploadFilename: Dispatch<SetStateAction<string>>;
+  setUploadFileName: Dispatch<SetStateAction<string>>;
 }
 
-const useUploadSelectFile = ({ uploadPath, setUploadFilename }: Params) => {
+const useUploadSelectFile = ({ uploadPath, setUploadFileName }: Params) => {
   const [image, setImage] = useState<File | null>(null);
 
   const upload = () => {
@@ -17,7 +17,7 @@ const useUploadSelectFile = ({ uploadPath, setUploadFilename }: Params) => {
       .child(`${uploadPath}/${image.name}`)
       .put(image)
       .then(() => {
-        setUploadFilename(image.name);
+        setUploadFileName(image.name);
         setImage(null);
       });
   };

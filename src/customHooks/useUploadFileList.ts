@@ -7,12 +7,12 @@ export interface ImagePath {
   filename: string;
 }
 
-export type Params = {
+export interface Params {
   uploadPath: string;
-  uploadFilename: string;
-};
+  uploadFileName: string;
+}
 
-const useUploadFileList = ({ uploadPath, uploadFilename }: Params) => {
+const useUploadFileList = ({ uploadPath, uploadFileName }: Params) => {
   const [imageRef, setImageRef] = useState<PublicImages[]>();
   const [imagePathList, setImagePathList] = useState<ImagePath[]>();
   const [loaded, setLoaded] = useState(false);
@@ -41,7 +41,7 @@ const useUploadFileList = ({ uploadPath, uploadFilename }: Params) => {
       .then((list) => {
         setImageRef(list.items);
       });
-  }, [uploadPath, uploadFilename, reload]);
+  }, [uploadPath, uploadFileName, reload]);
 
   useEffect(() => {
     if (!imageRef) return;
