@@ -21,7 +21,10 @@ const UploadImage: React.FC<Props> = ({ uploadPath }) => {
         uploadPath={uploadPath}
         setUploadFileName={setUploadFileName}
       />
-      <UploadFileList uploadPath={uploadPath} uploadFileName={uploadFileName} />
+      <UploadFileList
+        uploadFilePath={uploadPath}
+        uploadFileName={uploadFileName}
+      />
     </>
   );
 };
