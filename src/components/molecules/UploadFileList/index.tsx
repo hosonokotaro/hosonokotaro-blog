@@ -8,8 +8,8 @@ import useUploadFileList, {
 
 import { StyledImagePaths } from './styledIndex';
 
-const UploadFileList: React.FC<Props> = (props) => {
-  const { loaded, imagePathList, deleteImage } = useUploadFileList(props);
+const UploadFileList: React.FC<Props> = (uploadFile) => {
+  const { loaded, imagePathList, deleteImage } = useUploadFileList(uploadFile);
 
   return (
     <>

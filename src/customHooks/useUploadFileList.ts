@@ -8,11 +8,11 @@ export interface ImagePath {
 }
 
 export interface Params {
-  uploadPath: string;
+  uploadFilePath: string;
   uploadFileName: string;
 }
 
-const useUploadFileList = ({ uploadPath, uploadFileName }: Params) => {
+const useUploadFileList = ({ uploadFilePath, uploadFileName }: Params) => {
   const [imageRef, setImageRef] = useState<PublicImages[]>();
   const [imagePathList, setImagePathList] = useState<ImagePath[]>();
   const [loaded, setLoaded] = useState(false);
@@ -25,7 +25,7 @@ const useUploadFileList = ({ uploadPath, uploadFileName }: Params) => {
     if (!deleteConfirm) return;
 
     publicImages
-      .child(`${uploadPath}/${imagePath}`)
+      .child(`${uploadFilePath}/${imagePath}`)
       .delete()
       .then(() => {
         const fixReload = reload + 1;
@@ -36,12 +36,12 @@ const useUploadFileList = ({ uploadPath, uploadFileName }: Params) => {
   // NOTE: 指定したディレクトリ配下のファイル一覧を取得する
   useEffect(() => {
     publicImages
-      .child(`${uploadPath}`)
+      .child(`${uploadFilePath}`)
       .listAll()
       .then((list) => {
         setImageRef(list.items);
       });
-  }, [uploadPath, uploadFileName, reload]);
+  }, [uploadFilePath, uploadFileName, reload]);
 
   useEffect(() => {
     if (!imageRef) return;
