@@ -18,8 +18,10 @@ const UploadImage: React.FC<Props> = ({ uploadPath }) => {
         <Title text="画像" rank="h3" />
       </ContentBox>
       <UploadSelectFile
-        uploadPath={uploadPath}
-        setUploadFileName={setUploadFileName}
+        selectFile={{
+          uploadPath,
+          callbackSetUploadFileName: setUploadFileName,
+        }}
       />
       <UploadFileList
         uploadFilePath={uploadPath}

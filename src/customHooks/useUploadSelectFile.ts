@@ -1,28 +1,37 @@
-import { Dispatch, SetStateAction, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 
 import { publicImages } from '~/adapter/firebase';
 
 export interface Params {
   uploadPath: string;
-  setUploadFileName: Dispatch<SetStateAction<string>>;
+  callbackSetUploadFileName: Dispatch<SetStateAction<string>>;
 }
 
-const useUploadSelectFile = ({ uploadPath, setUploadFileName }: Params) => {
+const useUploadSelectFile = (
+  { uploadPath, callbackSetUploadFileName }: Params,
+  isStorage = true
+) => {
   const [image, setImage] = useState<File | null>(null);
 
-  const upload = () => {
-    if (!image) return;
+  const handleUpload = () => {
+    if (!image || !isStorage) return;
 
     publicImages
       .child(`${uploadPath}/${image.name}`)
       .put(image)
       .then(() => {
-        setUploadFileName(image.name);
+        callbackSetUploadFileName(image.name);
         setImage(null);
       });
   };
 
-  return { image, setImage, upload };
+  useEffect(() => {
+    if (!image || isStorage) return;
+
+    callbackSetUploadFileName(image.name);
+  }, [isStorage, image, callbackSetUploadFileName]);
+
+  return { image, setImage, handleUpload };
 };
 
 export default useUploadSelectFile;
