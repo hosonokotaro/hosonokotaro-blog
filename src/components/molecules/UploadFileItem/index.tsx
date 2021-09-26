@@ -32,7 +32,7 @@ const UploadFileItem: React.FC<Props> = ({ item, deleteImage }) => {
           attention
         />
       </ContentBox>
-      <ContentBox>
+      <ContentBox marginTopSize="20px">
         <LoadingImage src={item.fullPath} />
       </ContentBox>
     </div>

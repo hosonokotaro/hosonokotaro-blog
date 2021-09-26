@@ -1,12 +1,13 @@
 import React from 'react';
 
+import ContentBox from '@/atoms/ContentBox';
 import Spinner from '@/atoms/Spinner';
 import UploadFileItem from '@/molecules/UploadFileItem';
 import useUploadFileList, {
   Params as Props,
 } from '~/customHooks/useUploadFileList';
 
-import { StyledImagePaths } from './styledIndex';
+import { ItemWrapper } from './styledIndex';
 
 export type { Props };
 
@@ -15,20 +16,18 @@ const UploadFileList: React.FC<Partial<Props>> = (uploadFile) => {
 
   return (
     <>
-      <StyledImagePaths>
+      <ContentBox isBetween>
         {loaded &&
           imagePathList &&
           imagePathList.map((item, index) => {
             return (
-              <UploadFileItem
-                key={index}
-                item={item}
-                deleteImage={deleteImage}
-              />
+              <ItemWrapper key={index}>
+                <UploadFileItem item={item} deleteImage={deleteImage} />
+              </ItemWrapper>
             );
           })}
-        {!loaded && <Spinner />}
-      </StyledImagePaths>
+      </ContentBox>
+      {!loaded && <Spinner />}
     </>
   );
 };

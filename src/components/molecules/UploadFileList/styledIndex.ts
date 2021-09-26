@@ -1,9 +1,6 @@
 import styled from 'styled-components';
 
-// FIXME: component 分割したい
-export const StyledImagePaths = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
+export const ItemWrapper = styled.div`
+  width: calc(50% - 10px);
   margin-top: 20px;
 `;

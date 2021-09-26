@@ -20,6 +20,10 @@ export const Default: React.FC = () => {
       fullPath: 'https://picsum.photos/600/400',
       fileName: '600/400',
     },
+    {
+      fullPath: 'https://picsum.photos/300/400',
+      fileName: '300/400',
+    },
   ];
 
   return <UploadFileList isStorage={false} fileList={list} />;

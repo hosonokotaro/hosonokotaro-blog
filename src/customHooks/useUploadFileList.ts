@@ -73,13 +73,12 @@ const useUploadFileList = ({
     return () => clearTimeout(unmount);
   }, [imageRef, isStorage]);
 
-  // FIXME: 依存関係を見直したい
   useEffect(() => {
     if (isStorage) return;
 
     setLoaded(true);
     setImagePathList(fileList);
-  }, []);
+  }, [isStorage, fileList]);
 
   return { loaded, imagePathList, deleteImage };
 };

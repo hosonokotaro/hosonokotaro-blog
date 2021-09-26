@@ -19,6 +19,7 @@ export const StyledContentBox = styled.div<{
     if (isBetween) {
       return `
         display: flex;
+        flex-wrap: wrap;
         justify-content: space-between;
       `;
     }
