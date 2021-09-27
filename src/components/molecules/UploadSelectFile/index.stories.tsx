@@ -12,19 +12,13 @@ export default {
 } as Meta;
 
 export const Default: React.FC = () => {
-  const [uploadFileName, setUploadFileName] = useState('');
-
-  // NOTE: uploadPath: post id, setUploadFileName: useState setter
-  const selectFile = {
-    uploadPath: '',
-    callbackSetUploadFileName: setUploadFileName,
-  };
+  const [image, setImage] = useState<File | null>(null);
 
   return (
     <UploadSelectFile
-      selectFile={selectFile}
-      isStorage={false}
-      handleUpload={action(uploadFileName)}
+      image={image}
+      callbackSetImage={setImage}
+      handleUpload={action(image ? image.name : '')}
     />
   );
 };
