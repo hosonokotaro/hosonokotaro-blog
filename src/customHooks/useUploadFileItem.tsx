@@ -1,16 +1,16 @@
 import { useRef } from 'react';
 
 const useUploadFileItem = () => {
-  const filepathRef = useRef<HTMLInputElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const copyClipboard = () => {
-    if (!filepathRef.current) return;
+    if (!inputRef.current) return;
 
-    filepathRef.current.select();
+    inputRef.current.select();
     document.execCommand('copy');
   };
 
-  return { copyClipboard, filepathRef };
+  return { copyClipboard, inputRef };
 };
 
 export default useUploadFileItem;

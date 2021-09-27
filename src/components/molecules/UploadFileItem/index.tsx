@@ -1,24 +1,32 @@
-import React from 'react';
+import React, { RefObject } from 'react';
 
 import Button from '@/atoms/Button';
 import ContentBox from '@/atoms/ContentBox';
 import InputTextInline from '@/atoms/InputTextInline';
 import LoadingImage from '@/molecules/LoadingImage';
-import useUploadFileItem from '~/customHooks/useUploadFileItem';
-import type { ImagePath } from '~/customHooks/useUploadFileList';
+
+export type ImagePath = {
+  fullPath: string;
+  fileName: string;
+};
 
 export interface Props {
   item: ImagePath;
   deleteImage: (imagePath: string) => void;
+  inputRef: RefObject<HTMLInputElement>;
+  copyClipboard: VoidFunction;
 }
 
-const UploadFileItem: React.FC<Props> = ({ item, deleteImage }) => {
-  const { copyClipboard, filepathRef } = useUploadFileItem();
-
+const UploadFileItem: React.FC<Props> = ({
+  item,
+  deleteImage,
+  copyClipboard,
+  inputRef,
+}) => {
   return (
     <div>
       <InputTextInline
-        refObject={filepathRef}
+        refObject={inputRef}
         defaultValue={`![alt](${item.fullPath})`}
       />
       <ContentBox isBetween>
