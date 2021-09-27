@@ -9,12 +9,12 @@ interface Props {
 }
 
 const LoadingImage: React.VFC<Props> = ({ src, alt = 'image' }) => {
-  const [loading, isLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
 
   return (
     <>
-      {loading && <Spinner />}
-      <Image src={src} alt={alt} handleLoad={() => isLoading(false)} />
+      {isLoading && <Spinner />}
+      <Image src={src} alt={alt} handleLoad={() => setIsLoading(false)} />
     </>
   );
 };
