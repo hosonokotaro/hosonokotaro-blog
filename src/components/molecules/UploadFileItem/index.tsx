@@ -1,9 +1,10 @@
-import React, { RefObject } from 'react';
+import React from 'react';
 
 import Button from '@/atoms/Button';
 import ContentBox from '@/atoms/ContentBox';
 import InputTextInline from '@/atoms/InputTextInline';
 import LoadingImage from '@/molecules/LoadingImage';
+import useUploadFileItem from '~/customHooks/useUploadFileItem';
 
 export type ImagePath = {
   fullPath: string;
@@ -13,16 +14,12 @@ export type ImagePath = {
 export interface Props {
   item: ImagePath;
   deleteImage: (imagePath: string) => void;
-  inputRef: RefObject<HTMLInputElement>;
-  copyClipboard: VoidFunction;
 }
 
-const UploadFileItem: React.FC<Props> = ({
-  item,
-  deleteImage,
-  copyClipboard,
-  inputRef,
-}) => {
+const UploadFileItem: React.FC<Props> = ({ item, deleteImage }) => {
+  // NOTE: この DOM 操作は、自身の component 内で完結する
+  const { copyClipboard, inputRef } = useUploadFileItem();
+
   return (
     <div>
       <InputTextInline
