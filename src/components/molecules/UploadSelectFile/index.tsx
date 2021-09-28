@@ -22,9 +22,10 @@ const UploadSelectFile: React.FC<Props> = ({
     <StyledUploadFile>
       <input
         type="file"
-        onChange={(e) =>
-          e.target.files ? callbackSetImage(e.target.files[0]) : null
-        }
+        onChange={(e) => {
+          if (e.target.files === null) return;
+          callbackSetImage(e.target.files[0]);
+        }}
       />
       <StyledInputInfo>
         {image && <StyledInputImage src={window.URL.createObjectURL(image)} />}
