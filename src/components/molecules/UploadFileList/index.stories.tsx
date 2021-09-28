@@ -1,8 +1,9 @@
+import { action } from '@storybook/addon-actions';
 import { withKnobs } from '@storybook/addon-knobs';
 import { Meta } from '@storybook/react';
 import React from 'react';
 
-import UploadFileList, { Props } from './';
+import UploadFileList, { ImagePath } from './';
 
 export default {
   component: UploadFileList,
@@ -11,7 +12,7 @@ export default {
 } as Meta;
 
 export const Default: React.FC = () => {
-  const list: Props['fileList'] = [
+  const list: ImagePath[] = [
     {
       fullPath: 'https://picsum.photos/800/600',
       fileName: '800/600',
@@ -26,5 +27,7 @@ export const Default: React.FC = () => {
     },
   ];
 
-  return <UploadFileList isStorage={false} fileList={list} />;
+  return (
+    <UploadFileList imagePathList={list} deleteImage={action('deleteImage')} />
+  );
 };
