@@ -14,7 +14,7 @@ export default {
 export const Default: React.FC = () => {
   const item: ImagePath = {
     fullPath: text('fullPath', 'https://picsum.photos/800/600'),
-    fileName: 'fileName',
+    fileName: '800/600',
   };
 
   return <UploadFileItem item={item} deleteImage={action('deleteImage')} />;
