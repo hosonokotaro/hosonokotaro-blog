@@ -23,7 +23,7 @@ const useUploadFileList = ({
 }: Partial<Params>) => {
   const [imageRef, setImageRef] = useState<PublicImages[]>();
   const [imagePathList, setImagePathList] = useState<ImagePath[]>();
-  const [loaded, setLoaded] = useState(false);
+
   // HACK: Page をリフレッシュするため
   const [reload, setReload] = useState(0);
 
@@ -67,7 +67,6 @@ const useUploadFileList = ({
     // HACK: await が使えないので、setTimeout を使って処理を遅らせる
     const unmount = setTimeout(() => {
       setImagePathList(downloadPath);
-      setLoaded(true);
     }, 1000);
 
     return () => clearTimeout(unmount);
@@ -76,11 +75,10 @@ const useUploadFileList = ({
   useEffect(() => {
     if (isStorage) return;
 
-    setLoaded(true);
     setImagePathList(fileList);
   }, [isStorage, fileList]);
 
-  return { loaded, imagePathList, deleteImage };
+  return { imagePathList, deleteImage };
 };
 
 export default useUploadFileList;
