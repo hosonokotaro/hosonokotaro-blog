@@ -56,7 +56,7 @@ const EditPost: React.FC = () => {
             />
           </ContentBox>
 
-          <UploadImage uploadPath={id} />
+          <UploadImage documentPath={id} />
 
           <ContentBox marginTopSize="20px">
             <TextLabel text="公開フラグ" htmlFor={`editPostRelease-${id}`} />

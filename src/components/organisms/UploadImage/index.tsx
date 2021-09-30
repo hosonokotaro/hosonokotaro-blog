@@ -1,25 +1,34 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import ContentBox from '@/atoms/ContentBox';
 import Title from '@/atoms/Title';
 import UploadFileList from '@/molecules/UploadFileList';
 import UploadSelectFile from '@/molecules/UploadSelectFile';
+import useUploadFileList from '~/customHooks/useUploadFileList';
 import useUploadSelectFile from '~/customHooks/useUploadSelectFile';
 
+export type ImagePath = {
+  fullPath: string;
+  fileName: string;
+};
+
 interface Props {
-  uploadPath: string;
+  documentPath: string;
+  // imagePathList: ImagePath[];
+  // deleteImage: (imagePath: string) => void;
 }
 
-// TODO: 1. 子コンポーネントに必要な実装をここに持ってくる
-// 2. Pages に移動して渡す実装をする
+// TODO: Pages に移動して渡す実装をする
 
-const UploadImage: React.FC<Props> = ({ uploadPath }) => {
-  const [uploadFileName, setUploadFileName] = useState<string>('');
+const UploadImage: React.FC<Props> = ({ documentPath }) => {
+  // TODO: custom hooks の依存関係が整理されていないので、再度統合して分割する
+  const { image, setImage, handleUpload, uploadFileName } =
+    useUploadSelectFile(documentPath);
 
-  const { image, setImage, handleUpload } = useUploadSelectFile(
-    uploadPath,
-    setUploadFileName
-  );
+  const { imagePathList, deleteImage } = useUploadFileList({
+    uploadFilePath: documentPath,
+    uploadFileName,
+  });
 
   return (
     <>
@@ -31,10 +40,12 @@ const UploadImage: React.FC<Props> = ({ uploadPath }) => {
         callbackSetImage={setImage}
         handleUpload={handleUpload}
       />
-      <UploadFileList
-        uploadFilePath={uploadPath}
-        uploadFileName={uploadFileName}
-      />
+      {imagePathList && (
+        <UploadFileList
+          imagePathList={imagePathList}
+          deleteImage={deleteImage}
+        />
+      )}
     </>
   );
 };
