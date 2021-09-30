@@ -1,16 +1,32 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import { Route, Switch } from 'react-router-dom';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { BrowserRouter as Router, Link } from 'react-router-dom';
 
+import ContentBox from '@/atoms/ContentBox';
+import ErrorMessage from '@/atoms/ErrorMessage';
 import Footer from '@/atoms/Footer';
 import Layout from '@/atoms/Layout';
+import Spinner from '@/atoms/Spinner';
+import Title from '@/atoms/Title';
 import Header from '@/organisms/Header';
-import SinglePost from '@/templates/SinglePost';
-import Top from '@/templates/Top';
+import useTop from '~/customHooks/useTop';
 import getDate from '~/utility/getDate';
 
+import SinglePost from './SinglePost';
+import { Date } from './styledApp';
+
 const App: React.FC = () => {
+  const {
+    topResponse,
+    isLoading: isTopLoading,
+    isError: isTopError,
+  } = useTop({
+    target: 'default',
+  });
+
+  const titleDateList = topResponse?.titleDateList;
+
   return (
     <>
       {/* NOTE: 動的に更新される Helmet は、指定しないと何も変わらないため、初期値を入れます。 */}
@@ -22,13 +38,26 @@ const App: React.FC = () => {
         <Switch>
           <Route exact path="/">
             <Layout tagName="article">
-              <Top />
+              <Title text="記事一覧" />
+              {titleDateList &&
+                titleDateList.map(({ id, title, createDate }) => (
+                  <ContentBox key={id} marginTopSize="40px">
+                    <Link to={id}>
+                      <Title rank="span" text={title} />
+                    </Link>
+                    <Date>{createDate}</Date>
+                  </ContentBox>
+                ))}
+              {isTopLoading && <Spinner />}
+              {isTopError && (
+                <ContentBox marginTopSize="40px" textAlign="center">
+                  <ErrorMessage />
+                </ContentBox>
+              )}
             </Layout>
           </Route>
           <Route exact path="/:id">
-            <Layout tagName="section">
-              <SinglePost />
-            </Layout>
+            <SinglePost />
           </Route>
         </Switch>
         <Footer year={getDate('year')} />

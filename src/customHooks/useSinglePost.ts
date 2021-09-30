@@ -11,7 +11,11 @@ export interface Params {
 const useSinglePost = ({ id, target }: Params) => {
   const { data, error } = useSWR([id, target], getPost);
 
-  return { postResponse: data, isLoading: !error && !data, isError: error };
+  return {
+    singlePostResponse: data,
+    isLoading: !error && !data,
+    isError: error,
+  };
 };
 
 export default useSinglePost;
