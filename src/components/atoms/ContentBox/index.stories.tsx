@@ -3,7 +3,7 @@ import { Meta } from '@storybook/react';
 import React from 'react';
 import styled from 'styled-components';
 
-import ContentBox from './';
+import ContentBox from '@/atoms/ContentBox';
 
 export default {
   component: ContentBox,
