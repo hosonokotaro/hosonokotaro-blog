@@ -1,6 +1,5 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
-import { Link } from 'react-router-dom';
 
 import Button from '@/atoms/Button';
 import ContentBox from '@/atoms/ContentBox';
@@ -10,8 +9,8 @@ import InputTextInline from '@/atoms/InputTextInline';
 import Spinner from '@/atoms/Spinner';
 import TextLabel from '@/atoms/TextLabel';
 import Title from '@/atoms/Title';
+import Markdown from '@/organisms/Markdown';
 import UploadImage from '@/organisms/UploadImage';
-import Preview from '@/templates/Preview';
 import useEditPost from '~/customHooks/useEditPost';
 
 // FIXME: Error handling がないので実装したい
@@ -75,15 +74,23 @@ const EditPost: React.FC = () => {
               attention
             />
           </ContentBox>
-          <Preview
-            id={id}
-            title={draftTitle ?? ''}
-            content={draftContent ?? ''}
-            release={postResponse.post.release}
-            createDate={postResponse.post.createDate}
-          />
-          <ContentBox marginTopSize="40px">
-            <Link to="/edit">投稿された記事一覧に行く</Link>
+          <ContentBox marginTopSize="20px">
+            記事作成日時: {postResponse.post.createDate}
+            <br />
+            id: {id}
+            <br />
+            現在の公開ステータス:{' '}
+            {postResponse.post.release ? '公開' : '非公開'}
+          </ContentBox>
+          <hr />
+          <ContentBox marginTopSize="80px">
+            <Title text={draftTitle} />
+            <ContentBox marginTopSize="20px">
+              {postResponse.post.createDate}
+            </ContentBox>
+            <ContentBox marginTopSize="80px">
+              <Markdown content={draftContent} />
+            </ContentBox>
           </ContentBox>
         </>
       )}

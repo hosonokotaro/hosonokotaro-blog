@@ -7,15 +7,26 @@ import Button from '@/atoms/Button';
 import ContentBox from '@/atoms/ContentBox';
 import Footer from '@/atoms/Footer';
 import Layout from '@/atoms/Layout';
+import Spinner from '@/atoms/Spinner';
 import TextBox from '@/atoms/TextBox';
+import CreatePost from '@/organisms/CreatePost';
+import EditPostList from '@/organisms/EditPostList';
 import Header from '@/organisms/Header';
-import EditPost from '@/templates/EditPost';
-import EditTop from '@/templates/EditTop';
+import useEditTop from '~/customHooks/useEditTop';
 import useSession from '~/customHooks/useSession';
 import getDate from '~/utility/getDate';
 
+import EditPost from './EditPost';
+
 const App: React.FC = () => {
   const { userId, login, logout } = useSession();
+  const {
+    postListResponse,
+    createTitle,
+    handleSubmit,
+    onTitleChanged,
+    canSaveNewPost,
+  } = useEditTop();
 
   return (
     <>
@@ -27,11 +38,27 @@ const App: React.FC = () => {
         <Switch>
           <Route exact path="/edit">
             <Layout tagName="article">
-              <EditTop />
+              {postListResponse && (
+                <>
+                  <ContentBox marginTopSize="40px">
+                    <CreatePost
+                      title={createTitle}
+                      handleSubmit={handleSubmit}
+                      onTitleChanged={onTitleChanged}
+                      canSaveNewPost={canSaveNewPost}
+                    />
+                  </ContentBox>
+                  <ContentBox marginTopSize="40px">
+                    <EditPostList postList={postListResponse.titleDateList} />
+                  </ContentBox>
+                </>
+              )}
+              {!postListResponse && <Spinner />}
             </Layout>
           </Route>
           <Route exact path="/edit/:id">
             <Layout tagName="article">
+              {/* TODO: UploadImage 以下の component に必要なものを渡す */}
               <EditPost />
             </Layout>
           </Route>
