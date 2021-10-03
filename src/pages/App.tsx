@@ -2,6 +2,7 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 import { Route, Switch } from 'react-router-dom';
 import { BrowserRouter as Router, Link } from 'react-router-dom';
+import styled from 'styled-components';
 
 import ContentBox from '@/atoms/ContentBox';
 import ErrorMessage from '@/atoms/ErrorMessage';
@@ -14,7 +15,6 @@ import useTop from '~/customHooks/useTop';
 import getDate from '~/utility/getDate';
 
 import SinglePost from './SinglePost';
-import { Date } from './styledApp';
 
 const App: React.FC = () => {
   const {
@@ -67,3 +67,8 @@ const App: React.FC = () => {
 };
 
 export default App;
+
+const Date = styled.div`
+  margin-top: 12px;
+  font-size: 1rem;
+`;

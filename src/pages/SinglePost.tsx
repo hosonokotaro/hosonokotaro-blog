@@ -1,5 +1,6 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
+import { Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 
 import ContentBox from '@/atoms/ContentBox';
@@ -10,8 +11,6 @@ import Title from '@/atoms/Title';
 import Markdown from '@/organisms/Markdown';
 import type { Params } from '~/customHooks/useSinglePost';
 import useSinglePost from '~/customHooks/useSinglePost';
-
-import { MarkdownWrapper, Timestamp } from './styledSinglePost';
 
 const SinglePost: React.VFC = () => {
   const { id } = useParams<{ id: Params['id'] }>();
@@ -35,10 +34,13 @@ const SinglePost: React.VFC = () => {
             <title>{post.title} | WEB DEVELOPER HOSONO KOTARO</title>
           </Helmet>
           <Title text={post.title} />
-          <Timestamp>{post.createDate}</Timestamp>
-          <MarkdownWrapper>
+          <ContentBox marginTopSize="20px">{post.createDate}</ContentBox>
+          <ContentBox marginTopSize="80px">
             <Markdown content={post.content} />
-          </MarkdownWrapper>
+          </ContentBox>
+          <ContentBox marginTopSize="80px">
+            <Link to="/">記事一覧へ</Link>
+          </ContentBox>
         </>
       )}
       {isSinglePostLoading && <Spinner />}
