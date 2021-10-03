@@ -1,16 +1,13 @@
 import React, { Dispatch, SetStateAction } from 'react';
 
-import {
-  StyledButton,
-  StyledInputImage,
-  StyledInputInfo,
-  StyledUploadFile,
-} from './styledIndex';
+import Button from '@/atoms/Button';
+import ContentBox from '@/atoms/ContentBox';
+import Image from '@/atoms/Image';
 
 interface Props {
   image: File | null;
   callbackSetImage: Dispatch<SetStateAction<File | null>>;
-  handleUpload?: VoidFunction;
+  handleUpload: VoidFunction;
 }
 
 const UploadSelectFile: React.FC<Props> = ({
@@ -19,7 +16,7 @@ const UploadSelectFile: React.FC<Props> = ({
   handleUpload,
 }) => {
   return (
-    <StyledUploadFile>
+    <ContentBox marginTopSize="20px">
       <input
         type="file"
         onChange={(e) => {
@@ -27,14 +24,18 @@ const UploadSelectFile: React.FC<Props> = ({
           callbackSetImage(e.target.files[0]);
         }}
       />
-      <StyledInputInfo>
-        {image && <StyledInputImage src={window.URL.createObjectURL(image)} />}
+      <ContentBox marginTopSize="10px">
+        {image && <Image src={window.URL.createObjectURL(image)} />}
         {!image && <span>画像を選択してください</span>}
-      </StyledInputInfo>
-      <StyledButton onClick={handleUpload} disabled={image ? false : true}>
-        画像をアップロードする
-      </StyledButton>
-    </StyledUploadFile>
+      </ContentBox>
+      <ContentBox marginTopSize="10px">
+        <Button
+          text="画像をアップロードする"
+          handleClick={handleUpload}
+          disabled={image ? false : true}
+        />
+      </ContentBox>
+    </ContentBox>
   );
 };
 
