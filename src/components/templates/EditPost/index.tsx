@@ -67,7 +67,7 @@ const EditPost: React.FC = () => {
               handleChange={onReleaseChanged}
             />
           </ContentBox>
-          <ContentBox isBetween isHalf marginTopSize="20px">
+          <ContentBox isBetween marginTopSize="20px">
             <Button text="この記事を更新する" handleClick={handleUpdatePost} />
             <Button
               text="この記事を削除する"

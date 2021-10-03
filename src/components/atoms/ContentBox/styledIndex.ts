@@ -5,7 +5,6 @@ export type TextAlign = 'left' | 'center' | 'right';
 
 export const StyledContentBox = styled.div<{
   isBetween: boolean;
-  isHalf: boolean;
   marginTopSize: MarginTopSize;
   textAlign: TextAlign;
 }>`
@@ -21,14 +20,6 @@ export const StyledContentBox = styled.div<{
         display: flex;
         flex-wrap: wrap;
         justify-content: space-between;
-      `;
-    }
-  }}
-
-  ${({ isHalf }) => {
-    if (isHalf) {
-      return `
-        width: calc(50% - 10px);
       `;
     }
   }}

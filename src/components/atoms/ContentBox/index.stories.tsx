@@ -16,7 +16,6 @@ export const Default: React.FC = () => {
     <>
       <ContentBox
         isBetween={boolean('isBetween', false)}
-        isHalf={boolean('isHalf', false)}
         marginTopSize={select(
           'marginTopSize',
           ['0px', '20px', '40px', '80px'],
@@ -28,7 +27,6 @@ export const Default: React.FC = () => {
       </ContentBox>
       <ContentBox
         isBetween={boolean('isBetween', false)}
-        isHalf={boolean('isHalf', false)}
         marginTopSize={select(
           'marginTopSize',
           ['0px', '20px', '40px', '80px'],
