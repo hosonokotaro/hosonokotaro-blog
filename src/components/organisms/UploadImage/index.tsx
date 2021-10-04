@@ -5,6 +5,8 @@ import UploadFileList from '@/molecules/UploadFileList';
 import UploadSelectFile from '@/molecules/UploadSelectFile';
 import type { ImagePath } from '~/customHooks/useUploadFileList';
 
+export type { ImagePath };
+
 interface Props {
   imagePathList: ImagePath[];
   deleteImage: (fileName: string) => void;
