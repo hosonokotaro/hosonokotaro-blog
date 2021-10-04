@@ -7,6 +7,7 @@ export const StyledContentBox = styled.div<{
   isBetween: boolean;
   marginTopSize: MarginTopSize;
   textAlign: TextAlign;
+  isBoxCenter: boolean;
 }>`
   ${({ marginTopSize }) => {
     return `
@@ -28,5 +29,15 @@ export const StyledContentBox = styled.div<{
     return `
       text-align: ${textAlign};
     `;
+  }}
+
+  ${({ isBoxCenter }) => {
+    if (isBoxCenter) {
+      return `
+        width: 50%;
+        margin-left: auto;
+        margin-right: auto;
+      `;
+    }
   }}
 `;
