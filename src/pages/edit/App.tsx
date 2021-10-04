@@ -58,7 +58,6 @@ const App: React.FC = () => {
           </Route>
           <Route exact path="/edit/:id">
             <Layout tagName="article">
-              {/* TODO: UploadImage 以下の component に必要なものを渡す */}
               <EditPost />
             </Layout>
           </Route>
