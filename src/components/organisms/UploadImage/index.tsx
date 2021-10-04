@@ -1,35 +1,31 @@
-import React from 'react';
+import React, { Dispatch, SetStateAction } from 'react';
 
-import ContentBox from '@/atoms/ContentBox';
 import Title from '@/atoms/Title';
 import UploadFileList from '@/molecules/UploadFileList';
 import UploadSelectFile from '@/molecules/UploadSelectFile';
-import useUploadFileList from '~/customHooks/useUploadFileList';
-
-export type ImagePath = {
-  fullPath: string;
-  fileName: string;
-};
+import type { ImagePath } from '~/customHooks/useUploadFileList';
 
 interface Props {
-  documentPath: string;
+  imagePathList: ImagePath[];
+  deleteImage: (fileName: string) => void;
+  image: File | null;
+  callbackSetImage: Dispatch<SetStateAction<File | null>>;
+  handleUpload: VoidFunction;
 }
 
-// TODO: Pages に移動して渡す実装をする
-const UploadImage: React.FC<Props> = ({ documentPath }) => {
-  const { imagePathList, deleteImage, image, setImage, handleUpload } =
-    useUploadFileList({
-      documentPath,
-    });
-
+const UploadImage: React.FC<Props> = ({
+  imagePathList,
+  deleteImage,
+  image,
+  callbackSetImage,
+  handleUpload,
+}) => {
   return (
     <>
-      <ContentBox marginTopSize="40px">
-        <Title text="画像" rank="h3" />
-      </ContentBox>
+      <Title text="画像" rank="h3" />
       <UploadSelectFile
         image={image}
-        callbackSetImage={setImage}
+        callbackSetImage={callbackSetImage}
         handleUpload={handleUpload}
       />
       {imagePathList && (

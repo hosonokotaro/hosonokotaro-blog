@@ -12,6 +12,7 @@ import Title from '@/atoms/Title';
 import Markdown from '@/organisms/Markdown';
 import UploadImage from '@/organisms/UploadImage';
 import useEditPost from '~/customHooks/useEditPost';
+import useUploadFileList from '~/customHooks/useUploadFileList';
 
 // FIXME: Error handling がないので実装したい
 const EditPost: React.FC = () => {
@@ -27,6 +28,11 @@ const EditPost: React.FC = () => {
     handleUpdatePost,
     handleDeletePost,
   } = useEditPost();
+
+  const { imagePathList, deleteImage, image, setImage, handleUpload } =
+    useUploadFileList({
+      documentPath: id,
+    });
 
   return (
     <>
@@ -54,10 +60,19 @@ const EditPost: React.FC = () => {
               handleChange={onContentChanged}
             />
           </ContentBox>
-
-          <UploadImage documentPath={id} />
-
-          <ContentBox marginTopSize="20px">
+          <ContentBox marginTopSize="40px">
+            {!imagePathList && <Spinner />}
+            {imagePathList && (
+              <UploadImage
+                imagePathList={imagePathList}
+                deleteImage={deleteImage}
+                image={image}
+                callbackSetImage={setImage}
+                handleUpload={handleUpload}
+              />
+            )}
+          </ContentBox>
+          <ContentBox marginTopSize="40px" isBoxCenter>
             <TextLabel text="公開フラグ" htmlFor={`editPostRelease-${id}`} />
             <InputCheckBox
               id={`editPostRelease-${id}`}
@@ -66,7 +81,7 @@ const EditPost: React.FC = () => {
               handleChange={onReleaseChanged}
             />
           </ContentBox>
-          <ContentBox isBetween marginTopSize="20px">
+          <ContentBox marginTopSize="20px" isBetween isBoxCenter>
             <Button text="この記事を更新する" handleClick={handleUpdatePost} />
             <Button
               text="この記事を削除する"
@@ -74,7 +89,7 @@ const EditPost: React.FC = () => {
               attention
             />
           </ContentBox>
-          <ContentBox marginTopSize="20px">
+          <ContentBox marginTopSize="20px" isBoxCenter>
             記事作成日時: {postResponse.post.createDate}
             <br />
             id: {id}
