@@ -9,14 +9,14 @@ export interface ImagePath {
 }
 
 export interface Params {
-  uploadFilePath: string;
+  documentPath: string;
   uploadFileName: string;
   isStorage: boolean;
   fileList: ImagePath[];
 }
 
 const useUploadFileList = ({
-  uploadFilePath = '',
+  documentPath = '',
   uploadFileName = '',
   isStorage = true,
   fileList = [],
@@ -27,13 +27,13 @@ const useUploadFileList = ({
   // HACK: Page をリフレッシュするため
   const [reload, setReload] = useState(0);
 
-  const deleteImage = (imagePath: string) => {
-    const deleteConfirm = confirm(`${imagePath}を削除します`);
+  const deleteImage = (fileName: string) => {
+    const deleteConfirm = confirm(`${fileName}を削除します`);
 
     if (!deleteConfirm || !isStorage) return;
 
     publicImages
-      .child(`${uploadFilePath}/${imagePath}`)
+      .child(`${documentPath}/${fileName}`)
       .delete()
       .then(() => {
         const fixReload = reload + 1;
@@ -46,12 +46,12 @@ const useUploadFileList = ({
     if (!isStorage) return;
 
     publicImages
-      .child(`${uploadFilePath}`)
+      .child(`${documentPath}`)
       .listAll()
       .then((list) => {
         setImageRef(list.items);
       });
-  }, [uploadFilePath, uploadFileName, reload, isStorage]);
+  }, [documentPath, uploadFileName, reload, isStorage]);
 
   useEffect(() => {
     if (!imageRef || !isStorage) return;

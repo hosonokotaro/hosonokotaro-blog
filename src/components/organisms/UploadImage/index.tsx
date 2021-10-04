@@ -15,7 +15,7 @@ export type ImagePath = {
 interface Props {
   documentPath: string;
   // imagePathList: ImagePath[];
-  // deleteImage: (imagePath: string) => void;
+  // deleteImage: (fileName: string) => void;
 }
 
 // TODO: Pages に移動して渡す実装をする
@@ -26,7 +26,7 @@ const UploadImage: React.FC<Props> = ({ documentPath }) => {
     useUploadSelectFile(documentPath);
 
   const { imagePathList, deleteImage } = useUploadFileList({
-    uploadFilePath: documentPath,
+    documentPath,
     uploadFileName,
   });
 

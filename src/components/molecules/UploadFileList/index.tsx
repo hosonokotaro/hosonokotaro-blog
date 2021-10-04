@@ -12,7 +12,7 @@ export type ImagePath = {
 
 export interface Props {
   imagePathList: ImagePath[];
-  deleteImage: (imagePath: string) => void;
+  deleteImage: (fileName: string) => void;
 }
 
 const UploadFileList: React.FC<Props> = ({ imagePathList, deleteImage }) => {
