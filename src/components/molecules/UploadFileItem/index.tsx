@@ -11,7 +11,7 @@ export type ImagePath = {
   fileName: string;
 };
 
-export interface Props {
+interface Props {
   item: ImagePath;
   deleteImage: (fileName: string) => void;
 }

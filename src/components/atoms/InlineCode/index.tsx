@@ -2,8 +2,7 @@ import React from 'react';
 
 import { StyledInlineCode } from './styledIndex';
 
-// FIXME: ComponentProps<typeof Component> に置き換えたい
-export interface Props {
+interface Props {
   text: string;
 }
 

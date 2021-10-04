@@ -6,8 +6,7 @@ import InputTextInline from '@/atoms/InputTextInline';
 import TextLabel from '@/atoms/TextLabel';
 import Title from '@/atoms/Title';
 
-// FIXME: ComponentProps<typeof Component> に置き換えたい
-export interface Props {
+interface Props {
   title: string;
   handleSubmit: VoidFunction;
   onTitleChanged: (e: ChangeEvent<HTMLInputElement>) => void;

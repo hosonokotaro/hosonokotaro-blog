@@ -5,7 +5,7 @@ import ContentBox from '@/atoms/ContentBox';
 import Spinner from '@/atoms/Spinner';
 import Title from '@/atoms/Title';
 
-export interface Post {
+interface Post {
   id: string;
   title: string;
   release: boolean;

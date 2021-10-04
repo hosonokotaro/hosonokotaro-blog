@@ -9,11 +9,7 @@ export interface ImagePath {
   fileName: string;
 }
 
-export interface Params {
-  documentPath?: string;
-}
-
-const useUploadFileList = ({ documentPath = '' }: Params) => {
+const useUploadFileList = (documentPath = '') => {
   const [imageRef, setImageRef] = useState<PublicImages[]>();
   const [imagePathList, setImagePathList] = useState<ImagePath[]>();
   const [image, setImage] = useState<File | null>(null);

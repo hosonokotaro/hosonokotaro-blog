@@ -2,8 +2,7 @@ import React from 'react';
 
 import { StyledTitle } from './styledIndex';
 
-// FIXME: ComponentProps<typeof Component> に置き換えたい
-export interface Props {
+interface Props {
   text: string;
   rank?: 'h2' | 'h3' | 'h4' | 'span';
 }

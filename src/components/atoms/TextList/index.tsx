@@ -1,7 +1,6 @@
 import React from 'react';
 
-// FIXME: ComponentProps<typeof Component> に置き換えたい
-export interface Props {
+interface Props {
   children: React.ReactNode;
 }
 

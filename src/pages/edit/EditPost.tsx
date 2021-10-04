@@ -30,9 +30,7 @@ const EditPost: React.FC = () => {
   } = useEditPost();
 
   const { imagePathList, deleteImage, image, setImage, handleUpload } =
-    useUploadFileList({
-      documentPath: id,
-    });
+    useUploadFileList(id);
 
   return (
     <>

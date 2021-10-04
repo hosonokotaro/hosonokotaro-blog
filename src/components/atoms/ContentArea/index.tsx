@@ -4,8 +4,7 @@ import { MarginTopSize, StyledContentArea } from './styledIndex';
 
 type TagName = 'div' | 'article' | 'section';
 
-// FIXME: ComponentProps<typeof Component> に置き換えたい
-export interface Props {
+interface Props {
   tagName?: TagName;
   marginTopSize?: MarginTopSize;
   children: React.ReactNode;

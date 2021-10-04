@@ -4,8 +4,7 @@ import { StyledTextBox } from './styledIndex';
 
 type TagName = 'div' | 'p';
 
-// FIXME: ComponentProps<typeof Component> に置き換えたい
-export interface Props {
+interface Props {
   tagName?: TagName;
   children: React.ReactNode;
 }

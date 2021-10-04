@@ -2,7 +2,7 @@ import React, { ChangeEvent, RefObject } from 'react';
 
 import { StyledInputTextInline } from './styledIndex';
 
-export interface Props {
+interface Props {
   id: string;
   name: string;
   defaultValue: string;

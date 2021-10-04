@@ -9,20 +9,18 @@ import Layout from '@/atoms/Layout';
 import Spinner from '@/atoms/Spinner';
 import Title from '@/atoms/Title';
 import Markdown from '@/organisms/Markdown';
-import type { Params } from '~/customHooks/useSinglePost';
 import useSinglePost from '~/customHooks/useSinglePost';
 
+type Id = Parameters<typeof useSinglePost>[0];
+
 const SinglePost: React.VFC = () => {
-  const { id } = useParams<{ id: Params['id'] }>();
+  const { id } = useParams<{ id: Id }>();
 
   const {
     singlePostResponse,
     isLoading: isSinglePostLoading,
     isError: isSinglePostError,
-  } = useSinglePost({
-    id,
-    target: 'default',
-  });
+  } = useSinglePost(id, 'default');
 
   const post = singlePostResponse?.post;
 
