@@ -1,47 +1,54 @@
 import { useEffect, useState } from 'react';
 
-import { PublicImages, publicImages } from '~/adapter/firebase';
+import type { PublicImages } from '~/adapter/firebase';
+import { publicImages } from '~/adapter/firebase';
 
+// NOTE: isStorage = false の場合、fullPath は fileName を含んだものを入れることを想定している
 export interface ImagePath {
-  fullpath: string;
-  filename: string;
+  fullPath: string;
+  fileName: string;
 }
 
-export type Params = {
-  uploadPath: string;
-  uploadFilename: string;
-};
-
-const useUploadFileList = ({ uploadPath, uploadFilename }: Params) => {
+const useUploadFileList = (documentPath = '') => {
   const [imageRef, setImageRef] = useState<PublicImages[]>();
   const [imagePathList, setImagePathList] = useState<ImagePath[]>();
-  const [loaded, setLoaded] = useState(false);
-  // HACK: Page をリフレッシュするため
+  const [image, setImage] = useState<File | null>(null);
+  // HACK: useEffect を発火させてファイル一覧を再取得するため
   const [reload, setReload] = useState(0);
 
-  const deleteImage = (imagePath: string) => {
-    const deleteConfirm = confirm(`${imagePath}を削除します`);
+  const deleteImage = (fileName: string) => {
+    const deleteConfirm = confirm(`${fileName}を削除します`);
 
     if (!deleteConfirm) return;
 
     publicImages
-      .child(`${uploadPath}/${imagePath}`)
+      .child(`${documentPath}/${fileName}`)
       .delete()
       .then(() => {
-        const fixReload = reload + 1;
-        setReload(fixReload);
+        setReload(() => reload + 1);
       });
   };
 
-  // NOTE: 指定したディレクトリ配下のファイル一覧を取得する
+  const handleUpload = () => {
+    if (!image) return;
+
+    publicImages
+      .child(`${documentPath}/${image.name}`)
+      .put(image)
+      .then(() => {
+        setImage(null);
+        setReload(() => reload + 1);
+      });
+  };
+
   useEffect(() => {
     publicImages
-      .child(`${uploadPath}`)
+      .child(`${documentPath}`)
       .listAll()
       .then((list) => {
         setImageRef(list.items);
       });
-  }, [uploadPath, uploadFilename, reload]);
+  }, [documentPath, reload]);
 
   useEffect(() => {
     if (!imageRef) return;
@@ -49,21 +56,20 @@ const useUploadFileList = ({ uploadPath, uploadFilename }: Params) => {
     const downloadPath: ImagePath[] = [];
 
     imageRef.map((item) => {
-      item.getDownloadURL().then((fullpath) => {
-        downloadPath.push({ fullpath, filename: item.name });
+      item.getDownloadURL().then((fullPath) => {
+        downloadPath.push({ fullPath, fileName: item.name });
       });
     });
 
     // HACK: await が使えないので、setTimeout を使って処理を遅らせる
     const unmount = setTimeout(() => {
       setImagePathList(downloadPath);
-      setLoaded(true);
     }, 1000);
 
     return () => clearTimeout(unmount);
   }, [imageRef]);
 
-  return { loaded, imagePathList, deleteImage };
+  return { imagePathList, deleteImage, image, setImage, handleUpload };
 };
 
 export default useUploadFileList;

@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Li } from './styledIndex';
 
-export interface Props {
+interface Props {
   text: string;
 }
 

@@ -1,13 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+import ContentBox from '@/atoms/ContentBox';
 import Spinner from '@/atoms/Spinner';
 import Title from '@/atoms/Title';
 
-// FIXME: Organisms から Style を削除したい
-import { StyledPost, StyledPosts, StyledTimestamp } from './styledIndex';
-
-export interface Post {
+interface Post {
   id: string;
   title: string;
   release: boolean;
@@ -22,23 +20,20 @@ const EditPostList: React.FC<Props> = ({ postList }) => {
   return (
     <section>
       <Title text="投稿された記事一覧" />
-      <StyledPosts>
-        {postList &&
-          postList.map(({ id, title, release, createDate }) => (
-            <StyledPost key={id}>
-              <div>
-                {!release && <span>【非公開】</span>}
-                <Link to={`/edit/${id}`}>{title}</Link>
-              </div>
-              <StyledTimestamp>
-                作成日時: {createDate}
-                <br />
-                id: {id}
-              </StyledTimestamp>
-            </StyledPost>
-          ))}
-        {!postList && <Spinner />}
-      </StyledPosts>
+      {postList &&
+        postList.map(({ id, title, release, createDate }) => (
+          <ContentBox key={id} marginTopSize="20px">
+            <div>
+              {!release && <span>【非公開】</span>}
+              <Link to={`/edit/${id}`}>{title}</Link>
+            </div>
+            <ContentBox marginTopSize="20px">
+              <div>作成日時: {createDate}</div>
+              <div>id: {id}</div>
+            </ContentBox>
+          </ContentBox>
+        ))}
+      {!postList && <Spinner />}
     </section>
   );
 };

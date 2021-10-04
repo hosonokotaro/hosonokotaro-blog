@@ -2,7 +2,7 @@ import React from 'react';
 
 import { StyledInlineCode } from './styledIndex';
 
-export interface Props {
+interface Props {
   text: string;
 }
 

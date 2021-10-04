@@ -1,22 +1,19 @@
 import React, { ChangeEvent } from 'react';
 
 import Button from '@/atoms/Button';
+import ContentBox from '@/atoms/ContentBox';
+import InputTextInline from '@/atoms/InputTextInline';
+import TextLabel from '@/atoms/TextLabel';
 import Title from '@/atoms/Title';
 
-// FIXME: Organisms から Style を削除したい
-import {
-  StyledForm,
-  StyledInputText,
-  StyledLabel,
-  StyledSection,
-} from './styledIndex';
-
-export interface Props {
+interface Props {
   title: string;
   handleSubmit: VoidFunction;
   onTitleChanged: (e: ChangeEvent<HTMLInputElement>) => void;
   canSaveNewPost: boolean;
 }
+
+const groupName = 'postTitle';
 
 const CreatePost: React.FC<Props> = ({
   title,
@@ -25,25 +22,27 @@ const CreatePost: React.FC<Props> = ({
   canSaveNewPost,
 }) => {
   return (
-    <StyledSection>
+    <section>
       <Title text="記事の新規作成" />
-      <StyledForm onSubmit={(event) => event.preventDefault()}>
-        <StyledLabel htmlFor="postTitle">タイトル</StyledLabel>
-        <StyledInputText
-          type="text"
-          id="postTitle"
-          name="postTitle"
-          value={title}
-          onChange={onTitleChanged}
-        />
-        <Button
-          text="記事を準備する"
-          onClick={handleSubmit}
-          disabled={!canSaveNewPost}
-          isMargin
-        />
-      </StyledForm>
-    </StyledSection>
+      <ContentBox marginTopSize="20px">
+        <form onSubmit={(event) => event.preventDefault()}>
+          <TextLabel htmlFor={groupName} text="タイトル" />
+          <InputTextInline
+            id={groupName}
+            name={groupName}
+            defaultValue={title}
+            handleChange={onTitleChanged}
+          />
+          <ContentBox marginTopSize="20px">
+            <Button
+              text="記事を準備する"
+              handleClick={handleSubmit}
+              disabled={!canSaveNewPost}
+            />
+          </ContentBox>
+        </form>
+      </ContentBox>
+    </section>
   );
 };
 

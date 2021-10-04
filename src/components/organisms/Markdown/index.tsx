@@ -1,13 +1,14 @@
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
 
+import CodeBlock from '@/atoms/CodeBlock';
+import ContentBox from '@/atoms/ContentBox';
 import InlineCode from '@/atoms/InlineCode';
-import Paragraph from '@/atoms/Paragraph';
+import TextBox from '@/atoms/TextBox';
 import TextItem from '@/atoms/TextItem';
+import TextList from '@/atoms/TextList';
 import Title from '@/atoms/Title';
-import CodeBlock from '@/molecules/CodeBlock';
-import TextList from '@/molecules/TextList';
-import Image from '@/organisms/Image';
+import LoadingImage from '@/molecules/LoadingImage';
 import type { Post } from '~/services/getPost';
 
 interface Props {
@@ -40,50 +41,48 @@ const Markdown: React.FC<Props> = ({ content }) => {
         img({ src, alt }) {
           if (!src) return null;
 
-          return <Image src={src} alt={alt} />;
+          return <LoadingImage src={src} alt={alt} />;
         },
         p({ children }) {
           return (
-            <Paragraph tagName="div" isMargin>
-              {children}
-            </Paragraph>
+            <ContentBox marginTopSize="20px">
+              <TextBox>{children}</TextBox>
+            </ContentBox>
           );
         },
         ul({ children }) {
-          return <TextList>{children}</TextList>;
+          return (
+            <ContentBox marginTopSize="20px">
+              <TextList>{children}</TextList>
+            </ContentBox>
+          );
         },
         li({ children }) {
           return <TextItem text={String(children).replace(/\n$/, '')} />;
         },
         h2({ children }) {
           return (
-            <Title
-              text={String(children).replace(/\n$/, '')}
-              rank="h2"
-              isMargin
-            />
+            <ContentBox marginTopSize="40px">
+              <Title text={String(children).replace(/\n$/, '')} rank="h2" />
+            </ContentBox>
           );
         },
         h3({ children }) {
           return (
-            <Title
-              text={String(children).replace(/\n$/, '')}
-              rank="h3"
-              isMargin
-            />
+            <ContentBox marginTopSize="40px">
+              <Title text={String(children).replace(/\n$/, '')} rank="h3" />
+            </ContentBox>
           );
         },
         h4({ children }) {
           return (
-            <Title
-              text={String(children).replace(/\n$/, '')}
-              rank="h4"
-              isMargin
-            />
+            <ContentBox marginTopSize="40px">
+              <Title text={String(children).replace(/\n$/, '')} rank="h4" />
+            </ContentBox>
           );
         },
       }}
-      // FIXME: A tag と Link tag を自作するときに解決したい
+      // FIXME: A tag は _blank, Link tag はそのまま遷移としたい
       linkTarget="_blank"
     >
       {content}

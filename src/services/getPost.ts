@@ -9,6 +9,7 @@ export interface Post {
   createDate: string;
 }
 
+// FIXME: ?private=enabled が必須の箇所は現時点ではテストが出来ないので、何らかの方法を模索したい
 const getPostTarget = (id: Post['id']) => {
   return {
     default: `/get/post/${id}`,

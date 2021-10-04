@@ -2,7 +2,7 @@ import React from 'react';
 
 import { StyledFooter } from './styledIndex';
 
-export interface Props {
+interface Props {
   year: string;
 }
 

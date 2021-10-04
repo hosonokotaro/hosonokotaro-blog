@@ -2,15 +2,14 @@ import React from 'react';
 
 import { StyledTitle } from './styledIndex';
 
-export interface Props {
+interface Props {
   text: string;
-  rank?: 'h2' | 'h3' | 'h4';
-  isMargin?: boolean;
+  rank?: 'h2' | 'h3' | 'h4' | 'span';
 }
 
-const Title: React.FC<Props> = ({ text, rank = 'h2', isMargin = false }) => {
+const Title: React.FC<Props> = ({ text, rank = 'h2' }) => {
   return (
-    <StyledTitle isMargin={isMargin} rankStyle={rank} as={rank}>
+    <StyledTitle rankStyle={rank} as={rank}>
       {text}
     </StyledTitle>
   );

@@ -1,6 +1,6 @@
 import axiosInstance from '~/adapter/axiosInstance';
 
-export interface Post {
+interface Post {
   title: string;
   content: string;
   release: boolean;

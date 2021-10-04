@@ -8,12 +8,7 @@ interface Post {
   createDate: string;
 }
 
-export interface DeletePost {
-  id: Post['id'];
-  idToken: string;
-}
-
-const deletePost = async ({ id, idToken }: DeletePost) => {
+const deletePost = async (id: Post['id'], idToken: string) => {
   await axiosInstance.post(
     `/post/deletepost/${id}`,
     {},

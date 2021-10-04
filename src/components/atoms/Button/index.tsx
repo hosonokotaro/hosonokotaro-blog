@@ -2,21 +2,25 @@ import React from 'react';
 
 import { StyledButton } from './styledIndex';
 
-export interface Props {
+interface Props {
   text: string;
-  onClick: VoidFunction;
+  handleClick: VoidFunction;
   disabled?: boolean;
-  isMargin?: boolean;
+  attention?: boolean;
 }
 
 const Button: React.FC<Props> = ({
   text,
-  onClick,
+  handleClick,
   disabled = false,
-  isMargin = false,
+  attention = false,
 }) => {
   return (
-    <StyledButton onClick={onClick} disabled={disabled} isMargin={isMargin}>
+    <StyledButton
+      onClick={handleClick}
+      disabled={disabled}
+      attention={attention}
+    >
       {text}
     </StyledButton>
   );

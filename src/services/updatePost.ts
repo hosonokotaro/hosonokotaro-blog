@@ -1,18 +1,13 @@
 import axiosInstance from '~/adapter/axiosInstance';
 
-// NOTE: id = documentPath
-export interface Params {
-  id: string;
-  idToken: string;
-}
-
 export interface Post {
   title: string;
   content: string;
   release: boolean;
 }
 
-const updatePost = async ({ id, idToken }: Params, post: Post) => {
+// NOTE: id = documentPath
+const updatePost = async (id: string, idToken: string, post: Post) => {
   await axiosInstance.post(`/post/updatepost/${id}`, post, {
     headers: {
       Authorization: `Bearer ${idToken}`,

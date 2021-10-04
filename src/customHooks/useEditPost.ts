@@ -49,7 +49,7 @@ const useEditPost = () => {
     };
 
     if (updateConfirm) {
-      await updatePost({ id, idToken: currentUser.authHeader.idToken }, post);
+      await updatePost(id, currentUser.authHeader.idToken, post);
       history.push('/edit');
     }
   };
@@ -61,7 +61,7 @@ const useEditPost = () => {
 
     if (deleteConfirm) {
       // FIXME: 記事を削除したときに画像を削除するためには、全ての画像を一つずつ全て削除しないといけない
-      await deletePostService({ id, idToken: currentUser.authHeader.idToken });
+      await deletePostService(id, currentUser.authHeader.idToken);
       history.push('/edit');
     }
   };

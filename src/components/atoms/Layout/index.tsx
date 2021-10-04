@@ -2,13 +2,15 @@ import React from 'react';
 
 import { StyledLayout } from './styledIndex';
 
-export interface Props {
-  tag?: 'div' | 'article' | 'section';
+type TagName = 'div' | 'article' | 'section';
+
+interface Props {
+  tagName?: TagName;
   children: React.ReactNode;
 }
 
-const Layout: React.VFC<Props> = ({ tag = 'div', children }) => {
-  return <StyledLayout as={tag}>{children}</StyledLayout>;
+const Layout: React.VFC<Props> = ({ tagName = 'div', children }) => {
+  return <StyledLayout as={tagName}>{children}</StyledLayout>;
 };
 
 export default Layout;
