@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 
-import { PublicImages, publicImages } from '~/adapter/firebase';
+import type { PublicImages } from '~/adapter/firebase';
+import { publicImages } from '~/adapter/firebase';
 
 // NOTE: isStorage = false の場合、fullPath は fileName を含んだものを入れることを想定している
 export interface ImagePath {
@@ -9,52 +10,52 @@ export interface ImagePath {
 }
 
 export interface Params {
-  documentPath: string;
-  uploadFileName: string;
-  isStorage: boolean;
-  fileList: ImagePath[];
+  documentPath?: string;
 }
 
-const useUploadFileList = ({
-  documentPath = '',
-  uploadFileName = '',
-  isStorage = true,
-  fileList = [],
-}: Partial<Params>) => {
+const useUploadFileList = ({ documentPath = '' }: Params) => {
   const [imageRef, setImageRef] = useState<PublicImages[]>();
   const [imagePathList, setImagePathList] = useState<ImagePath[]>();
-
-  // HACK: Page をリフレッシュするため
+  const [image, setImage] = useState<File | null>(null);
+  // HACK: useEffect を発火させてファイル一覧を再取得するため
   const [reload, setReload] = useState(0);
 
   const deleteImage = (fileName: string) => {
     const deleteConfirm = confirm(`${fileName}を削除します`);
 
-    if (!deleteConfirm || !isStorage) return;
+    if (!deleteConfirm) return;
 
     publicImages
       .child(`${documentPath}/${fileName}`)
       .delete()
       .then(() => {
-        const fixReload = reload + 1;
-        setReload(fixReload);
+        setReload(() => reload + 1);
       });
   };
 
-  // NOTE: 指定したディレクトリ配下のファイル一覧を取得する
-  useEffect(() => {
-    if (!isStorage) return;
+  const handleUpload = () => {
+    if (!image) return;
 
+    publicImages
+      .child(`${documentPath}/${image.name}`)
+      .put(image)
+      .then(() => {
+        setImage(null);
+        setReload(() => reload + 1);
+      });
+  };
+
+  useEffect(() => {
     publicImages
       .child(`${documentPath}`)
       .listAll()
       .then((list) => {
         setImageRef(list.items);
       });
-  }, [documentPath, uploadFileName, reload, isStorage]);
+  }, [documentPath, reload]);
 
   useEffect(() => {
-    if (!imageRef || !isStorage) return;
+    if (!imageRef) return;
 
     const downloadPath: ImagePath[] = [];
 
@@ -70,15 +71,9 @@ const useUploadFileList = ({
     }, 1000);
 
     return () => clearTimeout(unmount);
-  }, [imageRef, isStorage]);
+  }, [imageRef]);
 
-  useEffect(() => {
-    if (isStorage) return;
-
-    setImagePathList(fileList);
-  }, [isStorage, fileList]);
-
-  return { imagePathList, deleteImage };
+  return { imagePathList, deleteImage, image, setImage, handleUpload };
 };
 
 export default useUploadFileList;

@@ -5,7 +5,6 @@ import Title from '@/atoms/Title';
 import UploadFileList from '@/molecules/UploadFileList';
 import UploadSelectFile from '@/molecules/UploadSelectFile';
 import useUploadFileList from '~/customHooks/useUploadFileList';
-import useUploadSelectFile from '~/customHooks/useUploadSelectFile';
 
 export type ImagePath = {
   fullPath: string;
@@ -14,21 +13,14 @@ export type ImagePath = {
 
 interface Props {
   documentPath: string;
-  // imagePathList: ImagePath[];
-  // deleteImage: (fileName: string) => void;
 }
 
 // TODO: Pages に移動して渡す実装をする
-
 const UploadImage: React.FC<Props> = ({ documentPath }) => {
-  // TODO: custom hooks の依存関係が整理されていないので、再度統合して分割する
-  const { image, setImage, handleUpload, uploadFileName } =
-    useUploadSelectFile(documentPath);
-
-  const { imagePathList, deleteImage } = useUploadFileList({
-    documentPath,
-    uploadFileName,
-  });
+  const { imagePathList, deleteImage, image, setImage, handleUpload } =
+    useUploadFileList({
+      documentPath,
+    });
 
   return (
     <>
