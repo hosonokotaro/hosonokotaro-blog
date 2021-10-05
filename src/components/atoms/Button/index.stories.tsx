@@ -1,20 +1,24 @@
-import { action } from '@storybook/addon-actions';
-import { boolean, text, withKnobs } from '@storybook/addon-knobs';
-import { Meta } from '@storybook/react';
-import React from 'react';
+import { Meta, Story } from '@storybook/react';
+import React, { ComponentProps } from 'react';
 
 import Button from './';
 
 export default {
   component: Button,
   title: 'components/atoms/Button',
-  decorators: [withKnobs],
+  argTypes: {
+    handleClick: { action: 'clicked' },
+  },
 } as Meta;
 
-export const Default: React.FC = () => (
-  <Button
-    text={text('label', 'button')}
-    handleClick={action('clicked')}
-    disabled={boolean('disabled', false)}
-  />
-);
+type Props = ComponentProps<typeof Button>;
+
+const Template: Story<Props> = (args) => <Button {...args} />;
+
+export const Default = Template.bind({});
+
+Default.args = {
+  disabled: false,
+  text: 'button',
+  attention: false,
+};
