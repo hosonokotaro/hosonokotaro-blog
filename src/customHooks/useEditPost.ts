@@ -63,6 +63,9 @@ const useEditPost = () => {
       // FIXME: 記事を削除したときに画像を削除するためには、全ての画像を一つずつ全て削除しないといけない
       await deletePostService(id, currentUser.authHeader.idToken);
       history.push('/edit');
+
+      // HACK: データを再取得するより、リロードしてしまったほうが楽なので、実装した
+      history.go(0);
     }
   };
 
