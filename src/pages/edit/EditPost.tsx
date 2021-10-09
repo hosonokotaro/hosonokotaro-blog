@@ -29,7 +29,7 @@ const EditPost: React.FC = () => {
     handleDeletePost,
   } = useEditPost();
 
-  const { imagePathList, deleteImage, image, setImage, handleUpload } =
+  const { imagePathList, deleteImage, imageFile, setImageFile, handleUpload } =
     useUploadFileList(id);
 
   return (
@@ -59,16 +59,13 @@ const EditPost: React.FC = () => {
             />
           </ContentBox>
           <ContentBox marginTopSize="40px">
-            {!imagePathList && <Spinner />}
-            {imagePathList && (
-              <UploadImage
-                imagePathList={imagePathList}
-                deleteImage={deleteImage}
-                image={image}
-                callbackSetImage={setImage}
-                handleUpload={handleUpload}
-              />
-            )}
+            <UploadImage
+              imagePathList={imagePathList}
+              deleteImage={deleteImage}
+              image={imageFile}
+              callbackSetImage={setImageFile}
+              handleUpload={handleUpload}
+            />
           </ContentBox>
           <ContentBox marginTopSize="40px" isBoxCenter>
             <TextLabel text="公開フラグ" htmlFor={`editPostRelease-${id}`} />
