@@ -8,6 +8,7 @@ export const StyledContentBox = styled.div<{
   marginTopSize: MarginTopSize;
   textAlign: TextAlign;
   isBoxCenter: boolean;
+  isCard: boolean;
 }>`
   ${({ marginTopSize }) => {
     return `
@@ -37,6 +38,15 @@ export const StyledContentBox = styled.div<{
         width: 50%;
         margin-left: auto;
         margin-right: auto;
+      `;
+    }
+  }}
+
+  ${({ isCard }) => {
+    if (isCard) {
+      return `
+        padding: 20px;
+        border: 2px solid #333;
       `;
     }
   }}
