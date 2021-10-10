@@ -17,8 +17,3 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 export const firebaseApp = initializeApp(firebaseConfig);
-
-// NOTE: firebase auth を利用する場合の設定
-export const firebaseAuth = firebase.auth();
-export const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
-export type User = firebase.User;
