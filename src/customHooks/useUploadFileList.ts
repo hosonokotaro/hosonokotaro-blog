@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import {
@@ -22,16 +22,18 @@ const useUploadFileList = (documentPath = '') => {
   // HACK: upload 動作が他のサーバーとの通信のため、page を reload しないといけない
   const history = useHistory();
 
-  // TODO: useCallback を使うか検討する
-  const deleteImage = (fileName: string) => {
-    if (!confirm(`${fileName}を削除します`)) return;
+  const deleteImage = useCallback(
+    (fileName: string) => {
+      if (!confirm(`${fileName}を削除します`)) return;
 
-    deleteFile(getReference(`${documentPath}/${fileName}`)).then(() => {
-      history.go(0);
-    });
-  };
+      deleteFile(getReference(`${documentPath}/${fileName}`)).then(() => {
+        history.go(0);
+      });
+    },
+    [documentPath, history]
+  );
 
-  const handleUpload = () => {
+  const handleUpload = useCallback(() => {
     if (!imageFile) return;
 
     uploadFile(
@@ -40,21 +42,27 @@ const useUploadFileList = (documentPath = '') => {
     ).then(() => {
       history.go(0);
     });
-  };
+  }, [documentPath, history, imageFile]);
+
+  const getReferenceListCallback = useCallback(async () => {
+    await getReferenceList(getReference(`${documentPath}`)).then(
+      ({ items }) => {
+        const tempImagePathList: ImagePath[] = [];
+
+        items.map((referense) => {
+          getFileURL(referense).then((fullPath) => {
+            tempImagePathList.push({ fullPath, fileName: referense.name });
+          });
+
+          setImagePathList(tempImagePathList);
+        });
+      }
+    );
+  }, [documentPath]);
 
   useEffect(() => {
-    getReferenceList(getReference(`${documentPath}`)).then(({ items }) => {
-      const tempImagePathList: ImagePath[] = [];
-
-      items.map((referense) => {
-        getFileURL(referense).then((fullPath) => {
-          tempImagePathList.push({ fullPath, fileName: referense.name });
-        });
-
-        setImagePathList(tempImagePathList);
-      });
-    });
-  }, [documentPath]);
+    getReferenceListCallback();
+  }, [getReferenceListCallback]);
 
   return { imagePathList, deleteImage, imageFile, setImageFile, handleUpload };
 };
