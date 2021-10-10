@@ -7,6 +7,7 @@ import InputCheckBox from '@/atoms/InputCheckBox';
 import InputTextArea from '@/atoms/InputTextArea';
 import InputTextInline from '@/atoms/InputTextInline';
 import Spinner from '@/atoms/Spinner';
+import TextBox from '@/atoms/TextBox';
 import TextLabel from '@/atoms/TextLabel';
 import Title from '@/atoms/Title';
 import Markdown from '@/organisms/Markdown';
@@ -29,7 +30,7 @@ const EditPost: React.FC = () => {
     handleDeletePost,
   } = useEditPost();
 
-  const { imagePathList, deleteImage, image, setImage, handleUpload } =
+  const { imagePathList, deleteImage, imageFile, setImageFile, handleUpload } =
     useUploadFileList(id);
 
   return (
@@ -59,43 +60,48 @@ const EditPost: React.FC = () => {
             />
           </ContentBox>
           <ContentBox marginTopSize="40px">
-            {!imagePathList && <Spinner />}
-            {imagePathList && (
-              <UploadImage
-                imagePathList={imagePathList}
-                deleteImage={deleteImage}
-                image={image}
-                callbackSetImage={setImage}
-                handleUpload={handleUpload}
+            <UploadImage
+              imagePathList={imagePathList}
+              deleteImage={deleteImage}
+              image={imageFile}
+              callbackSetImage={setImageFile}
+              handleUpload={handleUpload}
+            />
+          </ContentBox>
+
+          <ContentBox marginTopSize="40px" isBoxCenter isCard>
+            <ContentBox>
+              <TextLabel text="公開フラグ" htmlFor={`editPostRelease-${id}`} />
+              <InputCheckBox
+                id={`editPostRelease-${id}`}
+                name={`editPostRelease-${id}`}
+                checked={draftRelease}
+                handleChange={onReleaseChanged}
               />
-            )}
+            </ContentBox>
+            <ContentBox marginTopSize="20px" isBetween>
+              <Button
+                text="この記事を更新する"
+                handleClick={handleUpdatePost}
+              />
+              <Button
+                text="この記事を削除する"
+                handleClick={handleDeletePost}
+                attention
+              />
+            </ContentBox>
+            <ContentBox marginTopSize="20px">
+              <TextBox>
+                記事作成日時: {postResponse.post.createDate}
+                <br />
+                id: {id}
+                <br />
+                現在の公開ステータス:{' '}
+                {postResponse.post.release ? '公開' : '非公開'}
+              </TextBox>
+            </ContentBox>
           </ContentBox>
-          <ContentBox marginTopSize="40px" isBoxCenter>
-            <TextLabel text="公開フラグ" htmlFor={`editPostRelease-${id}`} />
-            <InputCheckBox
-              id={`editPostRelease-${id}`}
-              name={`editPostRelease-${id}`}
-              checked={draftRelease}
-              handleChange={onReleaseChanged}
-            />
-          </ContentBox>
-          <ContentBox marginTopSize="20px" isBetween isBoxCenter>
-            <Button text="この記事を更新する" handleClick={handleUpdatePost} />
-            <Button
-              text="この記事を削除する"
-              handleClick={handleDeletePost}
-              attention
-            />
-          </ContentBox>
-          <ContentBox marginTopSize="20px" isBoxCenter>
-            記事作成日時: {postResponse.post.createDate}
-            <br />
-            id: {id}
-            <br />
-            現在の公開ステータス:{' '}
-            {postResponse.post.release ? '公開' : '非公開'}
-          </ContentBox>
-          <hr />
+
           <ContentBox marginTopSize="80px">
             <Title text={draftTitle} />
             <ContentBox marginTopSize="20px">

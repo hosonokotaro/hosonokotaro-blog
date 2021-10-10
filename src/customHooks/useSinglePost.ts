@@ -1,7 +1,9 @@
 import useSWR from 'swr';
 
-import type { Post, PostTarget } from '~/services/getPost';
+import type { Post } from '~/services/getPost';
 import getPost from '~/services/getPost';
+
+type PostTarget = Parameters<typeof getPost>[1];
 
 const useSinglePost = (id: Post['id'], target: PostTarget) => {
   const { data, error } = useSWR([id, target], getPost);

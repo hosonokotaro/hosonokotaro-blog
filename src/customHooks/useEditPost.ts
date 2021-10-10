@@ -1,17 +1,17 @@
-import { ChangeEvent, useEffect, useState } from 'react';
+import { ChangeEvent, useCallback, useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 
-import { firebaseAuth } from '~/services/authentication';
+import { getCurrentUser, stateChanged } from '~/services/authentication';
 import deletePostService from '~/services/deletePost';
-import type { CurrentUser } from '~/services/getCurrentUser';
-import getCurrentUser from '~/services/getCurrentUser';
-import type { Post, PostResponse } from '~/services/getPost';
+import type { Post } from '~/services/getPost';
 import getPost from '~/services/getPost';
-import type { Post as ServicesPost } from '~/services/updatePost';
 import updatePost from '~/services/updatePost';
 
 // NOTE: https://log.pocka.io/ja/posts/typescript-promisetype/
 type PromiseType<T> = T extends Promise<infer P> ? P : never;
+type CurrentUser = ReturnType<typeof getCurrentUser>;
+type PostResponse = ReturnType<typeof getPost>;
+type PostFromUpdatePost = Parameters<typeof updatePost>[2];
 
 const useEditPost = () => {
   const [draftTitle, setDraftTitle] = useState<Post['title']>('');
@@ -42,7 +42,7 @@ const useEditPost = () => {
 
     const updateConfirm = confirm('更新します');
 
-    const post: ServicesPost = {
+    const post: PostFromUpdatePost = {
       title: draftTitle,
       content: draftContent,
       release: draftRelease,
@@ -51,20 +51,39 @@ const useEditPost = () => {
     if (updateConfirm) {
       await updatePost(id, currentUser.authHeader.idToken, post);
       history.push('/edit');
+
+      // HACK: ページ遷移だが、データ再取得処理が必要。再取得するよりリロードしてしまったほうが楽なので実装した
+      history.go(0);
     }
   };
 
   const handleDeletePost = async () => {
-    if (!currentUser || !currentUser.authHeader) return;
+    if (!currentUser || !currentUser.authHeader.idToken) return;
+    if (!confirm('記事を削除します')) return;
 
-    const deleteConfirm = confirm('削除します');
+    // FIXME: 記事を削除したときに画像を削除するためには、全ての画像を一つずつ全て削除しないといけない
+    await deletePostService(id, currentUser.authHeader.idToken);
+    history.push('/edit');
 
-    if (deleteConfirm) {
-      // FIXME: 記事を削除したときに画像を削除するためには、全ての画像を一つずつ全て削除しないといけない
-      await deletePostService(id, currentUser.authHeader.idToken);
-      history.push('/edit');
-    }
+    // HACK: ページ遷移だが、データ再取得処理が必要。再取得するよりリロードしてしまったほうが楽なので実装した
+    history.go(0);
   };
+
+  const getPrivatePost = useCallback(async () => {
+    const currentUser = await getCurrentUser();
+
+    // NOTE: Edit 画面は Private が前提なので固定値を入れている
+    const target = 'privateEnabled';
+
+    const tempPostResponse = await getPost(
+      id,
+      target,
+      currentUser.authHeader.idToken
+    );
+
+    setPostResponse(tempPostResponse);
+    setCurrentUser(currentUser);
+  }, [id]);
 
   useEffect(() => {
     if (!postResponse) return;
@@ -75,26 +94,12 @@ const useEditPost = () => {
   }, [postResponse]);
 
   useEffect(() => {
-    const unsubscribe = firebaseAuth.onAuthStateChanged(async () => {
-      const tempCurrentUser = await getCurrentUser();
-
-      // NOTE: Edit 画面は Private が前提なので固定値を入れている
-      const target = 'privateEnabled';
-
-      const tempPostResponse = await getPost(
-        id,
-        target,
-        tempCurrentUser.authHeader.idToken
-      );
-
-      setPostResponse(tempPostResponse);
-      setCurrentUser(tempCurrentUser);
-    });
+    const unsubscribe = stateChanged(getPrivatePost);
 
     return () => {
       unsubscribe;
     };
-  }, [id]);
+  }, [getPrivatePost]);
 
   return {
     id,

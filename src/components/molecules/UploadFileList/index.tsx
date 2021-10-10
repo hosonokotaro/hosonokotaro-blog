@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import ContentBox from '@/atoms/ContentBox';
 import UploadFileItem from '@/molecules/UploadFileItem';
@@ -16,18 +16,26 @@ interface Props {
 }
 
 const UploadFileList: React.FC<Props> = ({ imagePathList, deleteImage }) => {
+  const [isShow, setIsShow] = useState(false);
+
+  // HACK: imagePathList が取得できているのにも関わらずレンダリングがされないので、仕方なく wait をかけてレンダリングを遅らせている
+  useEffect(() => {
+    setTimeout(() => {
+      setIsShow(true);
+    }, 300);
+  }, []);
+
   return (
-    <>
-      <ContentBox isBetween>
-        {imagePathList.map((item, index) => {
+    <ContentBox isBetween>
+      {isShow &&
+        imagePathList.map((item, index) => {
           return (
             <ItemWrapper key={index}>
               <UploadFileItem item={item} deleteImage={deleteImage} />
             </ItemWrapper>
           );
         })}
-      </ContentBox>
-    </>
+    </ContentBox>
   );
 };
 

@@ -30,12 +30,7 @@ const UploadImage: React.FC<Props> = ({
         callbackSetImage={callbackSetImage}
         handleUpload={handleUpload}
       />
-      {imagePathList && (
-        <UploadFileList
-          imagePathList={imagePathList}
-          deleteImage={deleteImage}
-        />
-      )}
+      <UploadFileList imagePathList={imagePathList} deleteImage={deleteImage} />
     </>
   );
 };

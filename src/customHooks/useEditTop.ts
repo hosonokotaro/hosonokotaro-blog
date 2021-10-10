@@ -1,14 +1,13 @@
 import { ChangeEvent, useCallback, useEffect, useState } from 'react';
 
-import { firebaseAuth } from '~/services/authentication';
+import { getCurrentUser, stateChanged } from '~/services/authentication';
 import createPost from '~/services/createPost';
-import type { CurrentUser } from '~/services/getCurrentUser';
-import getCurrentUser from '~/services/getCurrentUser';
-import type { PostListResponse } from '~/services/getPostList';
 import getPostList from '~/services/getPostList';
 
 // NOTE: https://log.pocka.io/ja/posts/typescript-promisetype/
 type PromiseType<T> = T extends Promise<infer P> ? P : never;
+type CurrentUser = ReturnType<typeof getCurrentUser>;
+type PostListResponse = ReturnType<typeof getPostList>;
 
 const useEditTop = () => {
   const [createTitle, setCreateTitle] = useState<string>('');
@@ -18,7 +17,7 @@ const useEditTop = () => {
 
   // FIXME: ローカル環境のタイムゾーンが正しく設定されていないので修正したい
   const handleSubmit = async () => {
-    if (!createTitle || !currentUser || !currentUser.authHeader) return;
+    if (!createTitle || !currentUser || !currentUser.authHeader.idToken) return;
 
     await createPost(currentUser.authHeader.idToken, {
       title: createTitle,
@@ -53,9 +52,7 @@ const useEditTop = () => {
   const canSaveNewPost = Boolean(createTitle);
 
   useEffect(() => {
-    const unsubscribe = firebaseAuth.onAuthStateChanged(() => {
-      getAllPostList();
-    });
+    const unsubscribe = stateChanged(getAllPostList);
 
     return () => {
       unsubscribe;
