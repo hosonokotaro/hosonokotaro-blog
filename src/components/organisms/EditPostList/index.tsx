@@ -22,12 +22,12 @@ const EditPostList: React.FC<Props> = ({ postList }) => {
       <Title text="投稿された記事一覧" />
       {postList &&
         postList.map(({ id, title, release, createDate }) => (
-          <ContentBox key={id} marginTopSize="20px">
+          <ContentBox key={id} marginTopSize="40px">
             <div>
               {!release && <span>【非公開】</span>}
               <Link to={`/edit/${id}`}>{title}</Link>
             </div>
-            <ContentBox marginTopSize="20px">
+            <ContentBox marginTopSize="10px">
               <div>作成日時: {createDate}</div>
               <div>id: {id}</div>
             </ContentBox>
