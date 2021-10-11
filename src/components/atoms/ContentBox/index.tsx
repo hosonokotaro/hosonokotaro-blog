@@ -8,6 +8,7 @@ interface Props {
   marginTopSize?: MarginTopSize;
   textAlign?: TextAlign;
   isBoxCenter?: boolean;
+  isCard?: boolean;
 }
 
 const ContentBox: React.VFC<Props> = ({
@@ -16,6 +17,7 @@ const ContentBox: React.VFC<Props> = ({
   marginTopSize = '0px',
   textAlign = 'left',
   isBoxCenter = false,
+  isCard = false,
 }) => {
   return (
     <StyledContentBox
@@ -23,6 +25,7 @@ const ContentBox: React.VFC<Props> = ({
       marginTopSize={marginTopSize}
       textAlign={textAlign}
       isBoxCenter={isBoxCenter}
+      isCard={isCard}
     >
       {children}
     </StyledContentBox>

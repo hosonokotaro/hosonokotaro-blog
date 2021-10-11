@@ -1,7 +1,8 @@
 import useSWR from 'swr';
 
-import type { TitleListTarget } from '~/services/getPostList';
 import getPostList from '~/services/getPostList';
+
+type TitleListTarget = Parameters<typeof getPostList>[0];
 
 interface Params {
   target: TitleListTarget;

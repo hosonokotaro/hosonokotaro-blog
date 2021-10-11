@@ -17,7 +17,7 @@ const getPostTarget = (id: Post['id']) => {
   };
 };
 
-export type PostTarget = keyof ReturnType<typeof getPostTarget>;
+type PostTarget = keyof ReturnType<typeof getPostTarget>;
 
 const getPost = async (
   id: Post['id'],
@@ -45,5 +45,3 @@ const getPost = async (
 };
 
 export default getPost;
-
-export type PostResponse = ReturnType<typeof getPost>;

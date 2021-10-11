@@ -1,14 +1,14 @@
-import { useRef } from 'react';
+import { useCallback, useRef } from 'react';
 
 const useUploadFileItem = () => {
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const copyClipboard = () => {
+  const copyClipboard = useCallback(() => {
     if (!inputRef.current) return;
 
     inputRef.current.select();
     document.execCommand('copy');
-  };
+  }, []);
 
   return { copyClipboard, inputRef };
 };
