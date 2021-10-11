@@ -8,7 +8,7 @@ import {
   uploadBytes,
 } from 'firebase/storage';
 
-import { firebaseApp } from '~/adapter/firebase';
+import firebaseApp from '~/adapter/firebase';
 
 const storageFix = getStorage(firebaseApp);
 

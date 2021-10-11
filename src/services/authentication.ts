@@ -7,7 +7,7 @@ import {
   signOut,
 } from 'firebase/auth';
 
-import { firebaseApp } from '~/adapter/firebase';
+import firebaseApp from '~/adapter/firebase';
 
 const auth = getAuth(firebaseApp);
 
