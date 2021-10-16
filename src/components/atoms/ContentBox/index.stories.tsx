@@ -1,48 +1,34 @@
-import { boolean, select, withKnobs } from '@storybook/addon-knobs';
-import { Meta } from '@storybook/react';
-import React from 'react';
-import styled from 'styled-components';
+import { Meta, Story } from '@storybook/react';
+import React, { ComponentProps } from 'react';
 
 import ContentBox from '@/atoms/ContentBox';
 
 export default {
   component: ContentBox,
   title: 'components/atoms/ContentBox',
-  decorators: [withKnobs],
+  argTypes: {
+    marginTopSize: {
+      options: ['0px', '10px', '20px', '40px', '80px'],
+      control: { type: 'select' },
+    },
+    textAlign: {
+      options: ['left', 'center', 'right'],
+      control: { type: 'radio' },
+    },
+  },
 } as Meta;
 
-export const Default: React.FC = () => {
-  return (
-    <>
-      <ContentBox
-        isBetween={boolean('isBetween', false)}
-        marginTopSize={select(
-          'marginTopSize',
-          ['0px', '20px', '40px', '80px'],
-          '0px'
-        )}
-        textAlign={select('textAlign', ['left', 'center', 'right'], 'left')}
-      >
-        何らかの内容が入ります
-      </ContentBox>
-      <ContentBox
-        isBetween={boolean('isBetween', false)}
-        marginTopSize={select(
-          'marginTopSize',
-          ['0px', '20px', '40px', '80px'],
-          '0px'
-        )}
-        textAlign={select('textAlign', ['left', 'center', 'right'], 'left')}
-      >
-        <Item>関心事の単位に</Item>
-        <Item>分けることが望ましい使い方です</Item>
-      </ContentBox>
-    </>
-  );
-};
+type Props = ComponentProps<typeof ContentBox>;
 
-const Item = styled.div`
-  padding: 20px;
-  background: #666;
-  color: #fff;
-`;
+const Template: Story<Props> = (args) => <ContentBox {...args} />;
+
+export const Default = Template.bind({});
+
+Default.args = {
+  isBetween: false,
+  marginTopSize: '0px',
+  textAlign: 'left',
+  isBoxCenter: false,
+  isCard: false,
+  children: '何らかの内容が入ります',
+};

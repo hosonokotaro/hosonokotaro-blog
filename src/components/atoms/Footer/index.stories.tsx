@@ -1,13 +1,19 @@
-import { text, withKnobs } from '@storybook/addon-knobs';
-import { Meta } from '@storybook/react';
-import React from 'react';
+import { Meta, Story } from '@storybook/react';
+import React, { ComponentProps } from 'react';
 
 import Footer from './';
 
 export default {
   component: Footer,
   title: 'components/atoms/Footer',
-  decorators: [withKnobs],
 } as Meta;
 
-export const Default: React.FC = () => <Footer year={text('year', '2021')} />;
+type Props = ComponentProps<typeof Footer>;
+
+const Template: Story<Props> = (args) => <Footer {...args} />;
+
+export const Default = Template.bind({});
+
+Default.args = {
+  year: '2021',
+};

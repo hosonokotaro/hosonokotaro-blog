@@ -1,18 +1,20 @@
-import { text, withKnobs } from '@storybook/addon-knobs';
-import { Meta } from '@storybook/react';
-import React from 'react';
+import { Meta, Story } from '@storybook/react';
+import React, { ComponentProps } from 'react';
 
 import LoadingImage from './';
 
 export default {
   component: LoadingImage,
   title: 'components/molecules/LoadingImage',
-  decorators: [withKnobs],
 } as Meta;
 
-export const Default: React.FC = () => (
-  <LoadingImage
-    src={text('src', 'https://picsum.photos/800/600')}
-    alt={text('alt', 'image')}
-  />
-);
+type Props = ComponentProps<typeof LoadingImage>;
+
+const Template: Story<Props> = (args) => <LoadingImage {...args} />;
+
+export const Default = Template.bind({});
+
+Default.args = {
+  src: 'https://picsum.photos/800/600',
+  alt: 'image',
+};

@@ -1,24 +1,28 @@
-import { action } from '@storybook/addon-actions';
-import { withKnobs } from '@storybook/addon-knobs';
-import { Meta } from '@storybook/react';
-import React, { useState } from 'react';
+import { Meta, Story } from '@storybook/react';
+import React, { ComponentProps, useState } from 'react';
 
 import UploadSelectFile from './';
 
 export default {
   component: UploadSelectFile,
   title: 'components/molecules/UploadSelectFile',
-  decorators: [withKnobs],
+  argTypes: {
+    handleUpload: { action: 'setImage' },
+  },
 } as Meta;
 
-export const Default: React.FC = () => {
+type Props = ComponentProps<typeof UploadSelectFile>;
+
+const Template: Story<Props> = (args) => {
   const [image, setImage] = useState<File | null>(null);
 
   return (
-    <UploadSelectFile
-      image={image}
-      callbackSetImage={setImage}
-      handleUpload={action(image ? image.name : '')}
-    />
+    <UploadSelectFile {...args} image={image} callbackSetImage={setImage} />
   );
+};
+
+export const Default = Template.bind({});
+
+Default.parameters = {
+  controls: { hideNoControlsWarning: true },
 };

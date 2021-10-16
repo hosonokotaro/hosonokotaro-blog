@@ -10,6 +10,7 @@ interface Props {
   refObject: RefObject<HTMLInputElement>;
 }
 
+// FIXME: handle change を input する度に実行するロジックを見直したい
 const InputTextInline: React.VFC<Partial<Props>> = ({
   id = '',
   name = '',

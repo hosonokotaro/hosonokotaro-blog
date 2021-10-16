@@ -1,5 +1,5 @@
-import { Meta } from '@storybook/react';
-import React from 'react';
+import { Meta, Story } from '@storybook/react';
+import React, { ComponentProps } from 'react';
 
 import SiteTitle from './';
 
@@ -8,4 +8,14 @@ export default {
   title: 'components/atoms/SiteTitle',
 } as Meta;
 
-export const Default: React.FC = () => <SiteTitle />;
+type Props = ComponentProps<typeof SiteTitle>;
+
+const Template: Story<Props> = (args) => <SiteTitle {...args} />;
+
+export const Default = Template.bind({});
+
+Default.args = {
+  text1: 'HOSONO',
+  text2: 'KOTARO',
+  text3: 'Tech Blog',
+};

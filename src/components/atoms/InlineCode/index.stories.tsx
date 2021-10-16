@@ -1,15 +1,19 @@
-import { text, withKnobs } from '@storybook/addon-knobs';
-import { Meta } from '@storybook/react';
-import React from 'react';
+import { Meta, Story } from '@storybook/react';
+import React, { ComponentProps } from 'react';
 
 import InlineCode from './';
 
 export default {
   component: InlineCode,
   title: 'components/atoms/InlineCode',
-  decorators: [withKnobs],
 } as Meta;
 
-export const Default: React.FC = () => (
-  <InlineCode text={text('text', 'inline code')} />
-);
+type Props = ComponentProps<typeof InlineCode>;
+
+const Template: Story<Props> = (args) => <InlineCode {...args} />;
+
+export const Default = Template.bind({});
+
+Default.args = {
+  text: 'inline code',
+};

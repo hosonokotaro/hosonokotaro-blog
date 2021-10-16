@@ -2,6 +2,7 @@ import React from 'react';
 
 import { StyledSpinner, StyledSpinnerWrapper } from './styledIndex';
 
+// FIXME: 要望として出れば、サイズを指定しても良いかもしれない
 const Spinner: React.FC = () => {
   return (
     <StyledSpinnerWrapper role="alert" aria-busy="true">

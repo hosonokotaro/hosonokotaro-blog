@@ -1,5 +1,5 @@
-import { Meta } from '@storybook/react';
-import React from 'react';
+import { Meta, Story } from '@storybook/react';
+import React, { ComponentProps } from 'react';
 
 import ErrorMessage from './';
 
@@ -8,4 +8,12 @@ export default {
   title: 'components/atoms/ErrorMessage',
 } as Meta;
 
-export const Default: React.FC = () => <ErrorMessage />;
+type Props = ComponentProps<typeof ErrorMessage>;
+
+const Template: Story<Props> = (args) => <ErrorMessage {...args} />;
+
+export const Default = Template.bind({});
+
+Default.args = {
+  text: 'Something went wrong. Please try again.',
+};
