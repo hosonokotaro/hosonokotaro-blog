@@ -4,7 +4,7 @@ const dateFormat = {
   year: 'YYYY',
 } as const;
 
-export type Props = keyof typeof dateFormat;
+type Props = keyof typeof dateFormat;
 
 const getDate = (props: Props) => dayjs(new Date()).format(dateFormat[props]);
 
