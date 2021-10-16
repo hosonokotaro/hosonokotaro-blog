@@ -1,15 +1,19 @@
-import { text, withKnobs } from '@storybook/addon-knobs';
-import { Meta } from '@storybook/react';
-import React from 'react';
+import { Meta, Story } from '@storybook/react';
+import React, { ComponentProps } from 'react';
 
 import TextItem from './';
 
 export default {
   component: TextItem,
   title: 'components/atoms/TextItem',
-  decorators: [withKnobs],
 } as Meta;
 
-export const Default: React.FC = () => (
-  <TextItem text={text('list item', 'hello')} />
-);
+type Props = ComponentProps<typeof TextItem>;
+
+const Template: Story<Props> = (args) => <TextItem {...args} />;
+
+export const Default = Template.bind({});
+
+Default.args = {
+  text: 'list item',
+};

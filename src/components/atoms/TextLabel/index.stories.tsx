@@ -1,19 +1,27 @@
-import { select, text, withKnobs } from '@storybook/addon-knobs';
-import { Meta } from '@storybook/react';
-import React from 'react';
+import { Meta, Story } from '@storybook/react';
+import React, { ComponentProps } from 'react';
 
 import TextLabel from './';
 
 export default {
   component: TextLabel,
   title: 'components/atoms/TextLabel',
-  decorators: [withKnobs],
+  argTypes: {
+    tagName: {
+      options: ['label', 'span'],
+      control: { type: 'radio' },
+    },
+  },
 } as Meta;
 
-export const Default: React.FC = () => (
-  <TextLabel
-    text={text('text', 'label')}
-    tagName={select('TagName', ['label', 'span'], 'label')}
-    htmlFor={text('htmlFor', '')}
-  />
-);
+type Props = ComponentProps<typeof TextLabel>;
+
+const Template: Story<Props> = (args) => <TextLabel {...args} />;
+
+export const Default = Template.bind({});
+
+Default.args = {
+  text: 'label',
+  htmlFor: '',
+  tagName: 'label',
+};

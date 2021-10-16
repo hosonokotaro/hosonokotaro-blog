@@ -3,10 +3,10 @@ import React from 'react';
 import { StyledFooter } from './styledIndex';
 
 interface Props {
-  year: string;
+  year?: string;
 }
 
-const Footer: React.FC<Props> = ({ year }) => {
+const Footer: React.FC<Props> = ({ year = '' }) => {
   return <StyledFooter>© {year} HOSONOKOTARO Tech Blog</StyledFooter>;
 };
 

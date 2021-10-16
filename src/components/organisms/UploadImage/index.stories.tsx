@@ -1,21 +1,29 @@
-import { action } from '@storybook/addon-actions';
-import { withKnobs } from '@storybook/addon-knobs';
-import { Meta } from '@storybook/react';
-import React, { useState } from 'react';
+import { Meta, Story } from '@storybook/react';
+import React, { ComponentProps, useState } from 'react';
 
-import type { ImagePath } from './';
 import UploadImage from './';
 
 export default {
   component: UploadImage,
   title: 'components/organisms/UploadImage',
-  decorators: [withKnobs],
+  argTypes: {
+    deleteImage: { action: 'deleteImage' },
+    handleUpload: { action: 'setImage' },
+  },
 } as Meta;
 
-export const Default: React.FC = () => {
+type Props = ComponentProps<typeof UploadImage>;
+
+const Template: Story<Props> = (args) => {
   const [image, setImage] = useState<File | null>(null);
 
-  const list: ImagePath[] = [
+  return <UploadImage {...args} image={image} callbackSetImage={setImage} />;
+};
+
+export const Default = Template.bind({});
+
+Default.args = {
+  imagePathList: [
     {
       fullPath: 'https://picsum.photos/800/600',
       fileName: '800/600',
@@ -28,15 +36,5 @@ export const Default: React.FC = () => {
       fullPath: 'https://picsum.photos/600/400',
       fileName: '600/400',
     },
-  ];
-
-  return (
-    <UploadImage
-      imagePathList={list}
-      deleteImage={action('deleteImage')}
-      image={image}
-      callbackSetImage={setImage}
-      handleUpload={action('handleUpload')}
-    />
-  );
+  ],
 };

@@ -1,5 +1,5 @@
-import { Meta } from '@storybook/react';
-import React from 'react';
+import { Meta, Story } from '@storybook/react';
+import React, { ComponentProps } from 'react';
 import { MemoryRouter } from 'react-router-dom';
 
 import Header from './';
@@ -9,10 +9,18 @@ export default {
   title: 'components/organisms/Header',
 } as Meta;
 
-export const Default: React.FC = () => {
+type Props = ComponentProps<typeof Header>;
+
+const Template: Story<Props> = (args) => {
   return (
     <MemoryRouter>
-      <Header />
+      <Header {...args} />
     </MemoryRouter>
   );
+};
+
+export const Default = Template.bind({});
+
+Default.args = {
+  linkPath: '/',
 };

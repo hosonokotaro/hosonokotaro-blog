@@ -1,24 +1,31 @@
-import { select, withKnobs } from '@storybook/addon-knobs';
-import { Meta } from '@storybook/react';
-import React from 'react';
+import { Meta, Story } from '@storybook/react';
+import React, { ComponentProps } from 'react';
 
 import ContentArea from './';
 
 export default {
   component: ContentArea,
   title: 'components/atoms/ContentArea',
-  decorators: [withKnobs],
+  argTypes: {
+    tagName: {
+      options: ['div', 'article', 'section'],
+      control: { type: 'radio' },
+    },
+    marginTopSize: {
+      options: ['0px', '20px', '40px', '80px'],
+      control: { type: 'select' },
+    },
+  },
 } as Meta;
 
-export const Default: React.FC = () => (
-  <ContentArea
-    tagName={select('tag', ['div', 'article', 'section'], 'div')}
-    marginTopSize={select(
-      'marginTopSize',
-      ['0px', '20px', '40px', '80px'],
-      '0px'
-    )}
-  >
-    <div>children</div>
-  </ContentArea>
-);
+type Props = ComponentProps<typeof ContentArea>;
+
+const Template: Story<Props> = (args) => <ContentArea {...args} />;
+
+export const Default = Template.bind({});
+
+Default.args = {
+  tagName: 'div',
+  marginTopSize: '0px',
+  children: 'free text',
+};

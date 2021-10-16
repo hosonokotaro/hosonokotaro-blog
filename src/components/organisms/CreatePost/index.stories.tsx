@@ -1,15 +1,20 @@
 import { action } from '@storybook/addon-actions';
-import { Meta } from '@storybook/react';
-import React, { ChangeEvent, useState } from 'react';
+import { Meta, Story } from '@storybook/react';
+import React, { ChangeEvent, ComponentProps, useState } from 'react';
 
 import CreatePost from './';
 
 export default {
   component: CreatePost,
   title: 'components/organisms/CreatePost',
+  argTypes: {
+    handleSubmit: { action: 'createTitle' },
+  },
 } as Meta;
 
-export const Default: React.FC = () => {
+type Props = ComponentProps<typeof CreatePost>;
+
+const Template: Story<Props> = () => {
   const [createTitle, setCreateTitle] = useState('Test Title');
 
   const onTitleChanged = (e: ChangeEvent<HTMLInputElement>) => {
@@ -24,4 +29,10 @@ export const Default: React.FC = () => {
       canSaveNewPost={!!createTitle}
     />
   );
+};
+
+export const Default = Template.bind({});
+
+Default.parameters = {
+  controls: { hideNoControlsWarning: true },
 };

@@ -3,10 +3,10 @@ import React from 'react';
 import { StyledErrorMessage } from './styledIndex';
 
 interface Props {
-  text?: string;
+  text: string;
 }
 
-const ErrorMessage: React.FC<Props> = ({
+const ErrorMessage: React.FC<Partial<Props>> = ({
   text = 'Something went wrong. Please try again.',
 }) => {
   return <StyledErrorMessage>{text}</StyledErrorMessage>;
