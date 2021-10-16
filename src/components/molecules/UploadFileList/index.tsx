@@ -5,7 +5,7 @@ import UploadFileItem from '@/molecules/UploadFileItem';
 
 import { ItemWrapper } from './styledIndex';
 
-export type ImagePath = {
+type ImagePath = {
   fullPath: string;
   fileName: string;
 };
