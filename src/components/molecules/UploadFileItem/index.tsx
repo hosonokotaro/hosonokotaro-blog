@@ -6,7 +6,7 @@ import InputTextInline from '@/atoms/InputTextInline';
 import LoadingImage from '@/molecules/LoadingImage';
 import useUploadFileItem from '~/customHooks/useUploadFileItem';
 
-export type ImagePath = {
+type ImagePath = {
   fullPath: string;
   fileName: string;
 };
