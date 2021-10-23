@@ -1,5 +1,6 @@
 import { ChangeEvent, useCallback, useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
+import { PromiseType } from 'utility-types';
 
 import { getCurrentUser, stateChanged } from '~/services/authentication';
 import deletePostService from '~/services/deletePost';
@@ -7,19 +8,17 @@ import type { Post } from '~/services/getPost';
 import getPost from '~/services/getPost';
 import updatePost from '~/services/updatePost';
 
-// NOTE: https://log.pocka.io/ja/posts/typescript-promisetype/
-type PromiseType<T> = T extends Promise<infer P> ? P : never;
-type CurrentUser = ReturnType<typeof getCurrentUser>;
-type PostResponse = ReturnType<typeof getPost>;
 type PostFromUpdatePost = Parameters<typeof updatePost>[2];
 
 const useEditPost = () => {
   const [draftTitle, setDraftTitle] = useState<Post['title']>('');
   const [draftContent, setDraftContent] = useState<Post['content']>('');
   const [draftRelease, setDraftRelease] = useState<Post['release']>(false);
-  const [postResponse, setPostResponse] = useState<PromiseType<PostResponse>>();
+  const [postResponse, setPostResponse] =
+    useState<PromiseType<ReturnType<typeof getPost>>>();
   // NOTE: currentUser は記事更新時に利用する
-  const [currentUser, setCurrentUser] = useState<PromiseType<CurrentUser>>();
+  const [currentUser, setCurrentUser] =
+    useState<PromiseType<ReturnType<typeof getCurrentUser>>>();
 
   const { id } = useParams<{ id: Post['id'] }>();
 
