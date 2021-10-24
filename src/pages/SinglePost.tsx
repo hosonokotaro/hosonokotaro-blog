@@ -22,7 +22,35 @@ const SinglePost: React.VFC = () => {
     isError: isSinglePostError,
   } = useSinglePost(id, 'default');
 
-  const post = singlePostResponse?.post;
+  const post = singlePostResponse && singlePostResponse.post;
+
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': `https://techblog.hosonokotaro.jp/${post && post.id}`,
+    },
+    headline: `${post && post.title}`,
+    image: {
+      '@type': 'ImageObject',
+      url: 'https://techblog.hosonokotaro.jp/static/media/og.png',
+    },
+    author: {
+      '@type': 'Person',
+      name: 'Hosono Kotaro',
+      url: 'https://hosonokotaro.jp/',
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: 'HOSONOKOTARO Tech Blog',
+      logo: {
+        '@type': 'ImageObject',
+        url: '',
+      },
+    },
+    datePublished: `${post && post.createDate}`,
+  };
 
   return (
     <Layout tagName="section">
@@ -30,6 +58,7 @@ const SinglePost: React.VFC = () => {
         <>
           <Helmet>
             <title>{post.title} | WEB DEVELOPER HOSONO KOTARO</title>
+            <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
           </Helmet>
           <Title text={post.title} />
           <ContentBox marginTopSize="20px">{post.createDate}</ContentBox>
