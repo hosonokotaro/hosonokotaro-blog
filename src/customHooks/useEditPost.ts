@@ -8,8 +8,6 @@ import type { Post } from '~/services/getPost';
 import getPost from '~/services/getPost';
 import updatePost from '~/services/updatePost';
 
-type PostFromUpdatePost = Parameters<typeof updatePost>[2];
-
 const useEditPost = () => {
   const [draftTitle, setDraftTitle] = useState<Post['title']>('');
   const [draftContent, setDraftContent] = useState<Post['content']>('');
@@ -24,39 +22,43 @@ const useEditPost = () => {
 
   const history = useHistory();
 
-  const onTitleChanged = (event: ChangeEvent<HTMLInputElement>) => {
+  const onTitleChanged = useCallback((event: ChangeEvent<HTMLInputElement>) => {
     setDraftTitle(event.target.value);
-  };
+  }, []);
 
-  const onContentChanged = (event: ChangeEvent<HTMLTextAreaElement>) => {
-    setDraftContent(event.target.value);
-  };
+  const onContentChanged = useCallback(
+    (event: ChangeEvent<HTMLTextAreaElement>) => {
+      setDraftContent(event.target.value);
+    },
+    []
+  );
 
-  const onReleaseChanged = (event: ChangeEvent<HTMLInputElement>) => {
-    setDraftRelease(event.target.checked);
-  };
+  const onReleaseChanged = useCallback(
+    (event: ChangeEvent<HTMLInputElement>) => {
+      setDraftRelease(event.target.checked);
+    },
+    []
+  );
 
-  const handleUpdatePost = async () => {
+  const handleUpdatePost = useCallback(async () => {
     if (!currentUser || !currentUser.authHeader) return;
 
     const updateConfirm = confirm('更新します');
 
-    const post: PostFromUpdatePost = {
-      title: draftTitle,
-      content: draftContent,
-      release: draftRelease,
-    };
-
     if (updateConfirm) {
-      await updatePost(id, currentUser.authHeader.idToken, post);
+      await updatePost(id, currentUser.authHeader.idToken, {
+        title: draftTitle,
+        content: draftContent,
+        release: draftRelease,
+      });
       history.push('/edit');
 
       // HACK: ページ遷移だが、データ再取得処理が必要。再取得するよりリロードしてしまったほうが楽なので実装した
       history.go(0);
     }
-  };
+  }, [currentUser, draftContent, draftRelease, draftTitle, history, id]);
 
-  const handleDeletePost = async () => {
+  const handleDeletePost = useCallback(async () => {
     if (!currentUser || !currentUser.authHeader.idToken) return;
     if (!confirm('記事を削除します')) return;
 
@@ -66,7 +68,7 @@ const useEditPost = () => {
 
     // HACK: ページ遷移だが、データ再取得処理が必要。再取得するよりリロードしてしまったほうが楽なので実装した
     history.go(0);
-  };
+  }, [currentUser, history, id]);
 
   const getPrivatePost = useCallback(async () => {
     const currentUser = await getCurrentUser();

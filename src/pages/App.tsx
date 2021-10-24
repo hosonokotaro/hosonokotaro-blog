@@ -21,9 +21,7 @@ const App: React.FC = () => {
     topResponse,
     isLoading: isTopLoading,
     isError: isTopError,
-  } = useTop({
-    target: 'default',
-  });
+  } = useTop();
 
   const titleDateList = topResponse?.titleDateList;
 
