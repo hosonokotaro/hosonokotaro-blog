@@ -1,38 +1,20 @@
-import { ChangeEvent, useCallback, useEffect, useState } from 'react';
+import { ChangeEvent, useCallback, useEffect, useMemo, useState } from 'react';
+import { PromiseType } from 'utility-types';
 
 import { getCurrentUser, stateChanged } from '~/services/authentication';
 import createPost from '~/services/createPost';
 import getPostList from '~/services/getPostList';
 
-// NOTE: https://log.pocka.io/ja/posts/typescript-promisetype/
-type PromiseType<T> = T extends Promise<infer P> ? P : never;
-type CurrentUser = ReturnType<typeof getCurrentUser>;
-type PostListResponse = ReturnType<typeof getPostList>;
-
 const useEditTop = () => {
   const [createTitle, setCreateTitle] = useState<string>('');
   const [postListResponse, setPostListResponse] =
-    useState<PromiseType<PostListResponse>>();
-  const [currentUser, setCurrentUser] = useState<PromiseType<CurrentUser>>();
+    useState<PromiseType<ReturnType<typeof getPostList>>>();
+  const [currentUser, setCurrentUser] =
+    useState<PromiseType<ReturnType<typeof getCurrentUser>>>();
 
-  // FIXME: ローカル環境のタイムゾーンが正しく設定されていないので修正したい
-  const handleSubmit = async () => {
-    if (!createTitle || !currentUser || !currentUser.authHeader.idToken) return;
-
-    await createPost(currentUser.authHeader.idToken, {
-      title: createTitle,
-      content: '',
-      release: false,
-    });
-
-    setCreateTitle('');
-
-    await getAllPostList();
-  };
-
-  const onTitleChanged = (e: ChangeEvent<HTMLInputElement>) => {
+  const onTitleChanged = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     setCreateTitle(e.target.value);
-  };
+  }, []);
 
   const getAllPostList = useCallback(async () => {
     const currentUser = await getCurrentUser();
@@ -49,7 +31,22 @@ const useEditTop = () => {
     setCurrentUser(currentUser);
   }, []);
 
-  const canSaveNewPost = Boolean(createTitle);
+  // FIXME: ローカル環境のタイムゾーンが正しく設定されていないので修正したい
+  const handleSubmit = useCallback(async () => {
+    if (!createTitle || !currentUser || !currentUser.authHeader.idToken) return;
+
+    await createPost(currentUser.authHeader.idToken, {
+      title: createTitle,
+      content: '',
+      release: false,
+    });
+
+    setCreateTitle('');
+
+    await getAllPostList();
+  }, [createTitle, currentUser, getAllPostList]);
+
+  const canSaveNewPost = useMemo(() => Boolean(createTitle), [createTitle]);
 
   useEffect(() => {
     const unsubscribe = stateChanged(getAllPostList);

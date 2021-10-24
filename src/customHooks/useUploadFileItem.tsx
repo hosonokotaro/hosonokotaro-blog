@@ -7,7 +7,9 @@ const useUploadFileItem = () => {
     if (!inputRef.current) return;
 
     inputRef.current.select();
-    document.execCommand('copy');
+
+    const clipBoardText = document.getSelection()?.toString() ?? '';
+    navigator.clipboard.writeText(clipBoardText);
   }, []);
 
   return { copyClipboard, inputRef };
