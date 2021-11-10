@@ -1,5 +1,6 @@
 import { Meta, Story } from '@storybook/react';
 import React, { ComponentProps } from 'react';
+import { MemoryRouter } from 'react-router-dom';
 
 import Markdown from './';
 
@@ -10,7 +11,11 @@ export default {
 
 type Props = ComponentProps<typeof Markdown>;
 
-const Template: Story<Props> = (args) => <Markdown {...args} />;
+const Template: Story<Props> = (args) => (
+  <MemoryRouter>
+    <Markdown {...args} />
+  </MemoryRouter>
+);
 
 export const Default = Template.bind({});
 
