@@ -1,9 +1,9 @@
-import React, { VFC } from 'react';
+import React, { ReactNode, VFC } from 'react';
 
 import { StyledAnchor, StyledLink } from './styledIndex';
 
 interface Props {
-  children: React.ReactNode;
+  children: ReactNode;
   linkPath: string;
 }
 
