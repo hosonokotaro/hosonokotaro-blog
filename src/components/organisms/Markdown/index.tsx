@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
 
+import Anchor from '@/atoms/Anchor';
 import CodeBlock from '@/atoms/CodeBlock';
 import ContentBox from '@/atoms/ContentBox';
 import InlineCode from '@/atoms/InlineCode';
@@ -81,9 +82,10 @@ const Markdown: React.FC<Props> = ({ content }) => {
             </ContentBox>
           );
         },
+        a({ href = '/', children }) {
+          return <Anchor linkPath={href}>{children}</Anchor>;
+        },
       }}
-      // FIXME: A tag は _blank, Link tag はそのまま遷移としたい
-      linkTarget="_blank"
     >
       {content}
     </ReactMarkdown>

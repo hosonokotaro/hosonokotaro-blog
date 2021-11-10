@@ -2,23 +2,24 @@ import { Meta, Story } from '@storybook/react';
 import React, { ComponentProps } from 'react';
 import { MemoryRouter } from 'react-router-dom';
 
-import Markdown from './';
+import Anchor from './';
 
 export default {
-  component: Markdown,
-  title: 'components/organisms/Markdown',
+  component: Anchor,
+  title: 'components/atoms/Anchor',
 } as Meta;
 
-type Props = ComponentProps<typeof Markdown>;
+type Props = ComponentProps<typeof Anchor>;
 
 const Template: Story<Props> = (args) => (
   <MemoryRouter>
-    <Markdown {...args} />
+    <Anchor {...args} />
   </MemoryRouter>
 );
 
 export const Default = Template.bind({});
 
 Default.args = {
-  content: '### Markdown をいれてください',
+  children: 'Anchor',
+  linkPath: 'https://www.google.com',
 };
