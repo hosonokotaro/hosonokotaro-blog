@@ -1,8 +1,8 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
-import { Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 
+import Anchor from '@/atoms/Anchor';
 import ContentBox from '@/atoms/ContentBox';
 import ErrorMessage from '@/atoms/ErrorMessage';
 import Layout from '@/atoms/Layout';
@@ -66,7 +66,7 @@ const SinglePost: React.VFC = () => {
             <Markdown content={post.content} />
           </ContentBox>
           <ContentBox marginTopSize="80px">
-            <Link to="/">記事一覧へ</Link>
+            <Anchor linkPath="/">記事一覧へ</Anchor>
           </ContentBox>
         </>
       )}
