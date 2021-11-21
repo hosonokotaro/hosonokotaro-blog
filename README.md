@@ -1,5 +1,9 @@
 # HOSONOKOTARO Tech Blog
 
+```
+現在、この Repository はメンテナンス状態です。
+```
+
 自分の技術ブログを持ちたいと思い、仕組みから作成しました。
 
 ## URL
