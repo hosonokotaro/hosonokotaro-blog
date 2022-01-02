@@ -1,7 +1,8 @@
 # HOSONOKOTARO Tech Blog
 
 ```
-現在、この Repository はメンテナンス状態です。
+現在、この Repository はメンテナンス状態です。新しいリポジトリは下記のものです。
+https://github.com/hosonokotaro/hosonokotaro-blog-v2
 ```
 
 自分の技術ブログを持ちたいと思い、仕組みから作成しました。
